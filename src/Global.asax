@@ -1,1 +1,1 @@
-<%@ Application Inherits="BitHome.MvcApplication" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="BitHome.Global" Language="C#" %>
