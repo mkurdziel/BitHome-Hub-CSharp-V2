@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Funq;
 using ServiceStack.Common.Utils;
 using ServiceStack.OrmLite;
@@ -6,6 +7,7 @@ using ServiceStack.OrmLite.Sqlite;
 using ServiceStack.ServiceInterface.Cors;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
+using NLog;
 
 namespace BitHome
 {
@@ -14,6 +16,7 @@ namespace BitHome
 	/// </summary>  
 	public class BitHomeAppHost : AppHostBase
 	{
+
 		/// <summary>
 		/// Initializes a new instance of your ServiceStack application, with the specified name and assembly containing the services.
 		/// </summary>
@@ -39,10 +42,7 @@ namespace BitHome
 //			}
 
 //			Routes
-//				.Add<Movie>("/movies")
-//					.Add<Movie>("/movies/{Id}")
-//					.Add<Movies>("/movies")
-//					.Add<Movies>("/movies/genres/{Genre}");
+//				.Add<Node> ("/nodes");
 
 			Plugins.Add(new CorsFeature()); //Enable CORS
 
@@ -54,10 +54,18 @@ namespace BitHome
 
 	public class Global : System.Web.HttpApplication
 	{
+		private Logger logger = LogManager.GetCurrentClassLogger();
+
 		protected void Application_Start(object sender, EventArgs e)
 		{
 			//Initialize your application
 			(new BitHomeAppHost()).Init();
+
+			// Start all the BitHome Services
+			ServiceManager.Start ();
+
+			logger.Info ("BitHome Started");
+
 		}
 	}
 }
