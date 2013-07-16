@@ -21,7 +21,7 @@ namespace BitHome.Messaging.Xbee.Protocol
 		NODE_IDENT = 0x95
 	}
 
-	public enum Rx
+	public enum Rx : int
 	{
 		DATA_OFFSET = 11,
 		ADDR64_OFFSET = 0,
@@ -29,7 +29,7 @@ namespace BitHome.Messaging.Xbee.Protocol
 	}
 
 	
-	public enum Tx
+	public enum Tx : int
 	{
 		FRAME_OFFSET = 0,
 		ADDR16_OFFSET = 1,

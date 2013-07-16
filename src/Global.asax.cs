@@ -30,19 +30,22 @@ namespace BitHome
 		{
 			//JsConfig.DateHandler = JsonDateHandler.ISO8601;
 
-//			container.Register<IDbConnectionFactory>(c =>
-//			                                         new OrmLiteConnectionFactory(
-//				"~/App_Data/db.sqlite".MapHostAbsolutePath(),
-//				SqliteOrmLiteDialectProvider.Instance));
+			Console.WriteLine ("Configure container");
 
-			//Call existing service
+			container.Register<IDbConnectionFactory>(c =>
+			    new OrmLiteConnectionFactory(
+				"~/AppData/db.sqlite".MapHostAbsolutePath(),
+				SqliteOrmLiteDialectProvider.Instance));
+
+//			Call existing service
 //			using (var resetMovies = container.Resolve<ResetMoviesService>())
 //			{
 //				resetMovies.Any(null);
 //			}
 
-//			Routes
-//				.Add<Node> ("/nodes");
+			Routes
+				.Add<NodeBase> ("/nodes/{id}")
+				.Add<NodeBase> ("/nodes");
 
 			Plugins.Add(new CorsFeature()); //Enable CORS
 
@@ -60,6 +63,7 @@ namespace BitHome
 		{
 			//Initialize your application
 			(new BitHomeAppHost()).Init();
+
 
 			// Start all the BitHome Services
 			ServiceManager.Start ();

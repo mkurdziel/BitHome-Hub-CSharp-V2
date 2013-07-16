@@ -2,6 +2,10 @@ using System;
 
 namespace BitHome.Messaging.Protocol
 {
+	public enum Indexes : int {
+		API = 1
+	}
+
 	/// </summary>
 	public enum PacketValues : byte
 	{
@@ -59,61 +63,19 @@ namespace BitHome.Messaging.Protocol
 	/// </summary>
 	public enum Api
 	{
-		/// <summary>
-		///   Device status request
-		/// </summary>
 		DEVICE_STATUS_REQUEST = 0x02,
-		/// <summary>
-		///   Device status response
-		/// </summary>
-		DEVICE_STATUS = 0x03,
-		/// <summary>
-		///   Bootload transmit
-		/// </summary>
+		DEVICE_STATUS_RESPONSE = 0x03,
 		BOOTLOAD_TRANSMIT = 0x04,
-		/// <summary>
-		///   Bootload receive
-		/// </summary>
 		BOOTLOAD_RESPONSE = 0x05,
-		/// <summary>
-		///   Set device info
-		/// </summary>
 		SETINFO = 0x0A,
-		/// <summary>
-		///   Set device info response
-		/// </summary>
-		SETINFORESPONSE = 0x0B,
-		/// <summary>
-		///   Catalog request
-		/// </summary>
+		SETINFO_RESPONSE = 0x0B,
 		CATALOG_REQUEST = 0x10,
-		/// <summary>
-		///   Catalog response
-		/// </summary>
 		CATALOG_RESPONSE = 0x11,
-		/// <summary>
-		///   Parameter request
-		/// </summary>
 		PARAMETER_REQUEST = 0x12,
-		/// <summary>
-		///   Parameter response
-		/// </summary>
 		PARAMETER_RESPONSE = 0x13,
-		/// <summary>
-		///   Function transmit
-		/// </summary>
 		FUNCTION_TRANSMIT = 0x40,
-		/// <summary>
-		///   Function transmit response
-		/// </summary>
 		FUNCTION_TRANSMIT_RESPONSE = 0x80,
-		/// <summary>
-		///   Function receive
-		/// </summary>
 		FUNCTION_RECEIVE = 0x60,
-		/// <summary>
-		///   Function receive response
-		/// </summary>
 		FUNCTION_RECEIVE_RESPONSE = 0x61
 	}
 

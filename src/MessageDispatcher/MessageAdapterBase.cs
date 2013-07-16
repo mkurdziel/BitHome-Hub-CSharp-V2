@@ -7,6 +7,12 @@ namespace BitHome.Messaging
 	public abstract class MessageAdapterBase
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
+		
+		#region Custom Events
+
+		public event EventHandler<MessageRecievedEventArgs> MessageRecieved;
+
+		#endregion
 
 		public MessageAdapterBase ()
 		{
@@ -39,6 +45,19 @@ namespace BitHome.Messaging
 		public abstract void SendMessage(MessageBase p_msg);
 
 		public abstract void BroadcastMessage(MessageBase p_msg);
+
+		
+		protected void OnMessageRecieved(MessageBase p_msg)
+		{
+			// Make a temporary copy of the event to avoid possibility of 
+			// a race condition if the last subscriber unsubscribes 
+			// immediately after the null check and before the event is raised.
+			EventHandler<MessageRecievedEventArgs> handler = MessageRecieved;
+			if (handler != null)
+			{
+				handler(this, new MessageRecievedEventArgs(p_msg));
+			}
+		}
 	}
 }
 

@@ -8,27 +8,6 @@ using BitHome.Messaging.Messages;
 
 namespace BitHome.Messaging.Xbee
 {
-	public class DataStreamEventArgs : EventArgs
-	{
-		#region Defines
-		private byte[] _bytes;
-		#endregion
-
-		#region Constructors
-		public DataStreamEventArgs(byte[] bytes)
-		{
-			_bytes = bytes;
-		}
-		#endregion
-
-		#region Properties
-		public byte[] Response
-		{
-			get { return _bytes; }
-		}
-		#endregion
-	}
-
 	public class MessageAdapterXbee : MessageAdapterBase, IDisposable
 	{
 		private enum PacketState {
@@ -84,9 +63,6 @@ namespace BitHome.Messaging.Xbee
 		}
 		#endregion
 
-		#region Custom Events
-		public event EventHandler<DataStreamEventArgs> OnReceiving;
-		#endregion
 
 		#region Properties
 		public string Port
@@ -212,6 +188,8 @@ namespace BitHome.Messaging.Xbee
 						log.Trace("Decoding complete. Full Packet received");
 
 						MessageBase msgRx = MessageFactoryXbee.createMessage(m_packetAPI, m_packetData);
+
+						OnMessageRecieved (msgRx);
 	//
 	//					// If it is a TX response, process it. Otherwise fire a notification
 	//					if (msgRx instanceof MsgXbeeTxStatus)
@@ -361,19 +339,6 @@ namespace BitHome.Messaging.Xbee
 		}
 		#endregion
 
-		#region Custom Events Invoke Functions
-		private void OnSerialReceiving(byte[] res)
-		{
-			foreach(byte b  in res ) {
-				log.Debug ("Read : {0:X2}", b);
-			}
-
-			if (OnReceiving != null)
-			{
-				OnReceiving(this, new DataStreamEventArgs(res));
-			}
-		}
-		#endregion
 	}
 }
 

@@ -3,12 +3,15 @@ using NLog;
 
 using BitHome.Messaging.Messages;
 using BitHome.Messaging.Xbee;
+using System.Collections.Generic;
 
 namespace BitHome.Messaging
 {
 	public class MessageDispatcherService
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
+
+		private List<MessageAdapterBase> m_adapters = new List<MessageAdapterBase>();
 
 		public event EventHandler<MessageRecievedEventArgs>  MessageRecieved;
 
@@ -21,7 +24,15 @@ namespace BitHome.Messaging
 			log.Info ("Starting MessageDispatcherService");
 
 			MessageAdapterXbee xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-AH0015BR");
-			xbeeAdapter.Start ();
+			m_adapters.Add (xbeeAdapter);
+
+
+			// Start adapters
+			foreach (MessageAdapterBase adapter in m_adapters) 
+			{
+				adapter.MessageRecieved += OnAdapterMessageRecieved; 
+				adapter.Start ();
+			}
 
 			return true;
 		}
@@ -39,6 +50,11 @@ namespace BitHome.Messaging
 			{
 				handler(this, new MessageRecievedEventArgs(p_msg));
 			}
+		}
+
+		private void OnAdapterMessageRecieved (object sender, MessageRecievedEventArgs e)
+		{
+			log.Debug ("Message recieved from adapter {0}", sender);
 		}
 	}
 }
