@@ -1,9 +1,7 @@
 using System;
 using System.IO.Ports;
 using System.Threading;
-using Diagnostics = System.Diagnostics;
 using NLog;
-using BitHome.Messaging.BitHome;
 using BitHome.Messaging.Messages;
 
 namespace BitHome.Messaging.Xbee
@@ -20,17 +18,17 @@ namespace BitHome.Messaging.Xbee
 		}
 
 		// Packet decoding
-		private int m_currentFrameId = 1;
+        //private int m_currentFrameId = 1;
 		private PacketState m_packetState = PacketState.PACKET_START;
 		private int m_packetSize = 0;
 		private int m_packetDataIndex = 0;
 		private byte m_packetChecksum = 0; // short for unsigned byte
-		private byte m_packetAPI = 0;
-		private byte[] m_packetData = null;
-		private int m_sendChecksum;
+        private byte m_packetAPI = 0;
+        private byte[] m_packetData = null;
+        //private int m_sendChecksum;
 
 
-		private Logger log = LogManager.GetCurrentClassLogger();
+		private readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		#region Defines
 		private string _port;
