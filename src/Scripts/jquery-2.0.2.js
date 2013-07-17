@@ -1655,7 +1655,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 					return 1;
 				}
 
-				// Maintain original order
+				// BitHometain original order
 				return sortInput ?
 					( indexOf.call( sortInput, a ) - indexOf.call( sortInput, b ) ) :
 					0;
@@ -7050,7 +7050,7 @@ jQuery.extend({
 	ajaxPrefilter: addToPrefiltersOrTransports( prefilters ),
 	ajaxTransport: addToPrefiltersOrTransports( transports ),
 
-	// Main method
+	// BitHome method
 	ajax: function( url, options ) {
 
 		// If url is an object, simulate pre-1.5 signature
