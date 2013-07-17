@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using NLog;
 using ServiceStack.WebHost.Endpoints;
+using System.Threading;
 
 namespace BitHome
 {
@@ -14,15 +14,19 @@ namespace BitHome
         static int Main(String[] args)
         {
             var listeningOn = args.Length == 0 ? "http://*:1337/" : args[0];
+
+            log.Info("Bithome Created at {0}, listening on {1}", DateTime.Now, listeningOn);
+
+
             var appHost = new AppHost();
             appHost.Init();
             appHost.Start(listeningOn);
 
-            log.Info("Bithome Created at {0}, listening on {1}", DateTime.Now, listeningOn);
+			ServiceManager.Start ();
 
-            Console.ReadKey();
-
-            return 0;
+			while (true) {
+				Thread.Sleep (10);
+			}
         }
     }
 

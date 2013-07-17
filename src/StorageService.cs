@@ -1,6 +1,7 @@
 using System;
 using BinaryRage;
 using NLog;
+using System.Threading;
 
 namespace BitHome
 {
@@ -13,6 +14,8 @@ namespace BitHome
 		public StorageService ()
 		{
 			BinaryRage.DB<Double>.Insert ("version", 0.1, m_path);
+
+			Thread.Sleep (5000);
 
 		}
 

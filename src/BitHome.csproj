@@ -7,7 +7,6 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}</ProjectGuid>
-    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
     <RootNamespace>BitHome</RootNamespace>
     <AssemblyName>BitHome</AssemblyName>
@@ -25,6 +24,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+    <StartupObject>BitHome.BitHome</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,11 +51,23 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="NLog">
-      <HintPath>packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>packages\ServiceStack.Redis.3.9.55\lib\net35\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>packages\ServiceStack.OrmLite.SqlServer.3.9.55\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer">
+      <HintPath>packages\ServiceStack.OrmLite.SqlServer.3.9.55\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>packages\ServiceStack.3.9.55\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>packages\ServiceStack.3.9.55\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>packages\ServiceStack.Text.3.9.55\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
@@ -65,14 +77,8 @@
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>packages\ServiceStack.Common.3.9.55\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>packages\ServiceStack.3.9.55\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack">
-      <HintPath>packages\ServiceStack.3.9.55\lib\net35\ServiceStack.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Logging.NLog">
-      <HintPath>packages\ServiceStack.Logging.NLog.1.0.10.0\lib\net35\ServiceStack.Logging.NLog.dll</HintPath>
+    <Reference Include="NLog">
+      <HintPath>packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +93,9 @@
     <Content Include="Web.config" />
     <Content Include="default.htm" />
     <Content Include="packages.config" />
-    <Content Include="NLog.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\jquery-2.0.2-vsdoc.js" />
     <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
@@ -121,25 +129,13 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties VerifyCodeBehindFields="True" VerifyCodeBehindEvents="True">
-        <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
   <ItemGroup>
     <None Include="Scripts\jquery-2.0.2.min.map" />
-    <None Include="sqlite\x64\sqlite3.dll" />
-    <None Include="sqlite\x86\sqlite3.def" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Code\BinaryRage\BinaryRage.csproj">
+    <ProjectReference Include="..\..\BinaryRage\BinaryRage.csproj">
       <Project>{191D893F-7087-4E59-9AEE-5FEF4172E3FC}</Project>
       <Name>BinaryRage</Name>
     </ProjectReference>
