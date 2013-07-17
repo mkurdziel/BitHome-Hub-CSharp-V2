@@ -9,6 +9,7 @@ namespace BitHome
 		private static Logger log = LogManager.GetCurrentClassLogger();
 		private static String m_path = @"./appdata";
 
+
 		public StorageService ()
 		{
 			BinaryRage.DB<Double>.Insert ("version", 0.1, m_path);
