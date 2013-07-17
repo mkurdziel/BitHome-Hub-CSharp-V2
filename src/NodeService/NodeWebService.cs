@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Net;
 using ServiceStack.Common;
 using ServiceStack.Common.Web;
-using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using ServiceStack.Text;
@@ -44,7 +42,7 @@ namespace BitHome
 		public NodeWebService ()
 		{
 		}
-
+/*
 		/// <summary>
 		/// GET /nodes/{Id} 
 		/// </summary>
@@ -52,12 +50,12 @@ namespace BitHome
 			return new NodeResponse {
 				Node = Db.Id<NodeBase>(p_node.Id),
 			};	
-		}
+		}*/
 
 		/// <summary>
 		/// POST /nodes
 		/// </summary>
-		public object Post(NodeBase p_node)
+/*		public object Post(NodeBase p_node)
 		{
 			Db.Insert(p_node);
 
@@ -72,12 +70,12 @@ namespace BitHome
 					{ HttpHeaders.Location, base.Request.AbsoluteUri.CombineWith(newNodeId.ToString()) }
 				}
 			};
-		}
+		}*/
 
 		/// <summary>
 		/// PUT /nodes/{id}
 		/// </summary>
-		public object Put(NodeBase p_node)
+	/*	public object Put(NodeBase p_node)
 		{
 			Db.Update(p_node);
 
@@ -87,12 +85,12 @@ namespace BitHome
 					{ HttpHeaders.Location, this.RequestContext.AbsoluteUri.CombineWith(p_node.Id.ToString()) }
 				}
 			};
-		}
+		}*/
 
 		/// <summary>
 		/// DELETE /nodes/{Id}
 		/// </summary>
-		public object Delete(NodeBase p_node)
+	/*	public object Delete(NodeBase p_node)
 		{
 			Db.DeleteById<NodeBase>(p_node.Id);
 
@@ -102,7 +100,7 @@ namespace BitHome
 					{ HttpHeaders.Location, this.RequestContext.AbsoluteUri.CombineWith(p_node.Id.ToString()) }
 				}
 			};
-		}
+		}*/
 	}
 
 	public class NodesWebService : ServiceStack.ServiceInterface.Service {
@@ -110,14 +108,14 @@ namespace BitHome
 		/// GET /movies 
 		/// GET /movies/genres/{Genre}
 		/// </summary>
-		public object Get(Nodes request)
+	/*	public object Get(Nodes request)
 		{
 			return new NodesResponse {
 				Nodes = request.Genre.IsNullOrEmpty()
 					? Db.Select<NodeBase>()
 						: Db.Select<NodeBase>("Genres LIKE {0}", "%{0}%".Fmt(request.Genre))
 			};
-		}
+		}*/
 	}
 
 }

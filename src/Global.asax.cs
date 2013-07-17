@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Configuration;
 using Funq;
-using ServiceStack.Common.Utils;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
 using ServiceStack.ServiceInterface.Cors;
-using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using NLog;
 
@@ -29,13 +24,6 @@ namespace BitHome
 		public override void Configure(Container container)
 		{
 			//JsConfig.DateHandler = JsonDateHandler.ISO8601;
-
-			Console.WriteLine ("Configure container");
-
-			container.Register<IDbConnectionFactory>(c =>
-			    new OrmLiteConnectionFactory(
-				"~/AppData/db.sqlite".MapHostAbsolutePath(),
-				SqliteOrmLiteDialectProvider.Instance));
 
 //			Call existing service
 //			using (var resetMovies = container.Resolve<ResetMoviesService>())

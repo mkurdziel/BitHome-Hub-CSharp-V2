@@ -17,12 +17,12 @@ namespace BitHome
 	[Api("GET or DELETE a single node by Id. Use POST to create a new node and PUT to update it")]
 	[Route("/nodes", "POST,PUT,PATCH,DELETE")]
 	[Route("/nodes/{Id}")]
+    [Serializable]
 	public class NodeBase
 	{
 		/// <summary>
 		/// Gets or sets the id of the movie. The id will be automatically incremented when added.
 		/// </summary>
-		[AutoIncrement]
 		public UInt64 Id { get; set; }
 		public String Name { get; set; }
 		public DateTime LastSeen { get; set; }

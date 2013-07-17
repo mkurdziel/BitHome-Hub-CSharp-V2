@@ -4,7 +4,6 @@ using System.Net;
 using ServiceStack.Common;
 using ServiceStack.Common.Web;
 using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using ServiceStack.Text;
 using NLog;
@@ -27,19 +26,6 @@ namespace BitHome
 			NodeBase testNode = new NodeBase ();
 			testNode.Name = "New Node";
 
-			Db.DropAndCreateTable<NodeBase> ();
-			Db.DropAndCreateTable<NodeXbee> ();
-
-			NodeXbee testNodeXbee = new NodeXbee (64, 16);
-
-			Db.Save<NodeBase> ();
-			Db.Save<NodeXbee> ();
-
-			Db.Insert<NodeBase> (testNode);
-			Db.Insert<NodeXbee> (testNodeXbee);
-
-			//			//Executes the specified delegate against the configured database.
-
 			return true;
 		}
 
@@ -49,7 +35,9 @@ namespace BitHome
 
 		public NodeBase GetNode (UInt64 id)
 		{
-			return Db.Id<NodeBase> (id);
+            NodeBase testNode = new NodeBase();
+            testNode.Name = "New Node";
+		    return testNode;
 		}
 	}
 }
