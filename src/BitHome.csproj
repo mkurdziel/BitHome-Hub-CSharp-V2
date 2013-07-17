@@ -43,9 +43,6 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BinaryRage">
-      <HintPath>packages\BinaryRage.0.1.2\lib\net40\BinaryRage.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -88,7 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AppData\" />
     <Folder Include="Content\css\" />
     <Folder Include="Content\image\" />
     <Folder Include="Content\js\" />
@@ -124,11 +120,14 @@
     <Compile Include="MessageDispatcher\MessageFactory.cs" />
     <Compile Include="EBitConverter.cs" />
     <Compile Include="NodeService\NodeService.cs" />
-    <Compile Include="NodeService\NodeXbee.cs" />
     <Compile Include="NodeService\NodeStatus.cs" />
     <Compile Include="NodeService\NodeInvestigationStatus.cs" />
     <Compile Include="NodeService\NodeBase.cs" />
     <Compile Include="NodeService\NodeWebService.cs" />
+    <Compile Include="StorageService.cs" />
+    <Compile Include="NodeXbee.cs">
+      <DependentUpon>StorageService.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -167,4 +166,11 @@
     <None Include="sqlite\x86\sqlite3.def" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Code\BinaryRage\BinaryRage.csproj">
+      <Project>{191D893F-7087-4E59-9AEE-5FEF4172E3FC}</Project>
+      <Name>BinaryRage</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -10,21 +10,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FD8D2A
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryRage", "..\..\..\Code\BinaryRage\BinaryRage.csproj", "{191D893F-7087-4E59-9AEE-5FEF4172E3FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = BitHome.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

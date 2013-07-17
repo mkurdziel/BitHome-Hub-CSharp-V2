@@ -10,6 +10,7 @@ namespace BitHome
 
 		private static NodeService m_nodeService;
 		private static MessageDispatcherService m_messageDispatcherService;
+		private static StorageService m_storageService;
 
 		private static Object m_lock = new object();
 		private static Boolean m_started = false;
@@ -49,9 +50,11 @@ namespace BitHome
 		private static bool StartServiceManager() {
 			log.Info ("Starting ServiceManager");
 
+			m_storageService = new StorageService ();
 			m_messageDispatcherService = new MessageDispatcherService ();
 			m_nodeService = new NodeService ();
 
+			m_storageService.Start ();
 			m_nodeService.Start ();
 			m_messageDispatcherService.Start ();
 
@@ -60,6 +63,11 @@ namespace BitHome
 
 		private static bool StopServiceManager() {
 			log.Info ("Stopping ServiceManager");
+
+			m_nodeService.Stop ();
+			m_messageDispatcherService.Stop ();
+			m_storageService.Stop ();
+
 			return true;
 		}
 
