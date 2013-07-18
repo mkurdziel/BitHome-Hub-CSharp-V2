@@ -108,3 +108,7 @@ _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
 /src/.nuget
+
+src/test-results/BitHome.csproj-Debug-2013-07-17.xml
+
+*.test-cache
