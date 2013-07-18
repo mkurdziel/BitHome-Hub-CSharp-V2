@@ -43,6 +43,9 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -76,11 +79,8 @@
     <Folder Include="Content\css\" />
     <Folder Include="Content\image\" />
     <Folder Include="Content\js\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Web.config" />
     <Content Include="Web.config" />
     <Content Include="default.htm" />
     <Content Include="packages.config" />
@@ -96,25 +96,26 @@
     <Compile Include="BitHome.cs" />
     <Compile Include="NodeResponse.cs" />
     <Compile Include="ServiceManager.cs" />
-    <Compile Include="MessageDispatcher\MessageDispatcherService.cs" />
-    <Compile Include="MessageDispatcher\MessageAdapterBase.cs" />
-    <Compile Include="MessageDispatcher\MessageRecievedEventArgs.cs" />
-    <Compile Include="MessageDispatcher\xbee\MessageAdapterXbee.cs" />
-    <Compile Include="MessageDispatcher\xbee\MessageFactoryXbee.cs" />
-    <Compile Include="MessageDispatcher\xbee\MessageProtocolXbee.cs" />
-    <Compile Include="MessageDispatcher\MessageProtocol.cs" />
-    <Compile Include="MessageDispatcher\Messages\MessageBase.cs" />
-    <Compile Include="MessageDispatcher\MessageFactory.cs" />
+    <Compile Include="Messaging\MessageDispatcherService.cs" />
+    <Compile Include="Messaging\MessageAdapterBase.cs" />
+    <Compile Include="Messaging\MessageRecievedEventArgs.cs" />
+    <Compile Include="Messaging\Xbee\MessageAdapterXbee.cs" />
+    <Compile Include="Messaging\Xbee\MessageFactoryXbee.cs" />
+    <Compile Include="Messaging\Xbee\MessageProtocolXbee.cs" />
+    <Compile Include="Messaging\Protocol\MessageProtocol.cs" />
+    <Compile Include="Messaging\Messages\MessageBase.cs" />
+    <Compile Include="Messaging\MessageFactory.cs" />
     <Compile Include="EBitConverter.cs" />
-    <Compile Include="NodeService\NodeService.cs" />
-    <Compile Include="NodeService\NodeStatus.cs" />
-    <Compile Include="NodeService\NodeInvestigationStatus.cs" />
-    <Compile Include="NodeService\NodeBase.cs" />
-    <Compile Include="NodeService\NodeWebService.cs" />
+    <Compile Include="Nodes\NodeService.cs" />
+    <Compile Include="Nodes\NodeStatus.cs" />
+    <Compile Include="Nodes\NodeInvestigationStatus.cs" />
+    <Compile Include="Nodes\NodeBase.cs" />
+    <Compile Include="Nodes\NodeWebService.cs" />
     <Compile Include="StorageService.cs" />
     <Compile Include="NodeXbee.cs">
       <DependentUpon>StorageService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tests\NodeServiceTest.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

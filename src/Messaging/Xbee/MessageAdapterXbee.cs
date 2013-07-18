@@ -9,21 +9,21 @@ namespace BitHome.Messaging.Xbee
 	public class MessageAdapterXbee : MessageAdapterBase, IDisposable
 	{
 		private enum PacketState {
-			PACKET_START, // Waiting for Initial packet byte 
-			SIZE_MSB, // Waiting for MSB of frame size
-			SIZE_LSB, // Waiting for LSB of frame size 
-			API, // Waiting for the API code 
-			DATA, // Waiting for the frame data 
-			CHECKSUM // Waiting for the frame checksum
+			PacketStart, // Waiting for Initial packet byte 
+			SizeMsb, // Waiting for MSB of frame size
+			SizeLsb, // Waiting for LSB of frame size 
+			Api, // Waiting for the API code 
+			Data, // Waiting for the frame data 
+			Checksum // Waiting for the frame checksum
 		}
 
 		// Packet decoding
         //private int m_currentFrameId = 1;
-		private PacketState m_packetState = PacketState.PACKET_START;
+		private PacketState m_packetState = PacketState.PacketStart;
 		private int m_packetSize = 0;
 		private int m_packetDataIndex = 0;
 		private byte m_packetChecksum = 0; // short for unsigned byte
-        private byte m_packetAPI = 0;
+        private byte m_packetApi = 0;
         private byte[] m_packetData = null;
         //private int m_sendChecksum;
 
@@ -42,18 +42,19 @@ namespace BitHome.Messaging.Xbee
 		#endregion
 
 		#region Constructors
-		public MessageAdapterXbee(string port)
+		public MessageAdapterXbee(string p_port)
 		{
-			log.Trace ("({0})", port);
+			log.Trace ("({0})", p_port);
 
-			_port = port;
+			_port = p_port;
 			_baudRate = 115200;
 			_lastReceive = DateTime.MinValue;
 
-			serThread = new Thread(new ThreadStart(SerialReceiving));
-			serThread.Priority = ThreadPriority.Normal;
-			serThread.Name = "SerialHandle" + serThread.ManagedThreadId;
+			serThread = new Thread(new ThreadStart(SerialReceiving)) {Priority = ThreadPriority.Normal};
+
+		    serThread.Name = "SerialHandle" + serThread.ManagedThreadId;
 		}
+
 		public MessageAdapterXbee(string Port, int baudRate)
 			: this(Port)
 		{
@@ -67,6 +68,7 @@ namespace BitHome.Messaging.Xbee
 		{
 			get { return _port; }
 		}
+
 		public int BaudRate
 		{
 			get { return _baudRate; }
@@ -116,13 +118,13 @@ namespace BitHome.Messaging.Xbee
 			// Decode based on the current packet state
 			switch(m_packetState)
 			{
-				case PacketState.PACKET_START:
+				case PacketState.PacketStart:
 				{
 					// Check for the zigbee packet start (7e)
 				if(data == (byte)Protocol.Api.START)
 					{
 						//				Logger.v(TAG, "decode - read packet start:" + String.format("0x%x", data));
-						m_packetState = PacketState.SIZE_MSB;
+						m_packetState = PacketState.SizeMsb;
 					}
 					else
 					{
@@ -131,15 +133,15 @@ namespace BitHome.Messaging.Xbee
 				}
 				break;
 
-				case PacketState.SIZE_MSB:
+				case PacketState.SizeMsb:
 				{
 					//			Logger.v(TAG, "decoding size MSB:" + String.format("0x%x", data));
 					m_packetSize |= (data << 8);
-					m_packetState = PacketState.SIZE_LSB;
+					m_packetState = PacketState.SizeLsb;
 				}
 				break;
 
-				case PacketState.SIZE_LSB:
+				case PacketState.SizeLsb:
 				{
 					//			Logger.v(TAG, "decoding size LSB:" + String.format("0x%x", data));
 					m_packetSize |= data;
@@ -148,22 +150,22 @@ namespace BitHome.Messaging.Xbee
 					m_packetData = new byte[m_packetSize];
 
 					//			Logger.v(TAG, "packet size:" + m_packetSize);
-					m_packetState = PacketState.API;
+					m_packetState = PacketState.Api;
 				}
 				break;
 
-				case PacketState.API:
+				case PacketState.Api:
 				{
 					//			Logger.v(TAG, "decoding API:" + String.format("0x%x", data));
 					// add to the checksum
-					m_packetAPI = data;
+					m_packetApi = data;
 					m_packetChecksum += data;
 					m_packetSize--; // API is part of packet size. We just want data size
-					m_packetState = PacketState.DATA;
+					m_packetState = PacketState.Data;
 				}
 				break;
 
-				case PacketState.DATA:
+				case PacketState.Data:
 				{
 					//			Logger.v(TAG, "decoding data:" + String.format("0x%x", data));
 					m_packetData[m_packetDataIndex++] = data;
@@ -172,12 +174,12 @@ namespace BitHome.Messaging.Xbee
 					// If the packet data index has overrun our packet size, move on
 					if (m_packetDataIndex == m_packetSize)
 					{
-						m_packetState = PacketState.CHECKSUM;
+						m_packetState = PacketState.Checksum;
 					}
 				}
 				break;
 
-				case PacketState.CHECKSUM:
+				case PacketState.Checksum:
 				{
 					//			Logger.v(TAG, "decoding checksum:" + String.format("0x%x", data));
 					int checksum = 255 - m_packetChecksum;
@@ -185,7 +187,7 @@ namespace BitHome.Messaging.Xbee
 					{
 						log.Trace("Decoding complete. Full Packet received");
 
-						MessageBase msgRx = MessageFactoryXbee.createMessage(m_packetAPI, m_packetData);
+						MessageBase msgRx = MessageFactoryXbee.createMessage(m_packetApi, m_packetData);
 
 						OnMessageRecieved (msgRx);
 	//
