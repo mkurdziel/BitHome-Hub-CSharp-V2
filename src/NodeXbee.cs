@@ -2,7 +2,7 @@ using System;
 
 namespace BitHome
 {
-	public class NodeXbee : NodeBase
+	public class NodeXbee : Node
 	{
 		UInt64 m_address64;
 		UInt16 m_address16;

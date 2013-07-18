@@ -109,13 +109,16 @@
     <Compile Include="Nodes\NodeService.cs" />
     <Compile Include="Nodes\NodeStatus.cs" />
     <Compile Include="Nodes\NodeInvestigationStatus.cs" />
-    <Compile Include="Nodes\NodeBase.cs" />
     <Compile Include="Nodes\NodeWebService.cs" />
     <Compile Include="StorageService.cs" />
     <Compile Include="NodeXbee.cs">
       <DependentUpon>StorageService.cs</DependentUpon>
     </Compile>
     <Compile Include="Tests\NodeServiceTest.cs" />
+    <Compile Include="Nodes\Node.cs" />
+    <Compile Include="Nodes\NodeType.cs" />
+    <Compile Include="Messaging\Xbee\MetaDataXbee.cs" />
+    <Compile Include="Nodes\NodeXbee.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

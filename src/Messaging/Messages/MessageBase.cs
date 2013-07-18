@@ -6,6 +6,8 @@ namespace BitHome.Messaging.Messages
 	public abstract class MessageBase
 	{
 		private Logger log = LogManager.GetCurrentClassLogger();
+		private String m_sourceNodeKey;
+		private String m_destNodeKey;
 
 		private DateTime m_timeStamp;
 

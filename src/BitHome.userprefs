@@ -1,15 +1,24 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Tests/NodeServiceTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Nodes/NodeXbee.cs">
     <Files>
-      <File FileName="BitHome.cs" Line="23" Column="13" />
-      <File FileName="Tests/NodeServiceTest.cs" Line="16" Column="9" />
+      <File FileName="Messaging/Xbee/MessageFactoryXbee.cs" Line="49" Column="33" />
+      <File FileName="Nodes/NodeService.cs" Line="17" Column="30" />
+      <File FileName="Nodes/NodeXbee.cs" Line="29" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="BitHome" expanded="True" selected="True">
+          <Node name="BinaryRage" expanded="True" />
+          <Node name="BitHome" expanded="True">
             <Node name="References" expanded="True" />
+            <Node name="Messaging" expanded="True">
+              <Node name="Messages" expanded="True" />
+              <Node name="Xbee" expanded="True" />
+            </Node>
+            <Node name="Nodes" expanded="True">
+              <Node name="NodeXbee.cs" selected="True" />
+            </Node>
             <Node name="Tests" expanded="True" />
           </Node>
         </State>

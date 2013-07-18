@@ -203,13 +203,24 @@ namespace BitHome.Messaging.Xbee
 					}
 					else
 					{
-//						Logger.v(TAG, "decoding failed. Checksum expected:" + String.format("0x%x", checksum));
+						log.Debug("Decoding failed. Checksum expected: {0:X} got {1:X}", data, checksum);
 					}
-	//				resetDecode();
+					ResetDecode();
 				}
 				break;
 			}
 		}
+
+		private void ResetDecode()
+		{
+			m_packetState = PacketState.PacketStart;
+			m_packetApi = 0;
+			m_packetChecksum = 0;
+			m_packetData = null;
+			m_packetDataIndex = 0;
+			m_packetSize = 0;
+		}
+
 
 		#endregion
 

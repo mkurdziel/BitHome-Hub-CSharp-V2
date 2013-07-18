@@ -11,6 +11,7 @@ namespace BitHome.Tests
     {
         [SetUp]
         public void Init() {
+			ServiceManager.Start (true);
         }
 
         [TearDown]
@@ -19,18 +20,11 @@ namespace BitHome.Tests
 
 
         [Test]
-<<<<<<< HEAD
-        public void TestAddNode() {
-			Assert.IsTrue(true);
-=======
         public void TestAddNode()
         {
-            NodeBase node1 = new NodeBase();
+            Node node1 = new Node();
             node1.Id = BinaryRage.Key.GenerateUniqueKey();
             node1.Name = "Node 1";
-
-
->>>>>>> 5971fb275e9571a61f792d0a9623cd99d61b65d3
         }
     }
 }

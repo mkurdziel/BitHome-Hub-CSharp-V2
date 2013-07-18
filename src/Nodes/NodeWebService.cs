@@ -10,7 +10,7 @@ namespace BitHome
 {
 	public class NodeResponse
 	{
-		public NodeBase Node { get; set; }
+		public Node Node { get; set; }
 	}
 
 	/// <summary>
@@ -27,7 +27,7 @@ namespace BitHome
 
 	public class NodesResponse
 	{
-		public List<NodeBase> Nodes { get; set; }
+		public List<Node> Nodes { get; set; }
 	}
 
 	public class NodeWebService : ServiceStack.ServiceInterface.Service

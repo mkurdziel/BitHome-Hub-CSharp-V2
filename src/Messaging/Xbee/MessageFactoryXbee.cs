@@ -9,6 +9,18 @@ namespace BitHome.Messaging.Xbee
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
+		private static NodeService m_nodeService = null;
+
+		private static NodeService NodeService {
+			get {
+				if (m_nodeService == null) 
+				{
+					m_nodeService = ServiceManager.NodeService;
+				}
+
+				return m_nodeService;
+			}
+		}
 //
 //		private NodeManager m_nodeManager;
 //
@@ -26,8 +38,6 @@ namespace BitHome.Messaging.Xbee
 			{
 			case (byte)Protocol.Api.ZIGBEE_RX:
 				{
-					log.Debug ("Creating {0}", Protocol.Api.ZIGBEE_RX);
-
 					// Extract the 64 bit address
 					UInt64 address64 = EBitConverter.ToUInt64(p_data, (int)Protocol.Rx.ADDR64_OFFSET);
 					// Extract the 16 bit address
@@ -35,15 +45,9 @@ namespace BitHome.Messaging.Xbee
 	
 					log.Trace ("Received Zigbee RX message 64:0x{0:X} 16:0x{1:X}", address64, address16);
 	
-	//					// Look up the node
-	//					NodeBase node = m_nodeManager.getNode(address64);
-	//
-	//					if (node == null)
-	//					{
-	//						node = new NodeZigbee(address64, address16);
-	//						m_nodeManager.addNewNode(address64, node);
-	//					}
-	//
+					// Look up the node
+					Node node = NodeService.GetNodeXbee (address64, address16, true);
+
 					return MessageFactory.CreateMessage(p_data, (int)Protocol.Rx.DATA_OFFSET);
 				} 
 

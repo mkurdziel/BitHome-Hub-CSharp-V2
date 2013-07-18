@@ -37,8 +37,8 @@ namespace BitHome
         public override void Configure(Funq.Container container)
         {
             Routes
-                .Add<NodeBase>("/nodes/{id}")
-                .Add<NodeBase>("/nodes");
+                .Add<Node>("/nodes/{id}")
+                .Add<Node>("/nodes");
 
             SetConfig(new EndpointHostConfig
             {

@@ -18,13 +18,15 @@ namespace BitHome
 	[Route("/nodes", "POST,PUT,PATCH,DELETE")]
 	[Route("/nodes/{Id}")]
     [Serializable]
-	public class NodeBase
+	public class Node
 	{
 		public String Id { get; set; }
 		public String Name { get; set; }
 		public DateTime LastSeen { get; set; }
 		public NodeInvestigationStatus InvestigationStatus { get; set; }
 		public bool IsUknown { get; set; }
+		public NodeType NodeType { get; set; }
+		public String MetaDataKey { get; set; }
 
 		public String IdString {
 			get {
@@ -54,7 +56,7 @@ namespace BitHome
 		}
 
 
-		public NodeBase ()
+		public Node ()
 		{
 		}
 	}

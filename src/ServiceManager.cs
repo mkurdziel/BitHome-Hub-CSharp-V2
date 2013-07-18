@@ -14,6 +14,13 @@ namespace BitHome
 
 		private static Object m_lock = new object();
 		private static Boolean m_started = false;
+		private static Boolean m_isTesting = false;
+
+		public static bool Start(bool p_isTesting) {
+			m_isTesting = p_isTesting;
+
+			return Start ();
+		}
 
 		public static bool Start() {
 			log.Trace ("Start requested");
@@ -50,7 +57,7 @@ namespace BitHome
 		private static bool StartServiceManager() {
 			log.Info ("Starting ServiceManager");
 
-			m_storageService = new StorageService ();
+			m_storageService = new StorageService (m_isTesting);
 			m_messageDispatcherService = new MessageDispatcherService ();
 			m_nodeService = new NodeService ();
 
@@ -77,6 +84,10 @@ namespace BitHome
 
 		public static MessageDispatcherService MessageDispatcherService {
 			get { return m_messageDispatcherService; }
+		}
+
+		public static StorageService StorageService {
+			get { return m_storageService; }
 		}
 	}
 }
