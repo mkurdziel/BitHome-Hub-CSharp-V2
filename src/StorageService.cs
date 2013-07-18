@@ -14,8 +14,7 @@ namespace BitHome
 		{
 			BinaryRage.DB<Double>.Insert ("version", 0.1, m_path);
 
-			Thread.Sleep (5000);
-
+            BinaryRage.DB<Double>.WaitForCompletion();
 		}
 
 		public Boolean Start() {
