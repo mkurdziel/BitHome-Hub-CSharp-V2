@@ -20,10 +20,7 @@ namespace BitHome
     [Serializable]
 	public class NodeBase
 	{
-		/// <summary>
-		/// Gets or sets the id of the movie. The id will be automatically incremented when added.
-		/// </summary>
-		public UInt64 Id { get; set; }
+		public String Id { get; set; }
 		public String Name { get; set; }
 		public DateTime LastSeen { get; set; }
 		public NodeInvestigationStatus InvestigationStatus { get; set; }

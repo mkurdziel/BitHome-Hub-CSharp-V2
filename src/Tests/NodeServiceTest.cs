@@ -10,10 +10,23 @@ namespace BitHome.Tests
     [TestFixture]
     public class NodeServiceTest
     {
+        [SetUp]
+        public void Init() {
+        }
+
+        [TearDown]
+        public void CleanUp() {
+        }
+
 
         [Test]
-        public void TestAddNode() {
-            Assert.True(true);
+        public void TestAddNode()
+        {
+            NodeBase node1 = new NodeBase();
+            node1.Id = BinaryRage.Key.GenerateUniqueKey();
+            node1.Name = "Node 1";
+
+
         }
     }
 }
