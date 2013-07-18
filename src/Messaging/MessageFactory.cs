@@ -9,7 +9,7 @@ namespace BitHome.Messaging
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
-		public static MessageBase CreateMessage(byte[] p_data, int p_startIndex)
+		public static MessageBase CreateMessage(Node p_sourceNode, Node p_destNode, byte[] p_data, int p_startIndex)
 		{
 			
 			// Make sure the first byte is our start byte
@@ -30,9 +30,8 @@ namespace BitHome.Messaging
 			case (byte)Protocol.Api.DEVICE_STATUS_RESPONSE:
 				{
 					log.Trace ("Device Status Response");
-//				return new MsgDeviceStatusResponse(p_sourceNode, p_destinationNode, p_data, p_startIndex);
+                    return new MessageDeviceStatusResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 				}
-				break;
 			case (byte)Protocol.Api.BOOTLOAD_TRANSMIT:
 				{
 					log.Trace ("Bootload Transmit");
@@ -41,7 +40,7 @@ namespace BitHome.Messaging
 			case (byte)Protocol.Api.BOOTLOAD_RESPONSE:
 				{
 					log.Trace ("Bootload Response");
-//				return new MsgBootloadResponse(p_sourceNode, p_destinationNode, p_data, p_startIndex);
+                    return new MessageBootloadResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 				}
 				break;
 			case (byte)Protocol.Api.SETINFO:
@@ -61,7 +60,7 @@ namespace BitHome.Messaging
 				break;
 			case (byte)Protocol.Api.CATALOG_RESPONSE:
 				{
-	//				return new MsgCatalogResponse(p_sourceNode, p_destinationNode, p_data, p_startIndex);
+                    return new MessageCatalogResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 					log.Trace ("Catalog Response");
 				}
 				break;
@@ -72,7 +71,7 @@ namespace BitHome.Messaging
 				break;
 			case (byte)Protocol.Api.PARAMETER_RESPONSE:
 				{
-	//				return new MsgParameterResponse(p_sourceNode, p_destinationNode, p_data, p_startIndex);
+                    return new MessageParameterResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 					log.Trace ("Parameter Response");
 				}
 				break;

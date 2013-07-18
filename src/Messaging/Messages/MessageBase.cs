@@ -6,8 +6,8 @@ namespace BitHome.Messaging.Messages
 	public abstract class MessageBase
 	{
 		private Logger log = LogManager.GetCurrentClassLogger();
-		private String m_sourceNodeKey;
-		private String m_destNodeKey;
+		private Node m_sourceNode;
+		private Node m_destNode;
 
 		private DateTime m_timeStamp;
 
@@ -15,8 +15,10 @@ namespace BitHome.Messaging.Messages
 			get { return m_timeStamp; }
 		}
 
-		public MessageBase () : this(new DateTime())
+		public MessageBase (Node p_sourceNode, Node p_destNode) : this(new DateTime())
 		{
+		    m_sourceNode = p_sourceNode;
+		    m_destNode = p_destNode;
 		}
 
 		public MessageBase(DateTime p_timeStamp) {

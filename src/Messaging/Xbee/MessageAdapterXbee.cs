@@ -187,7 +187,7 @@ namespace BitHome.Messaging.Xbee
 					{
 						log.Trace("Decoding complete. Full Packet received");
 
-						MessageBase msgRx = MessageFactoryXbee.createMessage(m_packetApi, m_packetData);
+						MessageBase msgRx = MessageFactoryXbee.CreateMessage(m_packetApi, m_packetData);
 
 						OnMessageRecieved (msgRx);
 	//

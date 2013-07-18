@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NLog;
 using BitHome.Messaging.Messages;
 
@@ -10,29 +11,31 @@ namespace BitHome.Messaging.Xbee
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
 		private static NodeService m_nodeService = null;
+        private static Dictionary<UInt64, String> m_lookup = new Dictionary<ulong, string>();
+
 
 		private static NodeService NodeService {
 			get {
 				if (m_nodeService == null) 
 				{
 					m_nodeService = ServiceManager.NodeService;
+
+                    // Populate the lookup table
+				    Node[] nodes = m_nodeService.GetNodes();
+
+                    foreach(Node node in nodes) {
+                        if (node.NodeType == NodeType.Xbee)
+                        {
+                            m_lookup[((NodeXbee) node).Address64] = node.Id;
+                        }
+                    }
 				}
 
 				return m_nodeService;
 			}
 		}
-//
-//		private NodeManager m_nodeManager;
-//
-//		/**
-//	 * Default constructor
-//	 */
-//		public MsgFactoryXbee()
-//		{
-//			m_nodeManager = NodeManager.getInstance();
-//		}
-//
-		public static MessageBase createMessage(byte p_api, byte[] p_data)
+
+		public static MessageBase CreateMessage(byte p_api, byte[] p_data)
 		{
 			switch(p_api)
 			{
@@ -46,9 +49,17 @@ namespace BitHome.Messaging.Xbee
 					log.Trace ("Received Zigbee RX message 64:0x{0:X} 16:0x{1:X}", address64, address16);
 	
 					// Look up the node
-					Node node = NodeService.GetNodeXbee (address64, address16, true);
+				    Node node = null;
+				    String nodeKey = m_lookup[address64];
 
-					return MessageFactory.CreateMessage(p_data, (int)Protocol.Rx.DATA_OFFSET);
+                    // If we don't have a node, create it
+                    if (nodeKey == null)
+                    {
+                        node = NodeService.CreateNode();
+                        m_lookup[address64] = node.Id;
+                    }
+
+					return MessageFactory.CreateMessage(node, null, p_data, (int)Protocol.Rx.DATA_OFFSET);
 				} 
 
 			case (byte)Protocol.Api.ZIGBEE_TX_STATUS:

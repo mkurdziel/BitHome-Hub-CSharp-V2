@@ -18,7 +18,7 @@ namespace BitHome.Messaging.Protocol
 	/// <summary>
 	///   Enumeration for parameter validation types
 	/// </summary>
-	public enum ParamValidationTypes
+	public enum ParamValidationType
 	{
 		/// <summary>
 		///   Unsigned full range
@@ -82,7 +82,7 @@ namespace BitHome.Messaging.Protocol
 	/// <summary>
 	///   Device status values
 	/// </summary>
-	public enum DeviceStatusValues
+	public enum DeviceStatusValue
 	{
 		/// <summary>
 		///   Active
@@ -205,7 +205,7 @@ namespace BitHome.Messaging.Protocol
 	/// <summary>
 	///   Enumeration for data types
 	/// </summary>
-	public enum DataTypes
+	public enum DataType
 	{
 		/// <summary>
 		///   Void

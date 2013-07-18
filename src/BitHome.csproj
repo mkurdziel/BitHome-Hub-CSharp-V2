@@ -94,6 +94,12 @@
   <ItemGroup>
     <Compile Include="BitHomeService.cs" />
     <Compile Include="BitHome.cs" />
+    <Compile Include="DataHelpers.cs" />
+    <Compile Include="Messaging\Messages\MessageFunctionReceive.cs" />
+    <Compile Include="Messaging\Messages\MessageParameterResponse.cs" />
+    <Compile Include="Messaging\Messages\MessageCatalogResponse.cs" />
+    <Compile Include="Messaging\Messages\MessageBootloadResponse.cs" />
+    <Compile Include="Messaging\Messages\MessageDeviceStatusResponse.cs" />
     <Compile Include="NodeResponse.cs" />
     <Compile Include="ServiceManager.cs" />
     <Compile Include="Messaging\MessageDispatcherService.cs" />
@@ -111,9 +117,6 @@
     <Compile Include="Nodes\NodeInvestigationStatus.cs" />
     <Compile Include="Nodes\NodeWebService.cs" />
     <Compile Include="StorageService.cs" />
-    <Compile Include="NodeXbee.cs">
-      <DependentUpon>StorageService.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tests\NodeServiceTest.cs" />
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="Nodes\NodeType.cs" />

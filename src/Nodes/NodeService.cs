@@ -18,14 +18,11 @@ namespace BitHome
 
 		private Dictionary<String, Node> m_nodes;
 
-		private Dictionary<UInt64, String> m_xbeeAddress64;
-
 		public NodeService() 
 		{
 			log.Trace ("()");
 
 			m_nodes = new Dictionary<string, Node> ();
-			m_xbeeAddress64 = new Dictionary<UInt64, string>();
 
 			// Load data from the storage service
 			if (StorageService.Store<String[]>.Exists(KEY_NODES)) {
@@ -55,26 +52,30 @@ namespace BitHome
 
 		public Node CreateNode() 
 		{
+            // Create the new node and give it a unique ID
 			Node node = new Node ();
 			node.Id = StorageService.GenerateKey ();
+
+            // Save it in the lookup table
+		    m_nodes[node.Id] = node;
 
 			return node;
 		}
 
-		public Node GetNodeXbee (UInt64 address64, UInt16 address16, bool createIfNull)
-		{
-//			Node xbeeNode = m_xbeeNodes [address64];
-//
-//			if (createIfNull && xbeeNode == null) {
-//				xbeeNode = CreateNode ();
-//			}
+        public Node[] GetNodes()
+        {
+            return m_nodes.Values.ToArray();
+        }
 
-			return null;
-		}
+        public Node GetNode(String p_key)
+        {
+            return m_nodes[p_key];
+        }
 
 		private void SaveNodeList() {
 			StorageService.Store<String[]>.Insert (KEY_NODES, m_nodes.Keys.ToArray());
 		}
+
 	}
 }
 
