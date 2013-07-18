@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace BitHome.Tests
@@ -13,7 +12,7 @@ namespace BitHome.Tests
 
         [Test]
         public void TestAddNode() {
-            Assert.True(true);
+			Assert.IsTrue(true);
         }
     }
 }
