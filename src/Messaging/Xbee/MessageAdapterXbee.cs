@@ -3,6 +3,8 @@ using System.IO.Ports;
 using System.Threading;
 using NLog;
 using BitHome.Messaging.Messages;
+using BitHomeProtocol = BitHome.Messaging.Protocol;
+using System.Text;
 
 namespace BitHome.Messaging.Xbee
 {
@@ -18,14 +20,16 @@ namespace BitHome.Messaging.Xbee
 		}
 
 		// Packet decoding
-        //private int m_currentFrameId = 1;
+        private byte m_currentFrameId = 1;
 		private PacketState m_packetState = PacketState.PacketStart;
 		private int m_packetSize = 0;
 		private int m_packetDataIndex = 0;
 		private byte m_packetChecksum = 0; // short for unsigned byte
         private byte m_packetApi = 0;
         private byte[] m_packetData = null;
-        //private int m_sendChecksum;
+        private byte m_sendChecksum;
+		private object m_sendLock = new object ();
+		private NodeXbee m_broadcastNode = new NodeXbee(0xFFFF, 0xFFFE);
 
 
 		private readonly Logger log = LogManager.GetCurrentClassLogger();
@@ -40,6 +44,17 @@ namespace BitHome.Messaging.Xbee
 		/*The Critical Frequency of Communication to Avoid Any Lag*/
 		private const int freqCriticalLimit = 20;
 		#endregion
+
+		public override Node BroadcastNode {
+			get { return m_broadcastNode; }
+		}
+
+		private byte NextFrameId 
+		{
+			get {
+				return ++m_currentFrameId;
+			}
+		}
 
 		#region Constructors
 		public MessageAdapterXbee(string p_port)
@@ -87,6 +102,11 @@ namespace BitHome.Messaging.Xbee
 
 		#region Adepter Methods
 
+		public override NodeType GetNodeType()
+		{
+			return NodeType.Xbee;
+		}
+
 		protected override void StartAdapter() 
 		{
 			log.Info ("Starting on {0} at {1}", _port, _baudRate);
@@ -99,14 +119,98 @@ namespace BitHome.Messaging.Xbee
 			CloseConn ();
 		}
 
-		public override String NodeTypeIdentifierString {
-			get {
-				return "XBEE";
+		public override void SendMessage(MessageBase p_msg, Node p_destinationNode) {
+			log.Trace ("Sending message: {0} to:{1}", p_msg.Api, p_destinationNode.Identifier);
+
+			switch(p_msg.Api)
+			{
+				case BitHomeProtocol.Api.DEVICE_STATUS_REQUEST:
+				case BitHomeProtocol.Api.CATALOG_REQUEST:
+				case BitHomeProtocol.Api.PARAMETER_REQUEST:
+				case BitHomeProtocol.Api.FUNCTION_TRANSMIT:
+				case BitHomeProtocol.Api.BOOTLOAD_TRANSMIT:
+				{
+					SendTxMessage((MessageTxBase)p_msg, p_destinationNode);
+				}
+				break;
+			default:
+				{
+					log.Trace ("Sending unhandled message:{0} to {1}", p_msg.Api, p_destinationNode.Identifier);
+				}
+				break;
 			}
 		}
 
-		public override void SendMessage(MessageBase p_msg) {
+		private void SendTxMessage(MessageTxBase p_msg, Node p_destinationNode)
+		{
+			if (p_destinationNode.NodeType != NodeType.Xbee) {
+				log.Warn ("Trying to send message to wrong device type {0} type {1}", 
+				          p_destinationNode.Identifier, p_destinationNode.NodeType);
+			}
+			NodeXbee node = (NodeXbee)p_destinationNode;
+
+			byte[] messageBytes = p_msg.GetBytes ();
+			byte[] address16bytes = EBitConverter.GetBytes (node.Address16);
+			byte[] address64bytes = EBitConverter.GetBytes (node.Address64);
+			byte frameId = NextFrameId;
+
+			// Size = 1 API + 
+			// frame ID + 2 16addr + 8 64addr + radius +
+			// options + n packetdata
+			int size = 14 + messageBytes.Length;
+
+			log.Debug ("Sending TX message: {0}", p_msg.Api);
+
+			byte[] serialBytes = new byte[size+4];
+
+			lock (m_sendLock) {
+				int bi = 0; // byte index
+				serialBytes[bi++] = (byte)Protocol.Api.START;
+				serialBytes[bi++] = (byte)((size >> 8) & 0xff);
+				serialBytes[bi++] = (byte)(size & 0xff);
+
+				// Start the checksum here
+				m_sendChecksum = 0;
+
+				m_sendChecksum += serialBytes[bi++] = (byte)Protocol.Api.ZIGBEE_TX_REQ; // API
+				m_sendChecksum += serialBytes[bi++] = frameId; // Frame ID
+
+				// Addresses
+				foreach (byte b in address64bytes) {
+					m_sendChecksum += serialBytes [bi++] = b;
+				}
+				foreach (byte b in address16bytes) {
+					m_sendChecksum += serialBytes [bi++] = b;
+				}
+
+				m_sendChecksum += serialBytes[bi++] = 0x00; // Broadcast Radius
+				m_sendChecksum += serialBytes[bi++] = 0x00; // Options
+
+				// Packet bytes
+				foreach (byte b in messageBytes) {
+					m_sendChecksum += serialBytes [bi++] = b;
+				}
+
+				serialBytes[bi++] = (byte)(0xFF - m_sendChecksum);
+
+				// Send it off to the serial
+				Transmit (serialBytes);
+			}
+
+//			
+//
+//				// Hash the message so we can correlate the send notification
+//				synchronized(m_msgHashMap)
+//				{
+//					m_msgHashMap.put(frameId, p_msg);
+//				}
+//			}
+//			catch (IOException e)
+//			{
+//				Logger.e(TAG, "error sending tx message", e);
+//			}
 		}
+
 
 		public override void BroadcastMessage(MessageBase p_msg) {
 		}
@@ -185,8 +289,6 @@ namespace BitHome.Messaging.Xbee
 					int checksum = 255 - m_packetChecksum;
 					if (data == checksum)
 					{
-						log.Trace("Decoding complete. Full Packet received");
-
 						MessageBase msgRx = MessageFactoryXbee.CreateMessage(m_packetApi, m_packetData);
 
 						OnMessageRecieved (msgRx);
@@ -278,7 +380,15 @@ namespace BitHome.Messaging.Xbee
 		#region Transmit/Receive
 		public void Transmit(byte[] packet)
 		{
-			_serialPort.Write(packet, 0, packet.Length);
+			StringBuilder sb = new StringBuilder ();
+			foreach (byte b in packet) {
+				sb.Append (String.Format("{0:X2}", b));
+			}
+			log.Trace ("Sending 0x{0}", sb.ToString ());
+
+			if (_serialPort != null && _serialPort.IsOpen) {
+				_serialPort.Write(packet, 0, packet.Length);
+			}
 		}
 		public int Receive(byte[] bytes, int offset, int count)
 		{

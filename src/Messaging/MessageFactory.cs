@@ -42,7 +42,6 @@ namespace BitHome.Messaging
 					log.Trace ("Bootload Response");
                     return new MessageBootloadResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 				}
-				break;
 			case (byte)Protocol.Api.SETINFO:
 				{
 					log.Trace ("Set Info");
@@ -60,10 +59,9 @@ namespace BitHome.Messaging
 				break;
 			case (byte)Protocol.Api.CATALOG_RESPONSE:
 				{
-                    return new MessageCatalogResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 					log.Trace ("Catalog Response");
+                    return new MessageCatalogResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 				}
-				break;
 			case (byte)Protocol.Api.PARAMETER_REQUEST:
 				{
 					log.Trace ("Parameter Request");
@@ -71,10 +69,9 @@ namespace BitHome.Messaging
 				break;
 			case (byte)Protocol.Api.PARAMETER_RESPONSE:
 				{
-                    return new MessageParameterResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 					log.Trace ("Parameter Response");
+                    return new MessageParameterResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 				}
-				break;
 			case (byte)Protocol.Api.FUNCTION_RECEIVE:
 				{
 	//				return new MsgFunctionReceive(p_sourceNode, p_destinationNode, p_data, p_startIndex);

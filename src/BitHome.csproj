@@ -79,6 +79,7 @@
     <Folder Include="Content\css\" />
     <Folder Include="Content\image\" />
     <Folder Include="Content\js\" />
+    <Folder Include="Actions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -117,11 +118,32 @@
     <Compile Include="Nodes\NodeInvestigationStatus.cs" />
     <Compile Include="Nodes\NodeWebService.cs" />
     <Compile Include="StorageService.cs" />
-    <Compile Include="Tests\NodeServiceTest.cs" />
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="Nodes\NodeType.cs" />
     <Compile Include="Messaging\Xbee\MetaDataXbee.cs" />
     <Compile Include="Nodes\NodeXbee.cs" />
+    <Compile Include="Nodes\NodeUpdateStatus.cs" />
+    <Compile Include="Nodes\NodeBootloadStatus.cs" />
+    <Compile Include="Nodes\NodeUpdateFile.cs" />
+    <Compile Include="Messaging\Messages\MessageTxBase.cs" />
+    <Compile Include="Messaging\Messages\MessageDeviceStatusRequest.cs" />
+    <Compile Include="Nodes\BroadcastNode.cs" />
+    <Compile Include="Messaging\Messages\MessageCatalogRequest.cs" />
+    <Compile Include="Actions\IActionParameter.cs" />
+    <Compile Include="Actions\ActionBase.cs" />
+    <Compile Include="Actions\ActionType.cs" />
+    <Compile Include="Actions\ActionParameterType.cs" />
+    <Compile Include="Actions\ParameterBase.cs" />
+    <Compile Include="Actions\NodeAction.cs" />
+    <Compile Include="Actions\INodeAction.cs" />
+    <Compile Include="Actions\IAction.cs" />
+    <Compile Include="Actions\IParameter.cs" />
+    <Compile Include="Actions\INodeParameter.cs" />
+    <Compile Include="Messaging\Messages\MessageParameterRequest.cs" />
+    <Compile Include="Nodes\TestNode.cs" />
+    <Compile Include="Actions\ActionService.cs" />
+    <Compile Include="Actions\NodeParameter.cs" />
+    <Compile Include="Actions\ActionParameter.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

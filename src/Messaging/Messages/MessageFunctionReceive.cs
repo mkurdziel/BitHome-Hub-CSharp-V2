@@ -5,7 +5,7 @@ using NLog;
 
 namespace BitHome.Messaging.Messages
 {
-    internal class MessageFunctionRecieve : MessageBase
+    public class MessageFunctionRecieve : MessageBase
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -16,6 +16,13 @@ namespace BitHome.Messaging.Messages
         private readonly bool m_bValue;
         private readonly bool m_bIsInteger;
         private readonly string m_strTypeName;
+
+		public override Api Api {
+			get {
+				return Protocol.Api.FUNCTION_RECEIVE;
+			}
+		}
+
 
         public int FunctionId
         {

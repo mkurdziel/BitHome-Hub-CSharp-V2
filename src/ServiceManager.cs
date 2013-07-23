@@ -1,6 +1,7 @@
 using System;
 using NLog;
 using BitHome.Messaging;
+using BitHome.Actions;
 
 namespace BitHome
 {
@@ -8,13 +9,11 @@ namespace BitHome
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
-		private static NodeService m_nodeService;
-		private static MessageDispatcherService m_messageDispatcherService;
-		private static StorageService m_storageService;
-
 		private static Object m_lock = new object();
 		private static Boolean m_started = false;
 		private static Boolean m_isTesting = false;
+
+		public static bool IsStarted { get { return m_started; } }
 
 		public static bool Start(bool p_isTesting) {
 			m_isTesting = p_isTesting;
@@ -57,13 +56,15 @@ namespace BitHome
 		private static bool StartServiceManager() {
 			log.Info ("Starting ServiceManager");
 
-			m_storageService = new StorageService (m_isTesting);
-			m_messageDispatcherService = new MessageDispatcherService ();
-			m_nodeService = new NodeService ();
+			StorageService = new StorageService (m_isTesting);
+			MessageDispatcherService = new MessageDispatcherService (m_isTesting);
+			NodeService = new NodeService ();
+			ActionService = new ActionService();
 
-			m_storageService.Start ();
-			m_nodeService.Start ();
-			m_messageDispatcherService.Start ();
+			StorageService.Start ();
+			MessageDispatcherService.Start ();
+			ActionService.Start ();
+			NodeService.Start ();
 
 			return true;
 		}
@@ -71,24 +72,21 @@ namespace BitHome
 		private static bool StopServiceManager() {
 			log.Info ("Stopping ServiceManager");
 
-			m_nodeService.Stop ();
-			m_messageDispatcherService.Stop ();
-			m_storageService.Stop ();
+			NodeService.Stop ();
+			ActionService.Stop ();
+			MessageDispatcherService.Stop ();
+			StorageService.Stop ();
 
 			return true;
 		}
 
-		public static NodeService NodeService {
-			get { return m_nodeService; }
-		}
+		public static NodeService NodeService { get; private set; }
 
-		public static MessageDispatcherService MessageDispatcherService {
-			get { return m_messageDispatcherService; }
-		}
+		public static MessageDispatcherService MessageDispatcherService { get; private set; }
 
-		public static StorageService StorageService {
-			get { return m_storageService; }
-		}
+		public static StorageService StorageService { get; private set; }
+
+		public static ActionService ActionService { get; private set; }
 	}
 }
 

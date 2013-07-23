@@ -1,26 +1,29 @@
-﻿<Properties GitUserInfo="UsingGIT">
+﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Nodes/NodeXbee.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Actions/NodeAction.cs">
     <Files>
-      <File FileName="Messaging/Xbee/MessageFactoryXbee.cs" Line="49" Column="33" />
-      <File FileName="Nodes/NodeService.cs" Line="17" Column="30" />
-      <File FileName="Nodes/NodeXbee.cs" Line="29" Column="1" />
+      <File FileName="Nodes/Node.cs" Line="66" Column="1" />
+      <File FileName="Actions/INodeAction.cs" Line="1" Column="1" />
+      <File FileName="Actions/NodeAction.cs" Line="68" Column="5" />
+      <File FileName="BitHomeTests/ServiceManagerTests.cs" Line="154" Column="69" />
+      <File FileName="Messaging/Messages/MessageParameterResponse.cs" Line="1" Column="1" />
+      <File FileName="Nodes/NodeService.cs" Line="251" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="BinaryRage" expanded="True" />
           <Node name="BitHome" expanded="True">
-            <Node name="References" expanded="True" />
+            <Node name="Actions" expanded="True">
+              <Node name="NodeAction.cs" selected="True" />
+            </Node>
             <Node name="Messaging" expanded="True">
               <Node name="Messages" expanded="True" />
+              <Node name="Protocol" expanded="True" />
               <Node name="Xbee" expanded="True" />
             </Node>
-            <Node name="Nodes" expanded="True">
-              <Node name="NodeXbee.cs" selected="True" />
-            </Node>
-            <Node name="Tests" expanded="True" />
+            <Node name="Nodes" expanded="True" />
           </Node>
+          <Node name="BitHomeTests" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -33,7 +36,15 @@
         <State selected="True" />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="BitHomeTests" expanded="True">
+            <Node name="BitHomeTests" expanded="True">
+              <Node name="ServiceManagerTests" expanded="True">
+                <Node name="TestInvestigation" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

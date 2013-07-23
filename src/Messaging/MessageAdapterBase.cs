@@ -14,6 +14,10 @@ namespace BitHome.Messaging
 
 		#endregion
 
+		public abstract Node BroadcastNode {
+			get;
+		}
+
 		public MessageAdapterBase ()
 		{
 			log.Trace ("()");
@@ -33,16 +37,13 @@ namespace BitHome.Messaging
 			StopAdapter ();
 		}
 
-//		public abstract class getNodeClass();
+		public abstract NodeType GetNodeType (); 
+
 		protected abstract void StartAdapter();
 
 		protected abstract void StopAdapter();
 
-		public abstract String NodeTypeIdentifierString {
-			get;
-		}
-
-		public abstract void SendMessage(MessageBase p_msg);
+		public abstract void SendMessage(MessageBase p_msg, Node p_destinationNode);
 
 		public abstract void BroadcastMessage(MessageBase p_msg);
 
@@ -53,7 +54,7 @@ namespace BitHome.Messaging
 			// a race condition if the last subscriber unsubscribes 
 			// immediately after the null check and before the event is raised.
 			EventHandler<MessageRecievedEventArgs> handler = MessageRecieved;
-			if (handler != null)
+			if (handler != null && p_msg != null)
 			{
 				handler(this, new MessageRecievedEventArgs(p_msg));
 			}

@@ -21,10 +21,6 @@ namespace BitHome.Messaging.Protocol
 	public enum ParamValidationType
 	{
 		/// <summary>
-		///   Unsigned full range
-		/// </summary>
-		UNSIGNED_FULL = 0,
-		/// <summary>
 		///   Unsigned range
 		/// </summary>
 		UNSIGNED_RANGE = 1,
@@ -35,17 +31,13 @@ namespace BitHome.Messaging.Protocol
 		/// <summary>
 		///   String with maximum length
 		/// </summary>
-		MAX_STRING_LEN = 3,
+		STRING = 3,
 		/// <summary>
 		///   Boolean
 		/// </summary>
 		BOOL = 4,
 		/// <summary>
 		///   Signed full range
-		/// </summary>
-		SIGNED_FULL = 10,
-		/// <summary>
-		///   Signed range
 		/// </summary>
 		SIGNED_RANGE = 11,
 		/// <summary>

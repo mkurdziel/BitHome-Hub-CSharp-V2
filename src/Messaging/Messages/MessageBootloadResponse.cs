@@ -3,12 +3,18 @@ using NLog;
 
 namespace BitHome.Messaging.Messages
 {
-    internal class MessageBootloadResponse : MessageBase
+    public class MessageBootloadResponse : MessageBase
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
         private readonly BootloadResponse m_bootloadResponse;
         private readonly int m_memoryAddress;
+
+		public override Api Api {
+			get {
+				return Protocol.Api.BOOTLOAD_RESPONSE;
+			}
+		}
 
         public BootloadResponse BootloadResponse
         {

@@ -47,5 +47,26 @@ namespace BitHome
 
           return p_nValueWidthInBytes;
         }
+
+		/// <summary>
+		///   Extracts a value of a given width
+		/// </summary>
+		/// <param name="p_msgData"></param>
+		/// <param name="p_nByteIdx"></param>
+		/// <param name="p_nValueWidthInBytes"></param>
+		/// <param name="p_nBuiltValue"></param>
+		/// <returns></returns>
+		public static int LoadValueGivenWidth(IList<byte> p_msgData, int p_nByteIdx, int p_nValueWidthInBytes,
+		                                      out Int64 p_nBuiltValue)
+		{
+			p_nBuiltValue = 0;
+
+			for (int nByteCt = 0; nByteCt < p_nValueWidthInBytes; nByteCt++)
+			{
+				p_nBuiltValue = (p_nBuiltValue << 8) + p_msgData[p_nByteIdx + nByteCt];
+			}
+
+			return p_nValueWidthInBytes;
+		}
     }
 }

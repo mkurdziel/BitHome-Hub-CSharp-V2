@@ -5,7 +5,7 @@ using NLog;
 
 namespace BitHome.Messaging.Messages
 {
-    internal class MessageParameterResponse : MessageBase
+    public class MessageParameterResponse : MessageBase
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -15,11 +15,17 @@ namespace BitHome.Messaging.Messages
         private readonly DataType m_paramDataType;
         private readonly ParamValidationType m_validationType;
         private readonly int m_nMaxStringLength;
-        private readonly int m_nMinumumValue;
-        private readonly int m_nMaximumValue;
+		private readonly Int64 m_nMinumumValue;
+		private readonly Int64 m_nMaximumValue;
         private readonly int m_nValueWidthInBytes;
         private readonly bool m_bIsSigned;
-        private readonly Dictionary<string, int> m_enumValueByName = new Dictionary<string, int>();
+		private readonly Dictionary<String, int> m_enumValueByName = new Dictionary<String, int> ();
+
+		public override Api Api {
+			get {
+				return Protocol.Api.PARAMETER_RESPONSE;
+			}
+		}
 
         public int FunctionId
         {
@@ -35,6 +41,9 @@ namespace BitHome.Messaging.Messages
         {
             get { return m_paramName; }
         }
+
+		public Int64 MaxValue { get; private set; }
+		public Int64 MinValue { get; private set; }
 
         public DataType DataType
         {
@@ -56,10 +65,32 @@ namespace BitHome.Messaging.Messages
             get { return m_bIsSigned; }
         }
 
-        public Dictionary<string, int> EnumValues
+        public Dictionary<String, int> EnumValues
         {
             get { return m_enumValueByName; }
         }
+
+        public MessageParameterResponse (
+			Node p_sourceNode,
+			int actionIndex,
+			int paramIndex,
+			String name,
+			DataType dataType,
+			ParamValidationType validationType,
+			Int64 minValue,
+			Int64 maxValue,
+			Dictionary<String, int> enumValues ):
+			base(p_sourceNode, null)
+		{
+			m_functionId = actionIndex;
+			m_paramId = paramIndex;
+			m_paramName = name;
+			m_paramDataType = dataType;
+			m_validationType = validationType;
+			m_nMinumumValue = minValue;
+			m_nMaximumValue = maxValue;
+			m_enumValueByName = enumValues;
+		}
 
         public MessageParameterResponse (
             Node p_sourceNode,
@@ -103,24 +134,24 @@ namespace BitHome.Messaging.Messages
             }
 
             // get parameter validation type
-            m_validationType = (ParamValidationType)p_data[nByteIdx++];
+			byte validationByte = p_data [nByteIdx++];
+			if (validationByte == 0) { // Unsigned full
+				// TODO: min and max values
+				m_validationType = ParamValidationType.UNSIGNED_RANGE;
+			} else if (validationByte == 10) {
+				m_validationType = ParamValidationType.SIGNED_RANGE;
+			} else {
+				m_validationType = (ParamValidationType)validationByte;
+			}
 
             // get validation values
             switch (m_validationType)
             {
-                case ParamValidationType.UNSIGNED_FULL:
-                    // full-range unsigned value
-                    m_bIsSigned = false;
-                    break;
                 case ParamValidationType.UNSIGNED_RANGE:
                     // load min and max type-width values
                     nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_nMinumumValue);
                     nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_nMaximumValue);
                     m_bIsSigned = false;
-                    break;
-                case ParamValidationType.SIGNED_FULL:
-                    // full-range signed value
-                    m_bIsSigned = true;
                     break;
                 case ParamValidationType.SIGNED_RANGE:
                     m_bIsSigned = true;
@@ -140,7 +171,7 @@ namespace BitHome.Messaging.Messages
                         m_enumValueByName[strEnumValueName] = nEnumValue;
                     }
                     break;
-                case ParamValidationType.MAX_STRING_LEN:
+                case ParamValidationType.STRING:
                     // load single byte max string length
                     m_nMaxStringLength = p_data[nByteIdx++];
                     break;

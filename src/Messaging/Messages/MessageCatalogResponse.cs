@@ -5,7 +5,7 @@ using NLog;
 
 namespace BitHome.Messaging.Messages
 {
-    internal class MessageCatalogResponse : MessageBase
+    public class MessageCatalogResponse : MessageBase
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -15,6 +15,12 @@ namespace BitHome.Messaging.Messages
         private readonly DataType m_returnType;
         private readonly Dictionary<int, DataType> m_paramTypes = new Dictionary<int, DataType>();
         private readonly string m_functionName;
+
+		public override Api Api {
+			get {
+				return Protocol.Api.CATALOG_RESPONSE;
+			}
+		}
 
         public int TotalEntries
         {
@@ -45,6 +51,23 @@ namespace BitHome.Messaging.Messages
         {
             get { return m_functionName; }
         }
+
+		public MessageCatalogResponse (
+			Node p_sourceNode,
+			int p_totalEntries,
+			int p_entryNumber,
+			int p_numParams,
+			DataType p_returnType,
+			Dictionary<int, DataType> p_paramTypes,
+			string p_functionName ) : base (p_sourceNode, null)
+		{
+			m_totalEntries = p_totalEntries;
+			m_entryNumber = p_entryNumber;
+			m_numParams = p_numParams;
+			m_returnType = p_returnType;
+			m_paramTypes = p_paramTypes;
+			m_functionName = p_functionName;
+		}
 
         public MessageCatalogResponse(
             Node p_sourceNode,

@@ -26,7 +26,7 @@ namespace BitHome.Messaging.Xbee
                     foreach(Node node in nodes) {
                         if (node.NodeType == NodeType.Xbee)
                         {
-                            m_lookup[((NodeXbee) node).Address64] = node.Id;
+							m_lookup.Add(((NodeXbee) node).Address64, node.Id);
                         }
                     }
 				}
@@ -50,12 +50,17 @@ namespace BitHome.Messaging.Xbee
 	
 					// Look up the node
 				    Node node = null;
-				    String nodeKey = m_lookup[address64];
+				    String nodeKey;
+					
+					// If we have the address in our lookup then use it
+					// Otherwise create a new node from the NodeService
+					if (m_lookup.ContainsKey(address64))
+				    {
+						nodeKey = m_lookup[address64];
+						node = NodeService.GetNode (nodeKey);
+					} else {
+						node = NodeService.AddNode (new NodeXbee (address64, address16));
 
-                    // If we don't have a node, create it
-                    if (nodeKey == null)
-                    {
-                        node = NodeService.CreateNode();
                         m_lookup[address64] = node.Id;
                     }
 
@@ -64,6 +69,7 @@ namespace BitHome.Messaging.Xbee
 
 			case (byte)Protocol.Api.ZIGBEE_TX_STATUS:
 				{
+					log.Trace ("Received Zigbee TX Status");
 						//			Logger.v(TAG, "TXStatus - Frame:"+p_data[C_XBEE_TXS_FRAME_OFFSET]+" Addr16:"+String.format("0x%x", EBitConverter.toUInt16(p_data, C_XBEE_TXS_ADDR16_OFFSET)) +
 						//					" retry:" + p_data[C_XBEE_TXS_RETRY_OFFSET] +
 						//					" status:" + String.format("0x%x", p_data[C_XBEE_TXS_STATUS_OFFSET])+
