@@ -22,7 +22,6 @@ namespace BitHome
 
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
-		private bool m_isInvestigating;
 		private int m_threadWaitMs;
 
 		private Dictionary<String, Node> m_nodes;
@@ -40,6 +39,7 @@ namespace BitHome
 		public Boolean PeriodicCheckEnabled { get; set; }
 
 		public BroadcastNode BroadcastNode { get; set; }
+		public bool IsInvestigating { get; set; }
 
 		public NodeService() 
 		{
@@ -785,7 +785,7 @@ namespace BitHome
 		{
 			log.Trace ("Switching to query interval");
 
-			m_isInvestigating = false;
+			IsInvestigating = false;
 
 			m_threadWaitMs = QUERY_INVERVAL_MS;
 
@@ -794,11 +794,11 @@ namespace BitHome
 
 		private void SetInvestigateInterval()
 		{
-			if (!m_isInvestigating)
+			if (!IsInvestigating)
 			{
 				log.Trace ("Switching to investigation interval");
 
-				m_isInvestigating = true;
+				IsInvestigating = true;
 				m_threadWaitMs = INVESTIGATION_INTERVAL_MS;
 
 				// Since the investigate interval is smaller than the query interval,
@@ -831,7 +831,7 @@ namespace BitHome
 			{
 				// See if there are any unknown nodes to investigate
 				// Don't send out the pings if we are investigating
-				if (m_isInvestigating) {
+				if (IsInvestigating) {
 
 					InvestigateNodes ();
 

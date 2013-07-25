@@ -63,7 +63,9 @@ namespace BitHome.Messaging
 			log.Info ("Starting MessageDispatcherService");
 
 			if (m_isTesting == false) {
-				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-AH0015BR");
+				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A601D9KI");
+//				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A6007WWJ");
+//				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-AH0015BR");
 
 				m_adapters.Add (m_xbeeAdapter);
 
@@ -181,7 +183,7 @@ namespace BitHome.Messaging
 				while (m_isRunning) {
 					msg = m_messageQueueOut.Take ();
 
-					if (msg.DestinationNode != null ) {
+					if (msg.DestinationNode == null ) {
 						foreach( MessageAdapterBase adapter in m_adapters )
 						{
 							adapter.SendMessage (msg, adapter.BroadcastNode);

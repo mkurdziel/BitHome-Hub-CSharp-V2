@@ -85,7 +85,7 @@ namespace BitHome.Actions
 			}
 		}
 
-		public override bool Execute() {
+		public override bool Execute(long timeout) {
 			
 			//
 			//		NodeBase destNode = p_nodeManager.getNode(this.getNodeId());

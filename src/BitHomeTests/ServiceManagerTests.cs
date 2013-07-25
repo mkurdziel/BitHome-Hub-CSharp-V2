@@ -53,6 +53,10 @@ namespace BitHomeTests
 
 			ServiceManager.Start (true);
 
+			
+			// Check that we are not investigating
+			Assert.IsFalse (ServiceManager.NodeService.IsInvestigating);
+
 			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
 
 			// Make sure that an initial info request was sent out
@@ -82,6 +86,9 @@ namespace BitHomeTests
 
 			// Wait a sec for the message to be propagated
 			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+
+			// Check that we are investigating
+			Assert.IsTrue (ServiceManager.NodeService.IsInvestigating);
 
 			// Check for a catalog response
 			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
@@ -219,10 +226,13 @@ namespace BitHomeTests
 
 			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
 
-			// Wait a sec for the message to be propagated
-			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+			// Wait a sec for the investigation to complete
+			Thread.Sleep (TimeSpan.FromMilliseconds (100));
 
 			Assert.AreEqual (NodeInvestigationStatus.Completed, testNode.InvestigationStatus);
+
+			// Check that we are not investigating
+			Assert.IsFalse (ServiceManager.NodeService.IsInvestigating);
 
 			ServiceManager.Stop ();
 		}

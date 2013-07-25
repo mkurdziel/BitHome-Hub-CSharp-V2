@@ -74,16 +74,35 @@
     <Reference Include="NLog">
       <HintPath>packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>packages\ServiceStack.Redis.3.9.55\lib\net35\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>packages\ServiceStack.OrmLite.SqlServer.3.9.55\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer">
+      <HintPath>packages\ServiceStack.OrmLite.SqlServer.3.9.55\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Logging.NLog">
+      <HintPath>packages\ServiceStack.Logging.NLog.1.0.10.0\lib\net35\ServiceStack.Logging.NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor.Unofficial">
+      <HintPath>packages\System.Web.Razor.Unofficial.2.0.2\lib\net40\System.Web.Razor.Unofficial.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Razor">
+      <HintPath>packages\ServiceStack.Razor.3.9.56\lib\net40\ServiceStack.Razor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\css\" />
     <Folder Include="Content\image\" />
     <Folder Include="Content\js\" />
     <Folder Include="Actions\" />
+    <Folder Include="Web\" />
+    <Folder Include="Content\html\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
-    <Content Include="default.htm" />
     <Content Include="packages.config" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -91,10 +110,12 @@
     <Content Include="Scripts\jquery-2.0.2-vsdoc.js" />
     <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
+    <Content Include="default.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitHomeService.cs" />
-    <Compile Include="BitHome.cs" />
     <Compile Include="DataHelpers.cs" />
     <Compile Include="Messaging\Messages\MessageFunctionReceive.cs" />
     <Compile Include="Messaging\Messages\MessageParameterResponse.cs" />
@@ -116,7 +137,6 @@
     <Compile Include="Nodes\NodeService.cs" />
     <Compile Include="Nodes\NodeStatus.cs" />
     <Compile Include="Nodes\NodeInvestigationStatus.cs" />
-    <Compile Include="Nodes\NodeWebService.cs" />
     <Compile Include="StorageService.cs" />
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="Nodes\NodeType.cs" />
@@ -144,6 +164,13 @@
     <Compile Include="Actions\ActionService.cs" />
     <Compile Include="Actions\NodeParameter.cs" />
     <Compile Include="Actions\ActionParameter.cs" />
+    <Compile Include="Actions\ActionRequest.cs" />
+    <Compile Include="Actions\ActionRequestStatus.cs" />
+    <Compile Include="Web\WebNodeService.cs" />
+    <Compile Include="Web\WebActionService.cs" />
+    <Compile Include="BitHome.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -152,6 +179,12 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="Scripts\jquery-2.0.2.min.map" />
+    <None Include="Content\default.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>

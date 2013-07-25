@@ -5,32 +5,24 @@ using ServiceStack.Common.Web;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using ServiceStack.Text;
+using BitHome;
 
-namespace BitHome
+namespace BitHome.Web
 {
+	[Route("/nodes", "GET")]
+	public class AllNodes : IReturn<Node[]> { }
+
 	public class NodeResponse
 	{
 		public Node Node { get; set; }
 	}
 
-	/// <summary>
-	/// Define your ServiceStack web service request (i.e. Request DTO).
-	/// </summary>
-	/// <remarks>The route is defined here rather than in the AppHost.</remarks>
-	[Api("Find nodes by type, or all nodes if no genre is provided")]
-	[Route("/nodes", "GET, OPTIONS")]
-	[Route("/nodes/genres/{Genre}")]
-	public class Nodes
-	{
-		public string Genre { get; set; }
-	}
-
 	public class NodesResponse
 	{
-		public List<Node> Nodes { get; set; }
+		public Node[] Nodes { get; set; }
 	}
 
-	public class NodeWebService : ServiceStack.ServiceInterface.Service
+	public class WebNodeService : ServiceStack.ServiceInterface.Service
 	{
 		public NodeService NodeService {
 			get {
@@ -38,19 +30,10 @@ namespace BitHome
 			}
 		}	
 
-
-		public NodeWebService ()
+		public Node[] Get(AllNodes request) 
 		{
+			return NodeService.GetNodes ();
 		}
-/*
-		/// <summary>
-		/// GET /nodes/{Id} 
-		/// </summary>
-		public object Get(NodeBase p_node) {
-			return new NodeResponse {
-				Node = Db.Id<NodeBase>(p_node.Id),
-			};	
-		}*/
 
 		/// <summary>
 		/// POST /nodes
@@ -102,21 +85,5 @@ namespace BitHome
 			};
 		}*/
 	}
-
-	public class NodesWebService : ServiceStack.ServiceInterface.Service {
-		/// <summary>
-		/// GET /movies 
-		/// GET /movies/genres/{Genre}
-		/// </summary>
-	/*	public object Get(Nodes request)
-		{
-			return new NodesResponse {
-				Nodes = request.Genre.IsNullOrEmpty()
-					? Db.Select<NodeBase>()
-						: Db.Select<NodeBase>("Genres LIKE {0}", "%{0}%".Fmt(request.Genre))
-			};
-		}*/
-	}
-
 }
 

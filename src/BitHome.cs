@@ -4,6 +4,10 @@ using System.Text;
 using NLog;
 using ServiceStack.WebHost.Endpoints;
 using System.Threading;
+using ServiceStack.ServiceHost;
+using ServiceStack.Common;
+using ServiceStack.Logging.NLogger;
+using ServiceStack.Razor;
 
 namespace BitHome
 {
@@ -11,12 +15,11 @@ namespace BitHome
     {
         private static Logger log = LogManager.GetCurrentClassLogger();
 
-        static int Main(String[] args)
+        static void Main(String[] args)
         {
             var listeningOn = args.Length == 0 ? "http://*:1337/" : args[0];
 
             log.Info("Bithome Created at {0}, listening on {1}", DateTime.Now, listeningOn);
-
 
             var appHost = new AppHost();
             appHost.Init();
@@ -24,9 +27,16 @@ namespace BitHome
 
 			ServiceManager.Start ();
 
-			while (true) {
-				Thread.Sleep (10);
-			}
+			var proc = new System.Diagnostics.Process ();
+			proc.StartInfo.UseShellExecute = true;
+			proc.StartInfo.FileName = "http://localhost:1337/";
+			proc.Start ();
+
+			Console.WriteLine("\n\nListening on http://*:1337/..");
+			Console.WriteLine("Type Ctrl+C to quit..");
+			System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
+
+
         }
     }
 
@@ -36,12 +46,13 @@ namespace BitHome
 
         public override void Configure(Funq.Container container)
         {
-            Routes
-                .Add<Node>("/nodes/{id}")
-                .Add<Node>("/nodes");
+			ServiceStack.Logging.LogManager.LogFactory = new NLogFactory ();
+
+			Plugins.Add(new RazorFormat());
 
             SetConfig(new EndpointHostConfig
             {
+				EnableFeatures = Feature.All.Remove(Feature.Metadata),
                 DebugMode = true, //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
             });
         }

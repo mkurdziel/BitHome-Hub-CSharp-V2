@@ -1,7 +1,9 @@
 using System;
 using BitHome.Messaging.Protocol;
 using NLog;
+using ServiceStack.Text;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace BitHome.Actions
 {
@@ -12,22 +14,52 @@ namespace BitHome.Actions
 		public const int MAX_POOL_SIZE = 20;
 		public const int CORE_POOL_SIZE = 10;
 		public const int KEEP_ALIVE_TIME = 60;
+		public const int THREAD_POOL_SIZE = 10;
 
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
+		// List of all actions by Action ID
+		// This allows fast lookup of Action when executing
 		private Dictionary<string, IAction> m_actions = new Dictionary<string, IAction> ();
+
+		// List of anonymous actions that were note associated with
+		// a node but also are not a user-created action
+		// These are created so there is only one instance of them in the system
+		// and they can be used all over the place
+//		private Dictionary<String, IAction> m_anonActionList = new Dictionary<string, IAction> ();
+
+		// List of actions that were created by the user
+		List<IAction> m_userActions = new List<IAction>();
+
+		// Map of actions by node ID
+		Dictionary<String, List<INodeAction>> m_nodeActions = new Dictionary<string, List<INodeAction>>();
+
+		// Map of all parameters by parameter ID
+		Dictionary<String, IParameter> m_parameters = new Dictionary<string, IParameter>();
+
+		public IAction[] Actions {
+			get {
+				return m_actions.Values.ToArray ();
+			}
+		}
 
 		public ActionService ()
 		{
+			ThreadPool.SetMaxThreads (THREAD_POOL_SIZE, 2);
 		}
 
 		public bool Start()
 		{
+			log.Info ("Starting ActionService");
+
 			return true;
 		}
 
 		public void Stop()
 		{
+			log.Info ("Stopping ActionService");
+
+			// TODO stop all executing actions and wait
 		}
 
 		public INodeAction AddNodeAction (
@@ -54,31 +86,19 @@ namespace BitHome.Actions
 			// Store it in the local map, lookup by key
 			m_actions.Add (actionId, action);
 
+			// Add it to the node map
+			if (m_nodeActions.ContainsKey (p_node.Id)) {
+				// TODO check for duplicates
+				m_nodeActions [p_node.Id].Add (action);
+			} else {
+				m_nodeActions.Add (p_node.Id, new List<INodeAction> ());
+			}
+
 			// Set it to the node
 			p_node.SetNodeAction (p_entryNumber, action);
 
 			return action;
 		}
-			//	public void addNodeAction(INodeAction p_newNodeAction)
-			//	{
-			//		NodeBase node = m_nodeManager.getNode(p_newNodeAction.getNodeId()); 
-			//
-			//		if (node != null)
-			//		{
-			//			INodeAction replacedAction = node.setNodeAction(p_newNodeAction.getFunctionId(), p_newNodeAction);
-			//			if (replacedAction != null)
-			//			{
-			//				Logger.w(TAG, "addNodeAction - replacing action " + p_newNodeAction.getDescription());
-			//				m_actionMap.removeNodeAction(p_newNodeAction.getNodeId(), replacedAction);
-			//			}
-			//			m_actionMap.addNodeAction(p_newNodeAction);
-			//		}
-			//		else
-			//		{
-			//			Logger.w(TAG, "adding node action to null node " + String.format("0x%x", p_newNodeAction.getNodeId()));
-			//		}
-			//	}
-			//		}
 
 		public void AddNodeParameter (
 			Node node, 
@@ -92,6 +112,10 @@ namespace BitHome.Actions
 			Dictionary<String, int> enumValues)
 		{
 
+			INodeAction nodeAction = node.GetNodeAction (actionIndex);
+
+			// TODO handle null action
+
 			NodeParameter nodeParam = new NodeParameter (
 				node.Id,
 				actionIndex,
@@ -103,433 +127,74 @@ namespace BitHome.Actions
 				minValue,
 				maxValue,
 				enumValues,
-				null);
-			// TODO null action id
+				nodeAction.Id);
 
 			node.SetNodeParameter (actionIndex, paramIndex, nodeParam);
-			//		NodeAction action = (NodeAction)m_actionMap.getAction(p_newParameter.getActionId());
-			//
-			//		if (action != null)
-			//		{
-			//			// Add the parameter to the action
-			//			action.addParameter(p_newParameter);
-			//
-			//			// Keep track of it in our map
-			//			m_actionMap.addParameter(p_newParameter);
-			//		}
-			//		else
-			//		{
-			//			Logger.w(TAG, "adding node parameter to null action");
-			//		}
-			//
-			//	}		}
+
+			m_parameters.Add (nodeParam.Id, nodeParam);
+		}
+
+		public IAction GetAction(String actionId) {
+			if (m_actions.ContainsKey (actionId)) {
+				return m_actions [actionId];
+			}
+			return null;
+		}
+
+		public IParameter GetParameter(String parameterId) {
+			if (m_parameters.ContainsKey (parameterId)) {
+				return m_parameters [parameterId];
+			}
+			return null;
+		}
+
+		public INodeAction[] GetNodeActions(String nodeId)
+		{
+			if (m_nodeActions.ContainsKey (nodeId)) {
+				return m_nodeActions [nodeId].ToArray ();
+			}
+			return new INodeAction[]{};
+		}
+
+		public IAction[] GetUserActions()
+		{
+			return m_userActions.ToArray ();
+		}
+
+		public void AddAction (IAction action)
+		{
+			m_actions.Add (action.Id, action);
+		}
+
+		public ActionRequest ExecuteAction(String actionId)
+		{
+			return ExecuteAction (actionId, ACTION_TIMEOUT_MS);
+		}
+
+		public ActionRequest ExecuteAction(String actionId, long timeout)
+		{
+			if (m_actions.ContainsKey (actionId)) {
+				IAction action = m_actions [actionId];
+
+				return ExecuteAction (action, timeout);
+			}
+
+			return null;
+		}
+
+		public ActionRequest ExecuteAction(IAction action, long timeout)
+		{
+			// TODO handle null action
+			ActionRequest request = new ActionRequest (action, timeout);
+
+			Execute (request);
+
+			return request;
+		}
+
+		private void Execute(ActionRequest ActionRequest)
+		{
+			ThreadPool.QueueUserWorkItem (ActionRequest.ThreadPoolCallback);
 		}
 	}
 }
-//	private ActionMap m_actionMap;
-//	private NodeBroadcast m_broadcastNode = new NodeBroadcast();
-//
-//	// Threading for running the Actions
-//	BlockingQueue<Runnable> m_threadPool = new ArrayBlockingQueue<Runnable>(MAX_ACTION_THREADS);
-//	RejectedExecutionHandler m_rejectedExectionHandler = new RejectedActionExecutionHandler();
-//	ThreadPoolExecutor m_actionExecutor = new ThreadPoolExecutor(
-//		CORE_POOL_SIZE, 
-//		MAX_POOL_SIZE, 
-//		KEEP_ALIVE_TIME, 
-//		TimeUnit.SECONDS, 
-//		m_threadPool,
-//		m_rejectedExectionHandler);
-//
-//
-//	////////////////////////////////////////////////////////////	
-//	// Event Listeners
-//	////////////////////////////////////////////////////////////	
-//	//	private EventListener<NodeFunction> m_onNodeFunctionAdded = new EventListener<NodeFunction>()
-//	//	{
-//	//		@Override
-//	//		public void onNotify(Object source, NodeFunction p_nodeFunction)
-//	//		{
-//	//			if (p_nodeFunction != null)
-//	//			{
-//	////				addNodeAction(p_nodeFunction);
-//	//			}
-//	//			else
-//	//			{
-//	//				Logger.e(TAG, "received notification with null node function");
-//	//			}
-//	//		}
-//	//	};
-//
-//
-//	/**
-//	 * @return the NodeManager instance
-//	 */
-//	public static synchronized ActionManager getInstance()
-//	{
-//		if (m_instance == null)
-//		{
-//			m_instance = new ActionManager();
-//		}
-//		return m_instance;
-//	}
-//
-//	/**
-//	 * Default constructor
-//	 */
-//	private ActionManager()
-//	{
-//		Logger.d(TAG, "ActionManager created");
-//		m_actionMap = new ActionMap();
-//	}
-//
-//	/**
-//	 * Start the Action Manager
-//	 */
-//	public void start()
-//	{
-//		Logger.i(TAG, "Starting");
-//
-//		if (m_nodeManager != null)
-//		{
-//			//			m_nodeManager.onNodeFunctionAdded(m_onNodeFunctionAdded);
-//		}
-//		else
-//		{
-//			Logger.e(TAG, "cannot start with null NodeManager");
-//		}
-//	}
-//
-//	/**
-//	 * Stop the Action Manager
-//	 */
-//	public void stop()
-//	{
-//		m_actionExecutor.shutdown();
-//
-//		m_instance = null;
-//
-//		Logger.i(TAG, "Stopped");
-//	}
-//
-//	/**
-//	 * Set the node manager to be used by the action manager
-//	 * 
-//	 * @param p_nodeManager
-//	 */
-//	public void setNodeManager(NodeManager p_nodeManager)
-//	{
-//		m_nodeManager = p_nodeManager;
-//	}
-//
-//	/**
-//	 * Set the Message Dispatcher used by the Ac
-//	 * @param p_msgDispatcher
-//	 */
-//	public void setMsgDispatcher(MsgDispatcher p_msgDispatcher)
-//	{
-//		m_msgDispatcher = p_msgDispatcher;
-//	}
-//
-//	/**
-//	 * @return a unique Action ID that is not currently in the list
-//	 */
-//	private short getUniqueActionId()
-//	{
-//		short uniqueId = (short)m_randGenerator.nextInt(MAX_SHORT);
-//
-//		// We need to synchronize this so that we know it's truly unique
-//		synchronized(m_actionMap)
-//		{
-//			while(m_actionMap.getAction(uniqueId) != null)
-//			{
-//				uniqueId = (short)m_randGenerator.nextInt(MAX_SHORT);
-//			}
-//		}
-//		return uniqueId;
-//	}
-//
-//	/**
-//	 * @return a unique Parameter ID that is not currently in the list
-//	 */
-//	private short getUniqueParameterId()
-//	{
-//		short uniqueId = (short)m_randGenerator.nextInt(MAX_SHORT);
-//
-//		// We need to synchronize this so that we know it's truly unique
-//		synchronized(m_actionMap)
-//		{
-//			while(m_actionMap.getParameter(uniqueId) != null)
-//			{
-//				uniqueId = (short)m_randGenerator.nextInt(MAX_SHORT);
-//			}
-//		}
-//		return uniqueId;
-//	}
-//
-//
-//	/**
-//	 * Get the Node Actions for a particular node ID
-//	 * 
-//	 * @param p_nodeId
-//	 * @return
-//	 */
-//	public ArrayList<INodeAction> getNodeActions(long p_nodeId)
-//	{
-//		return m_actionMap.getNodeActions(p_nodeId);
-//	}
-
-//
-//	/**
-//	 * Create a new action parameter depdentend on another parameter
-//	 * 
-//	 * @param p_dependentParameter
-//	 * @return
-//	 */
-//	public ActionParameter createActionParameter(short p_actionId, IParameter p_dependentParameter)
-//	{
-//		ActionParameter param = new ActionParameter(getUniqueParameterId(), 
-//		                                            p_actionId, 
-//		                                            p_dependentParameter.getName(), 
-//		                                            p_dependentParameter.getDataType(), 
-//		                                            p_dependentParameter.getValidationType(), 
-//		                                            p_dependentParameter.getMinimumValue(), 
-//		                                            p_dependentParameter.getMaximumValue(), 
-//		                                            p_dependentParameter.getMaxStringLength(), 
-//		                                            p_dependentParameter.getEnumValueMap())  ;
-//
-//		Logger.v(TAG, "creating new action parameter " + param.getParameterIdString() + 
-//		         " from " + p_dependentParameter.getParameterIdString());
-//
-//		// Set the initial parameter as its dependent
-//		param.setDependentParamId(p_dependentParameter.getParameterId());
-//
-//		// Add it to the map
-//		addActionParameter(param);
-//
-//		return param;
-//	}
-//
-//	/**
-//	 * Simply add a parameter to the map
-//	 * @param p_parameter
-//	 */
-//	public void addActionParameter(ActionParameter p_parameter)
-//	{
-//		m_actionMap.addParameter(p_parameter);
-//	}
-//
-//	/**
-//	 * @param p_parameterId
-//	 * @param p_paramIndex
-//	 * @param p_functionId
-//	 * @param p_nodeId
-//	 * @param p_strName
-//	 * @param p_dataType
-//	 * @param p_paramValidataionType
-//	 * @param p_minimumValue
-//	 * @param p_maximumValue
-//	 * @param p_maxStringLength
-//	 * @param p_isSigned
-//	 * @param p_dctEnumValueByName
-//	 * @return
-//	 */
-//	public NodeParameter addNodeParameter(
-//		INodeAction p_action,
-//		int p_paramIndex, 
-//		int p_functionId, 
-//		long p_nodeId,
-//		String p_strName,
-//		EsnDataTypes p_dataType,
-//		EsnParamValidationTypes p_paramValidataionType,
-//		long p_minimumValue,
-//		long p_maximumValue,
-//		int p_maxStringLength,
-//		HashMap<Integer, String> p_dctEnumValueByName)
-//	{
-//		Logger.i(TAG, String.format("adding node parameter %s for node %X", p_strName, p_nodeId));
-//
-//		NodeParameter param = new NodeParameter(
-//			getUniqueParameterId(), 
-//			p_action.getActionId(), 
-//			p_paramIndex, 
-//			p_functionId, 
-//			p_nodeId, 
-//			p_strName, 
-//			p_dataType, 
-//			p_paramValidataionType, 
-//			p_minimumValue, 
-//			p_maximumValue, 
-//			p_maxStringLength, 
-//			p_dctEnumValueByName);
-//
-//		// Add the parameter to the action
-//		p_action.addParameter(param);
-//
-//		// Keep track of it in our map
-//		m_actionMap.addParameter(param);
-//
-//		return param;
-//	}
-//
-//	/**
-//	 * @return a newly created sequence action
-//	 */
-//	public SequenceAction addSequenceAction()
-//	{
-//
-//		// Create the new sequence action
-//		SequenceAction newAction = new SequenceAction(
-//			getUniqueActionId(),
-//			EsnDataTypes.VOID);
-//
-//		// Add it to the user actions
-//		addSequenceAction(newAction.getActionId(), newAction);
-//
-//		// Send out the update
-//		sendUserActionListUpdate();
-//
-//		return newAction;
-//	}
-//
-//	/**
-//	 * Add the sequence action
-//	 * 
-//	 * @param p_actionId
-//	 * @param p_action
-//	 */
-//	private void addSequenceAction(short p_actionId, SequenceAction p_action)
-//	{
-//		m_actionMap.addUserAction(p_action);
-//
-//		Logger.i(TAG, "New sequence action created: " + p_action.getActionIdString());
-//	}
-//
-//	/**
-//	 * @return a list of the user actions
-//	 */
-//	public IAction[] getUserActions()
-//	{
-//		return m_actionMap.getUserActions();
-//	}
-//
-//	/**
-//	 * Get a parameter based on its Id
-//	 * 
-//	 * @param p_parameterId
-//	 * @return
-//	 */
-//	public ParameterBase getParameter(short p_parameterId)
-//	{
-//		return m_actionMap.getParameter(p_parameterId);
-//	}
-//
-//	/**
-//	 * Get an action based on its Id
-//	 * 
-//	 * @param p_actionId
-//	 * @return
-//	 */
-//	public IAction getAction(short p_actionId)
-//	{
-//		return m_actionMap.getAction(p_actionId);
-//	}
-//
-//	/**
-//	 * Execution an action
-//	 * 
-//	 * @param p_actionId
-//	 * @return true if the Action was executed
-//	 */
-//	public ActionRequest executeAction(short p_actionId)
-//	{
-//
-//		IAction action = m_actionMap.getAction(p_actionId);
-//
-//		return executeAction(action, C_I_ACTION_TIMEOUT);
-//	}
-//
-//	/**
-//	 * Execution an action with a specified timeout
-//	 * 
-//	 * @param p_actionId
-//	 * @return true if the Action was executed
-//	 */
-//	public ActionRequest executeAction(short p_actionId, long p_timeoutMilliseconds)
-//	{
-//
-//		IAction action = m_actionMap.getAction(p_actionId);
-//
-//		return executeAction(action, p_timeoutMilliseconds);
-//	}
-//
-//	/**
-//	 * @param p_action
-//	 * @param p_timeoutMilliseconds
-//	 * @return
-//	 */
-//	private ActionRequest executeAction(IAction p_action, long p_timeoutMilliseconds)
-//	{
-//
-//		ActionRequest request = new ActionRequest(p_action, p_timeoutMilliseconds);
-//
-//		if (p_action != null)
-//		{
-//			Logger.v(TAG, "executing " + p_action.getActionIdString());
-//
-//			// Create a new action runner thread and put it in the pool
-//			m_actionExecutor.execute(
-//				new ActionRunnerThread(request, m_nodeManager, this, m_msgDispatcher) );
-//		}
-//		else
-//		{
-//			Logger.w(TAG, "executing null action");
-//		}
-//
-//		return request;
-//	}
-//
-//	/**
-//	 * Class to handle Actions that were rejected because the thread pool is full
-//	 */
-//	public class RejectedActionExecutionHandler implements RejectedExecutionHandler
-//	{
-//		public static final String TAG = "RejectedActionExecutionHandler";
-//
-//		@Override
-//			public void rejectedExecution(Runnable arg0, ThreadPoolExecutor arg1)
-//		{
-//			// Handle this better
-//			Logger.e(TAG, "Rejecting actions because the threadpool is full");
-//		}
-//
-//	}
-//
-//	/**
-//     * Broadcast a node list update
-//     */
-//	public void sendUserActionListUpdate()
-//	{
-//		MsgSystemUserActionListTransmit msg = 
-//			new MsgSystemUserActionListTransmit(m_broadcastNode, getUserActions());
-//		m_msgDispatcher.sendMessage(msg);
-//	}
-//
-//	/**
-//     * Handle a user action list receive message
-//     * 
-//     * @param p_msg
-//     */
-//	public void addMsgUserActionListRecieve(MsgSystemUserActionListReceive p_msg)
-//	{
-//		if(p_msg.getActionType().equals(SequenceAction.TYPE))
-//		{
-//			SequenceAction action = new SequenceAction(p_msg.getXml());
-//			addSequenceAction(action.getActionId(), action);
-//		}
-//		else
-//		{
-//			Logger.w(TAG, "user action list receive message for unknown message type: " + p_msg.getActionType());
-//		}
-//	}
-//
-//}

@@ -6,6 +6,7 @@ using System.Threading;
 
 namespace BitHome.Actions
 {
+	[Serializable]
 	public abstract class ActionBase : IAction
 	{
 		private const string DEFAULT_NAME = "Unknown Action";
@@ -86,10 +87,7 @@ namespace BitHome.Actions
 			}
 		}
 
-		public bool Execute (long p_timeoutMilliseconds)
-		{
-			throw new NotImplementedException ();
-		}
+		public abstract bool Execute (long p_timeoutMilliseconds);
 
 
 		#endregion
@@ -106,8 +104,6 @@ namespace BitHome.Actions
 
 			Monitor.Enter (m_actionLock);
 		}
-
-		public abstract bool Execute();
 
 		public void FinishExecute()
 		{

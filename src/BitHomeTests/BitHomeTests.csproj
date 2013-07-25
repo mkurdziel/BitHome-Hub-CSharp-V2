@@ -62,6 +62,7 @@
     <Compile Include="ServiceManagerTests.cs" />
     <Compile Include="ParameterBaseTest.cs" />
     <Compile Include="TestParameter.cs" />
+    <Compile Include="ActionServiceTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
