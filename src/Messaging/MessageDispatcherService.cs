@@ -62,9 +62,11 @@ namespace BitHome.Messaging
 		public bool Start() {
 			log.Info ("Starting MessageDispatcherService");
 
+			m_isRunning = true;
+
 			if (m_isTesting == false) {
-				m_xbeeAdapter = new MessageAdapterXbee ("COM3");
-                //m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A601D9KI");
+//				m_xbeeAdapter = new MessageAdapterXbee ("COM3");
+                m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A601D9KI");
 //				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A6007WWJ");
 //				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-AH0015BR");
 
@@ -82,7 +84,6 @@ namespace BitHome.Messaging
 			
 			m_messageThreadIn.Start ();
 
-			m_isRunning = true;
 
 			return true;
 		}

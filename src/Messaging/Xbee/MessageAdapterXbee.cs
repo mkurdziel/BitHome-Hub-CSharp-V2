@@ -334,7 +334,7 @@ namespace BitHome.Messaging.Xbee
 				if (_serialPort == null)
 					_serialPort = new SerialPort(_port, _baudRate, Parity.None);
 
-				if (!_serialPort.IsOpen)
+				if (_serialPort != null && !_serialPort.IsOpen)
 				{
 					_serialPort.ReadTimeout = -1;
 					_serialPort.WriteTimeout = -1;
@@ -394,7 +394,7 @@ namespace BitHome.Messaging.Xbee
 		{
 			int readBytes = 0;
 
-			if (count > 0)
+			if (count > 0 && _serialPort != null && _serialPort.IsOpen)
 			{
 				readBytes = _serialPort.Read(bytes, offset, count);
 			}
@@ -419,42 +419,44 @@ namespace BitHome.Messaging.Xbee
 		#region Threading Loops
 		private void SerialReceiving()
 		{
-			while (true)
-			{
-				int count = _serialPort.BytesToRead;
-
-				/*Get Sleep Inteval*/
-				TimeSpan tmpInterval = (DateTime.Now - _lastReceive);
-
-				/*Form The Packet in The Buffer*/
-				byte[] buf = new byte[count];
-				int readBytes = Receive(buf, 0, count);
-
-				if (readBytes > 0)
+			if (_serialPort != null && _serialPort.IsOpen) {
+				while (true)
 				{
-//					OnSerialReceiving(buf);
-					foreach( byte data in buf ) {
-						DecodePacketByte(data);
+					int count = _serialPort.BytesToRead;
+
+					/*Get Sleep Inteval*/
+					TimeSpan tmpInterval = (DateTime.Now - _lastReceive);
+
+					/*Form The Packet in The Buffer*/
+					byte[] buf = new byte[count];
+					int readBytes = Receive(buf, 0, count);
+
+					if (readBytes > 0)
+					{
+	//					OnSerialReceiving(buf);
+						foreach( byte data in buf ) {
+							DecodePacketByte(data);
+						}
 					}
+
+					#region Frequency Control
+					_PacketsRate = ((_PacketsRate + readBytes) / 2);
+
+					_lastReceive = DateTime.Now;
+
+					if ((double)(readBytes + _serialPort.BytesToRead) / 2 <= _PacketsRate)
+					{
+						if (tmpInterval.Milliseconds > 0)
+							Thread.Sleep(tmpInterval.Milliseconds > freqCriticalLimit ? freqCriticalLimit : tmpInterval.Milliseconds);
+
+						/*Testing Threading Model*/
+	//					Diagnostics.Debug.Write(tmpInterval.Milliseconds.ToString());
+	//					Diagnostics.Debug.Write(" - ");
+	//					Diagnostics.Debug.Write(readBytes.ToString());
+	//					Diagnostics.Debug.Write("\r\n");
+					}
+					#endregion
 				}
-
-				#region Frequency Control
-				_PacketsRate = ((_PacketsRate + readBytes) / 2);
-
-				_lastReceive = DateTime.Now;
-
-				if ((double)(readBytes + _serialPort.BytesToRead) / 2 <= _PacketsRate)
-				{
-					if (tmpInterval.Milliseconds > 0)
-						Thread.Sleep(tmpInterval.Milliseconds > freqCriticalLimit ? freqCriticalLimit : tmpInterval.Milliseconds);
-
-					/*Testing Threading Model*/
-//					Diagnostics.Debug.Write(tmpInterval.Milliseconds.ToString());
-//					Diagnostics.Debug.Write(" - ");
-//					Diagnostics.Debug.Write(readBytes.ToString());
-//					Diagnostics.Debug.Write("\r\n");
-				}
-				#endregion
 			}
 
 		}

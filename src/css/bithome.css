@@ -10,3 +10,11 @@
 .icon-size32 {
     font-size: 32px;
 }
+
+.brand {
+	background-image: url("../img/header.png");
+	width: 121px;
+	height: 27px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
