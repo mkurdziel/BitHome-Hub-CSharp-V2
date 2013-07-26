@@ -134,6 +134,9 @@ namespace BitHome.Actions
 		}
 
 		private Int64 m_maximumValue;
+        private long minValue;
+        private long maxValue;
+        private Dictionary<string, int> enumValues;
 		public Int64 MaximumValue {
 			get {
 				return m_maximumValue;
@@ -258,6 +261,9 @@ namespace BitHome.Actions
 			}
 		}
 
+        // TODO test this
+        public Int64 IntValue { get; private set; }
+
 		private ParameterBase ()
 		{
 			log.Trace ("()");
@@ -267,11 +273,42 @@ namespace BitHome.Actions
 			this.Id = id;
 		}
 
+        public ParameterBase(
+            string id, 
+            string name, 
+            Messaging.Protocol.DataType dataType, 
+            ParamValidationType validationType, 
+            long minValue, 
+            long maxValue, 
+            Dictionary<string, int> enumValues)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.DataType = dataType;
+            this.ValidationType = validationType;
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+            this.enumValues = enumValues;
+        }
+
+
+        private bool ValidateValue(String value, out Int64 intVal)
+        {
+            if (IsString)
+            {
+                intVal = 0;
+                return ValidateString(value);
+            } else {
+                return ValidateInteger(value, out intVal);
+            }
+        }
+
 		private bool ValidateValue (String value)
 		{
+		    Int64 intVal;
 			return IsString ? 
 				ValidateString (value) :
-					ValidateInteger (value);
+					ValidateInteger (value, out intVal);
 		}
 
 		private bool ValidateString (String value)
@@ -280,17 +317,19 @@ namespace BitHome.Actions
 				value.Length <= MaximumValue;
 		}
 
-		private bool ValidateInteger (String value)
+        private bool ValidateInteger(String value, out Int64 intValue)
 		{
 			bool retVal = true;
+            intValue = 0;
 
 			switch (ValidationType) {
 
 			case ParamValidationType.BOOL:
-				if (String.Equals (value, "0")) {
-					retVal = true;
+				if (String.Equals (value, "0"))
+				{
+                    intValue = 0;
 				} else if (String.Equals (value, "1")) {
-					retVal = true;
+                    intValue = 1;
 				} else {
 					retVal = false;
 				}
@@ -308,7 +347,6 @@ namespace BitHome.Actions
 //						}
 			case ParamValidationType.SIGNED_RANGE:
 			case ParamValidationType.UNSIGNED_RANGE:
-				Int64 intValue;
 				bool parseResult = Int64.TryParse (value, out intValue);
 
 				if (parseResult == true) {
@@ -324,9 +362,12 @@ namespace BitHome.Actions
 			return retVal;
 		}
 
-		public bool SetValue (String value) {
-			if (ValidateValue (value)) {
-				Value = value;
+		public bool SetValue (String value)
+		{
+		    Int64 intValue;
+			if (ValidateValue (value, out intValue)) {
+				this.Value = value;
+			    this.IntValue = intValue;
 				return true;
 			} else {
 				Value = "";

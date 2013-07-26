@@ -107,6 +107,21 @@ namespace BitHome {
       return b2;
     }
 
+    public static byte[] GetBytes(Int64 p_val)
+    {
+        byte[] b1 = BitConverter.GetBytes(p_val);
+        byte[] b2 = new byte[8];
+        b2[0] = b1[7];
+        b2[1] = b1[6];
+        b2[2] = b1[5];
+        b2[3] = b1[4];
+        b2[4] = b1[3];
+        b2[5] = b1[2];
+        b2[6] = b1[1];
+        b2[7] = b1[0];
+        return b2;
+    }
+
 
 
     ////////////////////////////////////////////////////////////////////////////

@@ -16,6 +16,7 @@ namespace BitHome.Actions
 		String DependentParameterId { get; set; }
 		Int64 MinimumValue { get; set; }
 		Int64 MaximumValue { get; set; }
+	    Int64 IntValue { get; }
 
 		bool IsSigned { get; }
 		bool IsInteger { get; }

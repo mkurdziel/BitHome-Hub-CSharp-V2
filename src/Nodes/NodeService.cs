@@ -340,7 +340,11 @@ namespace BitHome
 
         public Node GetNode(String p_key)
         {
-            return m_nodes[p_key];
+            if (m_nodes.ContainsKey(p_key))
+            {
+                return m_nodes[p_key];
+            }
+            return null;
         }
 
 
@@ -607,11 +611,11 @@ namespace BitHome
 //			m_msgDispatcher.sendMessage(msg);            
 		}
 
-		public void SendRebootRequest(Node p_node)
+		private void SendRebootRequest(Node p_node)
 		{
 			log.Info("Rebooting node {0}", p_node.Identifier);
-			//			MsgBootloadTransmit msg = new MsgBootloadTransmit(p_node, EsnAPIBootloadTransmit.REBOOT_DEVICE);
-			//			m_msgDispatcher.sendMessage(msg);         
+		    MessageBootloadTransmit msg = new MessageBootloadTransmit(BootloadTransmit.REBOOT_DEVICE);
+		    ServiceManager.MessageDispatcherService.SendMessage(msg, p_node);
 		}
 
 		
@@ -885,6 +889,24 @@ namespace BitHome
 				break;
 			}
 		}
+
+	    public void SetNodeName(string id, string name)
+	    {
+	        Node node = GetNode(id);
+            if (node!= null)
+            {
+                node.Name = name;
+            }
+	    }
+
+	    public void RebootNode(string id)
+	    {
+            Node node = GetNode(id);
+            if (node != null)
+            {
+                SendRebootRequest(node);
+            }
+	    }
 	}
 }
 

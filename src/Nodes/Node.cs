@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Runtime.Serialization;
 using ServiceStack.Text;
 using BitHome.Actions;
 using NLog;
@@ -35,6 +36,8 @@ namespace BitHome
 		public int InvestigationRetries { get; set; }
 
 		public int TotalNumberOfFunctions { get; set; }
+
+        [IgnoreDataMember]
 		public int NextUnknownAction {
 			get { 
 				for (int i=1; i<=TotalNumberOfFunctions; ++i) {
@@ -46,6 +49,7 @@ namespace BitHome
 			}
 		}
 
+        [IgnoreDataMember]
 		public Tuple<byte, byte> NextUnknownParameter {
 			get { 
 				INodeAction action;

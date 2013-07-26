@@ -63,7 +63,8 @@ namespace BitHome.Messaging
 			log.Info ("Starting MessageDispatcherService");
 
 			if (m_isTesting == false) {
-				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A601D9KI");
+				m_xbeeAdapter = new MessageAdapterXbee ("COM3");
+                //m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A601D9KI");
 //				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-A6007WWJ");
 //				m_xbeeAdapter = new MessageAdapterXbee ("/dev/tty.usbserial-AH0015BR");
 
@@ -111,7 +112,21 @@ namespace BitHome.Messaging
 			m_messageQueueOut.Add (p_message);
 		}
 
-		public void ReceiveMessage(MessageBase p_msg) 
+
+        public void SendMessage(MessageTxBase message, string destinationNodeId)
+        {
+            Node node = ServiceManager.NodeService.GetNode(destinationNodeId);
+            if (node != null)
+            {
+                SendMessage(message, node);
+            }
+            else
+            {
+                log.Warn("Trying to send {0} message to unknown node id {1}", message.Api, destinationNodeId);
+            }
+        }
+
+	    public void ReceiveMessage(MessageBase p_msg) 
 		{
 			m_messageQueueIn.Add (p_msg);
 		}
@@ -202,5 +217,6 @@ namespace BitHome.Messaging
 			}
 			log.Info ("Stopping message output thread");
 		}
+
 	}
 }

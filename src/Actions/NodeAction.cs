@@ -1,4 +1,5 @@
 using System;
+using BitHome.Messaging.Messages;
 using BitHome.Messaging.Protocol;
 using System.Collections.Generic;
 using ServiceStack.Text;
@@ -72,7 +73,7 @@ namespace BitHome.Actions
 			}
 		}
 
-		INodeParameter[] INodeAction.Parameters {
+		public INodeParameter[] Parameters {
 			get {
 				return m_parameters.Values.ToArray ();
 			}
@@ -85,22 +86,15 @@ namespace BitHome.Actions
 			}
 		}
 
-		public override bool Execute(long timeout) {
-			
-			//
-			//		NodeBase destNode = p_nodeManager.getNode(this.getNodeId());
-			//
-			//		if (destNode != null)
-			//		{
-			//
-			//			Logger.v(TAG, String.format("executing action %s %d:%d]", super.getName(), super.getNumParameters(),getParameters().length));
-			//
-			//			MsgFunctionTransmit msg = new MsgFunctionTransmit(
-			//				destNode, 
-			//				getFunctionId(), 
-			//				super.getNumParameters(), 
-			//				getParameters(),
-			//				getReturnType());
+		public override bool Execute(long timeout)
+		{
+
+		    MessageFunctionTransmit msg = new MessageFunctionTransmit(
+                this.EntryNumber,
+                Parameters,
+                ReturnDataType );
+
+            ServiceManager.MessageDispatcherService.SendMessage(msg, NodeId);
 			//
 			//			p_msgDispatcher.sendMessage(msg);
 			//

@@ -34,9 +34,7 @@ namespace BitHome
 
 			Console.WriteLine("\n\nListening on http://*:1337/..");
 			Console.WriteLine("Type Ctrl+C to quit..");
-			System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
-
-
+			Thread.Sleep(Timeout.Infinite);
         }
     }
 
@@ -52,7 +50,7 @@ namespace BitHome
 
             SetConfig(new EndpointHostConfig
             {
-				EnableFeatures = Feature.All.Remove(Feature.Metadata),
+                //EnableFeatures = Feature.All.Remove(Feature.Metadata),
                 DebugMode = true, //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
             });
         }

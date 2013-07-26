@@ -20,25 +20,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD4D8ABB-7A26-42EF-BD49-66FF5B440F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD4D8ABB-7A26-42EF-BD49-66FF5B440F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD4D8ABB-7A26-42EF-BD49-66FF5B440F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD4D8ABB-7A26-42EF-BD49-66FF5B440F23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = BitHome.csproj
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

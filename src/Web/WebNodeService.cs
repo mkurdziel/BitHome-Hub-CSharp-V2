@@ -1,26 +1,21 @@
-using System.Collections.Generic;
-using System.Net;
-using ServiceStack.Common;
-using ServiceStack.Common.Web;
-using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
-using ServiceStack.Text;
-using BitHome;
 
 namespace BitHome.Web
 {
-	[Route("/nodes", "GET")]
-	public class AllNodes : IReturn<Node[]> { }
+	[Route("/api/nodes", "GET")]
+	public class WebNodes : IReturn<Node[]> { }
 
-	public class NodeResponse
-	{
-		public Node Node { get; set; }
-	}
+	[Route("/api/nodes/{NodeId}/name", "POST")]
+	public class WebNodeName : IReturn<Node> {
+        public string NodeId { get; set; }
+        public string Name { get; set; }
+    }
 
-	public class NodesResponse
-	{
-		public Node[] Nodes { get; set; }
-	}
+    [Route("/api/nodes/{NodeId}/reboot", "POST")]
+    public class WebNodeReboot : IReturn<Node>
+    {
+        public string NodeId { get; set; }
+    }
 
 	public class WebNodeService : ServiceStack.ServiceInterface.Service
 	{
@@ -28,12 +23,37 @@ namespace BitHome.Web
 			get {
 				return ServiceManager.NodeService;
 			}
-		}	
+		}
 
-		public Node[] Get(AllNodes request) 
+        public Node[] Get(WebNodes request) 
 		{
 			return NodeService.GetNodes ();
 		}
+
+        public Node Post(WebNodeName request)
+        {
+            Node node = NodeService.GetNode(request.NodeId);
+
+            if (node!=null)
+            {
+                NodeService.SetNodeName(node.Id, request.Name);
+            }
+
+            return node;
+        }
+
+
+        public Node Post(WebNodeReboot request)
+        {
+            Node node = NodeService.GetNode(request.NodeId);
+
+            if (node != null)
+            {
+                NodeService.RebootNode(node.Id);
+            }
+
+            return node;
+        }
 
 		/// <summary>
 		/// POST /nodes

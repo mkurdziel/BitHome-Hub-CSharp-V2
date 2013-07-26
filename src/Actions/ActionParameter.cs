@@ -18,7 +18,7 @@ namespace BitHome.Actions
 			Int64 maxValue,
 			Dictionary<String, int> enumValues,
 			String actionId ) :
-			base (id)
+			base (id, name, dataType, validationType, minValue, maxValue, enumValues)
 		{
 			ActionId = actionId;
 			ParameterType = ActionParameterType.Input;

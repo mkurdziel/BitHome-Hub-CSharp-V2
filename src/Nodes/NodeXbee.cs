@@ -9,8 +9,15 @@ namespace BitHome
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
 		public UInt64 Address64 { get; set; }
-
 		public UInt16 Address16 { get; set; }
+
+		public String Address16String { 
+            get { return String.Format("0x{0:X4}", Address16); }
+        }
+
+		public String Address64String { 
+            get { return String.Format("0x{0:X16}", Address64); }
+        }
 
 		public NodeXbee ()
 		{

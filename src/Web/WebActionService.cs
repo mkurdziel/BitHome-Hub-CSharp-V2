@@ -1,18 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Net;
-using ServiceStack.Common;
-using ServiceStack.Common.Web;
-using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
-using ServiceStack.Text;
-using BitHome;
 using BitHome.Actions;
 
-namespace BitHome
+namespace BitHome.Web
 {
-	[Route("/actions", "GET")]
-	public class WebActions : IReturn<IAction> { }
+	[Route("/api/actions", "GET")]
+	public class WebActions : IReturn<IAction[]> { }
+
+	[Route("/api/actions/{ActionId}/execute", "POST")]
+	public class WebActionExecute : IReturn<IAction> {
+        public string ActionId { get; set; }
+        public Dictionary<string, string> parameters { get; set; }
+    }
+
+	[Route("/api/actions/{ActionId}/parameters", "GET")]
+    public class WebActionParameters : IReturn<IActionParameter[]> {
+        public string ActionId { get; set; }
+    }
 
 	public class WebActionService : ServiceStack.ServiceInterface.Service
 	{
@@ -21,6 +25,32 @@ namespace BitHome
 		{
 			return ServiceManager.ActionService.Actions;
 		}
+
+
+        public IActionParameter[] Get(WebActionParameters request)
+        {
+            IAction action = ServiceManager.ActionService.GetAction(request.ActionId);
+            if (action != null)
+            {
+                return action.Parameters;
+            }
+            return new IActionParameter[0];
+        }
+
+        public IAction[] Post(WebActionExecute request)
+        {
+            foreach(string key in request.parameters.Keys)
+            {
+                IParameter param = ServiceManager.ActionService.GetParameter(key);
+                if (param != null)
+                {
+                    param.SetValue(request.parameters[key]);
+                }
+            }
+            ServiceManager.ActionService.ExecuteAction(request.ActionId);
+
+            return null;
+        }
 	}
 }
 
