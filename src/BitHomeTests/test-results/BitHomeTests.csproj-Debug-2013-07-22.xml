@@ -1,0 +1,2356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results />
+  <Tests>
+    <TestRecord Name="BitHomeTests">
+      <Results />
+      <Tests>
+        <TestRecord Name="ServiceManagerTests">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-07-22T18:54:15</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>2</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T18:57:05</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>2</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="TestInvestigation">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T00:55:44</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at MonoDevelop.NUnit.UnitTestResult.CreateFailure (System.String message, System.Exception ex) [0x00014] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.9-branch/f9c5c24e/source/monodevelop/main/src/addins/NUnit/Services/UnitTestResult.cs:67 
+  at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest (MonoDevelop.NUnit.UnitTest test, System.String suiteName, System.String pathName, System.String testName, MonoDevelop.NUnit.TestContext testContext) [0x00214] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.9-branch/f9c5c24e/source/monodevelop/main/src/addins/NUnit/Services/NUnitAssemblyTestSuite.cs:440 
+  at MonoDevelop.NUnit.NUnitTestCase.OnRun (MonoDevelop.NUnit.TestContext testContext) [0x00000] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.9-branch/f9c5c24e/source/monodevelop/main/src/addins/NUnit/Services/NUnitTestCase.cs:55 
+  at MonoDevelop.NUnit.UnitTest.Run (MonoDevelop.NUnit.TestContext testContext) [0x0001c] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.9-branch/f9c5c24e/source/monodevelop/main/src/addins/NUnit/Services/UnitTest.cs:361 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T00:58:49</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestInvestigation () [0x00168] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:114 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00054] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin/build-root/mono-3.0.12/mcs/class/corlib/System.Reflection/MonoMethod.cs:230 </StackTrace>
+                  <ConsoleOutput>2013-07-22 00:58:51.1193|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 00:58:51.1275|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 00:58:51.1665|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 00:58:51.1701|TRACE|BitHome.NodeService|()
+2013-07-22 00:58:51.1701|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 00:58:51.1724|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 00:58:51.1756|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 00:58:51.1798|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 00:58:51.1800|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 00:58:51.1800|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 00:58:51.1824|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 00:58:51.1950|INFO|BitHome.NodeService|Creating node 40chh41476590
+2013-07-22 00:58:51.1962|INFO|BitHome.NodeService|Adding node 40chh41476590 for investigation
+2013-07-22 00:58:51.1962|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 40chh41476590
+2013-07-22 00:58:51.1962|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 00:58:51.1989|DEBUG|BitHome.NodeService|Investigating:40chh41476590 function:0 now:7/22/2013 12:58:51 AM next:7/22/2013 12:58:51 AM
+2013-07-22 00:58:51.2076|DEBUG|BitHome.NodeService|Investigating INFO for 40chh41476590
+2013-07-22 00:58:51.2082|DEBUG|BitHome.NodeService|Setting next investigation time for 40chh41476590 funtion:0 to 7/22/2013 12:58:53 AM
+2013-07-22 00:58:51.2141|DEBUG|BitHome.NodeService|Processing status info for node 40chh41476590
+2013-07-22 00:58:51.2141|DEBUG|BitHome.NodeService|Setting status info for node:40chh41476590 revision:-1 to 1 
+2013-07-22 00:58:53.2754|DEBUG|BitHome.NodeService|Investigating:40chh41476590 function:0 now:7/22/2013 12:58:53 AM next:7/22/2013 12:58:53 AM
+2013-07-22 00:58:53.2754|DEBUG|BitHome.NodeService|Investigating CATALOG for 40chh41476590
+2013-07-22 00:58:53.2754|DEBUG|BitHome.NodeService|Setting next investigation time for 40chh41476590 funtion:0 to 7/22/2013 12:58:55 AM
+2013-07-22 00:58:53.2793|DEBUG|BitHome.NodeService|Received base catalog for 40chh41476590 with total entries 2
+2013-07-22 00:58:53.2793|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 40chh41476590
+2013-07-22 00:58:53.3775|DEBUG|BitHome.NodeService|Investigating:40chh41476590 function:0 now:7/22/2013 12:58:53 AM next:7/22/2013 12:58:53 AM
+2013-07-22 00:58:53.3779|DEBUG|BitHome.NodeService|Investigating full catalog for 40chh41476590
+2013-07-22 00:58:53.3779|DEBUG|BitHome.NodeService|Setting next investigation time for 40chh41476590 funtion:0 to 7/22/2013 12:58:55 AM
+2013-07-22 00:58:55.3749|DEBUG|BitHome.NodeService|Investigating:40chh41476590 function:0 now:7/22/2013 12:58:55 AM next:7/22/2013 12:58:55 AM
+2013-07-22 00:58:55.3749|DEBUG|BitHome.NodeService|Investigating full catalog for 40chh41476590
+2013-07-22 00:58:55.3749|DEBUG|BitHome.NodeService|Setting next investigation time for 40chh41476590 funtion:0 to 7/22/2013 12:58:57 AM
+2013-07-22 00:58:57.3785|DEBUG|BitHome.NodeService|Investigating:40chh41476590 function:0 now:7/22/2013 12:58:57 AM next:7/22/2013 12:58:57 AM
+2013-07-22 00:58:57.3785|DEBUG|BitHome.NodeService|Investigating full catalog for 40chh41476590
+2013-07-22 00:58:57.3785|DEBUG|BitHome.NodeService|Setting next investigation time for 40chh41476590 funtion:0 to 7/22/2013 12:58:59 AM
+2013-07-22 00:58:57.4787|INFO|BitHome.NodeService|Investigating node 40chh41476590 has timed out
+2013-07-22 00:58:57.4793|INFO|BitHome.NodeService|Removing node 40chh41476590 from investigation
+2013-07-22 00:58:57.4802|TRACE|BitHome.NodeService|Switching to query interval
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:54:15</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestInvestigation () [0x00167] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:114 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:54:16.3160|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 18:54:16.3250|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 18:54:16.3743|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 18:54:16.3782|TRACE|BitHome.NodeService|()
+2013-07-22 18:54:16.3816|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 18:54:16.3858|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 18:54:16.3893|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 18:54:16.3924|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 18:54:16.3928|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 18:54:16.3928|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 18:54:16.3948|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 18:54:16.4175|INFO|BitHome.NodeService|Creating node d9iiq41541115
+2013-07-22 18:54:16.4185|INFO|BitHome.NodeService|Adding node d9iiq41541115 for investigation
+2013-07-22 18:54:16.4194|DEBUG|BitHome.NodeService|Resetting investigation attempts on node d9iiq41541115
+2013-07-22 18:54:16.4197|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 18:54:16.4221|DEBUG|BitHome.NodeService|Investigating:d9iiq41541115 function:0 now:7/22/2013 6:54:16 PM next:7/22/2013 6:54:16 PM
+2013-07-22 18:54:16.4285|DEBUG|BitHome.NodeService|Investigating INFO for d9iiq41541115
+2013-07-22 18:54:16.4292|DEBUG|BitHome.NodeService|Setting next investigation time for d9iiq41541115 funtion:0 to 7/22/2013 6:54:18 PM
+2013-07-22 18:54:16.4326|DEBUG|BitHome.NodeService|Processing status info for node d9iiq41541115
+2013-07-22 18:54:16.4326|DEBUG|BitHome.NodeService|Setting status info for node:d9iiq41541115 revision:-1 to 1 
+2013-07-22 18:54:18.4334|DEBUG|BitHome.NodeService|Investigating:d9iiq41541115 function:0 now:7/22/2013 6:54:18 PM next:7/22/2013 6:54:18 PM
+2013-07-22 18:54:18.4335|DEBUG|BitHome.NodeService|Investigating CATALOG for d9iiq41541115
+2013-07-22 18:54:18.4335|DEBUG|BitHome.NodeService|Setting next investigation time for d9iiq41541115 funtion:0 to 7/22/2013 6:54:20 PM
+2013-07-22 18:54:18.4376|DEBUG|BitHome.NodeService|Received base catalog for d9iiq41541115 with total entries 2
+2013-07-22 18:54:18.4376|DEBUG|BitHome.NodeService|Resetting investigation attempts on node d9iiq41541115
+2013-07-22 18:54:18.5343|DEBUG|BitHome.NodeService|Investigating:d9iiq41541115 function:0 now:7/22/2013 6:54:18 PM next:7/22/2013 6:54:18 PM
+2013-07-22 18:54:18.5343|DEBUG|BitHome.NodeService|Investigating full catalog for d9iiq41541115
+2013-07-22 18:54:18.5343|DEBUG|BitHome.NodeService|Setting next investigation time for d9iiq41541115 funtion:0 to 7/22/2013 6:54:20 PM
+2013-07-22 18:54:20.4379|DEBUG|BitHome.NodeService|Investigating:d9iiq41541115 function:0 now:7/22/2013 6:54:20 PM next:7/22/2013 6:54:20 PM
+2013-07-22 18:54:20.4379|DEBUG|BitHome.NodeService|Investigating full catalog for d9iiq41541115
+2013-07-22 18:54:20.4379|DEBUG|BitHome.NodeService|Setting next investigation time for d9iiq41541115 funtion:0 to 7/22/2013 6:54:22 PM
+2013-07-22 18:54:22.4475|DEBUG|BitHome.NodeService|Investigating:d9iiq41541115 function:0 now:7/22/2013 6:54:22 PM next:7/22/2013 6:54:22 PM
+2013-07-22 18:54:22.4475|DEBUG|BitHome.NodeService|Investigating full catalog for d9iiq41541115
+2013-07-22 18:54:22.4475|DEBUG|BitHome.NodeService|Setting next investigation time for d9iiq41541115 funtion:0 to 7/22/2013 6:54:24 PM
+2013-07-22 18:54:22.5478|INFO|BitHome.NodeService|Investigating node d9iiq41541115 has timed out
+2013-07-22 18:54:22.5478|INFO|BitHome.NodeService|Removing node d9iiq41541115 from investigation
+2013-07-22 18:54:22.5489|TRACE|BitHome.NodeService|Switching to query interval
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:55:48</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestInvestigation () [0x00167] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:114 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:55:50.1168|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 18:55:50.1307|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 18:55:50.1821|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 18:55:50.1861|TRACE|BitHome.NodeService|()
+2013-07-22 18:55:50.1897|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 18:55:50.1937|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 18:55:50.1972|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 18:55:50.2005|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 18:55:50.2005|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 18:55:50.2005|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 18:55:50.2036|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 18:55:50.2122|INFO|BitHome.NodeService|Creating node 684r641541209
+2013-07-22 18:55:50.2133|INFO|BitHome.NodeService|Adding node 684r641541209 for investigation
+2013-07-22 18:55:50.2133|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 684r641541209
+2013-07-22 18:55:50.2133|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 18:55:50.2164|DEBUG|BitHome.NodeService|Investigating:684r641541209 function:0 now:7/22/2013 6:55:50 PM next:7/22/2013 6:55:50 PM
+2013-07-22 18:55:50.2224|DEBUG|BitHome.NodeService|Investigating INFO for 684r641541209
+2013-07-22 18:55:50.2224|DEBUG|BitHome.NodeService|Setting next investigation time for 684r641541209 funtion:0 to 7/22/2013 6:55:52 PM
+2013-07-22 18:55:50.2258|DEBUG|BitHome.NodeService|Processing status info for node 684r641541209
+2013-07-22 18:55:50.2258|DEBUG|BitHome.NodeService|Setting status info for node:684r641541209 revision:-1 to 1 
+2013-07-22 18:55:52.2267|DEBUG|BitHome.NodeService|Investigating:684r641541209 function:0 now:7/22/2013 6:55:52 PM next:7/22/2013 6:55:52 PM
+2013-07-22 18:55:52.2267|DEBUG|BitHome.NodeService|Investigating CATALOG for 684r641541209
+2013-07-22 18:55:52.2267|DEBUG|BitHome.NodeService|Setting next investigation time for 684r641541209 funtion:0 to 7/22/2013 6:55:54 PM
+2013-07-22 18:55:52.2329|DEBUG|BitHome.NodeService|Received base catalog for 684r641541209 with total entries 2
+2013-07-22 18:55:52.2329|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 684r641541209
+2013-07-22 18:55:52.3352|DEBUG|BitHome.NodeService|Investigating:684r641541209 function:0 now:7/22/2013 6:55:52 PM next:7/22/2013 6:55:52 PM
+2013-07-22 18:55:52.3352|DEBUG|BitHome.NodeService|Investigating full catalog for 684r641541209
+2013-07-22 18:55:52.3442|DEBUG|BitHome.NodeService|Setting next investigation time for 684r641541209 funtion:0 to 7/22/2013 6:55:54 PM
+2013-07-22 18:55:54.2525|DEBUG|BitHome.NodeService|Investigating:684r641541209 function:0 now:7/22/2013 6:55:54 PM next:7/22/2013 6:55:54 PM
+2013-07-22 18:55:54.2525|DEBUG|BitHome.NodeService|Investigating full catalog for 684r641541209
+2013-07-22 18:55:54.2525|DEBUG|BitHome.NodeService|Setting next investigation time for 684r641541209 funtion:0 to 7/22/2013 6:55:56 PM
+2013-07-22 18:55:56.2654|DEBUG|BitHome.NodeService|Investigating:684r641541209 function:0 now:7/22/2013 6:55:56 PM next:7/22/2013 6:55:56 PM
+2013-07-22 18:55:56.2654|DEBUG|BitHome.NodeService|Investigating full catalog for 684r641541209
+2013-07-22 18:55:56.2654|DEBUG|BitHome.NodeService|Setting next investigation time for 684r641541209 funtion:0 to 7/22/2013 6:55:58 PM
+2013-07-22 18:55:56.3657|INFO|BitHome.NodeService|Investigating node 684r641541209 has timed out
+2013-07-22 18:55:56.3661|INFO|BitHome.NodeService|Removing node 684r641541209 from investigation
+2013-07-22 18:55:56.3661|TRACE|BitHome.NodeService|Switching to query interval
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:57:05</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestInvestigation () [0x0017d] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:114 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:57:06.6596|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 18:57:06.6728|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 18:57:06.7244|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 18:57:06.7292|TRACE|BitHome.NodeService|()
+2013-07-22 18:57:06.7376|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 18:57:06.7776|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 18:57:06.7823|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 18:57:06.7939|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 18:57:06.7943|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 18:57:06.7943|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 18:57:06.7976|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 18:57:06.8181|INFO|BitHome.NodeService|Creating node zmp8541541285
+2013-07-22 18:57:06.8194|INFO|BitHome.NodeService|Adding node zmp8541541285 for investigation
+2013-07-22 18:57:06.8201|DEBUG|BitHome.NodeService|Resetting investigation attempts on node zmp8541541285
+2013-07-22 18:57:06.8212|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 18:57:06.8236|DEBUG|BitHome.NodeService|Investigating:zmp8541541285 function:0 now:7/22/2013 6:57:06 PM next:7/22/2013 6:57:06 PM
+2013-07-22 18:57:06.8304|DEBUG|BitHome.NodeService|Investigating INFO for zmp8541541285
+2013-07-22 18:57:06.8304|DEBUG|BitHome.NodeService|Setting next investigation time for zmp8541541285 funtion:0 to 7/22/2013 6:57:08 PM
+2013-07-22 18:57:06.8346|DEBUG|BitHome.NodeService|Processing status info for node zmp8541541285
+2013-07-22 18:57:06.8350|DEBUG|BitHome.NodeService|Setting status info for node:zmp8541541285 revision:-1 to 1 
+2013-07-22 18:57:08.8347|DEBUG|BitHome.NodeService|Investigating:zmp8541541285 function:0 now:7/22/2013 6:57:08 PM next:7/22/2013 6:57:08 PM
+2013-07-22 18:57:08.8347|DEBUG|BitHome.NodeService|Investigating CATALOG for zmp8541541285
+2013-07-22 18:57:08.8350|DEBUG|BitHome.NodeService|Setting next investigation time for zmp8541541285 funtion:0 to 7/22/2013 6:57:10 PM
+2013-07-22 18:57:08.8384|DEBUG|BitHome.NodeService|Received base catalog for zmp8541541285 with total entries 2
+2013-07-22 18:57:08.8384|DEBUG|BitHome.NodeService|Resetting investigation attempts on node zmp8541541285
+2013-07-22 18:57:08.9351|DEBUG|BitHome.NodeService|Investigating:zmp8541541285 function:0 now:7/22/2013 6:57:08 PM next:7/22/2013 6:57:08 PM
+2013-07-22 18:57:08.9351|DEBUG|BitHome.NodeService|Investigating full catalog for zmp8541541285
+2013-07-22 18:57:08.9351|DEBUG|BitHome.NodeService|Setting next investigation time for zmp8541541285 funtion:0 to 7/22/2013 6:57:10 PM
+2013-07-22 18:57:10.9372|DEBUG|BitHome.NodeService|Investigating:zmp8541541285 function:0 now:7/22/2013 6:57:10 PM next:7/22/2013 6:57:10 PM
+2013-07-22 18:57:10.9372|DEBUG|BitHome.NodeService|Investigating full catalog for zmp8541541285
+2013-07-22 18:57:10.9372|DEBUG|BitHome.NodeService|Setting next investigation time for zmp8541541285 funtion:0 to 7/22/2013 6:57:12 PM
+2013-07-22 18:57:12.8394|DEBUG|BitHome.NodeService|Investigating:zmp8541541285 function:0 now:7/22/2013 6:57:12 PM next:7/22/2013 6:57:12 PM
+2013-07-22 18:57:12.8394|DEBUG|BitHome.NodeService|Investigating full catalog for zmp8541541285
+2013-07-22 18:57:12.8394|DEBUG|BitHome.NodeService|Setting next investigation time for zmp8541541285 funtion:0 to 7/22/2013 6:57:14 PM
+2013-07-22 18:57:12.9400|INFO|BitHome.NodeService|Investigating node zmp8541541285 has timed out
+2013-07-22 18:57:12.9400|INFO|BitHome.NodeService|Removing node zmp8541541285 from investigation
+2013-07-22 18:57:12.9410|TRACE|BitHome.NodeService|Switching to query interval
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T19:01:53</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestInvestigation () [0x0017d] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:109 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 19:01:55.4685|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 19:01:55.4842|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 19:01:55.5381|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 19:01:55.5429|TRACE|BitHome.NodeService|()
+2013-07-22 19:01:55.5492|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 19:01:55.5540|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 19:01:55.5584|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 19:01:55.5659|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 19:01:55.5663|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 19:01:55.5663|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 19:01:55.5690|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 19:01:55.5830|INFO|BitHome.NodeService|Creating node meuoq41541574
+2013-07-22 19:01:55.5841|INFO|BitHome.NodeService|Adding node meuoq41541574 for investigation
+2013-07-22 19:01:55.5846|DEBUG|BitHome.NodeService|Resetting investigation attempts on node meuoq41541574
+2013-07-22 19:01:55.5846|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 19:01:55.6916|DEBUG|BitHome.NodeService|Investigating:meuoq41541574 function:0 now:7/22/2013 7:01:55 PM next:7/22/2013 7:01:55 PM
+2013-07-22 19:01:55.6979|DEBUG|BitHome.NodeService|Investigating INFO for meuoq41541574
+2013-07-22 19:01:55.6984|DEBUG|BitHome.NodeService|Setting next investigation time for meuoq41541574 funtion:0 to 7/22/2013 7:01:57 PM
+2013-07-22 19:01:55.7031|DEBUG|BitHome.NodeService|Processing status info for node meuoq41541574
+2013-07-22 19:01:55.7038|DEBUG|BitHome.NodeService|Setting status info for node:meuoq41541574 revision:-1 to 1 
+2013-07-22 19:01:57.6066|DEBUG|BitHome.NodeService|Investigating:meuoq41541574 function:0 now:7/22/2013 7:01:57 PM next:7/22/2013 7:01:57 PM
+2013-07-22 19:01:57.6066|DEBUG|BitHome.NodeService|Investigating CATALOG for meuoq41541574
+2013-07-22 19:01:57.6066|DEBUG|BitHome.NodeService|Setting next investigation time for meuoq41541574 funtion:0 to 7/22/2013 7:01:59 PM
+2013-07-22 19:01:57.6104|DEBUG|BitHome.NodeService|Received base catalog for meuoq41541574 with total entries 2
+2013-07-22 19:01:57.6104|DEBUG|BitHome.NodeService|Resetting investigation attempts on node meuoq41541574
+2013-07-22 19:01:57.7071|DEBUG|BitHome.NodeService|Investigating:meuoq41541574 function:0 now:7/22/2013 7:01:57 PM next:7/22/2013 7:01:57 PM
+2013-07-22 19:01:57.7071|DEBUG|BitHome.NodeService|Investigating full catalog for meuoq41541574
+2013-07-22 19:01:57.7071|DEBUG|BitHome.NodeService|Setting next investigation time for meuoq41541574 funtion:0 to 7/22/2013 7:01:59 PM
+2013-07-22 19:01:59.6155|DEBUG|BitHome.NodeService|Investigating:meuoq41541574 function:0 now:7/22/2013 7:01:59 PM next:7/22/2013 7:01:59 PM
+2013-07-22 19:01:59.6155|DEBUG|BitHome.NodeService|Investigating full catalog for meuoq41541574
+2013-07-22 19:01:59.6155|DEBUG|BitHome.NodeService|Setting next investigation time for meuoq41541574 funtion:0 to 7/22/2013 7:02:01 PM
+2013-07-22 19:02:01.6177|DEBUG|BitHome.NodeService|Investigating:meuoq41541574 function:0 now:7/22/2013 7:02:01 PM next:7/22/2013 7:02:01 PM
+2013-07-22 19:02:01.6177|DEBUG|BitHome.NodeService|Investigating full catalog for meuoq41541574
+2013-07-22 19:02:01.6177|DEBUG|BitHome.NodeService|Setting next investigation time for meuoq41541574 funtion:0 to 7/22/2013 7:02:03 PM
+2013-07-22 19:02:01.7185|INFO|BitHome.NodeService|Investigating node meuoq41541574 has timed out
+2013-07-22 19:02:01.7185|INFO|BitHome.NodeService|Removing node meuoq41541574 from investigation
+2013-07-22 19:02:01.7199|TRACE|BitHome.NodeService|Switching to query interval
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T19:31:26</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: 2
+  But was:  1
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.AreEqual (Int32 expected, Int32 actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:559 
+  at NUnit.Framework.Assert.AreEqual (Int32 expected, Int32 actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:582 
+  at BitHomeTests.ServiceManagerTests.TestInvestigation () [0x00217] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:128 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 19:31:27.4158|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 19:31:27.4247|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 19:31:27.4684|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 19:31:27.4728|TRACE|BitHome.NodeService|()
+2013-07-22 19:31:27.4762|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 19:31:27.4803|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 19:31:27.4840|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 19:31:27.4871|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 19:31:27.4871|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 19:31:27.4875|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 19:31:27.4894|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 19:31:27.5014|INFO|BitHome.NodeService|Creating node b9g6o41543346
+2013-07-22 19:31:27.5025|INFO|BitHome.NodeService|Adding node b9g6o41543346 for investigation
+2013-07-22 19:31:27.5025|DEBUG|BitHome.NodeService|Resetting investigation attempts on node b9g6o41543346
+2013-07-22 19:31:27.5025|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 19:31:27.5053|DEBUG|BitHome.NodeService|Investigating:b9g6o41543346 function:0 now:7/22/2013 7:31:27 PM next:7/22/2013 7:31:27 PM
+2013-07-22 19:31:27.5111|DEBUG|BitHome.NodeService|Investigating INFO for b9g6o41543346
+2013-07-22 19:31:27.5116|DEBUG|BitHome.NodeService|Setting next investigation time for b9g6o41543346 funtion:0 to 7/22/2013 7:31:29 PM
+2013-07-22 19:31:27.5149|DEBUG|BitHome.NodeService|Processing status info for node b9g6o41543346
+2013-07-22 19:31:27.5149|DEBUG|BitHome.NodeService|Setting status info for node:b9g6o41543346 revision:-1 to 1 
+2013-07-22 19:31:29.5177|DEBUG|BitHome.NodeService|Investigating:b9g6o41543346 function:0 now:7/22/2013 7:31:29 PM next:7/22/2013 7:31:29 PM
+2013-07-22 19:31:29.5218|DEBUG|BitHome.NodeService|Investigating CATALOG for b9g6o41543346
+2013-07-22 19:31:29.5321|DEBUG|BitHome.NodeService|Setting next investigation time for b9g6o41543346 funtion:0 to 7/22/2013 7:31:31 PM
+2013-07-22 19:31:29.5586|DEBUG|BitHome.NodeService|Received base catalog for b9g6o41543346 with total entries 2
+2013-07-22 19:31:29.5598|DEBUG|BitHome.NodeService|Resetting investigation attempts on node b9g6o41543346
+2013-07-22 19:31:29.6398|DEBUG|BitHome.NodeService|Investigating:b9g6o41543346 function:1 now:7/22/2013 7:31:29 PM next:7/22/2013 7:31:29 PM
+2013-07-22 19:31:29.6537|DEBUG|BitHome.NodeService|Investigating FUNCTION 1 for b9g6o41543346
+2013-07-22 19:31:29.6588|DEBUG|BitHome.NodeService|Setting next investigation time for b9g6o41543346 funtion:1 to 7/22/2013 7:31:31 PM
+2013-07-22 19:31:29.6604|INFO|BitHome.Actions.ActionService|Adding action to node:b9g6o41543346 index:1 name:Function 1 returnType:VOID paramCount:1
+2013-07-22 19:31:29.6713|INFO|BitHome.Node|Node:b9g6o41543346 adding node action:1
+2013-07-22 19:31:29.6742|TRACE|BitHome.NodeService|Adding node action 1 to node b9g6o41543346
+2013-07-22 19:31:29.6748|TRACE|BitHome.NodeService|Next unknown action for b9g6o41543346 is 2
+2013-07-22 19:31:29.6748|DEBUG|BitHome.NodeService|Resetting investigation attempts on node b9g6o41543346
+2013-07-22 19:31:29.7615|DEBUG|BitHome.NodeService|Investigating:b9g6o41543346 function:2 now:7/22/2013 7:31:29 PM next:7/22/2013 7:31:29 PM
+2013-07-22 19:31:29.7615|DEBUG|BitHome.NodeService|Investigating FUNCTION 2 for b9g6o41543346
+2013-07-22 19:31:29.7615|DEBUG|BitHome.NodeService|Setting next investigation time for b9g6o41543346 funtion:2 to 7/22/2013 7:31:31 PM
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T19:32:01</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 2.56ms</Message>
+                  <ConsoleOutput>2013-07-22 19:32:02.5426|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 19:32:02.5511|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 19:32:02.5897|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 19:32:02.5937|TRACE|BitHome.NodeService|()
+2013-07-22 19:32:02.5970|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 19:32:02.6010|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 19:32:02.6044|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 19:32:02.6075|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 19:32:02.6075|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 19:32:02.6075|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 19:32:02.6100|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 19:32:02.6211|INFO|BitHome.NodeService|Creating node 4699d41543381
+2013-07-22 19:32:02.6221|INFO|BitHome.NodeService|Adding node 4699d41543381 for investigation
+2013-07-22 19:32:02.6221|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 4699d41543381
+2013-07-22 19:32:02.6221|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 19:32:02.6247|DEBUG|BitHome.NodeService|Investigating:4699d41543381 function:0 now:7/22/2013 7:32:02 PM next:7/22/2013 7:32:02 PM
+2013-07-22 19:32:02.6304|DEBUG|BitHome.NodeService|Investigating INFO for 4699d41543381
+2013-07-22 19:32:02.6304|DEBUG|BitHome.NodeService|Setting next investigation time for 4699d41543381 funtion:0 to 7/22/2013 7:32:04 PM
+2013-07-22 19:32:02.6341|DEBUG|BitHome.NodeService|Processing status info for node 4699d41543381
+2013-07-22 19:32:02.6341|DEBUG|BitHome.NodeService|Setting status info for node:4699d41543381 revision:-1 to 1 
+2013-07-22 19:32:04.6369|DEBUG|BitHome.NodeService|Investigating:4699d41543381 function:0 now:7/22/2013 7:32:04 PM next:7/22/2013 7:32:04 PM
+2013-07-22 19:32:04.6370|DEBUG|BitHome.NodeService|Investigating CATALOG for 4699d41543381
+2013-07-22 19:32:04.6370|DEBUG|BitHome.NodeService|Setting next investigation time for 4699d41543381 funtion:0 to 7/22/2013 7:32:06 PM
+2013-07-22 19:32:04.6411|DEBUG|BitHome.NodeService|Received base catalog for 4699d41543381 with total entries 2
+2013-07-22 19:32:04.6411|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 4699d41543381
+2013-07-22 19:32:04.7378|DEBUG|BitHome.NodeService|Investigating:4699d41543381 function:1 now:7/22/2013 7:32:04 PM next:7/22/2013 7:32:04 PM
+2013-07-22 19:32:04.7413|DEBUG|BitHome.NodeService|Investigating FUNCTION 1 for 4699d41543381
+2013-07-22 19:32:04.7413|DEBUG|BitHome.NodeService|Setting next investigation time for 4699d41543381 funtion:1 to 7/22/2013 7:32:06 PM
+2013-07-22 19:32:04.7434|INFO|BitHome.Actions.ActionService|Adding action to node:4699d41543381 index:1 name:Function 1 returnType:VOID paramCount:1
+2013-07-22 19:32:04.7501|INFO|BitHome.Node|Node:4699d41543381 adding node action:1
+2013-07-22 19:32:04.7510|TRACE|BitHome.NodeService|Adding node action 1 to node 4699d41543381
+2013-07-22 19:32:04.7510|TRACE|BitHome.NodeService|Next unknown action for 4699d41543381 is 2
+2013-07-22 19:32:04.7510|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 4699d41543381
+2013-07-22 19:32:04.8418|DEBUG|BitHome.NodeService|Investigating:4699d41543381 function:2 now:7/22/2013 7:32:04 PM next:7/22/2013 7:32:04 PM
+2013-07-22 19:32:04.8418|DEBUG|BitHome.NodeService|Investigating FUNCTION 2 for 4699d41543381
+2013-07-22 19:32:04.8418|DEBUG|BitHome.NodeService|Setting next investigation time for 4699d41543381 funtion:2 to 7/22/2013 7:32:06 PM
+2013-07-22 19:32:04.8421|INFO|BitHome.Actions.ActionService|Adding action to node:4699d41543381 index:2 name:Function 1 returnType:BYTE paramCount:2
+2013-07-22 19:32:04.8421|INFO|BitHome.Node|Node:4699d41543381 adding node action:2
+2013-07-22 19:32:04.8421|TRACE|BitHome.NodeService|Adding node action 2 to node 4699d41543381
+2013-07-22 19:32:04.8421|TRACE|BitHome.NodeService|No more unknown actions for 4699d41543381
+2013-07-22 19:32:04.8421|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 4699d41543381
+2013-07-22 19:32:04.8535|TRACE|BitHome.ServiceManager|Stop requested
+2013-07-22 19:32:04.8535|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-07-22 19:32:04.8540|INFO|BitHome.NodeService|Stopping NodeService
+2013-07-22 19:32:04.8540|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-07-22 19:32:04.8540|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T23:48:02</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 2.93ms</Message>
+                  <ConsoleOutput>2013-07-22 23:48:05.0950|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 23:48:05.1124|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 23:48:05.2049|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 23:48:05.2114|TRACE|BitHome.NodeService|()
+2013-07-22 23:48:05.2151|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 23:48:05.2207|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 23:48:05.2259|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 23:48:05.2296|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 23:48:05.2305|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 23:48:05.2333|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 23:48:05.2350|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 23:48:05.2635|INFO|BitHome.NodeService|Creating node a8rhd41558744
+2013-07-22 23:48:05.2650|INFO|BitHome.NodeService|Adding node a8rhd41558744 for investigation
+2013-07-22 23:48:05.2658|DEBUG|BitHome.NodeService|Resetting investigation attempts on node a8rhd41558744
+2013-07-22 23:48:05.2658|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-07-22 23:48:05.2683|DEBUG|BitHome.NodeService|Investigating:a8rhd41558744 function:0 now:7/22/2013 11:48:05 PM next:7/22/2013 11:48:05 PM
+2013-07-22 23:48:05.2746|DEBUG|BitHome.NodeService|Investigating INFO for a8rhd41558744
+2013-07-22 23:48:05.2746|DEBUG|BitHome.NodeService|Setting next investigation time for a8rhd41558744 funtion:0 to 7/22/2013 11:48:07 PM
+2013-07-22 23:48:05.2795|DEBUG|BitHome.NodeService|Processing status info for node a8rhd41558744
+2013-07-22 23:48:05.2795|DEBUG|BitHome.NodeService|Setting status info for node:a8rhd41558744 revision:-1 to 1 
+2013-07-22 23:48:07.3081|DEBUG|BitHome.NodeService|Investigating:a8rhd41558744 function:0 now:7/22/2013 11:48:07 PM next:7/22/2013 11:48:07 PM
+2013-07-22 23:48:07.3087|DEBUG|BitHome.NodeService|Investigating CATALOG for a8rhd41558744
+2013-07-22 23:48:07.3087|DEBUG|BitHome.NodeService|Setting next investigation time for a8rhd41558744 funtion:0 to 7/22/2013 11:48:09 PM
+2013-07-22 23:48:07.3147|DEBUG|BitHome.NodeService|Received base catalog for a8rhd41558744 with total entries 2
+2013-07-22 23:48:07.3147|DEBUG|BitHome.NodeService|Resetting investigation attempts on node a8rhd41558744
+2013-07-22 23:48:07.4133|DEBUG|BitHome.NodeService|Investigating:a8rhd41558744 function:1 now:7/22/2013 11:48:07 PM next:7/22/2013 11:48:07 PM
+2013-07-22 23:48:07.4133|DEBUG|BitHome.NodeService|Investigating FUNCTION 1 for a8rhd41558744
+2013-07-22 23:48:07.4133|DEBUG|BitHome.NodeService|Setting next investigation time for a8rhd41558744 funtion:1 to 7/22/2013 11:48:09 PM
+2013-07-22 23:48:07.4209|INFO|BitHome.Actions.ActionService|Adding action to node:a8rhd41558744 index:1 name:Function 1 returnType:VOID paramCount:1
+2013-07-22 23:48:07.4471|INFO|BitHome.Node|Node:a8rhd41558744 adding node action:1
+2013-07-22 23:48:07.4690|TRACE|BitHome.NodeService|Adding node action 1 to node a8rhd41558744
+2013-07-22 23:48:07.4816|TRACE|BitHome.NodeService|Next unknown action for a8rhd41558744 is 2
+2013-07-22 23:48:07.4816|DEBUG|BitHome.NodeService|Resetting investigation attempts on node a8rhd41558744
+2013-07-22 23:48:07.5143|DEBUG|BitHome.NodeService|Investigating:a8rhd41558744 function:2 now:7/22/2013 11:48:07 PM next:7/22/2013 11:48:07 PM
+2013-07-22 23:48:07.5194|DEBUG|BitHome.NodeService|Investigating FUNCTION 2 for a8rhd41558744
+2013-07-22 23:48:07.5194|DEBUG|BitHome.NodeService|Setting next investigation time for a8rhd41558744 funtion:2 to 7/22/2013 11:48:09 PM
+2013-07-22 23:48:07.5194|INFO|BitHome.Actions.ActionService|Adding action to node:a8rhd41558744 index:2 name:Function 1 returnType:BYTE paramCount:2
+2013-07-22 23:48:07.5202|INFO|BitHome.Node|Node:a8rhd41558744 adding node action:2
+2013-07-22 23:48:07.5202|TRACE|BitHome.NodeService|Adding node action 2 to node a8rhd41558744
+2013-07-22 23:48:07.5202|TRACE|BitHome.NodeService|No more unknown actions for a8rhd41558744
+2013-07-22 23:48:07.5202|DEBUG|BitHome.NodeService|Resetting investigation attempts on node a8rhd41558744
+2013-07-22 23:48:07.5305|TRACE|BitHome.ServiceManager|Stop requested
+2013-07-22 23:48:07.5313|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-07-22 23:48:07.5313|INFO|BitHome.NodeService|Stopping NodeService
+2013-07-22 23:48:07.5313|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-07-22 23:48:07.5322|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="TestQueryInterval">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:54:15</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestQueryInterval () [0x00012] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:34 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:54:23.4785|TRACE|BitHome.ServiceManager|Start requested
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:57:05</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestQueryInterval () [0x00012] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:34 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:57:13.8798|TRACE|BitHome.ServiceManager|Start requested
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:58:52</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at BitHomeTests.ServiceManagerTests.TestQueryInterval () [0x00064] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:42 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:58:54.1620|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 18:58:54.1707|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 18:58:54.2101|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 18:58:54.2148|TRACE|BitHome.NodeService|()
+2013-07-22 18:58:54.2188|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 18:58:54.2232|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 18:58:54.2271|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 18:58:54.2303|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 18:58:54.2306|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 18:58:54.2306|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 18:58:54.2325|DEBUG|BitHome.NodeService|Refreshing Node Infos
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T19:00:13</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 60.33ms</Message>
+                  <ConsoleOutput>2013-07-22 19:00:14.5468|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 19:00:14.5553|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 19:00:14.5938|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 19:00:14.5979|TRACE|BitHome.NodeService|()
+2013-07-22 19:00:14.6015|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 19:00:14.6055|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 19:00:14.6091|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 19:00:14.6122|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 19:00:14.6122|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 19:00:14.6122|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 19:00:14.6143|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 19:01:14.6231|DEBUG|BitHome.NodeService|Refreshing Nodes
+2013-07-22 19:01:14.6241|TRACE|BitHome.ServiceManager|Stop requested
+2013-07-22 19:01:14.6241|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-07-22 19:01:14.6241|INFO|BitHome.NodeService|Stopping NodeService
+2013-07-22 19:01:14.6241|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-07-22 19:01:14.6241|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestStartStop">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:54:15</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: False
+  But was:  True
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:133 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:154 
+  at BitHomeTests.ServiceManagerTests.TestStartStop () [0x00000] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:18 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:57:05</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: False
+  But was:  True
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:133 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:154 
+  at BitHomeTests.ServiceManagerTests.TestStartStop () [0x00000] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ServiceManagerTests.cs:18 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:58:46</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.36ms</Message>
+                  <ConsoleOutput>2013-07-22 18:58:47.6076|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 18:58:47.6190|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 18:58:47.6600|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 18:58:47.6642|TRACE|BitHome.NodeService|()
+2013-07-22 18:58:47.6676|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 18:58:47.6715|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 18:58:47.6750|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 18:58:47.6781|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 18:58:47.6781|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 18:58:47.6786|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 18:58:47.6797|TRACE|BitHome.ServiceManager|Stop requested
+2013-07-22 18:58:47.6797|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 18:58:47.6805|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-07-22 18:58:47.6805|INFO|BitHome.NodeService|Stopping NodeService
+2013-07-22 18:58:47.6824|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-07-22 18:58:47.6827|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T19:01:50</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.40ms</Message>
+                  <ConsoleOutput>2013-07-22 19:01:51.4670|TRACE|BitHome.ServiceManager|Start requested
+2013-07-22 19:01:51.4805|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-07-22 19:01:51.5338|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-07-22 19:01:51.5407|TRACE|BitHome.NodeService|()
+2013-07-22 19:01:51.5566|TRACE|BitHome.NodeService|Switching to query interval
+2013-07-22 19:01:51.5660|INFO|BitHome.StorageService|Starting StorageService
+2013-07-22 19:01:51.5709|INFO|BitHome.StorageService|DB at version 0
+2013-07-22 19:01:51.5746|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-07-22 19:01:51.5746|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-07-22 19:01:51.5754|INFO|BitHome.NodeService|Starting NodeService
+2013-07-22 19:01:51.5790|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-07-22 19:01:51.5794|TRACE|BitHome.ServiceManager|Stop requested
+2013-07-22 19:01:51.5845|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-07-22 19:01:51.5845|INFO|BitHome.NodeService|Stopping NodeService
+2013-07-22 19:01:51.5845|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-07-22 19:01:51.5845|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ParameterBaseTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-07-22T16:55:30</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T16:56:31</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.27ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T16:59:39</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:00:04</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:00:34</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:01:00</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:01:51</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:02:21</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.26ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:07:03</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.29ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:11:39</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:16:42</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T17:19:53</TestDate>
+              <Status />
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.40ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T18:23:54</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>1</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T18:45:44</TestDate>
+              <Status />
+              <Passed>4</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.43ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T18:49:53</TestDate>
+              <Status />
+              <Passed>8</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.52ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T18:50:51</TestDate>
+              <Status />
+              <Passed>9</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.64ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-07-22T18:51:27</TestDate>
+              <Status />
+              <Passed>10</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.44ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="TestSetValue">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T16:55:30</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: False
+  But was:  True
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:133 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:154 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00024] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:19 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 16:55:31.7159|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T16:56:31</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.25ms</Message>
+                  <ConsoleOutput>2013-07-22 16:56:33.2889|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 16:56:33.3007|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 16:56:33.3054|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T16:59:39</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Assert.Equals should not be used for Assertions</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.Equals (System.Object a, System.Object b) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:68 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00074] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:24 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 16:59:40.3335|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 16:59:40.3474|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 16:59:40.3521|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:00:04</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Assert.Equals should not be used for Assertions</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.Equals (System.Object a, System.Object b) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:68 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00074] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:24 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 17:00:05.9006|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:00:05.9112|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:00:05.9178|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:00:34</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00074] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:24 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 17:00:35.9712|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:00:35.9844|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:00:35.9923|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:01:00</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00074] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:24 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 17:01:01.7212|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:01:01.7312|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:01:01.7411|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:01:51</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Value was: 
+  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:107 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00074] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:24 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 17:01:53.2177|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:01:53.2270|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:01:53.2320|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:02:21</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.25ms</Message>
+                  <ConsoleOutput>2013-07-22 17:02:22.4681|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:02:22.4775|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:02:22.4826|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:07:03</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.27ms</Message>
+                  <ConsoleOutput>2013-07-22 17:07:04.5600|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:07:04.5739|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:07:04.5742|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:11:39</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: False
+  But was:  True
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:133 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:154 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00049] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:27 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 17:11:40.7129|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:12:55</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: False
+  But was:  True
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:133 
+  at NUnit.Framework.Assert.IsFalse (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:154 
+  at BitHomeTests.ParameterBaseTest.TestSetValue () [0x00049] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:28 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 17:12:56.3915|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:13:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.28ms</Message>
+                  <ConsoleOutput>2013-07-22 17:13:54.9086|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:13:54.9234|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:13:54.9238|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueBool">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:16:42</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Value was: 0
+  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:107 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x00060] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:56 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 17:16:44.2909|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:19:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.25ms</Message>
+                  <ConsoleOutput>2013-07-22 17:19:54.6183|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:19:54.6327|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:23:54</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NotImplementedException : The requested feature is not implemented.</Message>
+                  <StackTrace>  at BitHome.Actions.ParameterBase.ValidateRangeValue (Int64 value) [0x00156] in /Users/mkurdziel/Code/BitHome/src/Actions/ParameterBase.cs:198 
+  at BitHome.Actions.ParameterBase.set_MinimumValue (Int64 value) [0x00000] in /Users/mkurdziel/Code/BitHome/src/Actions/ParameterBase.cs:127 
+  at BitHome.Actions.ParameterBase.set_ValidationType (ParamValidationType value) [0x0002e] in /Users/mkurdziel/Code/BitHome/src/Actions/ParameterBase.cs:59 
+  at BitHome.Actions.ParameterBase.set_DataType (DataType value) [0x00035] in /Users/mkurdziel/Code/BitHome/src/Actions/ParameterBase.cs:30 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x00006] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:42 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:23:56.0066|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:24:52</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x00014] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:46 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:24:53.8072|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:25:30</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x00014] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:46 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:25:31.8112|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:26:25</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: 0
+  But was:  BOOL
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:886 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:913 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x00014] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:46 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:26:26.6149|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:26:52</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: 0
+  But was:  BOOL
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x00020] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2205 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:886 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:913 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x00014] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:46 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:26:54.9968|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:27:59</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x0003a] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:28:00.3370|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:28:27</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x00020] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2205 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x0003a] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:28:28.9871|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:30:15</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: 0
+  But was:  1
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.AreEqual (Int64 expected, Int64 actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:600 
+  at NUnit.Framework.Assert.AreEqual (Int64 expected, Int64 actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:623 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x0003a] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:30:17.2524|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:30:29</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: 0
+  But was:  1
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.AreEqual (Int64 expected, Int64 actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:600 
+  at NUnit.Framework.Assert.AreEqual (Int64 expected, Int64 actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:623 
+  at BitHomeTests.ParameterBaseTest.TestSetValueBool () [0x0003a] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:52 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:30:30.5390|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:31:59</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.27ms</Message>
+                  <ConsoleOutput>2013-07-22 18:32:00.8496|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:32:00.8698|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:45:44</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.27ms</Message>
+                  <ConsoleOutput>2013-07-22 18:45:46.3646|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:45:46.3814|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.28ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.3038|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.3242|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.38ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.4497|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.4754|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.25ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:28.9875|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.0046|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueString">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:16:42</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 17:16:44.3416|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:16:44.3425|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:16:44.3425|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T17:19:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput>2013-07-22 17:19:54.7717|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 17:19:54.7717|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 17:19:54.7717|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:23:54</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: True
+  But was:  False
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:96 
+  at NUnit.Framework.Assert.IsTrue (Boolean condition) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:117 
+  at BitHomeTests.ParameterBaseTest.TestSetValueString () [0x00014] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:19 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:23:56.0511|TRACE|BitHome.Actions.ParameterBase|()
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:32:03</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.25ms</Message>
+                  <ConsoleOutput>2013-07-22 18:32:05.0207|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:32:05.0379|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 18:32:05.0379|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:45:44</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:45:46.5424|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:45:46.5424|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 18:45:46.5424|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.5299|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.5299|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 18:49:55.5304|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.7077|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.7082|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 18:50:53.7082|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1638|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1638|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-07-22 18:51:29.1638|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueByteSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:38:23</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: 3
+  But was:  1
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.AreEqual (Int64 expected, Int64 actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:600 
+  at NUnit.Framework.Assert.AreEqual (Int64 expected, Int64 actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:623 
+  at BitHomeTests.ParameterBaseTest.TestSetValueByteSigned () [0x000d9] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ParameterBaseTest.cs:96 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-07-22 18:38:25.2131|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:38:25.2371|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:38:25.2371|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:38:58</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.28ms</Message>
+                  <ConsoleOutput>2013-07-22 18:38:59.6881|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:38:59.7081|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:38:59.7081|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:38:59.7081|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:45:44</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:45:46.5245|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:45:46.5255|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:45:46.5255|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:45:46.5255|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.4862|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.4874|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:49:55.5038|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:49:55.5038|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.6244|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.6253|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:50:53.6253|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:50:53.6253|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1330|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1340|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1340|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1346|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueByteUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:45:44</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:45:46.5360|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:45:46.5360|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:45:46.5360|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:45:46.5360|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.5086|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.5104|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:49:55.5104|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:49:55.5104|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.6288|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.6291|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:50:53.6291|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:50:53.6291|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1392|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1392|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1397|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1397|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueDWordSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.5165|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.5176|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:49:55.5176|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:49:55.5176|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.6325|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.6387|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:50:53.6440|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:50:53.6440|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1427|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1439|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1439|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1439|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueDWordUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.5215|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.5215|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:49:55.5215|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:49:55.5215|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.6663|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.6786|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:50:53.6821|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:50:53.6907|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1473|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1479|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1518|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1518|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueWordSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.5348|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.5348|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:49:55.5348|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:49:55.5355|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.7120|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.7120|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:50:53.7120|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:50:53.7120|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1670|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1670|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1670|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1670|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueWordUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:49:53</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput>2013-07-22 18:49:55.5389|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:49:55.5395|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:49:55.5395|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:49:55.5464|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.7181|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.7200|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:50:53.7200|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:50:53.7200|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1699|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1699|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1699|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1699|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueQWordUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:50:51</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:50:53.7024|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:50:53.7034|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:50:53.7034|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:50:53.7034|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1600|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1600|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1600|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1607|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueQWordSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-07-22T18:51:27</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-07-22 18:51:29.1558|TRACE|BitHome.Actions.ParameterBase|()
+2013-07-22 18:51:29.1568|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-07-22 18:51:29.1568|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-07-22 18:51:29.1568|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+      </Tests>
+    </TestRecord>
+  </Tests>
+</TestRecord>

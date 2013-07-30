@@ -37,6 +37,12 @@ namespace BitHome
 
 		public int TotalNumberOfFunctions { get; set; }
 
+		public INodeAction[] Actions { 
+			get {
+				return m_actions.Values.ToArray ();
+			}
+		}
+
         [IgnoreDataMember]
 		public int NextUnknownAction {
 			get { 

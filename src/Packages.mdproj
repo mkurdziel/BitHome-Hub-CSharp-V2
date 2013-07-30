@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E04DF61-16C7-42CD-AFB1-FCD75BFCFC36}</ProjectGuid>
+    <Packages>
+      <Packages>
+        <Package name="Linux Binaries Snapshot">
+          <Builder targetFile="..\snapshot\BitHome.tar.gz" platform="Linux" configuration="Release" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="BitHome.csproj" />
+              <SolutionItemReference path="..\..\BinaryRage\BinaryRage.csproj" />
+              <SolutionItemReference path="BitHomeTests\BitHomeTests.csproj" />
+            </ChildEntries>
+            <RootEntry path="BitHome.sln" id=":root:" />
+          </Builder>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>

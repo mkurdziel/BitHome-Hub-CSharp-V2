@@ -13,7 +13,7 @@ namespace BitHome
 {
     static class BitHome
     {
-        private static Logger log = LogManager.GetCurrentClassLogger();
+        private static Logger log = LogManager.GetLogger("BitHome");
 
         static void Main(String[] args)
         {

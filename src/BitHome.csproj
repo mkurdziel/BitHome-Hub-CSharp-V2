@@ -46,15 +46,9 @@
     <Reference Include="nunit.framework">
       <HintPath>packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="RazorEngine">
-      <HintPath>packages\RazorEngine.3.3.0\lib\net40\RazorEngine.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Web.Routing" />
@@ -63,9 +57,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="ServiceStack">
-      <HintPath>packages\ServiceStack.3.9.55\lib\net35\ServiceStack.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>packages\ServiceStack.3.9.55\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
@@ -99,9 +90,13 @@
     <Reference Include="ServiceStack.Razor">
       <HintPath>packages\ServiceStack.Razor.3.9.56\lib\net40\ServiceStack.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>packages\ServiceStack.3.9.55\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="Dashboards\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\bithome.css">
@@ -211,9 +206,41 @@
     <Content Include="img\header.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="img\jquery-ui\ui-bg_flat_0_aaaaaa_40x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-bg_flat_75_ffffff_40x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-bg_glass_55_fbf9ee_1x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-bg_glass_75_dadada_1x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-bg_glass_75_e6e6e6_1x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-bg_glass_95_fef1ec_1x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-icons_2e83ff_256x240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-icons_454545_256x240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-icons_888888_256x240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jquery-ui\ui-icons_cd0a0a_256x240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitHomeService.cs" />
     <Compile Include="DataHelpers.cs" />
     <Compile Include="Messaging\Messages\MessageFunctionTransmit.cs" />
     <Compile Include="Messaging\Messages\MessageBootloadTransmit.cs" />
@@ -270,9 +297,11 @@
     <Compile Include="Actions\ActionRequestStatus.cs" />
     <Compile Include="Web\WebNodeService.cs" />
     <Compile Include="Web\WebActionService.cs" />
-    <Compile Include="BitHome.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="BitHome.cs" />
+    <Compile Include="Dashboards\DashboardService.cs" />
+    <Compile Include="Web\WebDashboardService.cs" />
+    <Compile Include="Dashboards\Dashboard.cs" />
+    <Compile Include="Dashboards\DashboardItem.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

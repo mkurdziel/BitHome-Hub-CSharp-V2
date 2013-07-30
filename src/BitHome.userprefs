@@ -1,44 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="css/bithome.css">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BitHome.cs">
     <Files>
-      <File FileName="BitHome.cs" Line="33" Column="17" />
-      <File FileName="Messaging/Xbee/MessageAdapterXbee.cs" Line="342" Column="1" />
-      <File FileName="Messaging/MessageAdapterBase.cs" Line="32" Column="1" />
-      <File FileName="Messaging/MessageDispatcherService.cs" Line="66" Column="4" />
-      <File FileName="ServiceManager.cs" Line="66" Column="1" />
-      <File FileName="master.cshtml" Line="44" Column="49" />
-      <File FileName="css/bithome.css" Line="15" Column="45" />
-      <File FileName="css/bootstrap.css" Line="2309" Column="21" />
+      <File FileName="BitHome.cs" Line="30" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="BitHome" expanded="True">
-            <Node name="css" expanded="True" />
-            <Node name="img" expanded="True">
-              <Node name="header.png" selected="True" />
-            </Node>
-            <Node name="Messaging" expanded="True">
-              <Node name="Xbee" expanded="True" />
-            </Node>
-          </Node>
-          <Node name="BitHomeTests" expanded="True" />
-        </State>
-      </Pad>
-      <Pad Id="ClassPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-      <Pad Id="ConnectionManagerPad">
-        <State selected="True" />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

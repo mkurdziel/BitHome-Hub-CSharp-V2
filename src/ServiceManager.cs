@@ -2,6 +2,7 @@ using System;
 using NLog;
 using BitHome.Messaging;
 using BitHome.Actions;
+using BitHome.Dashboards;
 
 namespace BitHome
 {
@@ -60,6 +61,7 @@ namespace BitHome
 			MessageDispatcherService = new MessageDispatcherService (m_isTesting);
 			NodeService = new NodeService ();
 			ActionService = new ActionService();
+			DashboardService = new DashboardService ();
 
 			StorageService.Start ();
 			MessageDispatcherService.Start ();
@@ -87,6 +89,8 @@ namespace BitHome
 		public static StorageService StorageService { get; private set; }
 
 		public static ActionService ActionService { get; private set; }
+
+		public static DashboardService DashboardService { get; private set; }
 	}
 }
 
