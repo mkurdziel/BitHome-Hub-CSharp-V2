@@ -302,6 +302,7 @@
     <Compile Include="Web\WebDashboardService.cs" />
     <Compile Include="Dashboards\Dashboard.cs" />
     <Compile Include="Dashboards\DashboardItem.cs" />
+    <Compile Include="BitHomeService.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

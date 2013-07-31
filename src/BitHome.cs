@@ -27,10 +27,10 @@ namespace BitHome
 
 			ServiceManager.Start ();
 
-			var proc = new System.Diagnostics.Process ();
-			proc.StartInfo.UseShellExecute = true;
-			proc.StartInfo.FileName = "http://localhost:1337/";
-			proc.Start ();
+//			var proc = new System.Diagnostics.Process ();
+//			proc.StartInfo.UseShellExecute = true;
+//			proc.StartInfo.FileName = "http://localhost:1337/";
+//			proc.Start ();
 
 			Console.WriteLine("\n\nListening on http://*:1337/..");
 			Console.WriteLine("Type Ctrl+C to quit..");
