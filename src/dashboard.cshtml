@@ -40,7 +40,7 @@
 
 
 @section Javascript {
-    <script src="js/jquery.throttle-debounce.js"></script>
+    <script src="js/jquery.throttle.js"></script>
 
     <script>
     	var dashboardId = "";
@@ -159,15 +159,20 @@
 					min: param.MinimumValue,
 					max: param.MaximumValue,
 					value: 0,
-					slide: function (actionId) {
+					slide: $.throttle (function (actionId) {
 					    return function() {
-					        $.throttle( 100, execute(actionId));
+					        execute(actionId);
 					    };
-					}(action.Id)
+					}(action.Id), 1000)
 				});
         		paramWrap.append(paramCtrl);	
         		control.append(paramWrap);
         	});
+        	
+        	//slide: function (actionId) {
+					    //return function() {
+					     //   $.delay(1).throttle( 100, execute(actionId));
+					    //};
         	
         	var executeButton = $("<a/>", {
         		'class' : 'btn btn-primary btn-medium',

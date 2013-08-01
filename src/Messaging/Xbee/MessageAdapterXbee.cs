@@ -57,6 +57,21 @@ namespace BitHome.Messaging.Xbee
 		}
 
 		#region Constructors
+
+		public MessageAdapterXbee()
+		{
+			log.Trace ("()");
+
+			_port = null;
+			_baudRate = 115200;
+			_lastReceive = DateTime.MinValue;
+
+			serThread = new Thread(new ThreadStart(SerialReceiving)) {Priority = ThreadPriority.Normal};
+
+			serThread.Name = "SerialHandle" + serThread.ManagedThreadId;
+		}
+
+
 		public MessageAdapterXbee(string p_port)
 		{
 			log.Trace ("({0})", p_port);
@@ -327,12 +342,41 @@ namespace BitHome.Messaging.Xbee
 		#endregion
 
 		#region Port Control
-		private bool OpenConn()
+		private bool OpenConn() 
+		{
+			// Get a list of serial port names. 
+			string[] ports = SerialPort.GetPortNames();
+
+			// Display each port name to the console. 
+			foreach(string port in ports)
+			{
+				if (port.Contains ("Bluetooth")) {
+					continue;
+				}
+
+				log.Trace("Trying serial port at {0}", port);
+
+				if (OpenConn (port)) {
+					_port = port;
+
+//					log.Trace("Found serial port at {0}", port);
+
+					break;
+				}
+
+			}
+			if (_serialPort != null && _serialPort.IsOpen) {
+				return true;
+			}
+			return false;
+		}
+
+		private bool OpenConn(String port)
 		{
 			try
 			{
 				if (_serialPort == null)
-					_serialPort = new SerialPort(_port, _baudRate, Parity.None);
+					_serialPort = new SerialPort(port, _baudRate, Parity.None);
 
 				if (_serialPort != null && !_serialPort.IsOpen)
 				{
@@ -344,10 +388,16 @@ namespace BitHome.Messaging.Xbee
 					if (_serialPort.IsOpen)
 						serThread.Start(); /*Start The Communication Thread*/
 				}
+
+				if (_serialPort == null) {
+					return false;
+				}
 			}
 			catch (Exception ex)
 			{
-				log.Error ("Error opening comm port", ex);
+				log.Error ("Error opening comm port {1}: {0}", ex.Message, port);
+
+				_serialPort = null;
 
 				return false;
 			}
@@ -359,7 +409,7 @@ namespace BitHome.Messaging.Xbee
 			_port = port;
 			_baudRate = baudRate;
 
-			return OpenConn();
+			return OpenConn(_port);
 		}
 		private void CloseConn()
 		{

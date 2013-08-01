@@ -6,7 +6,6 @@ using ServiceStack.WebHost.Endpoints;
 using System.Threading;
 using ServiceStack.ServiceHost;
 using ServiceStack.Common;
-using ServiceStack.Logging.NLogger;
 using ServiceStack.Razor;
 
 namespace BitHome
@@ -44,7 +43,7 @@ namespace BitHome
 
         public override void Configure(Funq.Container container)
         {
-			ServiceStack.Logging.LogManager.LogFactory = new NLogFactory ();
+//			ServiceStack.Logging.LogManager.LogFactory = new NLogFactory ();
 
 			Plugins.Add(new RazorFormat());
 
