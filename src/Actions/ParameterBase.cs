@@ -134,9 +134,6 @@ namespace BitHome.Actions
 		}
 
 		private Int64 m_maximumValue;
-        private long minValue;
-        private long maxValue;
-        private Dictionary<string, int> enumValues;
 		public Int64 MaximumValue {
 			get {
 				return m_maximumValue;
@@ -147,6 +144,8 @@ namespace BitHome.Actions
 				}
 			}
 		}
+
+        private Dictionary<string, int> enumValues;
 
 		private bool ValidateRangeValue(Int64 value) {
 			switch (DataType) {
@@ -278,16 +277,16 @@ namespace BitHome.Actions
             string name, 
             Messaging.Protocol.DataType dataType, 
             ParamValidationType validationType, 
-            long minValue, 
-            long maxValue, 
+            Int64 minValue, 
+            Int64 maxValue, 
             Dictionary<string, int> enumValues)
         {
             this.Id = id;
             this.Name = name;
             this.DataType = dataType;
             this.ValidationType = validationType;
-            this.minValue = minValue;
-            this.maxValue = maxValue;
+            this.MinimumValue = minValue;
+            this.MaximumValue = maxValue;
             this.enumValues = enumValues;
         }
 

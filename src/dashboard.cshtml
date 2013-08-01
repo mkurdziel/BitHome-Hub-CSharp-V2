@@ -10,6 +10,23 @@
         .slider-vertical { height: 100px; }
         .dashboard { background-color: #fefefe; border: 1px solid #ccc; }
         #snaptarget { height: 600px; }
+
+        .bithome-control-title {
+            cursor: move;
+        }
+
+        .bithome-control-title, 
+        .bithome-control {
+            -webkit-user-select: none; /* Chrome/Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+ */
+
+            /* Rules below not implemented in browsers yet */
+            -o-user-select: none;
+        }
+
+        .bithome-control-drag {
+        }
     </style>
 }
 <h1>Dashboard</h1>
@@ -23,6 +40,8 @@
 
 
 @section Javascript {
+    <script src="js/jquery.throttle-debounce.js"></script>
+
     <script>
     	var dashboardId = "";
     	
@@ -47,6 +66,7 @@
 					updatePosition( ui );
 				},
 				grid: [20, 20],
+				handle: ".bithome-control-drag",
 				containment: "parent" }
 			);
         }
@@ -115,9 +135,9 @@
         	control.css('top', item.PositionY + "px")
         	control.css('left', item.PositionX + "px");
         	
-        	control.append( $("<p/>", { 
+        	control.append( $("<div/>", { 
         		'text' : action.Name ,
-        		'class' : 'bithome-control-title'
+        		'class' : 'bithome-control-title bithome-control-drag'
         	}));
         	
         	// Create the parameter controls
@@ -139,6 +159,11 @@
 					min: param.MinimumValue,
 					max: param.MaximumValue,
 					value: 0,
+					slide: function (actionId) {
+					    return function() {
+					        $.throttle( 100, execute(actionId));
+					    };
+					}(action.Id)
 				});
         		paramWrap.append(paramCtrl);	
         		control.append(paramWrap);

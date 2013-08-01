@@ -96,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
-    <Folder Include="Dashboards\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\bithome.css">
@@ -189,6 +188,9 @@
     <None Include="login.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="js\jquery.throttle-debounce.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="js\spin.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

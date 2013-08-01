@@ -15,13 +15,13 @@ namespace BitHome.Messaging.Messages
         private readonly DataType m_paramDataType;
         private readonly ParamValidationType m_validationType;
         private readonly int m_nMaxStringLength;
-		private readonly Int64 m_nMinumumValue;
-		private readonly Int64 m_nMaximumValue;
         private readonly int m_nValueWidthInBytes;
         private readonly bool m_bIsSigned;
 		private readonly Dictionary<String, int> m_enumValueByName = new Dictionary<String, int> ();
+        private long m_maxValue;
+        private long m_minValue;
 
-		public override Api Api {
+        public override Api Api {
 			get {
 				return Protocol.Api.PARAMETER_RESPONSE;
 			}
@@ -42,8 +42,17 @@ namespace BitHome.Messaging.Messages
             get { return m_paramName; }
         }
 
-		public Int64 MaxValue { get; private set; }
-		public Int64 MinValue { get; private set; }
+		public Int64 MaxValue
+		{
+		    get { return m_maxValue; }
+		    private set { m_maxValue = value; }
+		}
+
+        public Int64 MinValue
+        {
+            get { return m_minValue; }
+            private set { m_minValue = value; }
+        }
 
         public DataType DataType
         {
@@ -87,8 +96,8 @@ namespace BitHome.Messaging.Messages
 			m_paramName = name;
 			m_paramDataType = dataType;
 			m_validationType = validationType;
-			m_nMinumumValue = minValue;
-			m_nMaximumValue = maxValue;
+			this.MinValue = minValue;
+			this.MaxValue = maxValue;
 			m_enumValueByName = enumValues;
 		}
 
@@ -149,15 +158,15 @@ namespace BitHome.Messaging.Messages
             {
                 case ParamValidationType.UNSIGNED_RANGE:
                     // load min and max type-width values
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_nMinumumValue);
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_nMaximumValue);
+                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_minValue);
+                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_maxValue);
                     m_bIsSigned = false;
                     break;
                 case ParamValidationType.SIGNED_RANGE:
                     m_bIsSigned = true;
                     // load min and max type-width values
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_nMinumumValue);
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_nMaximumValue);
+                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_minValue);
+                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_maxValue);
                     break;
                 case ParamValidationType.ENUMERATED:
                     // load count, then value-name pairs count times
