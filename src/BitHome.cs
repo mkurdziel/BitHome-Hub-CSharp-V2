@@ -34,7 +34,14 @@ namespace BitHome
 
 			Console.WriteLine("\n\nListening on http://*:1337/..");
 			Console.WriteLine("Type Ctrl+C to quit..");
-			Thread.Sleep(Timeout.Infinite);
+
+			while (ServiceManager.IsStarted) {
+				Thread.Sleep (TimeSpan.FromSeconds(1));
+			}
+
+			appHost.Stop ();
+
+			log.Info ("BitHome Shut Down");
         }
     }
 

@@ -25,6 +25,7 @@ namespace BitHome.Messaging
 		// Create blocking queues for the sender threads
 		private BlockingCollection<MessageBase> m_messageQueueIn = new BlockingCollection<MessageBase>(new ConcurrentQueue<MessageBase>(), MESSAGE_QUEUE_SIZE );
 		private BlockingCollection<MessageBase> m_messageQueueOut = new BlockingCollection<MessageBase>(new ConcurrentQueue<MessageBase>(), MESSAGE_QUEUE_SIZE );
+		private CancellationTokenSource m_cancelToken = new CancellationTokenSource();
 
 		// Message handling threads
 		private Thread m_messageThreadIn;
@@ -76,7 +77,6 @@ namespace BitHome.Messaging
 				foreach (MessageAdapterBase adapter in m_adapters) {
 					adapter.MessageRecieved += OnAdapterMessageRecieved; 
 					adapter.Start ();
-
 				}
 
 				m_messageThreadOut.Start ();
@@ -92,6 +92,13 @@ namespace BitHome.Messaging
 			log.Info ("Stopping MessageDispatcherService");
 
 			m_isRunning = false;
+
+			// Stop adapters
+			foreach (MessageAdapterBase adapter in m_adapters) {
+				adapter.Stop ();
+			}
+
+			m_cancelToken.Cancel ();
 
 			if (m_isTesting == false) {
 				m_messageThreadIn.Join ();
@@ -181,10 +188,12 @@ namespace BitHome.Messaging
 			try {
 				MessageBase msg;
 				while (m_isRunning) {
-					msg = m_messageQueueIn.Take ();
+					msg = m_messageQueueIn.Take (m_cancelToken.Token);
 
 					OnMessageRecieved(msg);
 				}
+			} catch (OperationCanceledException) {
+				log.Info ("Message input thread cancelled");
 			} catch (ThreadInterruptedException) {
 				log.Info ("Message input thread interrupted");
 			}
@@ -197,7 +206,7 @@ namespace BitHome.Messaging
 			try {
 				MessageBase msg;
 				while (m_isRunning) {
-					msg = m_messageQueueOut.Take ();
+					msg = m_messageQueueOut.Take (m_cancelToken.Token);
 
 					if (msg.DestinationNode == null ) {
 						foreach( MessageAdapterBase adapter in m_adapters )
@@ -213,6 +222,8 @@ namespace BitHome.Messaging
 						}
 					}
 				}
+			} catch (OperationCanceledException) {
+				log.Info ("Message output thread cancelled");
 			} catch (ThreadInterruptedException) {
 				log.Info ("Message output thread interrupted");
 			}

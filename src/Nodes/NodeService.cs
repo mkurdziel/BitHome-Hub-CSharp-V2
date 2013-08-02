@@ -12,7 +12,7 @@ using BitHome.Messaging.Protocol;
 
 namespace BitHome
 {
-	public class NodeService : ServiceStack.ServiceInterface.Service
+	public class NodeService 
 	{
 		private const string KEY_NODES = "nodes";
 		private const int QUERY_INVERVAL_MS = 1000 * 60; // 2 minutes

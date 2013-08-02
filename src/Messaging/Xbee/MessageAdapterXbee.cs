@@ -417,8 +417,7 @@ namespace BitHome.Messaging.Xbee
 			{
 				serThread.Abort();
 
-				if (serThread.ThreadState == ThreadState.Aborted)
-					_serialPort.Close();
+				_serialPort.Close();
 			}
 		}
 		public bool ResetConn()
@@ -470,7 +469,7 @@ namespace BitHome.Messaging.Xbee
 		private void SerialReceiving()
 		{
 			if (_serialPort != null && _serialPort.IsOpen) {
-				while (true)
+				while (_serialPort.IsOpen)
 				{
 					int count = _serialPort.BytesToRead;
 
