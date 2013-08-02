@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using BitHome.Messaging.Protocol;
+﻿using BitHome.Messaging.Protocol;
 using NLog;
 
 namespace BitHome.Messaging.Messages
@@ -13,9 +11,9 @@ namespace BitHome.Messaging.Messages
         private readonly DataType m_nDataType;
         private readonly int m_nValue;
         private readonly string m_strValue;
-        private readonly bool m_bValue;
-        private readonly bool m_bIsInteger;
-        private readonly string m_strTypeName;
+        //private readonly bool m_bValue;
+        //private readonly bool m_bIsInteger;
+        //private readonly string m_strTypeName;
 
 		public override Api Api {
 			get {
@@ -48,45 +46,44 @@ namespace BitHome.Messaging.Messages
             m_nDataType = (DataType)p_data[nPayloadIdx++];
             m_nValue = 0;
             m_strValue = string.Empty;
-            m_bValue = false;
-            m_bIsInteger = false;
+            //m_bIsInteger = false;
 
             int nConversionLengthInBytes;
 
             switch (m_nDataType)
             {
                 case DataType.BOOL:
-                    m_bValue = (p_data[nPayloadIdx] == 0) ? false : true;
-                    m_strTypeName = "BOOL";
+                    //m_bValue = (p_data[nPayloadIdx] == 0) ? false : true;
+                    //m_strTypeName = "BOOL";
                     break;
                 case DataType.BYTE:
                     nConversionLengthInBytes = 1;
                     DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
-                    m_bIsInteger = true;
-                    m_strTypeName = "BYTE";
+                    //m_bIsInteger = true;
+                    //m_strTypeName = "BYTE";
                     break;
                 case DataType.STRING:
                     DataHelpers.GatherZeroTermString(p_data, nPayloadIdx, out m_strValue);
-                    m_strTypeName = "STRING";
+                    //m_strTypeName = "STRING";
                     break;
                 case DataType.DWORD:
                     nConversionLengthInBytes = 3;
                     DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
-                    m_bIsInteger = true;
-                    m_strTypeName = "DWORD";
+                    //m_bIsInteger = true;
+                    //m_strTypeName = "DWORD";
                     break;
                 case DataType.VOID:
-                    m_strTypeName = "VOID";
+                    //m_strTypeName = "VOID";
                     break;
                 case DataType.WORD:
                     nConversionLengthInBytes = 2;
                     DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
-                    m_bIsInteger = true;
-                    m_strTypeName = "WORD";
+                    //m_bIsInteger = true;
+                    //m_strTypeName = "WORD";
                     break;
                 default:
                     log.Warn("Unexpected DATA_TYPE value parsed from SyNetFunctionReceive message");
-                    m_strTypeName = "{unknown}";
+                    //m_strTypeName = "{unknown}";
                     break;
             }
         }

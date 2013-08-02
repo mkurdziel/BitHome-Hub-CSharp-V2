@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BitHome.Messaging.Protocol;
 using NLog;
 using System.Threading;
@@ -9,19 +10,18 @@ namespace BitHome.Actions
 	[Serializable]
 	public abstract class ActionBase : IAction
 	{
-		private const string DEFAULT_NAME = "Unknown Action";
-		private static Logger log = LogManager.GetCurrentClassLogger();
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 
-		public String Id { get; set; }
+		public String Id { get; private set; }
 		public String Name { get; set; }
 		public String ExecutionErrorString { get; set; }
 		public String Description { get; set; }
 		public DataType ReturnDataType { get; set; }
 		public String ReturnValue { get; set; }
 
-		private List<IActionParameter> m_parameters = new List<IActionParameter>();
-		private object m_actionLock = new object();
+		private readonly List<IActionParameter> m_parameters = new List<IActionParameter>();
+		private readonly object m_actionLock = new object();
 
 		public abstract ActionType ActionType { get; }
 
@@ -33,13 +33,7 @@ namespace BitHome.Actions
 
 		IActionParameter[] IAction.InputParameters {
 			get {
-				List<IActionParameter> inputParameters = new List<IActionParameter> ();
-				foreach (IActionParameter param in m_parameters) {
-					if (param.ParameterType == ActionParameterType.Input) {
-						inputParameters.Add (param);
-					}
-				}
-				return inputParameters.ToArray();
+			    return m_parameters.Where(param => param.ParameterType == ActionParameterType.Input).ToArray();
 			}
 		}
 

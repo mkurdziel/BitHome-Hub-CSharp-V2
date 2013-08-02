@@ -151,7 +151,6 @@ namespace BitHome.Actions
 			switch (DataType) {
 			case DataType.BOOL:
 				return false;
-				break;
 			case DataType.STRING:
 				if (value > 0) {
 					return true;

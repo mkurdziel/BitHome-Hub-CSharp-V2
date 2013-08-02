@@ -4,11 +4,11 @@ namespace BitHome
 {
 	public class NodeUpdateFile
 	{
-		private byte[] m_dataBytes;
-		private String m_fileName;
-		private int m_minAddress;
-		private int m_maxAddress;
-		private long m_lengthInBytes = 0;
+        //private byte[] m_dataBytes;
+        private String m_fileName;
+        //private int m_minAddress;
+        //private int m_maxAddress;
+        //private long m_lengthInBytes = 0;
 
 
 		public NodeUpdateFile(String p_fileName)

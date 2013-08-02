@@ -8,8 +8,11 @@ namespace BitHome
 {
 	public class StorageService
 	{
+	    private const string APPDATA_FOLDER = "BitHome";
+	    private const string DB_FILE = "db";
+
 		private static Logger log = LogManager.GetCurrentClassLogger();
-		private static String m_path = @"./appdata";
+	    private static String m_path = null;
 
 		public StorageService (bool p_isTesting)
 		{
@@ -21,24 +24,25 @@ namespace BitHome
 				{
 					Directory.Delete (m_path, true);
 				}
+			} else {
+                // Get the users application data path
+                String appdatafolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			    String dbLocation = Path.Combine(Path.Combine(appdatafolder, APPDATA_FOLDER), DB_FILE);
+
+			    log.Debug("Application data path: {0}", dbLocation);
+
+			    m_path = dbLocation;
 			}
-
-			BinaryRage.DB<Double>.Insert ("version", 0.0, m_path);
-
-			BinaryRage.DB<Double>.WaitForCompletion();
-		}
-
-		public StorageService ()
-		{
-			BinaryRage.DB<Double>.Insert ("version", 0.1, m_path);
-
-            BinaryRage.DB<Double>.WaitForCompletion();
 		}
 
 		public Boolean Start() {
 			log.Info ("Starting StorageService");
 
-			log.Info ("DB at version {0}", BinaryRage.DB<Double>.Get("version", m_path));
+            BinaryRage.DB<String>.Insert("version", ServiceManager.SettingsService.Version.VersionString, m_path);
+
+            BinaryRage.DB<String>.WaitForCompletion();
+
+			log.Info ("DB at version {0}", BinaryRage.DB<String>.Get("version", m_path));
 
 			return true;
 		}

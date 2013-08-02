@@ -163,7 +163,7 @@
 					    return function() {
 					        execute(actionId);
 					    };
-					}(action.Id), 1000)
+					}(action.Id), 100, false, true)
 				});
         		paramWrap.append(paramCtrl);	
         		control.append(paramWrap);

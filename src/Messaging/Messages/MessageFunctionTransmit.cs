@@ -37,7 +37,6 @@ namespace BitHome.Messaging.Messages
 		public override byte[] GetBytes ()
 		{
 		    List<byte> bytes = new List<byte>();
-		    Int64 intval;
 
             bytes.Add((byte)BitHomeProtocol.PacketValues.PACKET_START);
             bytes.Add((byte)BitHomeProtocol.Api.FUNCTION_TRANSMIT);

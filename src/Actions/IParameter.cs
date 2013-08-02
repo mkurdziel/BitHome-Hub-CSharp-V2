@@ -7,6 +7,7 @@ namespace BitHome.Actions
 	public interface IParameter
 	{
 		String Id { get; set; }
+        String Identifier { get; }
 		String Name { get; set; }
 		String Description { get; set; }
 		DataType DataType {get; set;}

@@ -85,7 +85,7 @@ namespace BitHomeUpdater
                 try
                 {
                     Directory.Delete(dirPath, true);
-                } catch (DirectoryNotFoundException e) {
+                } catch (DirectoryNotFoundException) {
                     Console.Error.WriteLine("Dir not found {0}", dirPath);
                 }
             }
@@ -183,7 +183,7 @@ namespace BitHomeUpdater
 						return true;
 					}
 				}
-			} catch (Exception e) {
+			} catch (Exception) {
 				Console.WriteLine ("Could not delete shutdown file");
 			}
 			return false;
@@ -193,7 +193,7 @@ namespace BitHomeUpdater
 			try {
 				string text = File.ReadAllText (Path.Combine(currentDir, BitHome.ServiceManager.PID_FILE));
 				return text;
-			} catch (Exception e) {
+			} catch (Exception) {
 				Console.WriteLine ("Could not read PID from file {0}", BitHome.ServiceManager.PID_FILE);
 			}
 			return null;

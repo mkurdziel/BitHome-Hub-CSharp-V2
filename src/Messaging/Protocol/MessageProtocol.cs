@@ -6,7 +6,6 @@ namespace BitHome.Messaging.Protocol
 		API = 1
 	}
 
-	/// </summary>
 	public enum PacketValues : byte
 	{
 		/// <summary>
