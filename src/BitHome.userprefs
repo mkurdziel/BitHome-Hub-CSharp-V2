@@ -1,26 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Messaging/Xbee/MessageAdapterXbee.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Web/WebSettingsService.cs">
     <Files>
-      <File FileName="BitHome.cs" Line="46" Column="36" />
-      <File FileName="Messaging/MessageDispatcherService.cs" Line="69" Column="1" />
-      <File FileName="dashboard.cshtml" Line="166" Column="22" />
-      <File FileName="js/jquery.debounce.js" Line="72" Column="1" />
-      <File FileName="js/jquery.throttle.js" Line="2" Column="5" />
-      <File FileName="Messaging/Xbee/MessageAdapterXbee.cs" Line="442" Column="5" />
+      <File FileName="Messaging/MessageDispatcherService.cs" Line="17" Column="1" />
+      <File FileName="dashboard.cshtml" Line="1" Column="1" />
+      <File FileName="js/jquery.debounce.js" Line="1" Column="1" />
+      <File FileName="js/jquery.throttle.js" Line="1" Column="1" />
+      <File FileName="master.cshtml" Line="52" Column="56" />
+      <File FileName="Web/WebSettingsService.cs" Line="30" Column="3" />
+      <File FileName="Web/WebNodeService.cs" Line="1" Column="31" />
+      <File FileName="SettingsService.cs" Line="40" Column="4" />
+      <File FileName="settings.cshtml" Line="20" Column="32" />
+      <File FileName="BitHome.cs" Line="26" Column="1" />
+      <File FileName="BitHomeUpdater/Program.cs" Line="13" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="BitHome" expanded="True">
-            <Node name="References" expanded="True" />
-            <Node name="js" expanded="True" />
-            <Node name="Messaging" expanded="True">
-              <Node name="Xbee" expanded="True">
-                <Node name="MessageAdapterXbee.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
+          <Node name="BitHomeUpdater" expanded="True" selected="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

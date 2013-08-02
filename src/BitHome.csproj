@@ -93,6 +93,7 @@
     <Reference Include="ServiceStack.Logging.NLog">
       <HintPath>packages\ServiceStack.Logging.NLog.1.0.10.0\lib\net35\ServiceStack.Logging.NLog.dll</HintPath>
     </Reference>
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
@@ -244,6 +245,9 @@
     <None Include="js\jquery.debounce.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="settings.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataHelpers.cs" />
@@ -308,6 +312,11 @@
     <Compile Include="Dashboards\Dashboard.cs" />
     <Compile Include="Dashboards\DashboardItem.cs" />
     <Compile Include="BitHomeService.cs" />
+    <Compile Include="Web\WebSettingsService.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="SettingsService.cs" />
+    <Compile Include="Version.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

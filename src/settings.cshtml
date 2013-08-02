@@ -1,0 +1,59 @@
+@{
+    Layout = "master";
+}
+
+@section Stylesheet {
+    <style type="text/css">
+    </style>
+}
+<h1>Settings</h1>
+<h2>Version</h2>
+Current Version : <span id="current-version"></span>
+<br/>
+<h2>Upgrade</h2>
+Newest Version : <span id="newest-version"></span>
+
+@section Javascript {
+    <script>
+        $(function () {
+        	updateCurrentVersion();
+        	updateNewestVersion();
+        }); 
+        
+        function setVersion(version) {
+        	$('#current-version').text(version);
+        }
+        
+       function setNewestVersion(version) {
+        	$('#newest-version').text(version);
+        }
+         
+        function updateCurrentVersion() {
+        	$.ajax({
+                type: 'GET',
+                url: 'api/settings/version',
+                data: { format: 'json'},
+                beforeSend: function () {
+                	setVersion("Loading...");
+                },
+                success: function (data) {
+                	setVersion(data.VersionString);
+                }
+            });
+        }
+        
+        function updateNewestVersion() {
+        	$.ajax({
+                type: 'GET',
+                url: 'api/settings/version/newest',
+                data: { format: 'json'},
+                beforeSend: function () {
+                	setNewestVersion("Loading...");
+                },
+                success: function (data) {
+                	setNewestVersion(data.VersionString);
+                }
+            });
+        }
+    </script>
+}

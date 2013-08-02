@@ -8,11 +8,11 @@
     <Packages>
       <Packages>
         <Package name="Linux Binaries Snapshot">
-          <Builder targetFile="..\snapshot\BitHome.tar.gz" platform="Linux" configuration="Release" ctype="BinariesZipPackageBuilder">
+          <Builder targetFile="..\snapshot\BitHome.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
               <SolutionItemReference path="BitHome.csproj" />
               <SolutionItemReference path="..\..\BinaryRage\BinaryRage.csproj" />
-              <SolutionItemReference path="BitHomeTests\BitHomeTests.csproj" />
+              <SolutionItemReference path="BitHomeUpdater\BitHomeUpdater.csproj" />
             </ChildEntries>
             <RootEntry path="BitHome.sln" id=":root:" />
           </Builder>

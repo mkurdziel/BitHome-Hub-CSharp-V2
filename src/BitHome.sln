@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitHomeTests", "BitHomeTest
 EndProject
 Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Packages", "Packages.mdproj", "{9E04DF61-16C7-42CD-AFB1-FCD75BFCFC36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitHomeUpdater", "BitHomeUpdater\BitHomeUpdater.csproj", "{4984A6E8-6AB7-4744-9FC4-22F03E2927F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{191D893F-7087-4E59-9AEE-5FEF4172E3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4984A6E8-6AB7-4744-9FC4-22F03E2927F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4984A6E8-6AB7-4744-9FC4-22F03E2927F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4984A6E8-6AB7-4744-9FC4-22F03E2927F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4984A6E8-6AB7-4744-9FC4-22F03E2927F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9E04DF61-16C7-42CD-AFB1-FCD75BFCFC36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E04DF61-16C7-42CD-AFB1-FCD75BFCFC36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B4802E-A6D6-4A9D-B81C-FACA264633A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
