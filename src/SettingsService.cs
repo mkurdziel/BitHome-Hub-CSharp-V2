@@ -4,9 +4,6 @@ using ServiceStack.Text;
 using System.ComponentModel;
 using System.Net;
 using System.IO;
-using ICSharpCode.SharpZipLib.Zip;
-using ICSharpCode.SharpZipLib.GZip;
-using ICSharpCode.SharpZipLib.Core;
 
 namespace BitHome
 {
@@ -116,14 +113,15 @@ namespace BitHome
 
 		private void RunUpdate() {
 			String updateDir = Path.Combine (m_tempDirectory, "BitHome");
-			String updateFile = Path.Combine (updateDir, UPDATE_EXE);
+            //String updateFile = Path.Combine (updateDir, UPDATE_EXE);
+            String updateFile = UPDATE_EXE;
 
 			if (!File.Exists (updateFile)) {
 				log.Warn ("Updater application does not exist");
 				return;
 			}
 
-			String updateArgs = String.Format ("update B{0} {1}", Environment.CurrentDirectory, m_tempDirectory);
+			String updateArgs = String.Format ("update {0} {1}", Environment.CurrentDirectory, m_tempDirectory);
 			log.Debug ("Executing update file: {0} {1}", updateFile, updateArgs);
 
 			// Set to be executable

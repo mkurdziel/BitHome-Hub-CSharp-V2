@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
@@ -14,7 +15,7 @@ namespace BitHomeUpdater
 				String cmd = args [0];
 
 				if (cmd.Equals ("reboot")) {
-					Reboot();
+					Reboot("");
 				}
 
 				if (cmd.Equals ("update")) {
@@ -26,8 +27,7 @@ namespace BitHomeUpdater
 					String currentDir = args [1];
 					String updateDir = args [2];
 
-//					PerformUpdate (currentDir, updateDir);
-
+					PerformUpdate (currentDir, updateDir);
 				}
 			}
 		}
@@ -37,43 +37,96 @@ namespace BitHomeUpdater
 			// First check if there is a previous install in the current dir
 			String previousDir = Path.Combine(currentDir, "previousVersion");
 
-			if ( File.Exists(previousDir)) {
+			if ( Directory.Exists(previousDir)) {
 				Console.WriteLine ("Deleting previous dir");
-				File.Delete (previousDir);
+                Directory.Delete(previousDir, true);
 			}
 
 			// Create a directory to hold the previous install
 			Directory.CreateDirectory (previousDir);
 
 			// Perform the shutdown
-			Shutdown ();
+			Shutdown (currentDir);
 
-			CopyContents (currentDir, previousDir);
+			MoveContents (currentDir, previousDir);
+
+            CopyContents(Path.Combine(updateDir, "BitHome"), currentDir);
+
+            StartBitHome(currentDir);
 		}
 
-		static void CopyContents(String from, String to) {
-			foreach(var file in Directory.GetFiles(from))
-				File.Copy(file, Path.Combine(to, Path.GetFileName(file)));
+		static void MoveContents(String from, String to) {
+            //Now Create all of the directories
+		    String[] directories = Directory.GetDirectories(from, "*", SearchOption.AllDirectories);
 
-			foreach(var directory in Directory.GetDirectories(to)) {
-				// Omit itself if necessary
-				if (directory != to) {
-					CopyContents(directory, Path.Combine(from, Path.GetFileName(directory)));
-				}
-			}
+            List<String> dirList = new List<string>(directories);
+
+            // Remove the destination directory
+		    dirList.Remove(to);
+
+            foreach (string dirPath in dirList)
+            {
+                 Console.WriteLine("Creating directory {0}", dirPath);
+                 Directory.CreateDirectory(dirPath.Replace(from, to));
+            }
+
+		    //Copy all the files
+            foreach (string newPath in Directory.GetFiles(from, "*.*",
+                SearchOption.AllDirectories))
+            {
+                Console.WriteLine("Moving file {0}", newPath);
+                File.Move(newPath, newPath.Replace(from, to));
+            }
+
+		    // Remove all the previous directories
+            foreach (string dirPath in dirList)
+            {
+                Console.WriteLine("Removing old directory {0}", dirPath);
+                try
+                {
+                    Directory.Delete(dirPath, true);
+                } catch (DirectoryNotFoundException e) {
+                    Console.Error.WriteLine("Dir not found {0}", dirPath);
+                }
+            }
 		}
 
-		static void Reboot ()
+        static void CopyContents(String from, String to)
+        {
+            //Now Create all of the directories
+            String[] directories = Directory.GetDirectories(from, "*", SearchOption.AllDirectories);
+
+            List<String> dirList = new List<string>(directories);
+
+            // Remove the destination directory
+            dirList.Remove(to);
+
+            foreach (string dirPath in dirList)
+            {
+                Console.WriteLine("Creating directory {0}", dirPath);
+                Directory.CreateDirectory(dirPath.Replace(from, to));
+            }
+
+            //Copy all the files
+            foreach (string newPath in Directory.GetFiles(from, "*.*",
+                SearchOption.AllDirectories))
+            {
+                Console.WriteLine("Copying file {0}", newPath);
+                File.Copy(newPath, newPath.Replace(from, to));
+            }
+        }
+
+		static void Reboot (string currentDir)
 		{
 			Console.WriteLine ("Rebooting BitHome...");
 
 			// Shut down the app via the shutdown file
-			if (Shutdown ()) {
-				StartBitHome ();
+			if (Shutdown (currentDir)) {
+				StartBitHome (currentDir);
 			}
 		}
 
-		static void StartBitHome() {
+		static void StartBitHome(string currentDir) {
 			Console.WriteLine ("Starting BitHome");
 
 			ProcessStartInfo startInfo = new ProcessStartInfo ();
@@ -81,15 +134,16 @@ namespace BitHomeUpdater
 			switch (Environment.OSVersion.Platform) {
 			case PlatformID.MacOSX:
 				startInfo.FileName = "/bin/sh";
-				startInfo.Arguments = "StartBitHome_Linux.sh";
+				startInfo.Arguments = Path.Combine(currentDir, "StartBitHome_Linux.sh");
 				break;
 			case PlatformID.Unix:
 				startInfo.FileName = "/bin/sh";
-				startInfo.Arguments = "StartBitHome_Linux.sh";
+				startInfo.Arguments =  Path.Combine(currentDir, "StartBitHome_Linux.sh");
 				break;
 			case PlatformID.Win32S:
 			case PlatformID.Win32NT:
 			case PlatformID.Win32Windows:
+				startInfo.FileName =  Path.Combine(currentDir, "StartBitHome_Windows.bat");
 				break;
 			}
 			System.Diagnostics.Process proc = new System.Diagnostics.Process();
@@ -98,17 +152,16 @@ namespace BitHomeUpdater
 			proc.Start();
 
 
-
 			Console.WriteLine ("BitHome started pid:{0}", proc.Id);
 		}
 
-		static bool Shutdown() {
+		static bool Shutdown(string currentDir) {
 			try {
 
-				String pid = GetPid ();
+				String pid = GetPid (currentDir);
 
 				if (pid != null) {
-					File.Delete(BitHome.ServiceManager.PID_FILE);
+					File.Delete(Path.Combine(currentDir, BitHome.ServiceManager.PID_FILE));
 
 					// Wait for the pid to be quit
 					bool exited = false;
@@ -136,9 +189,9 @@ namespace BitHomeUpdater
 			return false;
 		}
 
-		static String GetPid() {
+		static string GetPid(string currentDir) {
 			try {
-				string text = File.ReadAllText (BitHome.ServiceManager.PID_FILE);
+				string text = File.ReadAllText (Path.Combine(currentDir, BitHome.ServiceManager.PID_FILE));
 				return text;
 			} catch (Exception e) {
 				Console.WriteLine ("Could not read PID from file {0}", BitHome.ServiceManager.PID_FILE);

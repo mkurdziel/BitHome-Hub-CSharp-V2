@@ -1,3 +1,3 @@
 #!/bin/sh
 
-nohup mono BitHome.exe &
+nohup mono `pwd`/BitHome.exe &
