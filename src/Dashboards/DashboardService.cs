@@ -34,9 +34,9 @@ namespace BitHome.Dashboards
 
 				m_dashboards.Add (dash.Id, dash);
 
-				foreach (INodeAction action in node.Actions) {
-					dash.AddActionItem (action);
-				}
+//				foreach (INodeAction action in node.Actions) {
+//					dash.AddActionItem (action);
+//				}
 			}
 		}
 

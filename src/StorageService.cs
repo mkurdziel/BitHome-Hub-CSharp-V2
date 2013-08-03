@@ -19,11 +19,8 @@ namespace BitHome
 			// Set up a different path for testing data
 			if (p_isTesting) {
 				m_path = @"./testdata";
-				// Delete the existing data
-				if (Directory.Exists(m_path))
-				{
-					Directory.Delete (m_path, true);
-				}
+
+				DeleteDb ();
 			} else {
                 // Get the users application data path
                 String appdatafolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -33,14 +30,25 @@ namespace BitHome
 
 			    m_path = dbLocation;
 			}
+
+			BinaryRage.DB<String>.Insert("version", ServiceManager.SettingsService.Version.VersionString, m_path);
+
+			BinaryRage.DB<String>.WaitForCompletion();
+		}
+
+		public void DeleteDb() {
+			log.Warn("Deleting db: {0}", m_path);
+
+			// Delete the existing data
+			if (Directory.Exists(m_path))
+			{
+				Directory.Delete (m_path, true);
+			}
 		}
 
 		public Boolean Start() {
 			log.Info ("Starting StorageService");
 
-            BinaryRage.DB<String>.Insert("version", ServiceManager.SettingsService.Version.VersionString, m_path);
-
-            BinaryRage.DB<String>.WaitForCompletion();
 
 			log.Info ("DB at version {0}", BinaryRage.DB<String>.Get("version", m_path));
 
@@ -53,6 +61,10 @@ namespace BitHome
 
 		public static String GenerateKey() {
 			return BinaryRage.Key.GenerateUniqueKey ();
+		}
+
+		public static void WaitForCompletion() {
+			BinaryRage.DB<bool>.WaitForCompletion();
 		}
 
 		public static class Store<T> {
@@ -75,6 +87,11 @@ namespace BitHome
 			static public bool Exists(string key)
 			{
 				return BinaryRage.DB<T>.Exists (key, m_path);
+			}
+
+			static public void WaitForCompletion()
+			{
+				BinaryRage.DB<T>.WaitForCompletion ();
 			}
 		}
 	}

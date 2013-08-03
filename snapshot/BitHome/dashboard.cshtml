@@ -1,0 +1,220 @@
+﻿@{
+    Layout = "master";
+}
+
+@section Stylesheet {
+    <style type="text/css">
+        .draggable { padding: 5px; float: left; margin: 10px; font-size: .9em; }
+        .ui-widget-header p, .ui-widget-content p { margin: 0; }
+        .slider-wrapper { display: inline-block; padding: 4px; }
+        .slider-vertical { height: 100px; }
+        .dashboard { background-color: #fefefe; border: 1px solid #ccc; }
+        #snaptarget { height: 600px; }
+
+        .bithome-control-title {
+            cursor: move;
+        }
+
+        .bithome-control-title, 
+        .bithome-control {
+            -webkit-user-select: none; /* Chrome/Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+ */
+
+            /* Rules below not implemented in browsers yet */
+            -o-user-select: none;
+        }
+
+        .bithome-control-drag {
+        }
+    </style>
+}
+<h1>Dashboard</h1>
+
+<div id="snaptarget" class="dashboard">
+  <p>Drag items around the Dashboard</p>
+</div>
+
+<br style="clear: both;" />
+
+
+
+@section Javascript {
+    <script src="js/jquery.throttle.js"></script>
+
+    <script>
+    	var dashboardId = "";
+    	
+        $(function () {
+        
+        	updateDashboards();
+
+            
+            
+			$( ".slider-vertical" ).slider({
+				orientation: "vertical",
+				range: "min",
+				min: 0,
+				max: 100,
+				value: 60,
+        	});
+        });
+        
+        function createDraggables() {
+			$(".bithome-control").draggable(
+				{  stop: function( event, ui ) {
+					updatePosition( ui );
+				},
+				grid: [20, 20],
+				handle: ".bithome-control-drag",
+				containment: "parent" }
+			);
+        }
+        
+        function updatePosition(control) {
+        	var itemId = control.helper.attr('dashboard-item-id');
+        	var top = control.position.top;
+        	var left = control.position.left;
+        	
+        	$.ajax({
+
+                type: 'POST',
+                url: 'api/dashboards/' + dashboardId + "/items/" + itemId + "/position",
+                data: {
+                    format: 'json',
+                    dashboardId : dashboardId,
+                    itemId : itemId,
+                    positionX : left,
+                    positionY : top
+                }
+            });
+        }
+        
+        function updateDashboards() {
+    
+            $.ajax({
+                type: 'GET',
+                url: 'api/dashboards',
+                data: { format: 'json' },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, len = data.length; i < len; ++i) {
+                        var dashboard = data[i];
+                        createDashboardItems(dashboard);
+
+                    }
+                    
+                    createDraggables();
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+        
+        function createDashboardItems(dashboard) {
+        	dashboardId = dashboard.Id;
+        	
+        	// Loop through each action
+        	jQuery.each(dashboard.Items,function(index, action) {
+        		createItem(action);
+
+        	});	
+        }
+        
+        function createItem(item) {
+        	var action = item.Action;
+        	var control = $("<div/>", {
+        		'dashboard-item-id' : item.Id,
+        		'id' : 'control_' + action.Id,
+        		'class' : 'draggable ui-widget-content bithome-control'
+        	});
+        	
+        	control.css('top', item.PositionY + "px")
+        	control.css('left', item.PositionX + "px");
+        	
+        	control.append( $("<div/>", { 
+        		'text' : action.Name ,
+        		'class' : 'bithome-control-title bithome-control-drag'
+        	}));
+        	
+        	// Create the parameter controls
+        	jQuery.each(action.Parameters, function(index, param) {
+        		var paramWrap = $("<div/>", {
+        			'id' : 'param_wrap_' + param.Id,
+        			'class' : 'slider-wrapper'
+        		});
+        		
+        		var paramCtrl = $("<div/>", {
+        			'id' : 'param_ctrl_' + param.Id,
+        			'parameter-id' : param.Id,
+        			'class' : 'slider-vertical bithome-parameter'
+        		});
+        		
+        		paramCtrl.slider({
+					orientation: "vertical",
+					range: "min",
+					min: param.MinimumValue,
+					max: param.MaximumValue,
+					value: 0,
+					slide: $.throttle (function (actionId) {
+					    return function() {
+					        execute(actionId);
+					    };
+					}(action.Id), 100, false, true)
+				});
+        		paramWrap.append(paramCtrl);	
+        		control.append(paramWrap);
+        	});
+        	
+        	//slide: function (actionId) {
+					    //return function() {
+					     //   $.delay(1).throttle( 100, execute(actionId));
+					    //};
+        	
+        	var executeButton = $("<a/>", {
+        		'class' : 'btn btn-primary btn-medium',
+        		'text' : 'Execute'
+        	});
+			control.append($("<br/>"));
+			control.append(executeButton);
+			control.on("click", function (actionId) {
+            	return function() {
+            		execute(actionId);
+            	}
+            }(action.Id));
+        	
+        	$('#snaptarget').append(control);	
+        }
+        
+        function execute(actionId) {
+        	var control = $('#control_' + actionId );
+        	var parameters = {};
+        	
+        	jQuery.each(control.find('.bithome-parameter'), function(index, param){
+        		var paramId = $(param).attr('parameter-id');
+        		var value = $(param).slider( "option", "value" );
+        		parameters[paramId] = value;
+        	});
+        	
+            $.ajax({
+
+                type: 'POST',
+                url: 'api/actions/' + actionId + "/execute",
+                data: {
+                    format: 'json',
+                    parameters: JSON.stringify(parameters)
+                },
+                beforeSend: function () {
+                    // this is where we append a loading image
+                },
+                success: function (data) {
+                }
+            });
+        }
+        
+        
+    </script>
+}

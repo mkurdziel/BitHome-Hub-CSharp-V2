@@ -60,6 +60,26 @@ namespace BitHome
 			}
 		}
 
+		// Restart the services without the storage
+		public static bool RestartServices() {
+			NodeService.Stop ();
+			ActionService.Stop ();
+			MessageDispatcherService.Stop ();
+
+			SettingsService = new SettingsService ();
+			MessageDispatcherService = new MessageDispatcherService (m_isTesting);
+			NodeService = new NodeService ();
+			ActionService = new ActionService();
+			DashboardService = new DashboardService ();
+
+			MessageDispatcherService.Start ();
+			ActionService.Start ();
+			NodeService.Start ();
+
+			return true;
+		}
+
+
 		private static bool StartServiceManager() {
 			log.Info ("Starting ServiceManager");
 
@@ -73,8 +93,8 @@ namespace BitHome
 			m_pidTimer.Start ();
 
 
-			StorageService = new StorageService (m_isTesting);
 			SettingsService = new SettingsService ();
+			StorageService = new StorageService (m_isTesting);
 			MessageDispatcherService = new MessageDispatcherService (m_isTesting);
 			NodeService = new NodeService ();
 			ActionService = new ActionService();

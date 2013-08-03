@@ -134,7 +134,7 @@ namespace BitHomeUpdater
 			switch (Environment.OSVersion.Platform) {
 			case PlatformID.MacOSX:
 				startInfo.FileName = "/bin/sh";
-				startInfo.Arguments = Path.Combine(currentDir, "StartBitHome_Linux.sh");
+				startInfo.Arguments = Path.Combine(currentDir, "StartBitHome_Mac.sh");
 				break;
 			case PlatformID.Unix:
 				startInfo.FileName = "/bin/sh";

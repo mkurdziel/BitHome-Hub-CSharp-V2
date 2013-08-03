@@ -17,7 +17,6 @@ namespace BitHome
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
-		private Dictionary<int, INodeAction> m_actions;
 		public const String UNKNOWN_NAME = "Unknown Node";
 
 		public String Id { get; set; }
@@ -37,17 +36,13 @@ namespace BitHome
 
 		public int TotalNumberOfFunctions { get; set; }
 
-		public INodeAction[] Actions { 
-			get {
-				return m_actions.Values.ToArray ();
-			}
-		}
+		public Dictionary<int, String> Actions { get; private set; }
 
         [IgnoreDataMember]
 		public int NextUnknownAction {
 			get { 
 				for (int i=1; i<=TotalNumberOfFunctions; ++i) {
-					if (!m_actions.ContainsKey (i)) {
+					if (!Actions.ContainsKey (i)) {
 						return i;
 					}
 				}
@@ -63,8 +58,8 @@ namespace BitHome
 		
 				for ( int i=1; i <= TotalNumberOfFunctions; ++i)
 				{
-					if (m_actions.ContainsKey (i)) {
-						action = m_actions [i];
+					if (Actions.ContainsKey (i)) {
+						action = (INodeAction)ServiceManager.ActionService.GetAction (Actions [i]);
 
 						paramNum = action.NextUnknownParameter;
 
@@ -112,7 +107,7 @@ namespace BitHome
 
 		public void Reset ()
 		{
-			m_actions = new Dictionary<int, INodeAction> ();
+			this.Actions = new Dictionary<int, string> ();
 			this.InvestigationStatus = NodeInvestigationStatus.Unknown;
 			IsUnknown = true;
 			IsBeingInvestigated = false;
@@ -122,50 +117,54 @@ namespace BitHome
 			Revision = -1;
 		}
 
-		public INodeAction GetNodeAction ( int actionIndex ) {
-			if (m_actions.ContainsKey(actionIndex)) {
-				return m_actions[actionIndex];
+		public String GetActionId ( int actionIndex ) {
+			if (this.Actions.ContainsKey (actionIndex)) {
+				return this.Actions [actionIndex];
 			}
 			return null;
 		}
 
-		public void SetNodeAction (int p_entryNumber, INodeAction p_action)
+		public void SetNodeAction (int actionIndex, String actionId)
 		{
-			log.Info ("Node:{0} adding node action:{1}", Identifier, p_entryNumber);
+			log.Info ("Node:{0} adding node action:{1}", Identifier, actionIndex);
 
-			if (m_actions.ContainsKey (p_entryNumber)) {
-				log.Warn ("Node:{0} replacing node action:{1}", Identifier, p_entryNumber);
+			if (Actions.ContainsKey (actionIndex)) {
+				log.Warn ("Node:{0} replacing node action:{1}", Identifier, actionIndex);
 
-				m_actions.Remove (p_entryNumber);
+				Actions.Remove (actionIndex);
 			}
 
-			m_actions.Add (p_entryNumber, p_action);
-		}
-
-		public bool SetNodeParameter (int actionIndex, int parameterIndex, INodeParameter parameter)
-		{
-			INodeAction action = m_actions[actionIndex];
-
-			if (action != null) {
-
-				log.Info ("Node:{0} adding Parameter:{1} to Action:{2}", Identifier, parameterIndex, actionIndex);
-
-				action.AddParameter (parameter);
-
-				return true;
-			}
-
-			return false;
+			Actions.Add (actionIndex, actionId);
 		}
 
 		public void RemoveAllActions()
 		{
-			foreach (INodeAction action in m_actions.Values) {
-				action.RemoveAllParameters ();
+			Actions.Clear ();
+
+			TotalNumberOfFunctions = -1;	
+		}
+
+		public override bool Equals (object obj)
+		{
+			// If parameter is null return false.
+			if (obj == null)
+			{
+				return false;
 			}
 
-			m_actions.Clear ();
-			TotalNumberOfFunctions = -1;	
+			// If parameter cannot be cast to this class return false.
+			Node p = obj as Node;
+			if ((System.Object)p == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			bool same = true;
+
+			same &= this.Id == p.Id;
+
+			return same;
 		}
 	}
 }

@@ -5,6 +5,7 @@ using NLog;
 using BitHome.Messaging.Messages;
 using BitHomeProtocol = BitHome.Messaging.Protocol;
 using System.Text;
+using System.Collections.Generic;
 
 namespace BitHome.Messaging.Xbee
 {
@@ -347,8 +348,14 @@ namespace BitHome.Messaging.Xbee
 			// Get a list of serial port names. 
 			string[] ports = SerialPort.GetPortNames();
 
+			List<string> portList = new List<String> (ports);
+			// Move this to the front of the list
+			if (portList.Contains ("/dev/ttyUSB0")) {
+				portList.Insert (0, "/dev/ttyUSB0");
+			}
+
 			// Display each port name to the console. 
-			foreach(string port in ports)
+			foreach(string port in portList)
 			{
 				if (port.Contains ("Bluetooth")) {
 					continue;

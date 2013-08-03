@@ -5,12 +5,11 @@ namespace BitHome.Actions
 	public interface INodeAction : IAction
 	{
 		String NodeId { get; set; }
-		int EntryNumber { get; set; }
+		int ActionIndex { get; set; }
 
-		new INodeParameter GetParameter (int p_index);
-		void AddParameter (INodeParameter p_parameter);
+		String GetParameterId (int index);
+		void AddNodeParameter (INodeParameter parameter);
 		int NextUnknownParameter { get; }
-		new INodeParameter[] Parameters { get; }
 		int TotalParameterCount { get; set; }
 	}
 }

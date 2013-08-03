@@ -7,8 +7,10 @@ using System.Threading;
 
 namespace BitHome.Actions
 {
-	public class ActionService
+	public class ActionService : IBitHomeService
 	{
+		private const string KEY_ACTIONS = "actions";
+
 		public const int ACTION_TIMEOUT_MS = 5000;
 		public const int MAX_ACTION_THREADS = 10;
 		public const int MAX_POOL_SIZE = 20;
@@ -43,9 +45,37 @@ namespace BitHome.Actions
 			}
 		}
 
+		public String[] ActionIds {
+			get {
+				return m_actions.Keys.ToArray ();
+			}
+		}
+
+		#region Constructors
+
 		public ActionService ()
 		{
 			ThreadPool.SetMaxThreads (THREAD_POOL_SIZE, 2);
+
+			LoadData ();
+		}
+
+		#endregion Constructors
+
+		private void LoadData() {
+			// Load data from the storage service
+			if (StorageService.Store<String[]>.Exists(KEY_ACTIONS)) {
+				String[] actionKeys = StorageService.Store<String[]>.Get (KEY_ACTIONS);
+
+				foreach (String key in actionKeys) 
+				{
+					if (StorageService.Store<IAction>.Exists (key)) {
+						m_actions.Add (key, StorageService.Store<IAction>.Get (key));
+					} else {
+						m_actions.Add (key, new ActionUnknown (key));
+					}
+				}
+			}
 		}
 
 		public bool Start()
@@ -73,7 +103,7 @@ namespace BitHome.Actions
 			         p_node.Id, p_entryNumber, p_name, p_returnType, p_parameterCount);
 
 			// Get a unique key from the storage service
-			String actionId = StorageService.GenerateKey ();
+			String actionId = StorageService.GenerateKey ();	
 
 			NodeAction action = new NodeAction (
 				actionId,
@@ -83,8 +113,7 @@ namespace BitHome.Actions
 				p_returnType,
 				p_parameterCount);
 
-			// Store it in the local map, lookup by key
-			m_actions.Add (actionId, action);
+			AddAction (action);
 
 			// Add it to the node map
 			if (m_nodeActions.ContainsKey (p_node.Id)) {
@@ -95,9 +124,26 @@ namespace BitHome.Actions
 			}
 
 			// Set it to the node
-			p_node.SetNodeAction (p_entryNumber, action);
+			p_node.SetNodeAction (p_entryNumber, action.Id);
 
 			return action;
+		}
+
+		public void AddAction ( IAction action) {
+
+			if (action.Id == null) {
+				// Get a unique key from the storage service
+				String actionId = StorageService.GenerateKey ();	
+				// Set that action id
+				action.Id = actionId;
+			}
+
+			// Add the action to our internal map
+			m_actions.Add (action.Id, action);
+			// Save the action
+			SaveAction (action);
+			// Save the action list
+			SaveActionList ();
 		}
 
 		public void AddNodeParameter (
@@ -112,9 +158,19 @@ namespace BitHome.Actions
 			Dictionary<String, int> enumValues)
 		{
 
-			INodeAction nodeAction = node.GetNodeAction (actionIndex);
+			String actionId = node.GetActionId (actionIndex);
 
-			// TODO handle null action
+			if (actionId == null) {
+				log.Warn ("Adding node parameter to null action id {0} of node {1}", actionIndex, node.Identifier);
+				return;
+			}
+
+			INodeAction nodeAction = (INodeAction)GetAction (actionId);
+
+			if (nodeAction == null) {
+				log.Warn ("Adding node parameter to null action {0} of node {1}", actionIndex, node.Identifier);
+				return;
+			}
 
 			NodeParameter nodeParam = new NodeParameter (
 				node.Id,
@@ -129,9 +185,9 @@ namespace BitHome.Actions
 				enumValues,
 				nodeAction.Id);
 
-			node.SetNodeParameter (actionIndex, paramIndex, nodeParam);
-
 			m_parameters.Add (nodeParam.Id, nodeParam);
+
+			nodeAction.AddNodeParameter (nodeParam);
 		}
 
 		public IAction GetAction(String actionId) {
@@ -159,11 +215,6 @@ namespace BitHome.Actions
 		public IAction[] GetUserActions()
 		{
 			return m_userActions.ToArray ();
-		}
-
-		public void AddAction (IAction action)
-		{
-			m_actions.Add (action.Id, action);
 		}
 
 		public ActionRequest ExecuteAction(String actionId)
@@ -196,5 +247,25 @@ namespace BitHome.Actions
 		{
 			ThreadPool.QueueUserWorkItem (ActionRequest.ThreadPoolCallback);
 		}
+
+		#region Persistance Methods
+
+		private void SaveActionList() 
+		{
+			StorageService.Store<String[]>.Insert (KEY_ACTIONS, this.ActionIds);
+		}
+
+		private void SaveAction(IAction action) 
+		{
+			StorageService.Store<IAction>.Insert (action.Id, action);
+		}
+
+		public void WaitFinishSaving ()
+		{
+			StorageService.Store<String[]>.WaitForCompletion ();
+			StorageService.Store<IAction>.WaitForCompletion ();
+		}
+		#endregion
+
 	}
 }

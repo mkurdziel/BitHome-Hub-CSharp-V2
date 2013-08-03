@@ -202,7 +202,6 @@
     <None Include="actions.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="BitHome_TemporaryKey.pfx" />
     <None Include="dashboard.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -318,7 +317,6 @@
     <Compile Include="Actions\IParameter.cs" />
     <Compile Include="Actions\INodeParameter.cs" />
     <Compile Include="Messaging\Messages\MessageParameterRequest.cs" />
-    <Compile Include="Nodes\TestNode.cs" />
     <Compile Include="Actions\ActionService.cs" />
     <Compile Include="Actions\NodeParameter.cs" />
     <Compile Include="Actions\ActionParameter.cs" />
@@ -338,6 +336,9 @@
     <Compile Include="SettingsService.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="FileHelpers.cs" />
+    <Compile Include="Nodes\NodeUnknown.cs" />
+    <Compile Include="Actions\ActionUnknown.cs" />
+    <Compile Include="IBitHomeService.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

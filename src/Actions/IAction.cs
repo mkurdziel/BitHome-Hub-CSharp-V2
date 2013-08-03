@@ -5,20 +5,20 @@ namespace BitHome.Actions
 {
 	public interface IAction
 	{
-		String Id { get; }
+		String Id { get; set; }
 		String Name { get; set; }
 		String Description { get; }
 		String ReturnValue { get; set; }
 		DataType ReturnDataType { get; set; }
 		ActionType ActionType { get; }
 
-		IActionParameter[] Parameters { get; }
-		void AddParameter (IActionParameter p_parameter);
-		IActionParameter GetParameter(int p_index);
-		IActionParameter[] InputParameters { get; }
+		// Parameters
+		String[] ParameterIds { get; }
+		void AddParameter ( IActionParameter parameter );
 		void RemoveAllParameters();
 		int ParameterCount { get; }
 
+		// Execution
 		void PrepareExecute();
 		bool Execute(long p_timeoutMilliseconds);
 		void FinishExecute();

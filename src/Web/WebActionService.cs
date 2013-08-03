@@ -32,7 +32,14 @@ namespace BitHome.Web
             IAction action = ServiceManager.ActionService.GetAction(request.ActionId);
             if (action != null)
             {
-                return action.Parameters;
+				List<IActionParameter> actionParms = new List<IActionParameter>(action.ParameterCount);
+
+				// TODO check for nullsies
+				foreach (string paramId in action.ParameterIds) {
+					actionParms.Add ((IActionParameter)ServiceManager.ActionService.GetParameter (paramId));
+				}
+
+				return actionParms.ToArray ();
             }
             return new IActionParameter[0];
         }

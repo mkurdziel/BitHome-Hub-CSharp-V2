@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using BitHome.Messaging.Protocol;
 using NLog;
 using System.Threading;
@@ -12,37 +11,17 @@ namespace BitHome.Actions
 	{
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
+		private readonly object m_actionLock = new object();
+		private List<String> m_parameterIds = new List<string>();
 
-		public String Id { get; private set; }
+		public String Id { get; set; }
 		public String Name { get; set; }
 		public String ExecutionErrorString { get; set; }
 		public String Description { get; set; }
 		public DataType ReturnDataType { get; set; }
 		public String ReturnValue { get; set; }
-
-		private readonly List<IActionParameter> m_parameters = new List<IActionParameter>();
-		private readonly object m_actionLock = new object();
-
 		public abstract ActionType ActionType { get; }
 
-		IActionParameter[] IAction.Parameters {
-			get {
-				return m_parameters.ToArray ();
-			}
-		}
-
-		IActionParameter[] IAction.InputParameters {
-			get {
-			    return m_parameters.Where(param => param.ParameterType == ActionParameterType.Input).ToArray();
-			}
-		}
-
-		public int ParameterCount {
-			get {
-				return m_parameters.Count;
-			}
-		}
-		
 		public String Identifier {
 			get {
 				return Id;
@@ -57,40 +36,41 @@ namespace BitHome.Actions
 		}
 
 
-		private ActionBase() {
-			// Private constructor so we always insantiate with an id
+		public ActionBase() {
+			Id = null;
 		}
 
 		#endregion
 
 		#region Methods
 
-		public void AddParameter(IActionParameter p_parameter)
-		{
-			log.Debug ("Adding parameter {0} to action {1}", p_parameter.Identifier, this.Identifier);
+		#region Parameter Methods
 
-			m_parameters.Add (p_parameter);
+		public virtual void AddParameter (IActionParameter parameter)
+		{
+			m_parameterIds.Add (parameter.Id);
 		}
 
-		public IActionParameter GetParameter(int p_index)
-		{
-			if (m_parameters.Count > p_index) {
-				return m_parameters [p_index];
-			} else {
-				return null;
+		public string[] ParameterIds {
+			get {
+				return m_parameterIds.ToArray ();
 			}
 		}
 
-		public abstract bool Execute (long p_timeoutMilliseconds);
-
+		public int ParameterCount {
+			get {
+				return m_parameterIds.Count;
+			}
+		}
+		
+		public void RemoveAllParameters()
+		{
+			m_parameterIds.Clear ();
+		}
 
 		#endregion
 
-
-		public void RemoveAllParameters()
-		{
-			m_parameters.Clear ();
-		}
+		#region Execution
 
 		public void PrepareExecute()
 		{
@@ -98,10 +78,45 @@ namespace BitHome.Actions
 
 			Monitor.Enter (m_actionLock);
 		}
+	
+		public abstract bool Execute (long p_timeoutMilliseconds);
 
 		public void FinishExecute()
 		{
 			Monitor.Exit (m_actionLock);
 		}
+
+		#endregion Exection
+
+		#endregion
+
+
+		public override bool Equals (object obj)
+		{
+			// If is null return false.
+			if (obj == null)
+			{
+				return false;
+			}
+
+			// If cannot be cast to this class return false.
+			ActionBase p = obj as ActionBase;
+			if ((System.Object)p == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			bool same = true;
+
+			same &= this.Id == p.Id;
+			same &= this.Name == p.Name;
+			same &= this.Description == p.Description;
+			same &= this.ReturnDataType == p.ReturnDataType;
+			same &= this.ActionType == p.ActionType;
+
+			return same;
+		}
+
 	}
 }

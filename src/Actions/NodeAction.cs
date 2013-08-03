@@ -11,10 +11,10 @@ namespace BitHome.Actions
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
-		Dictionary<int, INodeParameter> m_parameters = new Dictionary<int, INodeParameter>();
+		Dictionary<int, String> m_parameterIds = new Dictionary<int, String>();
 		
 		public string NodeId { get; set; }
-		public int EntryNumber { get; set; }
+		public int ActionIndex { get; set; }
 
 		public NodeAction (
 			string id, 
@@ -26,56 +26,50 @@ namespace BitHome.Actions
 			: base(id)
 		{
 			this.NodeId = p_nodeId;
-			this.EntryNumber = p_entryNumber;
+			this.ActionIndex = p_entryNumber;
 			this.Name = p_name;
 			this.ReturnType = p_returnType;
 			this.TotalParameterCount = p_parameterCount;
 		}
 
-		private NodeAction() : base(null) { }
-
-
 		public int TotalParameterCount { get; set; }
 		public DataType ReturnType { get; set; }
 
-		INodeParameter INodeAction.GetParameter (int p_index)
-		{
-			if (m_parameters.ContainsKey (p_index)) {
-				return m_parameters [p_index];
+		private NodeAction() : base(null) { }
+
+
+		public string GetParameterId (int parameterIndex) {
+			if (m_parameterIds.ContainsKey (parameterIndex)) {
+				return m_parameterIds [parameterIndex];
 			}
 			return null;
 		}
 
-		public void AddParameter (INodeParameter p_parameter)
+		public void AddNodeParameter (INodeParameter parameter)
 		{
-			log.Debug ("Adding parameter {0} to action {1}", p_parameter.Identifier, this.Identifier);
+			log.Debug ("Adding parameter {0} to action {1} at index {2}", parameter.Id, this.Identifier, parameter.ParameterIndex);
 
 			// Index it by the parameter index on the device
-			if (m_parameters.ContainsKey(p_parameter.ParameterIndex)) {
-				log.Warn ("Adding duplicate parameter {0}:{1}", p_parameter.ActionIndex, p_parameter.ParameterIndex);
-			} else {
-				m_parameters.Add (p_parameter.ParameterIndex, p_parameter);
-			}
+			if (m_parameterIds.ContainsKey(parameter.ParameterIndex)) {
+				log.Warn ("Adding duplicate parameter {0}:{1}", parameter.ActionIndex, parameter.ParameterIndex);
+				m_parameterIds.Remove (parameter.ParameterIndex);
+			} 
 
-			base.AddParameter (p_parameter);
+			m_parameterIds.Add (parameter.ParameterIndex, parameter.Id);
+
+			base.AddParameter (parameter);
 		}
 
 		public int NextUnknownParameter {
 			get {
-				log.Trace ("Action {0} getting next unknown parameter {1}:{2}", this.Identifier, m_parameters.Count, TotalParameterCount);
+				log.Trace ("Action {0} getting next unknown parameter {1}:{2}", this.Identifier, m_parameterIds.Count, TotalParameterCount);
 
 				for (int i=1; i<=TotalParameterCount; ++i) {
-					if (!m_parameters.ContainsKey (i)) {
+					if (!m_parameterIds.ContainsKey (i)) {
 						return i;
 					}
 				}
 				return 0;
-			}
-		}
-
-		public INodeParameter[] Parameters {
-			get {
-				return m_parameters.Values.ToArray ();
 			}
 		}
 
@@ -88,10 +82,20 @@ namespace BitHome.Actions
 
 		public override bool Execute(long timeout)
 		{
+			// TODO optimize this
+			List<INodeParameter> nodeParams = new List<INodeParameter>(m_parameterIds.Count);
+
+			for (int i=0; i<TotalParameterCount; ++i) {
+				INodeParameter param = (INodeParameter)ServiceManager.ActionService.GetParameter (GetParameterId (i));
+				if (param == null)
+					return false;
+
+				nodeParams.Add (param);
+			}
 
 		    MessageFunctionTransmit msg = new MessageFunctionTransmit(
-                this.EntryNumber,
-                Parameters,
+                this.ActionIndex,
+				nodeParams.ToArray(),
                 ReturnDataType );
 
             ServiceManager.MessageDispatcherService.SendMessage(msg, NodeId);

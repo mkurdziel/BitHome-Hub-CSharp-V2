@@ -1,0 +1,2452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <UnitTestResult>
+      <TestDate>2013-08-03T16:43:17</TestDate>
+      <Status>Failure</Status>
+      <Passed>0</Passed>
+      <Errors>0</Errors>
+      <Failures>0</Failures>
+      <Inconclusive>0</Inconclusive>
+      <NotRunnable>0</NotRunnable>
+      <Skipped>0</Skipped>
+      <Ignored>0</Ignored>
+      <Time />
+      <Message>Unix transport error.</Message>
+      <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+    </UnitTestResult>
+  </Results>
+  <Tests>
+    <TestRecord Name="BitHomeTests">
+      <Results />
+      <Tests>
+        <TestRecord Name="NodeServiceTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-08-03T02:38:36</TestDate>
+              <Status />
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="TestSaveNodeList">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:38:36</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "5dq0m42519377"
+  But was:  &lt;empty&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTest.TestSaveNodeList () [0x00056] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTest.cs:39 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 02:38:38.4394|TRACE|BitHome.ServiceManager|Start requested at PID: 32268
+2013-08-03 02:38:38.4597|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:38:38.5292|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:38:38.5335|TRACE|BitHome.NodeService|()
+2013-08-03 02:38:38.5425|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:38:38.5472|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:38:38.5519|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:38:38.5519|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:38:38.5529|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:38:38.5529|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:38:38.5561|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:38:38.5561|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:38:38.5646|INFO|BitHome.NodeService|Creating node 5dq0m42519377
+2013-08-03 02:38:38.5658|INFO|BitHome.NodeService|Adding node 5dq0m42519377 for investigation
+2013-08-03 02:38:38.5658|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 5dq0m42519377
+2013-08-03 02:38:38.5658|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 02:38:38.5681|INFO|BitHome.NodeService|Creating node fco5342519377
+2013-08-03 02:38:38.5688|INFO|BitHome.NodeService|Adding node fco5342519377 for investigation
+2013-08-03 02:38:38.5688|DEBUG|BitHome.NodeService|Resetting investigation attempts on node fco5342519377
+2013-08-03 02:38:38.5732|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:38:38.5732|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:38:38.5739|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:38:38.5739|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:38:38.5748|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:38:38.5758|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 02:38:38.5758|TRACE|BitHome.ServiceManager|Start requested at PID: 32268
+2013-08-03 02:38:38.5758|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:38:38.5709|DEBUG|BitHome.NodeService|Investigating:5dq0m42519377 function:0 now:8/3/2013 2:38:38 AM next:8/3/2013 2:38:38 AM
+2013-08-03 02:38:38.5833|DEBUG|BitHome.NodeService|Investigating INFO for 5dq0m42519377
+2013-08-03 02:38:38.5839|DEBUG|BitHome.NodeService|Setting next investigation time for 5dq0m42519377 funtion:0 to 8/3/2013 2:38:40 AM
+2013-08-03 02:38:38.5839|DEBUG|BitHome.NodeService|Investigating:fco5342519377 function:0 now:8/3/2013 2:38:38 AM next:8/3/2013 2:38:38 AM
+2013-08-03 02:38:38.5851|DEBUG|BitHome.NodeService|Investigating INFO for fco5342519377
+2013-08-03 02:38:38.5851|DEBUG|BitHome.NodeService|Setting next investigation time for fco5342519377 funtion:0 to 8/3/2013 2:38:40 AM
+2013-08-03 02:38:38.5870|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 02:38:38.5870|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 02:38:38.5890|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:38:38.5890|TRACE|BitHome.NodeService|()
+2013-08-03 02:38:38.5890|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:38:38.5890|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:38:38.5900|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:38:38.5900|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:38:38.5900|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:38:38.5900|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:38:38.5900|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:38:38.5908|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:38:38.6021|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:38:38.6021|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:38:38.6021|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:38:38.6030|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:38:38.6030|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:38:38.6030|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:43:58</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.50ms</Message>
+                  <ConsoleOutput>2013-08-03 02:44:00.0788|TRACE|BitHome.ServiceManager|Start requested at PID: 32283
+2013-08-03 02:44:00.0947|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:44:00.1497|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:44:00.1561|TRACE|BitHome.NodeService|()
+2013-08-03 02:44:00.1648|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:44:00.1690|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:44:00.1729|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:44:00.1729|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:44:00.1743|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:44:00.1743|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:44:00.1777|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:44:00.1783|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:44:00.1876|INFO|BitHome.NodeService|Creating node y9fsi42519699
+2013-08-03 02:44:00.1888|INFO|BitHome.NodeService|Adding node y9fsi42519699 for investigation
+2013-08-03 02:44:00.1891|DEBUG|BitHome.NodeService|Resetting investigation attempts on node y9fsi42519699
+2013-08-03 02:44:00.1891|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 02:44:00.1919|DEBUG|BitHome.NodeService|Investigating:y9fsi42519699 function:0 now:8/3/2013 2:44:00 AM next:8/3/2013 2:44:00 AM
+2013-08-03 02:44:00.1999|DEBUG|BitHome.NodeService|Investigating INFO for y9fsi42519699
+2013-08-03 02:44:00.2005|DEBUG|BitHome.NodeService|Setting next investigation time for y9fsi42519699 funtion:0 to 8/3/2013 2:44:02 AM
+2013-08-03 02:44:00.2054|INFO|BitHome.NodeService|Creating node 6vql142519699
+2013-08-03 02:44:00.2054|INFO|BitHome.NodeService|Adding node 6vql142519699 for investigation
+2013-08-03 02:44:00.2060|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 6vql142519699
+2013-08-03 02:44:00.2060|DEBUG|BitHome.NodeService|Investigating:6vql142519699 function:0 now:8/3/2013 2:44:00 AM next:8/3/2013 2:44:00 AM
+2013-08-03 02:44:00.2060|DEBUG|BitHome.NodeService|Investigating INFO for 6vql142519699
+2013-08-03 02:44:00.2060|DEBUG|BitHome.NodeService|Setting next investigation time for 6vql142519699 funtion:0 to 8/3/2013 2:44:02 AM
+2013-08-03 02:44:00.2060|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:44:00.2074|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:44:00.2074|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:44:00.2081|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:44:00.2081|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:44:00.2099|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 02:44:00.2118|TRACE|BitHome.ServiceManager|Start requested at PID: 32283
+2013-08-03 02:44:00.2124|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:44:00.2211|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 02:44:00.2211|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 02:44:00.2250|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:44:00.2250|TRACE|BitHome.NodeService|()
+2013-08-03 02:44:00.2250|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:44:00.2250|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:44:00.2260|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:44:00.2260|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:44:00.2260|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:44:00.2260|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:44:00.2260|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:44:00.2260|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:44:00.2297|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:44:00.2297|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:44:00.2297|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:44:00.2297|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:44:00.2297|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:44:00.2300|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:48:02</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Unix transport error.</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:48:27</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Object reference not set to an instance of an object</Message>
+                  <StackTrace>  at MonoDevelop.NUnit.UnitTestResult.CreateFailure (System.String message, System.Exception ex) [0x00017] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.10-branch/f324e215/source/monodevelop/main/src/addins/NUnit/Services/UnitTestResult.cs:67 
+  at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest (MonoDevelop.NUnit.UnitTest test, System.String suiteName, System.String pathName, System.String testName, MonoDevelop.NUnit.TestContext testContext) [0x00240] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.10-branch/f324e215/source/monodevelop/main/src/addins/NUnit/Services/NUnitAssemblyTestSuite.cs:440 
+  at MonoDevelop.NUnit.NUnitTestCase.OnRun (MonoDevelop.NUnit.TestContext testContext) [0x0001b] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.10-branch/f324e215/source/monodevelop/main/src/addins/NUnit/Services/NUnitTestCase.cs:55 
+  at MonoDevelop.NUnit.UnitTest.Run (MonoDevelop.NUnit.TestContext testContext) [0x00020] in /Users/builder/data/lanes/monodevelop-lion-monodevelop-4.0.10-branch/f324e215/source/monodevelop/main/src/addins/NUnit/Services/UnitTest.cs:361 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:49:26</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Connection refused</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.HostConnectionPool.CreateConnection () [0x0002a] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:265 
+  at Mono.Remoting.Channels.Unix.HostConnectionPool.GetConnection () [0x000bb] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:249 
+  at Mono.Remoting.Channels.Unix.UnixConnectionPool.GetConnection (System.String path) [0x00049] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:104 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x00025] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:171 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:49:54</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 4.08ms</Message>
+                  <ConsoleOutput>2013-08-03 02:49:57.6690|TRACE|BitHome.ServiceManager|Start requested at PID: 32301
+2013-08-03 02:49:57.6896|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:49:57.9181|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:49:57.9229|TRACE|BitHome.NodeService|()
+2013-08-03 02:49:57.9333|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:49:57.9520|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:49:57.9528|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:49:57.9535|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:49:57.9546|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:49:57.9546|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:49:57.9583|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:49:57.9616|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:49:57.9745|INFO|BitHome.NodeService|Creating node ogh7142520056
+2013-08-03 02:49:57.9854|INFO|BitHome.NodeService|Adding node ogh7142520056 for investigation
+2013-08-03 02:49:57.9861|DEBUG|BitHome.NodeService|Resetting investigation attempts on node ogh7142520056
+2013-08-03 02:49:57.9861|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 02:49:57.9888|DEBUG|BitHome.NodeService|Investigating:ogh7142520056 function:0 now:8/3/2013 2:49:57 AM next:8/3/2013 2:49:57 AM
+2013-08-03 02:49:57.9993|DEBUG|BitHome.NodeService|Investigating INFO for ogh7142520056
+2013-08-03 02:49:58.0018|DEBUG|BitHome.NodeService|Setting next investigation time for ogh7142520056 funtion:0 to 8/3/2013 2:49:59 AM
+2013-08-03 02:49:58.0172|INFO|BitHome.NodeService|Creating node il7kh42520057
+2013-08-03 02:49:58.0231|INFO|BitHome.NodeService|Adding node il7kh42520057 for investigation
+2013-08-03 02:49:58.0231|DEBUG|BitHome.NodeService|Resetting investigation attempts on node il7kh42520057
+2013-08-03 02:49:58.0231|DEBUG|BitHome.NodeService|Investigating:il7kh42520057 function:0 now:8/3/2013 2:49:58 AM next:8/3/2013 2:49:58 AM
+2013-08-03 02:49:58.0241|DEBUG|BitHome.NodeService|Investigating INFO for il7kh42520057
+2013-08-03 02:49:58.0241|DEBUG|BitHome.NodeService|Setting next investigation time for il7kh42520057 funtion:0 to 8/3/2013 2:50:00 AM
+2013-08-03 02:49:58.0241|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:49:58.0241|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:49:58.0254|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:49:58.0263|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:49:58.0263|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:49:58.0278|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 02:49:58.0278|TRACE|BitHome.ServiceManager|Start requested at PID: 32301
+2013-08-03 02:49:58.0283|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:49:58.0417|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 02:49:58.0417|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 02:49:58.0563|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:49:58.0563|TRACE|BitHome.NodeService|()
+2013-08-03 02:49:58.0563|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:49:58.0708|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:49:58.0712|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:49:58.0712|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:49:58.0722|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:49:58.0722|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:49:58.0722|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:49:58.0722|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:50:01.3980|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:50:01.4018|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:50:01.4021|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:50:01.4021|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:50:01.4021|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:50:01.4021|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 02:50:01.4021|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 02:50:01.4108|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:51:29</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: &lt;BitHome.TestNode&gt;
+  But was:  &lt;BitHome.TestNode&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:886 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:913 
+  at BitHomeTests.NodeServiceTest.TestSaveNodeList () [0x0006a] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTest.cs:39 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 02:51:31.1482|TRACE|BitHome.ServiceManager|Start requested at PID: 32307
+2013-08-03 02:51:31.1623|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:51:31.2083|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:51:31.2121|TRACE|BitHome.NodeService|()
+2013-08-03 02:51:31.2202|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:51:31.2378|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:51:31.2378|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:51:31.2391|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:51:31.2397|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:51:31.2397|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:51:31.2418|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:51:31.2426|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:51:31.2488|INFO|BitHome.NodeService|Creating node o1iu442520150
+2013-08-03 02:51:31.2533|INFO|BitHome.NodeService|Adding node o1iu442520150 for investigation
+2013-08-03 02:51:31.2541|DEBUG|BitHome.NodeService|Resetting investigation attempts on node o1iu442520150
+2013-08-03 02:51:31.2554|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 02:51:31.2578|DEBUG|BitHome.NodeService|Investigating:o1iu442520150 function:0 now:8/3/2013 2:51:31 AM next:8/3/2013 2:51:31 AM
+2013-08-03 02:51:31.2640|DEBUG|BitHome.NodeService|Investigating INFO for o1iu442520150
+2013-08-03 02:51:31.2647|DEBUG|BitHome.NodeService|Setting next investigation time for o1iu442520150 funtion:0 to 8/3/2013 2:51:33 AM
+2013-08-03 02:51:31.2704|INFO|BitHome.NodeService|Creating node lxblg42520150
+2013-08-03 02:51:31.2707|INFO|BitHome.NodeService|Adding node lxblg42520150 for investigation
+2013-08-03 02:51:31.2707|DEBUG|BitHome.NodeService|Resetting investigation attempts on node lxblg42520150
+2013-08-03 02:51:31.2707|DEBUG|BitHome.NodeService|Investigating:lxblg42520150 function:0 now:8/3/2013 2:51:31 AM next:8/3/2013 2:51:31 AM
+2013-08-03 02:51:31.2716|DEBUG|BitHome.NodeService|Investigating INFO for lxblg42520150
+2013-08-03 02:51:31.2732|DEBUG|BitHome.NodeService|Setting next investigation time for lxblg42520150 funtion:0 to 8/3/2013 2:51:33 AM
+2013-08-03 02:51:31.2716|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:51:31.2814|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:51:31.2816|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:51:31.2816|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:51:31.2816|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:51:31.2835|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 02:51:31.2835|TRACE|BitHome.ServiceManager|Start requested at PID: 32307
+2013-08-03 02:51:31.2835|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:51:31.2946|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 02:51:31.2946|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 02:51:31.3121|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:51:31.3157|TRACE|BitHome.NodeService|()
+2013-08-03 02:51:31.3157|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:51:31.3190|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:51:31.3190|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:51:31.3195|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:51:31.3195|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:51:31.3195|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:51:31.3205|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:51:31.3205|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:51:31.3384|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:51:31.3387|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:51:31.3387|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:51:31.3387|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:51:31.3387|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:51:31.3397|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T02:55:42</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.56ms</Message>
+                  <ConsoleOutput>2013-08-03 02:55:44.0536|TRACE|BitHome.ServiceManager|Start requested at PID: 32317
+2013-08-03 02:55:44.0707|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:55:44.1164|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:55:44.1199|TRACE|BitHome.NodeService|()
+2013-08-03 02:55:44.1285|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:55:44.1471|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:55:44.1474|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:55:44.1474|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:55:44.1487|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:55:44.1487|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:55:44.1536|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:55:44.1546|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:55:44.1592|INFO|BitHome.NodeService|Creating node cvctc42520403
+2013-08-03 02:55:44.1638|INFO|BitHome.NodeService|Adding node cvctc42520403 for investigation
+2013-08-03 02:55:44.1644|DEBUG|BitHome.NodeService|Resetting investigation attempts on node cvctc42520403
+2013-08-03 02:55:44.1644|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 02:55:44.1710|INFO|BitHome.NodeService|Creating node d6o3b42520403
+2013-08-03 02:55:44.1672|DEBUG|BitHome.NodeService|Investigating:cvctc42520403 function:0 now:8/3/2013 2:55:44 AM next:8/3/2013 2:55:44 AM
+2013-08-03 02:55:44.1842|DEBUG|BitHome.NodeService|Investigating INFO for cvctc42520403
+2013-08-03 02:55:44.1845|DEBUG|BitHome.NodeService|Setting next investigation time for cvctc42520403 funtion:0 to 8/3/2013 2:55:46 AM
+2013-08-03 02:55:44.1845|INFO|BitHome.NodeService|Adding node d6o3b42520403 for investigation
+2013-08-03 02:55:44.1855|DEBUG|BitHome.NodeService|Resetting investigation attempts on node d6o3b42520403
+2013-08-03 02:55:44.1855|DEBUG|BitHome.NodeService|Investigating:d6o3b42520403 function:0 now:8/3/2013 2:55:44 AM next:8/3/2013 2:55:44 AM
+2013-08-03 02:55:44.1855|DEBUG|BitHome.NodeService|Investigating INFO for d6o3b42520403
+2013-08-03 02:55:44.1855|DEBUG|BitHome.NodeService|Setting next investigation time for d6o3b42520403 funtion:0 to 8/3/2013 2:55:46 AM
+2013-08-03 02:55:44.1855|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:55:44.1867|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:55:44.1867|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:55:44.1874|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:55:44.1874|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:55:44.1929|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 02:55:44.1938|TRACE|BitHome.ServiceManager|Start requested at PID: 32317
+2013-08-03 02:55:44.1938|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 02:55:44.2001|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 02:55:44.2001|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 02:55:44.2090|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 02:55:44.2090|TRACE|BitHome.NodeService|()
+2013-08-03 02:55:44.2096|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 02:55:44.2158|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 02:55:44.2158|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 02:55:44.2166|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 02:55:44.2166|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 02:55:44.2166|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 02:55:44.2166|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 02:55:44.2176|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 02:55:44.2307|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 02:55:44.2307|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 02:55:44.2307|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 02:55:44.2317|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 02:55:44.2317|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 02:55:44.2317|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="NodeServiceTests">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:43:17</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.14ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="TestSaveNodeList">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:07:38</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "70t1o42564319"
+  But was:  &lt; "22olm42564319" &gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTests.TestSaveNodeList () [0x00041] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTests.cs:33 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 15:07:40.6841|TRACE|BitHome.ServiceManager|Start requested at PID: 33707
+2013-08-03 15:07:40.6987|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:07:40.7278|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:07:40.8459|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:07:40.8495|TRACE|BitHome.NodeService|()
+2013-08-03 15:07:40.8539|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:07:40.8580|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:07:40.8617|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:07:40.8624|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:07:40.8624|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:07:40.8631|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:07:40.8662|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:07:40.8662|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:07:40.8765|INFO|BitHome.NodeService|Creating node 22olm42564319
+2013-08-03 15:07:40.8781|INFO|BitHome.NodeService|Adding node 22olm42564319 for investigation
+2013-08-03 15:07:40.8781|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 22olm42564319
+2013-08-03 15:07:40.8781|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:07:40.8870|INFO|BitHome.NodeService|Creating node 70t1o42564319
+2013-08-03 15:07:40.8809|DEBUG|BitHome.NodeService|Investigating:22olm42564319 function:0 now:8/3/2013 3:07:40 PM next:8/3/2013 3:07:40 PM
+2013-08-03 15:07:40.9015|DEBUG|BitHome.NodeService|Investigating INFO for 22olm42564319
+2013-08-03 15:07:40.9022|DEBUG|BitHome.NodeService|Setting next investigation time for 22olm42564319 funtion:0 to 8/3/2013 3:07:42 PM
+2013-08-03 15:07:40.9004|INFO|BitHome.NodeService|Adding node 70t1o42564319 for investigation
+2013-08-03 15:07:40.9022|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 70t1o42564319
+2013-08-03 15:07:40.9022|DEBUG|BitHome.NodeService|Investigating:70t1o42564319 function:0 now:8/3/2013 3:07:40 PM next:8/3/2013 3:07:40 PM
+2013-08-03 15:07:40.9034|DEBUG|BitHome.NodeService|Investigating INFO for 70t1o42564319
+2013-08-03 15:07:40.9034|DEBUG|BitHome.NodeService|Setting next investigation time for 70t1o42564319 funtion:0 to 8/3/2013 3:07:42 PM
+2013-08-03 15:07:40.9034|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:07:40.9042|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:07:40.9082|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:07:40.9110|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:07:40.9114|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:07:40.9114|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:07:40.9130|TRACE|BitHome.NodeService|()
+2013-08-03 15:07:40.9132|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:07:40.9232|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:07:40.9246|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:07:40.9246|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:07:40.9255|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:07:40.9255|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:07:40.9369|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:07:40.9390|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:07:40.9477|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:07:40.9477|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:07:40.9482|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:07:40.9482|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:12:49</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "hv3td42564630"
+  But was:  &lt; "vaeyi42564630" &gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTests.TestSaveNodeList () [0x00041] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTests.cs:33 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 15:12:50.9852|TRACE|BitHome.ServiceManager|Start requested at PID: 33711
+2013-08-03 15:12:51.0000|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:12:51.0121|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:12:51.0539|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:12:51.0608|TRACE|BitHome.NodeService|()
+2013-08-03 15:12:51.0646|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:12:51.0691|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:12:51.0728|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:12:51.0735|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:12:51.0735|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:12:51.0735|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:12:51.0778|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:12:51.0787|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:12:51.0832|INFO|BitHome.NodeService|Creating node vaeyi42564630
+2013-08-03 15:12:51.0878|INFO|BitHome.NodeService|Adding node vaeyi42564630 for investigation
+2013-08-03 15:12:51.0884|DEBUG|BitHome.NodeService|Resetting investigation attempts on node vaeyi42564630
+2013-08-03 15:12:51.0884|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:12:51.0909|DEBUG|BitHome.NodeService|Investigating:vaeyi42564630 function:0 now:8/3/2013 3:12:51 PM next:8/3/2013 3:12:51 PM
+2013-08-03 15:12:51.1093|DEBUG|BitHome.NodeService|Investigating INFO for vaeyi42564630
+2013-08-03 15:12:51.1100|DEBUG|BitHome.NodeService|Setting next investigation time for vaeyi42564630 funtion:0 to 8/3/2013 3:12:53 PM
+2013-08-03 15:12:51.1116|INFO|BitHome.NodeService|Creating node hv3td42564630
+2013-08-03 15:12:51.1116|INFO|BitHome.NodeService|Adding node hv3td42564630 for investigation
+2013-08-03 15:12:51.1116|DEBUG|BitHome.NodeService|Resetting investigation attempts on node hv3td42564630
+2013-08-03 15:12:51.1116|DEBUG|BitHome.NodeService|Investigating:hv3td42564630 function:0 now:8/3/2013 3:12:51 PM next:8/3/2013 3:12:51 PM
+2013-08-03 15:12:51.1127|DEBUG|BitHome.NodeService|Investigating INFO for hv3td42564630
+2013-08-03 15:12:51.1127|DEBUG|BitHome.NodeService|Setting next investigation time for hv3td42564630 funtion:0 to 8/3/2013 3:12:53 PM
+2013-08-03 15:12:51.1127|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:12:51.1135|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:12:51.1135|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:12:51.1154|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:12:51.1154|TRACE|BitHome.NodeService|()
+2013-08-03 15:12:51.1154|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:12:51.1218|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:12:51.1298|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:12:51.1348|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:12:51.1305|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:12:51.1305|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:12:51.1456|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:12:51.1456|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:12:51.1575|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:12:51.1575|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:12:51.1575|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:12:51.1587|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:12:51.1587|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:12:51.1587|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:14:24</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "ka0mz42564725"
+  But was:  &lt;empty&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTests.TestSaveNodeList () [0x00035] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTests.cs:32 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 15:14:26.6893|TRACE|BitHome.ServiceManager|Start requested at PID: 33714
+2013-08-03 15:14:26.7037|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:14:26.7174|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:14:26.7675|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:14:26.7744|TRACE|BitHome.NodeService|()
+2013-08-03 15:14:26.7778|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:14:26.7819|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:14:26.7855|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:14:26.7863|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:14:26.7863|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:14:26.7871|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:14:26.7894|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:14:26.7902|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:14:26.7946|INFO|BitHome.NodeService|Creating node ka0mz42564725
+2013-08-03 15:14:26.8010|INFO|BitHome.NodeService|Adding node ka0mz42564725 for investigation
+2013-08-03 15:14:26.8010|DEBUG|BitHome.NodeService|Resetting investigation attempts on node ka0mz42564725
+2013-08-03 15:14:26.8010|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:14:26.8039|DEBUG|BitHome.NodeService|Investigating:ka0mz42564725 function:0 now:8/3/2013 3:14:26 PM next:8/3/2013 3:14:26 PM
+2013-08-03 15:14:26.8131|DEBUG|BitHome.NodeService|Investigating INFO for ka0mz42564725
+2013-08-03 15:14:26.8131|INFO|BitHome.NodeService|Creating node hi1tc42564725
+2013-08-03 15:14:26.8239|DEBUG|BitHome.NodeService|Setting next investigation time for ka0mz42564725 funtion:0 to 8/3/2013 3:14:28 PM
+2013-08-03 15:14:26.8247|INFO|BitHome.NodeService|Adding node hi1tc42564725 for investigation
+2013-08-03 15:14:26.8254|DEBUG|BitHome.NodeService|Resetting investigation attempts on node hi1tc42564725
+2013-08-03 15:14:26.8254|DEBUG|BitHome.NodeService|Investigating:hi1tc42564725 function:0 now:8/3/2013 3:14:26 PM next:8/3/2013 3:14:26 PM
+2013-08-03 15:14:26.8261|DEBUG|BitHome.NodeService|Investigating INFO for hi1tc42564725
+2013-08-03 15:14:26.8261|DEBUG|BitHome.NodeService|Setting next investigation time for hi1tc42564725 funtion:0 to 8/3/2013 3:14:28 PM
+2013-08-03 15:14:26.8261|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:14:26.8261|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:14:26.8280|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:14:26.8294|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:14:26.8294|TRACE|BitHome.NodeService|()
+2013-08-03 15:14:26.8294|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:14:26.8301|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:14:26.8301|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:14:26.8301|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:14:26.8301|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:14:26.8311|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:14:26.8396|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:14:26.8396|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:14:26.8592|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:14:26.8601|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:14:26.8601|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:14:26.8601|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:14:26.8601|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:14:26.8610|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:15:42</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "ebsdn42564804"
+  But was:  &lt;empty&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x00020] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2205 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTests.TestSaveNodeList () [0x00035] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTests.cs:32 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 15:15:45.0279|TRACE|BitHome.ServiceManager|Start requested at PID: 33718
+2013-08-03 15:15:45.0592|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:15:45.0779|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:15:45.1686|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:15:45.1857|TRACE|BitHome.NodeService|()
+2013-08-03 15:15:45.1979|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:15:45.2062|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:15:45.2155|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:15:45.2163|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:15:45.2205|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:15:45.2209|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:15:45.2289|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:15:45.2305|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:15:45.2483|INFO|BitHome.NodeService|Creating node ebsdn42564804
+2013-08-03 15:15:45.2508|INFO|BitHome.NodeService|Adding node ebsdn42564804 for investigation
+2013-08-03 15:15:45.2508|DEBUG|BitHome.NodeService|Resetting investigation attempts on node ebsdn42564804
+2013-08-03 15:15:45.2523|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:15:45.2541|DEBUG|BitHome.NodeService|Investigating:ebsdn42564804 function:0 now:8/3/2013 3:15:45 PM next:8/3/2013 3:15:45 PM
+2013-08-03 15:15:45.2715|DEBUG|BitHome.NodeService|Investigating INFO for ebsdn42564804
+2013-08-03 15:15:45.2734|DEBUG|BitHome.NodeService|Setting next investigation time for ebsdn42564804 funtion:0 to 8/3/2013 3:15:47 PM
+2013-08-03 15:15:45.2797|INFO|BitHome.NodeService|Creating node 1e9oh42564804
+2013-08-03 15:15:45.2801|INFO|BitHome.NodeService|Adding node 1e9oh42564804 for investigation
+2013-08-03 15:15:45.2801|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 1e9oh42564804
+2013-08-03 15:15:45.2801|DEBUG|BitHome.NodeService|Investigating:1e9oh42564804 function:0 now:8/3/2013 3:15:45 PM next:8/3/2013 3:15:45 PM
+2013-08-03 15:15:45.2812|DEBUG|BitHome.NodeService|Investigating INFO for 1e9oh42564804
+2013-08-03 15:15:45.2812|DEBUG|BitHome.NodeService|Setting next investigation time for 1e9oh42564804 funtion:0 to 8/3/2013 3:15:47 PM
+2013-08-03 15:15:45.2812|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:15:45.2873|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:15:45.2879|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:15:45.2891|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:15:45.2891|TRACE|BitHome.NodeService|()
+2013-08-03 15:15:45.2891|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:15:45.2900|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:15:45.2908|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:15:45.2928|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:15:45.2983|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:15:45.2941|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:15:45.3025|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:15:45.3098|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:15:45.3280|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:15:45.3280|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:15:45.3415|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:15:45.3464|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:15:45.3540|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:15:45.3540|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 15:15:45.3620|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:15:45.3644|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:15:59</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Unix transport error.</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:16:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 36.36ms</Message>
+                  <ConsoleOutput>2013-08-03 15:16:20.0717|TRACE|BitHome.ServiceManager|Start requested at PID: 33731
+2013-08-03 15:16:20.0909|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:16:20.1060|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:16:20.1722|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:16:20.1812|TRACE|BitHome.NodeService|()
+2013-08-03 15:16:20.2154|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:16:20.2293|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:16:20.2331|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:16:20.2331|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:16:20.2353|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:16:20.2353|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:16:20.2407|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:16:20.2422|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:16:20.2536|INFO|BitHome.NodeService|Creating node u5prm42564839
+2013-08-03 15:16:20.2559|INFO|BitHome.NodeService|Adding node u5prm42564839 for investigation
+2013-08-03 15:16:20.2559|DEBUG|BitHome.NodeService|Resetting investigation attempts on node u5prm42564839
+2013-08-03 15:16:20.2569|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:16:20.2586|DEBUG|BitHome.NodeService|Investigating:u5prm42564839 function:0 now:8/3/2013 3:16:20 PM next:8/3/2013 3:16:20 PM
+2013-08-03 15:16:20.2674|DEBUG|BitHome.NodeService|Investigating INFO for u5prm42564839
+2013-08-03 15:16:20.2730|DEBUG|BitHome.NodeService|Setting next investigation time for u5prm42564839 funtion:0 to 8/3/2013 3:16:22 PM
+2013-08-03 15:16:20.2860|INFO|BitHome.NodeService|Creating node cfcak42564839
+2013-08-03 15:16:20.2860|INFO|BitHome.NodeService|Adding node cfcak42564839 for investigation
+2013-08-03 15:16:20.2869|DEBUG|BitHome.NodeService|Resetting investigation attempts on node cfcak42564839
+2013-08-03 15:16:20.2869|DEBUG|BitHome.NodeService|Investigating:cfcak42564839 function:0 now:8/3/2013 3:16:20 PM next:8/3/2013 3:16:20 PM
+2013-08-03 15:16:20.2895|DEBUG|BitHome.NodeService|Investigating INFO for cfcak42564839
+2013-08-03 15:16:20.2954|DEBUG|BitHome.NodeService|Setting next investigation time for cfcak42564839 funtion:0 to 8/3/2013 3:16:22 PM
+2013-08-03 15:16:20.2895|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:16:20.3200|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:16:20.3214|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:16:20.3230|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:16:20.3230|TRACE|BitHome.NodeService|()
+2013-08-03 15:16:20.3230|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:16:35.6572|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:16:35.6595|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:16:55.9697|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:16:55.9711|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:16:55.9711|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:16:55.9711|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:16:55.9727|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:16:55.9875|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:16:55.9875|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:16:55.9875|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:16:55.9875|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:16:55.9878|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:16:55.9878|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 15:16:55.9878|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:17:04</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "unuep42564884"
+  But was:  &lt;empty&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTests.TestSaveNodeList () [0x00035] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTests.cs:32 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 15:17:05.6961|TRACE|BitHome.ServiceManager|Start requested at PID: 33732
+2013-08-03 15:17:05.7072|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:17:05.7184|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:17:05.7726|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:17:05.8048|TRACE|BitHome.NodeService|()
+2013-08-03 15:17:05.8567|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:17:05.8668|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:17:05.8708|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:17:05.8815|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:17:05.8929|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:17:05.8929|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:17:05.9046|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:17:05.9055|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:17:05.9100|INFO|BitHome.NodeService|Creating node unuep42564884
+2013-08-03 15:17:05.9147|INFO|BitHome.NodeService|Adding node unuep42564884 for investigation
+2013-08-03 15:17:05.9147|DEBUG|BitHome.NodeService|Resetting investigation attempts on node unuep42564884
+2013-08-03 15:17:05.9147|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:17:05.9182|DEBUG|BitHome.NodeService|Investigating:unuep42564884 function:0 now:8/3/2013 3:17:05 PM next:8/3/2013 3:17:05 PM
+2013-08-03 15:17:05.9274|DEBUG|BitHome.NodeService|Investigating INFO for unuep42564884
+2013-08-03 15:17:05.9309|INFO|BitHome.NodeService|Creating node 03zld42564884
+2013-08-03 15:17:05.9332|DEBUG|BitHome.NodeService|Setting next investigation time for unuep42564884 funtion:0 to 8/3/2013 3:17:07 PM
+2013-08-03 15:17:05.9338|INFO|BitHome.NodeService|Adding node 03zld42564884 for investigation
+2013-08-03 15:17:05.9349|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 03zld42564884
+2013-08-03 15:17:05.9368|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:17:05.9358|DEBUG|BitHome.NodeService|Investigating:03zld42564884 function:0 now:8/3/2013 3:17:05 PM next:8/3/2013 3:17:05 PM
+2013-08-03 15:17:05.9478|DEBUG|BitHome.NodeService|Investigating INFO for 03zld42564884
+2013-08-03 15:17:05.9516|DEBUG|BitHome.NodeService|Setting next investigation time for 03zld42564884 funtion:0 to 8/3/2013 3:17:07 PM
+2013-08-03 15:17:05.9478|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:17:05.9526|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:17:05.9537|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:17:05.9537|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:17:05.9537|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:17:05.9537|TRACE|BitHome.NodeService|()
+2013-08-03 15:17:05.9537|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:17:05.9537|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:17:05.9537|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:17:05.9545|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:17:05.9545|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:17:05.9545|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:17:05.9775|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:17:05.9781|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:17:05.9781|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:17:05.9785|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:17:05.9785|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:17:05.9785|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:19:32</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "qwyp842565033"
+  But was:  &lt;empty&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTests.TestSaveNodeList () [0x00035] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTests.cs:32 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 15:19:34.4227|TRACE|BitHome.ServiceManager|Start requested at PID: 33741
+2013-08-03 15:19:34.4406|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:19:34.4531|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:19:34.5008|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:19:34.5079|TRACE|BitHome.NodeService|()
+2013-08-03 15:19:34.5116|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:19:34.5163|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:19:34.5203|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:19:34.5212|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:19:34.5222|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:19:34.5227|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:19:34.5265|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:19:34.5265|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:19:34.5353|INFO|BitHome.NodeService|Creating node qwyp842565033
+2013-08-03 15:19:34.5365|INFO|BitHome.NodeService|Adding node qwyp842565033 for investigation
+2013-08-03 15:19:34.5365|DEBUG|BitHome.NodeService|Resetting investigation attempts on node qwyp842565033
+2013-08-03 15:19:34.5365|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:19:34.5394|DEBUG|BitHome.NodeService|Investigating:qwyp842565033 function:0 now:8/3/2013 3:19:34 PM next:8/3/2013 3:19:34 PM
+2013-08-03 15:19:34.5453|DEBUG|BitHome.NodeService|Investigating INFO for qwyp842565033
+2013-08-03 15:19:34.5474|INFO|BitHome.NodeService|Creating node 99d1k42565033
+2013-08-03 15:19:34.5474|DEBUG|BitHome.NodeService|Setting next investigation time for qwyp842565033 funtion:0 to 8/3/2013 3:19:36 PM
+2013-08-03 15:19:34.5601|INFO|BitHome.NodeService|Adding node 99d1k42565033 for investigation
+2013-08-03 15:19:34.5601|DEBUG|BitHome.NodeService|Resetting investigation attempts on node 99d1k42565033
+2013-08-03 15:19:34.5606|DEBUG|BitHome.NodeService|Investigating:99d1k42565033 function:0 now:8/3/2013 3:19:34 PM next:8/3/2013 3:19:34 PM
+2013-08-03 15:19:34.5624|DEBUG|BitHome.NodeService|Investigating INFO for 99d1k42565033
+2013-08-03 15:19:34.5624|DEBUG|BitHome.NodeService|Setting next investigation time for 99d1k42565033 funtion:0 to 8/3/2013 3:19:36 PM
+2013-08-03 15:19:34.5622|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:19:34.5624|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:19:34.5637|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:19:34.5651|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:19:34.5651|TRACE|BitHome.NodeService|()
+2013-08-03 15:19:34.5655|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:19:34.5668|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:19:34.5683|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:19:34.5684|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:19:34.5684|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:19:34.5703|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:19:34.5766|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:19:34.5875|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:19:34.5928|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:19:34.5936|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:19:34.5956|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:19:34.5956|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:19:34.5989|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:19:34.5989|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:26:32</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.42ms</Message>
+                  <ConsoleOutput>2013-08-03 15:26:34.5122|TRACE|BitHome.ServiceManager|Start requested at PID: 33870
+2013-08-03 15:26:34.5265|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:26:34.5373|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:26:34.5752|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:26:34.5820|TRACE|BitHome.NodeService|()
+2013-08-03 15:26:34.5855|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:26:34.5896|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:26:34.5933|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:26:34.5940|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:26:34.5940|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:26:34.5940|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:26:34.5978|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:26:34.5978|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:26:34.6031|INFO|BitHome.NodeService|Creating node o2hxw42565453
+2013-08-03 15:26:34.6095|INFO|BitHome.NodeService|Adding node o2hxw42565453 for investigation
+2013-08-03 15:26:34.6095|DEBUG|BitHome.NodeService|Resetting investigation attempts on node o2hxw42565453
+2013-08-03 15:26:34.6099|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:26:34.6128|DEBUG|BitHome.NodeService|Investigating:o2hxw42565453 function:0 now:8/3/2013 3:26:34 PM next:8/3/2013 3:26:34 PM
+2013-08-03 15:26:34.6282|DEBUG|BitHome.NodeService|Investigating INFO for o2hxw42565453
+2013-08-03 15:26:34.6301|DEBUG|BitHome.NodeService|Setting next investigation time for o2hxw42565453 funtion:0 to 8/3/2013 3:26:36 PM
+2013-08-03 15:26:34.6296|INFO|BitHome.NodeService|Creating node tvdee42565453
+2013-08-03 15:26:34.6301|INFO|BitHome.NodeService|Adding node tvdee42565453 for investigation
+2013-08-03 15:26:34.6310|DEBUG|BitHome.NodeService|Resetting investigation attempts on node tvdee42565453
+2013-08-03 15:26:34.6310|DEBUG|BitHome.NodeService|Investigating:tvdee42565453 function:0 now:8/3/2013 3:26:34 PM next:8/3/2013 3:26:34 PM
+2013-08-03 15:26:34.6310|DEBUG|BitHome.NodeService|Investigating INFO for tvdee42565453
+2013-08-03 15:26:34.6310|DEBUG|BitHome.NodeService|Setting next investigation time for tvdee42565453 funtion:0 to 8/3/2013 3:26:36 PM
+2013-08-03 15:26:34.6545|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:26:34.6639|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:26:34.6660|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:26:34.6677|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:26:34.6695|TRACE|BitHome.NodeService|()
+2013-08-03 15:26:34.6695|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:26:34.6780|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:26:34.6797|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:26:34.6797|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:26:34.6802|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:26:34.6802|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:26:34.6802|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:26:34.6802|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:26:34.6873|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:26:34.6873|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:26:34.6873|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:26:34.6873|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:26:34.6884|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:26:34.6884|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:26:47</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "uobbu42565468"
+  But was:  &lt; "yg3mn42565468" &gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.NodeServiceTests.TestSaveNodeList () [0x00046] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/NodeServiceTests.cs:35 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 15:26:49.5542|TRACE|BitHome.ServiceManager|Start requested at PID: 33873
+2013-08-03 15:26:49.5690|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:26:49.5804|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:26:49.6318|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:26:49.6643|TRACE|BitHome.NodeService|()
+2013-08-03 15:26:49.6680|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:26:49.6726|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:26:49.6765|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:26:49.6774|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:26:49.6774|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:26:49.6774|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:26:49.6814|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:26:49.6814|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:26:49.6871|INFO|BitHome.NodeService|Creating node yg3mn42565468
+2013-08-03 15:26:49.6920|INFO|BitHome.NodeService|Adding node yg3mn42565468 for investigation
+2013-08-03 15:26:49.6924|DEBUG|BitHome.NodeService|Resetting investigation attempts on node yg3mn42565468
+2013-08-03 15:26:49.6924|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:26:49.6951|DEBUG|BitHome.NodeService|Investigating:yg3mn42565468 function:0 now:8/3/2013 3:26:49 PM next:8/3/2013 3:26:49 PM
+2013-08-03 15:26:49.7113|DEBUG|BitHome.NodeService|Investigating INFO for yg3mn42565468
+2013-08-03 15:26:49.7139|DEBUG|BitHome.NodeService|Setting next investigation time for yg3mn42565468 funtion:0 to 8/3/2013 3:26:51 PM
+2013-08-03 15:26:49.7133|INFO|BitHome.NodeService|Creating node uobbu42565468
+2013-08-03 15:26:49.7148|INFO|BitHome.NodeService|Adding node uobbu42565468 for investigation
+2013-08-03 15:26:49.7148|DEBUG|BitHome.NodeService|Resetting investigation attempts on node uobbu42565468
+2013-08-03 15:26:49.7148|DEBUG|BitHome.NodeService|Investigating:uobbu42565468 function:0 now:8/3/2013 3:26:49 PM next:8/3/2013 3:26:49 PM
+2013-08-03 15:26:49.7160|DEBUG|BitHome.NodeService|Investigating INFO for uobbu42565468
+2013-08-03 15:26:49.7160|DEBUG|BitHome.NodeService|Setting next investigation time for uobbu42565468 funtion:0 to 8/3/2013 3:26:51 PM
+2013-08-03 15:26:49.7160|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:26:49.7180|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:26:49.7204|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:26:49.7219|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:26:49.7219|TRACE|BitHome.NodeService|()
+2013-08-03 15:26:49.7219|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:26:49.7314|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:26:49.7327|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:26:49.7327|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:26:49.7327|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:26:49.7327|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:26:49.7336|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:26:49.7336|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:26:49.7547|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:26:49.7671|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:26:49.7674|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:26:49.7674|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:26:49.7674|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:26:49.7674|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:27:56</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.45ms</Message>
+                  <ConsoleOutput>2013-08-03 15:27:58.3981|TRACE|BitHome.ServiceManager|Start requested at PID: 33878
+2013-08-03 15:27:58.4140|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 15:27:58.4253|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 15:27:58.4818|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:27:58.4855|TRACE|BitHome.NodeService|()
+2013-08-03 15:27:58.4888|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:27:58.4931|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 15:27:58.4966|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 15:27:58.4979|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:27:58.4979|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:27:58.4986|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:27:58.5018|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:27:58.5026|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:27:58.5069|INFO|BitHome.NodeService|Creating node kwtrv42565537
+2013-08-03 15:27:58.5121|INFO|BitHome.NodeService|Adding node kwtrv42565537 for investigation
+2013-08-03 15:27:58.5121|DEBUG|BitHome.NodeService|Resetting investigation attempts on node kwtrv42565537
+2013-08-03 15:27:58.5127|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 15:27:58.5149|INFO|BitHome.NodeService|Creating node u5rbs42565537
+2013-08-03 15:27:58.5302|INFO|BitHome.NodeService|Adding node u5rbs42565537 for investigation
+2013-08-03 15:27:58.5352|DEBUG|BitHome.NodeService|Resetting investigation attempts on node u5rbs42565537
+2013-08-03 15:27:58.5171|DEBUG|BitHome.NodeService|Investigating:kwtrv42565537 function:0 now:8/3/2013 3:27:58 PM next:8/3/2013 3:27:58 PM
+2013-08-03 15:27:58.5358|DEBUG|BitHome.NodeService|Investigating INFO for kwtrv42565537
+2013-08-03 15:27:58.5365|DEBUG|BitHome.NodeService|Setting next investigation time for kwtrv42565537 funtion:0 to 8/3/2013 3:28:00 PM
+2013-08-03 15:27:58.5582|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:27:58.5588|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:27:58.5588|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:27:58.5732|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:27:58.5736|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 15:27:58.5736|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 15:27:58.5736|TRACE|BitHome.NodeService|()
+2013-08-03 15:27:58.5736|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 15:27:58.5830|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 15:27:58.5897|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 15:27:58.5897|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 15:27:58.5897|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 15:27:58.5897|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 15:27:58.5968|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 15:27:58.5977|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 15:27:58.5977|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 15:27:58.5977|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 15:27:58.5977|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 15:27:58.5977|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 15:27:58.5977|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 15:27:58.6011|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.13ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.3532|TRACE|BitHome.ServiceManager|Start requested at PID: 358
+2013-08-03 16:43:22.3532|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:43:22.3542|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:43:22.4138|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:43:22.4249|TRACE|BitHome.NodeService|()
+2013-08-03 16:43:22.4249|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:43:22.4249|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:43:22.4260|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:43:22.4271|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:43:22.4271|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:43:22.4271|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:43:22.4279|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:43:22.4279|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:43:22.4296|INFO|BitHome.NodeService|Creating node jwkpi42570061
+2013-08-03 16:43:22.4307|INFO|BitHome.NodeService|Adding node jwkpi42570061 for investigation
+2013-08-03 16:43:22.4310|DEBUG|BitHome.NodeService|Resetting investigation attempts on node jwkpi42570061
+2013-08-03 16:43:22.4310|TRACE|BitHome.NodeService|Switching to investigation interval
+2013-08-03 16:43:22.4330|INFO|BitHome.NodeService|Creating node gaqwg42570061
+2013-08-03 16:43:22.4344|INFO|BitHome.NodeService|Adding node gaqwg42570061 for investigation
+2013-08-03 16:43:22.4344|DEBUG|BitHome.NodeService|Resetting investigation attempts on node gaqwg42570061
+2013-08-03 16:43:22.4344|DEBUG|BitHome.NodeService|Investigating:jwkpi42570061 function:0 now:8/3/2013 4:43:22 PM next:8/3/2013 4:43:22 PM
+2013-08-03 16:43:22.4451|DEBUG|BitHome.NodeService|Investigating INFO for jwkpi42570061
+2013-08-03 16:43:22.4476|DEBUG|BitHome.NodeService|Setting next investigation time for jwkpi42570061 funtion:0 to 8/3/2013 4:43:24 PM
+2013-08-03 16:43:22.4785|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:43:22.4785|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:43:22.4785|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:43:22.4785|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:43:22.4785|TRACE|BitHome.NodeService|()
+2013-08-03 16:43:22.4785|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:43:22.4841|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:43:22.4849|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:43:22.4849|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:43:22.4849|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:43:22.4849|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:43:22.4849|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:43:22.4849|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:43:22.4849|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:43:22.4849|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:43:22.4849|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:43:22.4849|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ActionServiceTests">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-08-03T15:54:34</TestDate>
+              <Status>Failure</Status>
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Connection refused</Message>
+              <StackTrace>  at Mono.Remoting.Channels.Unix.HostConnectionPool.CreateConnection () [0x0002a] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:265 
+  at Mono.Remoting.Channels.Unix.HostConnectionPool.GetConnection () [0x000bb] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:249 
+  at Mono.Remoting.Channels.Unix.UnixConnectionPool.GetConnection (System.String path) [0x00049] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:104 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x00025] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:171 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-08-03T15:54:42</TestDate>
+              <Status>Failure</Status>
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Unix transport error.</Message>
+              <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:20:37</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>1</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:29:47</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>1</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:30:32</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>1</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:37:08</TestDate>
+              <Status>Failure</Status>
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Connection refused</Message>
+              <StackTrace>  at Mono.Remoting.Channels.Unix.HostConnectionPool.CreateConnection () [0x0002a] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:265 
+  at Mono.Remoting.Channels.Unix.HostConnectionPool.GetConnection () [0x000bb] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:249 
+  at Mono.Remoting.Channels.Unix.UnixConnectionPool.GetConnection (System.String path) [0x00049] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:104 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x00025] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:171 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:37:52</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:43:17</TestDate>
+              <Status />
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="TestActionExecute">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:54:34</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Unix transport error.</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:54:42</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Unix transport error.</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T15:54:51</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Unix transport error.</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:03:57</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.54ms</Message>
+                  <ConsoleOutput>2013-08-03 16:03:59.8129|TRACE|BitHome.ServiceManager|Start requested at PID: 33994
+2013-08-03 16:03:59.8317|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:03:59.8525|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:03:59.9247|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:03:59.9291|TRACE|BitHome.NodeService|()
+2013-08-03 16:03:59.9394|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:03:59.9471|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:03:59.9508|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:03:59.9515|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:03:59.9526|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:03:59.9530|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:03:59.9577|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:03:59.9591|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:04:00.0024|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:04:00.0039|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:04:00.0139|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:04:00.0186|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:04:00.0193|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:04:00.0202|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 16:04:00.0292|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:04:00.0292|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:20:37</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.41ms</Message>
+                  <ConsoleOutput>2013-08-03 16:20:38.7004|TRACE|BitHome.ServiceManager|Start requested at PID: 34047
+2013-08-03 16:20:38.7155|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:20:38.7277|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:20:38.7735|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:20:38.7850|TRACE|BitHome.NodeService|()
+2013-08-03 16:20:38.7887|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:20:38.7937|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:20:38.7975|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:20:38.7989|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:20:38.7989|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:20:38.7989|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:20:38.8028|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:20:38.8028|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:20:38.8319|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:20:38.8319|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:20:38.8341|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:20:38.8341|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:20:38.8350|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:20:38.8360|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:29:47</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.39ms</Message>
+                  <ConsoleOutput>2013-08-03 16:29:49.8700|TRACE|BitHome.ServiceManager|Start requested at PID: 34066
+2013-08-03 16:29:49.8830|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:29:49.9033|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:29:49.9596|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:29:49.9628|TRACE|BitHome.NodeService|()
+2013-08-03 16:29:49.9661|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:29:49.9714|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:29:49.9755|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:29:49.9762|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:29:49.9767|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:29:49.9767|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:29:49.9801|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:29:49.9809|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:29:50.0066|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:29:50.0077|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:29:50.0077|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:29:50.0077|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:29:50.0088|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:29:50.0111|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:30:32</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.77ms</Message>
+                  <ConsoleOutput>2013-08-03 16:30:34.5722|TRACE|BitHome.ServiceManager|Start requested at PID: 34068
+2013-08-03 16:30:34.6044|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:30:34.6182|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:30:34.7726|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:30:34.7770|TRACE|BitHome.NodeService|()
+2013-08-03 16:30:34.7873|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:30:34.7954|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:30:34.7995|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:30:34.7995|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:30:34.8019|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:30:34.8019|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:30:34.8039|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:30:34.8055|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:30:34.8634|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:30:34.8641|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:30:34.8644|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:30:34.8674|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:30:34.8683|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:30:34.8717|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 16:30:34.9063|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:30:34.9078|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:37:52</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.83ms</Message>
+                  <ConsoleOutput>2013-08-03 16:37:54.9190|TRACE|BitHome.ServiceManager|Start requested at PID: 327
+2013-08-03 16:37:54.9424|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:37:54.9670|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:37:55.0490|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:37:55.0563|TRACE|BitHome.NodeService|()
+2013-08-03 16:37:55.0629|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:37:55.0710|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:37:55.0750|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:37:55.0759|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:37:55.0777|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:37:55.0777|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:37:55.0828|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:37:55.0852|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:37:55.1694|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:37:55.1781|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:37:55.1794|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:37:55.1808|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:37:55.1819|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:37:55.1833|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 16:37:55.1904|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:37:55.1934|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.74ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:21.5129|TRACE|BitHome.ServiceManager|Start requested at PID: 358
+2013-08-03 16:43:21.5315|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:43:21.5452|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:43:21.6123|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:43:21.6204|TRACE|BitHome.NodeService|()
+2013-08-03 16:43:21.6301|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:43:21.6938|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:43:21.7129|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:43:21.7139|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:43:21.7139|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:43:21.7139|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:43:21.7254|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:43:21.7857|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:43:21.8414|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:43:21.8420|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:43:21.8420|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:43:21.8420|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:43:21.8433|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:43:21.8465|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="TestSaveActionList">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:20:37</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.ArgumentException : An element with the same key already exists in the dictionary.</Message>
+                  <StackTrace>  at System.Collections.Generic.Dictionary`2[System.String,BitHome.Actions.IAction].Add (System.String key, IAction value) [0x00171] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Collections.Generic/Dictionary.cs:452 
+  at BitHome.Actions.ActionService.AddAction (IAction action) [0x00000] in /Users/mkurdziel/Code/BitHome/src/Actions/ActionService.cs:134 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00017] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:47 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:20:39.0025|TRACE|BitHome.ServiceManager|Start requested at PID: 34047
+2013-08-03 16:20:39.0025|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:20:39.0042|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:20:39.0207|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:20:39.0211|TRACE|BitHome.NodeService|()
+2013-08-03 16:20:39.0236|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:20:39.0242|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:20:39.0242|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:20:39.0242|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:20:39.0250|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:20:39.0250|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:20:39.0250|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:20:39.0250|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:20:39.0330|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:20:39.0330|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:20:39.0330|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:20:39.0351|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:20:39.0360|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:20:39.0392|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:29:47</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.ArgumentException : An element with the same key already exists in the dictionary.</Message>
+                  <StackTrace>  at System.Collections.Generic.Dictionary`2[System.String,BitHome.Actions.IAction].Add (System.String key, IAction value) [0x00171] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Collections.Generic/Dictionary.cs:452 
+  at BitHome.Actions.ActionService.AddAction (IAction action) [0x00018] in /Users/mkurdziel/Code/BitHome/src/Actions/ActionService.cs:142 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00017] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:47 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:29:50.1647|TRACE|BitHome.ServiceManager|Start requested at PID: 34066
+2013-08-03 16:29:50.1647|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:29:50.1660|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:29:50.1806|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:29:50.1807|TRACE|BitHome.NodeService|()
+2013-08-03 16:29:50.1807|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:29:50.1807|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:29:50.1807|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:29:50.1807|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:29:50.1821|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:29:50.1821|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:29:50.1821|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:29:50.1828|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:29:50.1956|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:29:50.1958|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:29:50.1958|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:29:50.1958|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:29:50.1958|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:29:50.1967|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:30:32</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.ArgumentException : An element with the same key already exists in the dictionary.</Message>
+                  <StackTrace>  at System.Collections.Generic.Dictionary`2[System.String,BitHome.Actions.IAction].Add (System.String key, IAction value) [0x0007e] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Collections.Generic/Dictionary.cs:424 
+  at BitHome.Actions.ActionService.AddAction (IAction action) [0x00018] in /Users/mkurdziel/Code/BitHome/src/Actions/ActionService.cs:142 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00017] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:47 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:30:35.0907|TRACE|BitHome.ServiceManager|Start requested at PID: 34068
+2013-08-03 16:30:35.0907|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:30:35.0921|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:30:35.1119|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:30:35.1119|TRACE|BitHome.NodeService|()
+2013-08-03 16:30:35.1125|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:30:35.1125|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:30:35.1125|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:30:35.1125|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:30:35.1137|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:30:35.1137|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:30:35.1137|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:30:35.1150|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:30:35.2066|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:30:35.2169|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:30:35.2236|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:30:35.2258|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:30:35.2343|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:30:35.2347|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:30:39</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.ArgumentException : An element with the same key already exists in the dictionary.</Message>
+                  <StackTrace>  at System.Collections.Generic.Dictionary`2[System.String,BitHome.Actions.IAction].Add (System.String key, IAction value) [0x0007e] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Collections.Generic/Dictionary.cs:424 
+  at BitHome.Actions.ActionService.AddAction (IAction action) [0x00018] in /Users/mkurdziel/Code/BitHome/src/Actions/ActionService.cs:142 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00017] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:47 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:30:42.2189|TRACE|BitHome.ServiceManager|Start requested at PID: 34069
+2013-08-03 16:30:42.2544|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:30:42.2704|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:30:42.3431|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:30:42.3484|TRACE|BitHome.NodeService|()
+2013-08-03 16:30:42.3594|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:30:42.3686|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:30:42.3731|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:30:42.3738|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:30:42.3754|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:30:42.3754|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:30:42.3811|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:30:42.3827|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:30:42.4259|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:30:42.4265|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:30:42.4265|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:30:42.4281|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:30:42.4286|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:30:42.4302|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 16:30:42.4360|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:30:42.4375|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:30:52</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.ArgumentException : An element with the same key already exists in the dictionary.</Message>
+                  <StackTrace>  at System.Collections.Generic.Dictionary`2[System.String,BitHome.Actions.IAction].Add (System.String key, IAction value) [0x0007e] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Collections.Generic/Dictionary.cs:424 
+  at BitHome.Actions.ActionService.AddAction (IAction action) [0x00018] in /Users/mkurdziel/Code/BitHome/src/Actions/ActionService.cs:142 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00017] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:47 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:30:55.5437|TRACE|BitHome.ServiceManager|Start requested at PID: 34070
+2013-08-03 16:30:55.5651|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:30:55.5794|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:30:55.6464|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:30:55.6502|TRACE|BitHome.NodeService|()
+2013-08-03 16:30:55.6621|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:30:55.6712|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:30:55.6749|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:30:55.6749|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:30:55.6774|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:30:55.6831|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:30:55.6831|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:30:55.6859|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:31:01.0423|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:31:01.0430|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:31:01.0430|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:31:01.0438|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:31:01.0438|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:31:01.0495|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 16:31:01.0614|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:31:01.0627|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:31:38</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.ArgumentException : An element with the same key already exists in the dictionary.</Message>
+                  <StackTrace>  at System.Collections.Generic.Dictionary`2[System.String,BitHome.Actions.IAction].Add (System.String key, IAction value) [0x0007e] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Collections.Generic/Dictionary.cs:424 
+  at BitHome.Actions.ActionService.AddAction (IAction action) [0x00018] in /Users/mkurdziel/Code/BitHome/src/Actions/ActionService.cs:142 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00017] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:47 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:31:40.9631|TRACE|BitHome.ServiceManager|Start requested at PID: 34076
+2013-08-03 16:31:40.9849|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:31:40.9988|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:31:41.0622|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:31:41.0663|TRACE|BitHome.NodeService|()
+2013-08-03 16:31:41.0775|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:31:41.0870|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:31:41.0907|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:31:41.0907|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:31:41.0925|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:31:41.0961|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:31:41.0961|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:31:41.0998|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:31:41.2542|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:31:41.2576|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:31:41.2576|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:31:41.2762|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:31:41.2822|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:31:41.2835|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 16:31:41.2993|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:31:41.3023|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:31:50</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Connection refused</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.HostConnectionPool.CreateConnection () [0x0002a] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:265 
+  at Mono.Remoting.Channels.Unix.HostConnectionPool.GetConnection () [0x000bb] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:249 
+  at Mono.Remoting.Channels.Unix.UnixConnectionPool.GetConnection (System.String path) [0x00049] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:104 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x00025] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:171 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:37:52</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "jg9uw42569734"
+  But was:  &lt;empty&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x00020] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2205 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00033] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:37:55.3910|TRACE|BitHome.ServiceManager|Start requested at PID: 327
+2013-08-03 16:37:55.3912|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:37:55.3923|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:37:55.4080|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:37:55.4082|TRACE|BitHome.NodeService|()
+2013-08-03 16:37:55.4082|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:37:55.4082|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:37:55.4082|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:37:55.4093|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:37:55.4106|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:37:55.4106|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:37:55.4106|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:37:55.4114|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:37:55.4133|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:37:55.4133|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:37:55.4133|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:37:55.4143|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:37:55.4143|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:37:55.4157|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:37:55.4157|TRACE|BitHome.NodeService|()
+2013-08-03 16:37:55.4164|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:37:55.4177|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:37:55.4185|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:37:55.4185|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:37:55.4185|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:37:55.4199|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:37:55.4345|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:37:55.4345|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:37:55.4345|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:37:55.4345|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:37:55.4355|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:37:55.4355|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:38:01</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: collection containing "sl0k342569741"
+  But was:  &lt;empty&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2043 
+  at NUnit.Framework.Assert.Contains (System.Object expected, ICollection actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2064 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x00033] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:53 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:38:02.5599|TRACE|BitHome.ServiceManager|Start requested at PID: 335
+2013-08-03 16:38:02.5849|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:38:02.5959|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:38:02.6370|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:38:02.6400|TRACE|BitHome.NodeService|()
+2013-08-03 16:38:02.6433|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:38:02.6483|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:38:02.6517|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:38:02.6524|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:38:02.6524|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:38:02.6524|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:38:02.6531|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:38:02.6545|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:38:02.6674|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:38:02.6674|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:38:02.6683|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:38:02.6698|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:38:02.6698|TRACE|BitHome.NodeService|()
+2013-08-03 16:38:02.6698|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:38:02.6701|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:38:02.6701|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:38:02.6701|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:38:02.6701|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:38:02.6701|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:38:02.6804|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:38:02.6812|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:38:02.6812|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:38:02.6821|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:38:02.6821|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:38:02.6821|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:38:02.6821|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:38:02.6821|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:38:02.6821|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:38:02.6821|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:38:19</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Connection refused</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.HostConnectionPool.CreateConnection () [0x0002a] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:265 
+  at Mono.Remoting.Channels.Unix.HostConnectionPool.GetConnection () [0x000bb] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:249 
+  at Mono.Remoting.Channels.Unix.UnixConnectionPool.GetConnection (System.String path) [0x00049] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixConnectionPool.cs:104 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x00025] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:171 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected: &lt;BitHomeTests.TestAction&gt;
+  But was:  &lt;BitHomeTests.TestAction&gt;
+</Message>
+                  <StackTrace>  at NUnit.Framework.Assert.That (System.Object actual, NUnit.Framework.Constraints.Constraint constraint, System.String message, System.Object[] args) [0x0002c] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:2207 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual, System.String message, System.Object[] args) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:886 
+  at NUnit.Framework.Assert.AreEqual (System.Object expected, System.Object actual) [0x00000] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/nunit24/NUnitFramework/framework/Assert.cs:913 
+  at BitHomeTests.ActionServiceTests.TestSaveActionList () [0x0006b] in /Users/mkurdziel/Code/BitHome/src/BitHomeTests/ActionServiceTests.cs:59 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (System.Reflection.MonoMethod,object,object[],System.Exception&amp;)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d5] in /private/tmp/source/bockbuild/profiles/mono-2-10/build-root/mono-2.10.12/_build/mono-2.10.12.git/mcs/class/corlib/System.Reflection/MonoMethod.cs:226 </StackTrace>
+                  <ConsoleOutput>2013-08-03 16:43:22.1945|TRACE|BitHome.ServiceManager|Start requested at PID: 358
+2013-08-03 16:43:22.1945|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:43:22.1999|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:43:22.2277|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:43:22.2405|TRACE|BitHome.NodeService|()
+2013-08-03 16:43:22.2433|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:43:22.2433|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:43:22.2443|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:43:22.2443|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:43:22.2443|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:43:22.2448|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:43:22.2448|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:43:22.2448|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:43:22.2698|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:43:22.2751|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:43:22.2805|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:43:22.2918|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:43:22.2945|TRACE|BitHome.NodeService|()
+2013-08-03 16:43:22.2952|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:43:22.3027|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:43:22.3033|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:43:22.3033|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:43:22.3041|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:43:22.3041|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:43:22.3041|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:43:22.3041|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:43:22.3191|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:43:22.3191|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:43:22.3199|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:43:22.3199|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:43:22.3199|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:43:22.3199|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:52:29</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.73ms</Message>
+                  <ConsoleOutput>2013-08-03 16:52:31.4946|TRACE|BitHome.ServiceManager|Start requested at PID: 402
+2013-08-03 16:52:31.5233|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:52:31.5372|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:52:31.6067|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:52:31.6099|TRACE|BitHome.NodeService|()
+2013-08-03 16:52:31.6138|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:52:31.6205|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:52:31.6242|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:52:31.6250|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:52:31.6272|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:52:31.6272|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:52:31.6278|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:52:31.6302|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:52:31.6955|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:52:31.6960|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:52:31.6960|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:52:31.7054|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:52:31.7066|TRACE|BitHome.NodeService|()
+2013-08-03 16:52:31.7070|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:52:31.7085|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:52:31.7090|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:52:31.7090|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:52:31.7090|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:52:31.7102|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:52:31.7148|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:52:31.7157|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:52:31.7189|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:52:31.7207|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:52:31.7311|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:52:31.7311|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:52:31.7319|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:52:31.7319|INFO|BitHome.StorageService|Stopping StorageService
+2013-08-03 16:52:31.7442|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:52:31.7543|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:55:05</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.41ms</Message>
+                  <ConsoleOutput>2013-08-03 16:55:06.2932|TRACE|BitHome.ServiceManager|Start requested at PID: 412
+2013-08-03 16:55:06.3047|INFO|BitHome.ServiceManager|Starting ServiceManager
+2013-08-03 16:55:06.3155|WARN|BitHome.StorageService|Deleting db: ./testdata
+2013-08-03 16:55:06.3564|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:55:06.3597|TRACE|BitHome.NodeService|()
+2013-08-03 16:55:06.3642|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:55:06.3694|INFO|BitHome.StorageService|Starting StorageService
+2013-08-03 16:55:06.3734|INFO|BitHome.StorageService|DB at version 0.2
+2013-08-03 16:55:06.3734|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:55:06.3747|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:55:06.3747|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:55:06.3754|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:55:06.3766|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:55:06.4107|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:55:06.4107|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:55:06.4118|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:55:06.4134|TRACE|BitHome.Messaging.MessageDispatcherService|() Testing:True
+2013-08-03 16:55:06.4134|TRACE|BitHome.NodeService|()
+2013-08-03 16:55:06.4134|TRACE|BitHome.NodeService|Switching to query interval
+2013-08-03 16:55:06.4152|INFO|BitHome.Messaging.MessageDispatcherService|Starting MessageDispatcherService
+2013-08-03 16:55:06.4161|INFO|BitHome.Messaging.MessageDispatcherService|Starting message input thread
+2013-08-03 16:55:06.4163|INFO|BitHome.Actions.ActionService|Starting ActionService
+2013-08-03 16:55:06.4163|INFO|BitHome.NodeService|Starting NodeService
+2013-08-03 16:55:06.4177|DEBUG|BitHome.NodeService|Refreshing Node Infos
+2013-08-03 16:55:06.4240|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:55:06.4244|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:55:06.4259|TRACE|BitHome.ServiceManager|Stop requested
+2013-08-03 16:55:06.4297|INFO|BitHome.ServiceManager|Stopping ServiceManager
+2013-08-03 16:55:06.4297|INFO|BitHome.NodeService|Stopping NodeService
+2013-08-03 16:55:06.4297|INFO|BitHome.Actions.ActionService|Stopping ActionService
+2013-08-03 16:55:06.4297|INFO|BitHome.Messaging.MessageDispatcherService|Stopping MessageDispatcherService
+2013-08-03 16:55:06.4297|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:55:06.4297|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:55:06.4297|INFO|BitHome.StorageService|Stopping StorageService
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ParameterBaseTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-08-03T16:43:17</TestDate>
+              <Status />
+              <Passed>10</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.10ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="TestSetValueBool">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.4987|INFO|BitHome.Messaging.MessageDispatcherService|Message input thread cancelled
+2013-08-03 16:43:22.4995|INFO|BitHome.Messaging.MessageDispatcherService|Stopping message input thread
+2013-08-03 16:43:22.5097|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueByteSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5191|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5206|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5210|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueByteUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5317|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5321|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5321|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueDWordSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5366|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5366|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5370|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueDWordUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5403|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5550|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5550|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueQWordSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5599|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5599|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5599|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueQWordUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5635|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5639|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5639|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueString">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5704|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+2013-08-03 16:43:22.5704|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:aaaaa
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueWordSigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5804|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5804|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5809|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="TestSetValueWordUnsigned">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status />
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput>2013-08-03 16:43:22.5855|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:0
+2013-08-03 16:43:22.5897|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:4
+2013-08-03 16:43:22.5900|TRACE|BitHome.Actions.ParameterBase|Parameter:  Invalid value:a
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ServiceManagerTests">
+          <Tests>
+            <TestRecord Name="TestInvestigation">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-08-03T16:43:17</TestDate>
+                  <Status>Failure</Status>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Unix transport error.</Message>
+                  <StackTrace>  at Mono.Remoting.Channels.Unix.UnixMessageIO.ReceiveMessageStatus (System.IO.Stream networkStream, System.Byte[] buffer) [0x0000f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixMessageIO.cs:59 
+  at Mono.Remoting.Channels.Unix.UnixClientTransportSink.ProcessMessage (IMessage msg, ITransportHeaders requestHeaders, System.IO.Stream requestStream, ITransportHeaders&amp; responseHeaders, System.IO.Stream&amp; responseStream) [0x0004f] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/Mono.Posix/Mono.Remoting.Channels.Unix/UnixClientTransportSink.cs:176 
+  at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage (IMessage msg) [0x0006c] in /private/tmp/source/bockbuild-xamarin/profiles/mono-mac-xamarin-no-pcl/build-root/mono-3.2.0/mcs/class/System.Runtime.Remoting/System.Runtime.Remoting.Channels/BinaryClientFormatterSink.cs:157 </StackTrace>
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+      </Tests>
+    </TestRecord>
+  </Tests>
+</TestRecord>

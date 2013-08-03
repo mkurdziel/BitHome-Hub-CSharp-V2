@@ -1,0 +1,203 @@
+﻿@{
+    Layout = "master";
+}
+
+@section Stylesheet {
+    <style type="text/css">
+        #settings {
+            width: 200px;
+        }
+
+        #actions-table .btn-group i {
+            margin-right: 4px;
+        }
+
+        #actions-table .btn-group a {
+            cursor: pointer !important;
+        }
+
+        label {
+            padding-right: 4px;
+        }
+    </style>
+}
+<h1>Actions</h1>
+
+<table id="actions-table" class="table">
+    <tr>
+        <th>&nbsp;</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Parameters</th>
+        <th id="settings">&nbsp;</th>
+    </tr>
+</table>
+
+<div id="modal-execute" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Execute <span class='modal-action-name'>Name</span></h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" onclick="$('#modal-execute').modal('hide')">Close</a>
+    </div>
+</div>
+
+@section Javascript {
+    <script>
+        var tableSpinner;
+
+        $(function () {
+            updateActionsTable();
+        });
+
+        function updateActionsTable() {
+            $.ajax({
+                type: 'GET',
+                url: 'api/actions',
+                data: { format: 'json' },
+                beforeSend: function () {
+                    $("#actions-table tr").remove();
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, len = data.length; i < len; ++i) {
+                        var action = data[i];
+
+                        var settingsButtonGroup = $("<div/>", {
+                            'class': 'btn-group'
+                        });
+
+                        var settingsButton = $("<a/>", {
+                            'class': 'btn btn-small btn-action dropdown-toggle',
+                            'data-toggle': 'dropdown',
+                            'href': '#',
+                            'html': '<span class="caret"></span>'
+                        });
+
+                        var settingsMenu = $("<ul/>", {
+                            'class': 'dropdown-menu'
+                        });
+
+                        // Execute
+                        ////////////////////////////////////////
+                        var executeLink = $("<a/>", { 'html': '<i class="icon-eye-open"></i>Execute' });
+                        executeLink.on("click", function (innerId, innerIdent) {
+                            return function() {
+                                showExecuteModal(innerId, innerIdent);
+                            };
+                        }(action.Id, action.Identifier) );
+                        settingsMenu.append(
+                            $("<li/>", {
+                                'html': executeLink
+                            })
+                        );
+
+                        settingsButtonGroup.append(settingsButton);
+                        settingsButtonGroup.append(settingsMenu);
+
+                        $('#actions-table').append(
+                            $("<tr/>")
+                            .append($("<td/>", { html: '<i class="icon-color icon-size32 icon-fire"></i>' }))
+                            .append($("<td/>", { text: action.Id }))
+                            .append($("<td/>", { text: action.Name }))
+                            .append($("<td/>", { text: action.NodeType }))
+                            .append($("<td/>", { html: action.ParameterCount }))
+                            .append($("<td/>", { html: settingsButtonGroup })
+                            )
+                        );
+                    }
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+
+        function showExecuteModal(id, ident) {
+            var modal = $('#modal-execute');
+
+            $.ajax({
+                type: 'GET',
+                url: 'api/actions/' + id + "/parameters",
+                data: { format: 'json' },
+                beforeSend: function () {
+                    // this is where we append a loading image
+                },
+                success: function (data) {
+                    // Empty the form
+                    var form = modal.find('form');
+                    form.empty();
+
+                    $('.modal-action-name').text(ident);
+
+                    form.append("<input type='hidden' value='" + id + "'/>");
+
+                    // successful request; do something with the data
+                    for (var i = 0, len = data.length; i < len; ++i) {
+                        var parameter = data[i];
+
+                        form.append('<div class="control-group">');
+                        form.append('<label class="control-label" for="'+parameter.Id+'">'+parameter.Name+'</label>');
+                        form.append('<div class="controls">');
+                        form.append('<input class="parameter-input" type="text" id="' + parameter.Id + '" placeholder="0">');
+                        form.append('</div>');
+                        form.append('</div>');
+                    }
+
+                    form.append('<input type="hidden" id="execute_id" name="id" value="'+id+'">');
+                    form.append('<div class="control-group">');
+                    form.append('<label class="control-label">&nbsp;</label>');
+                    form.append('<div class="controls">');
+                    form.append($('<a/>', {
+                        'href': 'javascript:void(0);',
+                        'class': 'btn btn-danger',
+                        'text' : 'Execute Action'
+                    }).on('click', function () { executeAction(form);}));
+                    form.append('</div>');
+                    form.append('</div>');
+
+                    $('#modal-execute').modal('show');
+                },
+                async: false
+            });
+
+            
+        }
+
+        function executeAction(form) {
+            var actionId = form.find('#execute_id').val();
+
+            var parameters = {};
+
+            form.find('input').each(function(index, value)
+            {
+                var input = $(value);
+                if (input.hasClass('parameter-input')) {
+                    parameters[input.attr('id')] = input.val();
+                }
+            }) ;
+
+            $.ajax({
+                type: 'POST',
+                url: 'api/actions/' + actionId + "/execute",
+                data: {
+                    format: 'json',
+                    parameters: JSON.stringify(parameters)
+                },
+                beforeSend: function () {
+                    // this is where we append a loading image
+                },
+                success: function (data) {
+                    $('#modal-execute').modal('hide');
+                }
+            });
+        }
+
+    </script>
+}

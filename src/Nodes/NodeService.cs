@@ -9,10 +9,11 @@ using ServiceStack.Text;
 using NLog;
 using BitHome.Messaging.Messages;
 using BitHome.Messaging.Protocol;
+using BitHome.Nodes;
 
 namespace BitHome
 {
-	public class NodeService 
+	public class NodeService : IBitHomeService
 	{
 		private const string KEY_NODES = "nodes";
 		private const int QUERY_INVERVAL_MS = 1000 * 60; // 2 minutes
@@ -41,6 +42,12 @@ namespace BitHome
 		public BroadcastNode BroadcastNode { get; set; }
 		public bool IsInvestigating { get; set; }
 
+		public String[] NodeIds {
+			get {
+				return m_nodes.Keys.ToArray ();
+			}
+		}
+
 		public NodeService() 
 		{
 			log.Trace ("()");
@@ -61,21 +68,27 @@ namespace BitHome
 			m_thread.Name = "NodeServiceThread";
 			m_thread.IsBackground = true;
 
+			// Load the data from persistance
+			LoadData ();
+
+			// Listen to the MessageDispatcherService for new messages
+			ServiceManager.MessageDispatcherService.MessageRecieved += OnMessageRecievedEvent;
+		}
+
+		private void LoadData() {
 			// Load data from the storage service
 			if (StorageService.Store<String[]>.Exists(KEY_NODES)) {
 				String[] nodeKeys = StorageService.Store<String[]>.Get (KEY_NODES);
 
 				foreach (String key in nodeKeys) 
 				{
-					if ( StorageService.Store<Node>.Exists(key) )
-					{
+					if (StorageService.Store<Node>.Exists (key)) {
 						m_nodes.Add (key, StorageService.Store<Node>.Get (key));
+					} else {
+						m_nodes.Add (key, new NodeUnknown { Id = key });
 					}
 				}
 			}
-
-			// Listen to the MessageDispatcherService for new messages
-			ServiceManager.MessageDispatcherService.MessageRecieved += OnMessageRecievedEvent;
 		}
 
 		public bool Start() 
@@ -112,6 +125,10 @@ namespace BitHome
 
 			AddNodeForInvestigation (p_node);
 
+			SaveNode (p_node);
+
+			SaveNodeList ();
+
 			return p_node;
 		}
 
@@ -128,6 +145,10 @@ namespace BitHome
 			if (m_nodesToInvestigate.Contains (p_node)) {
 				m_nodesToInvestigate.Remove (p_node);
 			}
+
+			UnSaveNode (p_node);
+
+			SaveNodeList ();
 		}
 
 		private void AddNodeForInvestigation(Node p_node)
@@ -479,6 +500,8 @@ namespace BitHome
 		{
 			Node node = p_msg.SourceNode;
 
+			log.Trace ("Adding parameter to {0} {1}:{2}", node.Identifier, p_msg.FunctionId, p_msg.ParamId);
+
 			ServiceManager.ActionService.AddNodeParameter (
 				node,
 				p_msg.FunctionId,
@@ -491,7 +514,6 @@ namespace BitHome
 				p_msg.EnumValues
 			);
 
-			log.Trace ("Adding parameter to {0} {1}:{2}", node.Identifier, p_msg.FunctionId, p_msg.ParamId);
 //			Logger.v(TAG, parameter.getDescription());
 
 			// If we have all the parameters for this function, send a notification
@@ -624,6 +646,28 @@ namespace BitHome
 		}
 
 
+		#endregion
+
+		#region Persistence Methods
+
+		private void SaveNodeList() {
+			StorageService.Store<String[]>.Insert (KEY_NODES, this.NodeIds);
+		}
+
+		private void SaveNode(Node node) {
+			StorageService.Store<Node>.Insert (node.Id, node);
+		}
+
+		private void UnSaveNode(Node node) {
+			StorageService.Store<Node>.Remove (node.Id);
+		}
+
+
+		public void WaitFinishSaving ()
+		{
+			StorageService.Store<String[]>.WaitForCompletion ();
+			StorageService.Store<Node>.WaitForCompletion ();
+		}
 		#endregion
 
 //		public void AddMsgBootloadResponse(MsgBootloadResponse p_msg)
