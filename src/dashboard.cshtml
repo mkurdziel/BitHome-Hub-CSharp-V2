@@ -8,7 +8,13 @@
         .ui-widget-header p, .ui-widget-content p { margin: 0; }
         .slider-wrapper { display: inline-block; padding: 4px; }
         .slider-vertical { height: 100px; }
-        .dashboard { background-color: #fefefe; border: 1px solid #ccc; }
+        .dashboard { 
+       		 background-color: #fefefe; border: 1px solid #ccc; 
+       		 height: 600px;
+       	}
+        .tab-content {
+        	overflow: visible;
+        }
         #snaptarget { height: 600px; }
 
         .bithome-control-title {
@@ -29,27 +35,127 @@
         }
     </style>
 }
-<h1>Dashboard</h1>
+<h1>Dashboards</h1>
 
-<div id="snaptarget" class="dashboard">
-  <p>Drag items around the Dashboard</p>
+<ul id="dashboard-tabs" class="nav nav-pills">
+</ul>
+
+<div id="dashboard-tab-content" class="tab-content">
 </div>
 
 <br style="clear: both;" />
 
+<div class="modal hide fade" id='create-dashboard-modal'>
+  <div class="modal-header">
+    <h3>Create New Dashboard</h3>
+  </div>
+  <div class="modal-body">
+	<form class="form-horizontal">
+  		<div class="control-group">
+    		<label class="control-label" for="create-dashboard-name">Name</label>
+    		<div class="controls">
+      			<input type="text" id="create-dashboard-name" placeholder="Name">
+    		</div>
+  		</div>
+  		
+  		<div class="control-group">
+    		<label class="control-label" for="create-dashboard-name">Dashboard Type</label>
+    		<div class="controls">
+      			<label class="radio">
+  					<input type="radio" name="optionsRadios" id="create-dashboard-type-blank" value="blank" checked>
+  						Create a blank dashboard
+				</label>
+				<label class="radio">
+  					<input type="radio" name="optionsRadios" id="create-dashboard-type-node" value="node">
+  						Create a dashboard based on a Device's actions
+				</label>
+				<select id="create-dashboard-nodes">
+				</select>					
+    		</div>
+  		</div>	
+  	</form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#create-dashboard-modal').modal('hide');">Cancel</a>
+    <a href="#" class="btn btn-primary" onclick="createDashboard();">Create Dashboard</a>
+  </div>
+</div>
+
+<div class="modal hide fade" id='rename-dashboard-modal'>
+  <div class="modal-header">
+    <h3 id='rename-dashboard-title'>Rename Dashboard</h3>
+  </div>
+  <div class="modal-body">
+	<form class="form-horizontal">
+  		<div class="control-group">
+    		<label class="control-label" for="rename-dashboard-name">Name</label>
+    		<div class="controls">
+      			<input type="hidden" id="rename-dashboard-id">
+      			<input type="text" id="rename-dashboard-name" placeholder="Name">
+    		</div>
+  		</div>
+  	</form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#rename-dashboard-modal').modal('hide');">Cancel</a>
+    <a href="#" class="btn btn-primary" onclick="renameDashboard();">Rename</a>
+  </div>
+</div>
+
+<div class="modal hide fade" id='delete-dashboard-modal'>
+  <div class="modal-header">
+    <h3 id='delete-dashboard-title'>Delete Dashboard</h3>
+  </div>
+  <div class="modal-body">
+  	<p>Are you sure you want to delete this Dashboard?</p>
+  	<input type="hidden" id="delete-dashboard-id">
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#delete-dashboard-modal').modal('hide');">Cancel</a>
+    <a href="#" class="btn btn-primary" onclick="deleteDashboard();">Delete</a>
+  </div>
+</div>
+
+<div class="modal hide fade" id='addaction-dashboard-modal'>
+  <div class="modal-header">
+    <h3 id='addaction-dashboard-title'>Add Actions To Dashboard</h3>
+  </div>
+  <div class="modal-body">
+  	<p>Are you sure you want to delete this Dashboard?</p>
+  	<input type="hidden" id="addaction-dashboard-id">
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#addaction-dashboard-modal').modal('hide');">Cancel</a>
+    <a href="#" class="btn btn-primary" onclick="deleteDashboard();">Delete</a>
+  </div>
+</div>
 
 
 @section Javascript {
     <script src="js/jquery.throttle.js"></script>
+    
+
 
     <script>
+    
+        //<div id="snaptarget" class="dashboard">
+  	//<p>Drag items around the Dashboard</p>
+	//</div>
+	
     	var dashboardId = "";
+    	var m_dashboards = {};
     	
         $(function () {
         
         	updateDashboards();
 
+            $('#create-dashboard-type-blank').click(function(e){
+                $('#create-dashboard-nodes').attr('disabled', 'disabled');	
+            });
             
+            $('#create-dashboard-type-node').click(function(e){
+                $('#create-dashboard-nodes').removeAttr('disabled');	
+            });
             
 			$( ".slider-vertical" ).slider({
 				orientation: "vertical",
@@ -99,14 +205,16 @@
                 beforeSend: function () {
                 },
                 success: function (data) {
-                    // successful request; do something with the data
-                    for (var i = 0, len = data.length; i < len; ++i) {
-                        var dashboard = data[i];
-                        createDashboardItems(dashboard);
-
-                    }
-                    
-                    createDraggables();
+                
+                	// Save this locally
+                	m_dashboards = data;
+                	
+                	clearDashboardData();
+                	
+                	createDashboardTabs(m_dashboards);
+                	
+            
+                    //createDraggables();
                 },
                 error: function () {
                     // failed request; give feedback to user
@@ -114,26 +222,260 @@
             });
         }
         
-        function createDashboardItems(dashboard) {
-        	dashboardId = dashboard.Id;
-        	
-        	// Loop through each action
-        	jQuery.each(dashboard.Items,function(index, action) {
-        		createItem(action);
-
-        	});	
+        function clearDashboardData() {
+        	$('#dashboard-tabs').empty();
+        	$('#dashboard-tab-content').empty();
         }
         
-        function createItem(item) {
-        	var action = item.Action;
+        function createDashboard() {
+        	var nodeId = undefined;
+        	if($('#create-dashboard-type-node').is(':checked')) {
+        		nodeId = $('#create-dashboard-nodes').val();
+        	}
+        	
+         	$.ajax({
+                type: 'POST',
+                url: 'api/dashboards',
+                data: { 
+                	name: $('#create-dashboard-name').val(),
+                	nodeId : nodeId
+                },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                
+                	updateDashboards()
+                	
+                	$('#create-dashboard-modal').modal('hide');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+        
+        function showDeleteDashboard(dashboard) {
+        	$('#delete-dashboard-title').text('Delete Dashboard ' + dashboard.Name);
+        	$('#delete-dashboard-id').val(dashboard.Id);
+        	$('#delete-dashboard-modal').modal('show');
+        	
+        	
+        }
+        
+        function showRenameDashboard(dashboard) {
+        	$('#rename-dashboard-title').text('Rename Dashboard ' + dashboard.Name);
+        	$('#rename-dashboard-name').val(dashboard.Name);
+        	$('#rename-dashboard-id').val(dashboard.Id);
+        	$('#rename-dashboard-modal').modal('show');
+        }
+        
+        function showAddAction(dashboard) {
+        	$('#addaction-dashboard-title').text('Add Action To ' + dashboard.Name);
+        	$('#addaction-dashboard-id').val(dashboard.Id);
+        	$('#addaction-dashboard-modal').modal('show');
+        }
+        
+        function showCreateDashboard() {
+        
+        	$('#create-dashboard-nodes').empty();
+        	$('#create-dashboard-nodes').attr('disabled', 'disabled');	
+        	$('#create-dashboard-type-blank').prop("checked", true)
+        	
+        	$.ajax({
+                type: 'GET',
+                url: 'api/nodes',
+                data: { format: 'json' },
+                beforeSend: function () {
+                    $("#nodes-table tr").remove();
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, len = data.length; i < len; ++i) {
+                        var node = data[i];
+                        
+                       $('#create-dashboard-nodes').append('<option value="'+node.Id+'">' + node.Identifier + '</option>');
+                    }
+                },
+                async: false
+            });
+            
+        	$('#create-dashboard-modal').modal('show');
+        }
+
+        
+        function deleteDashboard() {
+        	var dashboardId = $('#delete-dashboard-id').val();
+        	
+        	$.ajax({
+         
+                type: 'POST',
+                url: 'api/dashboards/' + dashboardId + '/delete',
+                data: { },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                
+                	updateDashboards()
+                	
+                	$('#delete-dashboard-modal').modal('hide');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+        
+        function renameDashboard() {
+        	var dashboardId = $('#rename-dashboard-id').val();
+        	var name = $('#rename-dashboard-name').val();
+        	
+        	$.ajax({
+                type: 'POST',
+                url: 'api/dashboards/' + dashboardId + '/name',
+                data: { name : name},
+                beforeSend: function () {
+                },
+                success: function (data) {
+                
+                	updateDashboards()
+                	
+                	$('#rename-dashboard-modal').modal('hide');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+        
+        function createDashboardTabs(dashboards) {
+            for (var i = 0; i < dashboards.length; ++i) {
+            	var dashboard = dashboards[i];
+            	
+            	// Create the link across the top
+            	var link = $('<a/>', {
+            		'href' : '#dashboard_' + dashboard.Id,
+            		'text' : dashboard.Name,
+            		'data-toggle' : 'tab'
+            	});
+            	
+            	link.click(function (e) {
+  					e.preventDefault();
+  					$(this).tab('show');
+				});
+				
+			
+            	$('#dashboard-tabs').append(
+            		$('<li/>').append(link)
+            	);
+            	
+            	// Create the tab content item
+            	var tab = $('<div/>', {
+            		'class' : 'tab-pane dashboard-pane',
+            		'id' : 'dashboard_' + dashboard.Id
+            	});
+            	
+            	createDashboardTabContent(dashboard, tab);
+            	
+            	$('#dashboard-tab-content').append(tab);
+            } 
+            
+            // Add the create tab
+            
+            var link = $('<a/>', {
+            	'href' : 'javascript:void(0);',
+            	'text' : '+ New Dashboard'
+            });
+            
+            link.click(function (e) {
+            	showCreateDashboard();
+            });
+            
+            $('#dashboard-tabs').append(
+            	$('<li/>').append(link)
+            );
+        }
+        
+        function createDashboardTabContent(dashboard, tab) {
+        	var title = $('<h3/>', { 'text' : dashboard.Name});
+        	var settingsButtonGroup = $('<div/>', {'class':'btn-group'});
+        	var settingsToggle = $('<button/>', {'class':'btn btn-mini dropdown-toggle','data-toggle':'dropdown','href':'#'});	
+        	settingsToggle.append($('<i/>', {'class':'icon-cog'}));
+    		settingsToggle.append($('<span/>', {'class':'caret'}));    	
+    		
+    		var settingsDrop = $('<ul/>', {'class':'dropdown-menu'});
+    		
+    		var deleteLink = $('<a/>', {'href':'#','text':'Delete Dashboard'});
+    		deleteLink.click(function(e) {
+    			showDeleteDashboard(dashboard);
+    		});
+    		settingsDrop.append($('<li/>').append(deleteLink));
+    		
+    		var renameLink = $('<a/>', {'href':'#','text':'Rename Dashboard'});
+    		renameLink.click(function(e) {
+    			showRenameDashboard(dashboard);
+    		});
+    		settingsDrop.append($('<li/>').append(renameLink));
+    		
+    		var addLink = $('<a/>', {'href':'#','text':'Add Action'});
+    		addLink.click(function(e) {
+    			showAddAction(dashboard);
+    		});
+    		settingsDrop.append($('<li/>').append(addLink));
+    		
+    		settingsButtonGroup.append(settingsToggle);
+    		settingsButtonGroup.append(settingsDrop);
+        	
+        	title.append(settingsButtonGroup);
+        	
+        	tab.append(title);
+        	
+        	var dashboardSpace = $('<div/>', {
+        		'id' : 'dashboard_space_' + dashboard.Id,
+        		'class' : 'dashboard',
+        		'html' : '<p>Drag items to place them on the Dashboard</p>'
+        	});
+        	
+        	tab.append(dashboardSpace);
+        	
+        	createDashboardItems(dashboard, dashboardSpace);
+        }
+        
+        function createDashboardItems(dashboard, dashboardSpace) {
+        	dashboardId = dashboard.Id;
+        	
+        	$.ajax({
+        
+                type: 'GET',
+                url: 'api/dashboards/' + dashboardId + '/items',
+                data: { format: 'json' }, 
+                beforeSend: function () {
+                },
+                success: function (data) {
+                
+        	
+        			// Loop through each action
+        			jQuery.each(data,function(index, webDashboardItem) {
+        				createItem(dashboard, dashboardSpace, webDashboardItem);
+
+        			});	
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+
+        }
+        
+        function createItem(dashboard, dashboardSpace, webDashboardItem) {
+        	var action = webDashboardItem.Action;
         	var control = $("<div/>", {
-        		'dashboard-item-id' : item.Id,
+        		'dashboard-item-id' : webDashboardItem.Id,
         		'id' : 'control_' + action.Id,
         		'class' : 'draggable ui-widget-content bithome-control'
         	});
         	
-        	control.css('top', item.PositionY + "px")
-        	control.css('left', item.PositionX + "px");
+        	control.css('top', webDashboardItem.PositionY + "px")
+        	control.css('left', webDashboardItem.PositionX + "px");
         	
         	control.append( $("<div/>", { 
         		'text' : action.Name ,
@@ -141,7 +483,7 @@
         	}));
         	
         	// Create the parameter controls
-        	jQuery.each(action.Parameters, function(index, param) {
+        	jQuery.each(webDashboardItem.Parameters, function(index, param) {
         		var paramWrap = $("<div/>", {
         			'id' : 'param_wrap_' + param.Id,
         			'class' : 'slider-wrapper'
@@ -186,7 +528,7 @@
             	}
             }(action.Id));
         	
-        	$('#snaptarget').append(control);	
+        	dashboardSpace.append(control);	
         }
         
         function execute(actionId) {

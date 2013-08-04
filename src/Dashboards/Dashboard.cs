@@ -12,10 +12,16 @@ namespace BitHome.Dashboards
 
 		public String Id { get; private set; }
 
-		public DashboardItem[] Items { 
+		public string Name { get; set; }
+
+		public String[] DashboardItemIds {
 			get {
-				return m_items.Values.ToArray ();
+				return m_items.Keys.ToArray ();
 			}
+		}
+
+		public DashboardItem[] GetItems() {
+			return m_items.Values.ToArray ();
 		}
 
 		public Dashboard (String id)
@@ -24,11 +30,7 @@ namespace BitHome.Dashboards
 			m_items = new Dictionary<string, DashboardItem> ();
 		}
 
-		public void AddActionItem (IAction action)
-		{
-			DashboardItem item = 
-				ServiceManager.DashboardService.CreateDashboardItem (action);
-
+		public void AddItem(DashboardItem item) {
 			m_items.Add (item.Id, item);
 		}
 	}

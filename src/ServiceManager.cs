@@ -104,6 +104,7 @@ namespace BitHome
 			MessageDispatcherService.Start ();
 			ActionService.Start ();
 			NodeService.Start ();
+			DashboardService.Start ();
 
 			return true;
 		}
@@ -118,6 +119,7 @@ namespace BitHome
 			ActionService.Stop ();
 			MessageDispatcherService.Stop ();
 			StorageService.Stop ();
+			DashboardService.Stop ();
 
 			return true;
 		}

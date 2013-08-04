@@ -95,7 +95,7 @@ namespace BitHome.Actions
 			// TODO optimize this
 			List<INodeParameter> nodeParams = new List<INodeParameter>(ParameterIdsByIndex.Count);
 
-			for (int i=0; i<TotalParameterCount; ++i) {
+			for (int i=1; i<=TotalParameterCount; ++i) {
 				INodeParameter param = (INodeParameter)ServiceManager.ActionService.GetParameter (GetParameterId (i));
 				if (param == null)
 					return false;

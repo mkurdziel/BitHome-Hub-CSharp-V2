@@ -341,6 +341,7 @@
     <Compile Include="Actions\ActionUnknown.cs" />
     <Compile Include="IBitHomeService.cs" />
     <Compile Include="Actions\UnknownParameter.cs" />
+    <Compile Include="Web\WebDashboardItem.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

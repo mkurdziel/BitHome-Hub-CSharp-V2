@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BitHomeTests/ActionServiceTests.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="dashboard.cshtml">
     <Files>
-      <File FileName="BitHomeTests/NodeServiceTests.cs" Line="28" Column="42" />
-      <File FileName="Nodes/NodeService.cs" Line="91" Column="4" />
-      <File FileName="StorageService.cs" Line="94" Column="41" />
-      <File FileName="Actions/ActionService.cs" Line="75" Column="43" />
-      <File FileName="BitHomeTests/ActionServiceTests.cs" Line="56" Column="50" />
-      <File FileName="../../BinaryRage/Functions/ConvertHelper.cs" Line="20" Column="1" />
+      <File FileName="Dashboards/DashboardService.cs" Line="99" Column="51" />
+      <File FileName="dashboard.cshtml" Line="454" Column="16" />
+      <File FileName="Nodes/NodeService.cs" Line="97" Column="5" />
+      <File FileName="ServiceManager.cs" Line="122" Column="28" />
+      <File FileName="Dashboards/Dashboard.cs" Line="35" Column="3" />
+      <File FileName="Web/WebDashboardService.cs" Line="57" Column="15" />
+      <File FileName="nodes.cshtml" Line="93" Column="44" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,10 +25,9 @@
             </Node>
             <Node name="Nodes" expanded="True" />
             <Node name="Web" expanded="True" />
+            <Node name="dashboard.cshtml" selected="True" />
           </Node>
-          <Node name="BitHomeTests" expanded="True">
-            <Node name="ActionServiceTests.cs" selected="True" />
-          </Node>
+          <Node name="BitHomeTests" expanded="True" />
           <Node name="BitHomeUpdater" expanded="True" />
           <Node name="Packages" expanded="True" />
         </State>
@@ -39,14 +39,9 @@
         <State />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
           <Node name="BitHomeTests" expanded="True">
-            <Node name="BitHomeTests" expanded="True">
-              <Node name="ActionServiceTests" expanded="True">
-                <Node name="TestSaveActionList" selected="True" />
-              </Node>
-              <Node name="NodeServiceTests" expanded="True" />
-            </Node>
+            <Node name="BitHomeTests" expanded="True" />
           </Node>
         </State>
       </Pad>

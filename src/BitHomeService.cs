@@ -3,7 +3,7 @@ using ServiceStack.ServiceInterface;
 
 namespace BitHome
 {
-	public class BitHomeService : Service
+	public sealed class BitHomeService : Service
 	{
 		public BitHomeService ()
 		{

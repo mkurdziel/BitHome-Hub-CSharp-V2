@@ -48,6 +48,12 @@ namespace BitHome
 			}
 		}
 
+		public Node[] Nodes {
+			get {
+				return m_nodes.Values.ToArray ();
+			}
+		}
+
 		public NodeService() 
 		{
 			log.Trace ("()");
