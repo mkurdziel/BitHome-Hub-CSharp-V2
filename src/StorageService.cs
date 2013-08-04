@@ -3,16 +3,26 @@ using BinaryRage;
 using NLog;
 using System.Threading;
 using System.IO;
+using System.Collections.Generic;
+using ServiceStack.Text;
 
 namespace BitHome
 {
 	public class StorageService
 	{
+		private const string KEY_KEYS = "keys";
 	    private const string APPDATA_FOLDER = "BitHome";
 	    private const string DB_FILE = "db";
 
 		private static Logger log = LogManager.GetCurrentClassLogger();
 	    private static String m_path = null;
+		private static HashSet<String> m_keys = new HashSet<String> ();
+
+		public String[] AllKeys {
+			get {
+				return m_keys.ToArray ();
+			}
+		}
 
 		public StorageService (bool p_isTesting)
 		{
@@ -31,9 +41,17 @@ namespace BitHome
 			    m_path = dbLocation;
 			}
 
-			BinaryRage.DB<String>.Insert("version", ServiceManager.SettingsService.Version.VersionString, m_path);
+			// Load up the set of all keys
+			if (Store<HashSet<String>>.Exists (KEY_KEYS)) {
+				m_keys = Store<HashSet<String>>.Get (KEY_KEYS);
+			} else {
+				Store<HashSet<String>>.Insert (KEY_KEYS, m_keys, false);
+				Store<HashSet<String>>.WaitForCompletion ();
+			}
 
-			BinaryRage.DB<String>.WaitForCompletion();
+			Store<String>.Insert("version", ServiceManager.SettingsService.Version.VersionString);
+
+			Store<String>.WaitForCompletion();
 		}
 
 		public void DeleteDb() {
@@ -50,7 +68,7 @@ namespace BitHome
 			log.Info ("Starting StorageService");
 
 
-			log.Info ("DB at version {0}", BinaryRage.DB<String>.Get("version", m_path));
+			log.Info ("DB at version {0}", Store<String>.Get("version"));
 
 			return true;
 		}
@@ -63,17 +81,19 @@ namespace BitHome
 			return BinaryRage.Key.GenerateUniqueKey ();
 		}
 
-		public static void WaitForCompletion() {
-			BinaryRage.DB<bool>.WaitForCompletion();
-		}
-
 		public static class Store<T> {
 
 			static public void Insert(string key, T value)
 			{
-				if (BinaryRage.DB<T>.Exists (key, m_path))
-				{
+				Insert (key, value, true);
+			}
+
+			static public void Insert(string key, T value, bool storeKey)
+			{
+				if (BinaryRage.DB<T>.Exists (key, m_path)) {
 					BinaryRage.DB<T>.Remove (key, m_path);
+				} else if (storeKey) {
+					AddKey (key);
 				}
 
 				BinaryRage.DB<T>.Insert (key, value, m_path);
@@ -81,7 +101,10 @@ namespace BitHome
 
 			static public void Remove(string key)
 			{
-				BinaryRage.DB<T>.Remove (key, m_path);
+				if (BinaryRage.DB<T>.Exists (key, m_path)) {
+					BinaryRage.DB<T>.Remove (key, m_path);
+					RemoveKey (key);
+				}
 			}
 
 			static public T Get(string key )
@@ -97,6 +120,21 @@ namespace BitHome
 			static public void WaitForCompletion()
 			{
 				BinaryRage.DB<T>.WaitForCompletion ();
+			}
+
+			private static void AddKey(String key) {
+				m_keys.Add (key);
+				StoreKeys ();
+			}
+
+			private static void RemoveKey(String key) {
+				m_keys.Remove (key);
+				StoreKeys ();
+			}
+
+			public static void StoreKeys() {
+				BinaryRage.DB<HashSet<String>>.Remove(KEY_KEYS, m_path);
+				BinaryRage.DB<HashSet<String>>.Insert(KEY_KEYS, m_keys, m_path);
 			}
 		}
 	}

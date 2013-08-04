@@ -12,10 +12,16 @@ namespace BitHome.Actions
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
-		Dictionary<int, String> m_parameterIds = new Dictionary<int, String>();
-		
+
 		public string NodeId { get; set; }
 		public int ActionIndex { get; set; }
+
+
+		#region Constructors 
+
+		private NodeAction() : base(null) { 
+			ParameterIdsByIndex = new Dictionary<int, string> ();
+		}
 
 		public NodeAction (
 			string id, 
@@ -26,6 +32,8 @@ namespace BitHome.Actions
 			int p_parameterCount)
 			: base(id)
 		{
+			ParameterIdsByIndex = new Dictionary<int, string> ();
+
 			this.NodeId = p_nodeId;
 			this.ActionIndex = p_entryNumber;
 			this.Name = p_name;
@@ -33,15 +41,16 @@ namespace BitHome.Actions
 			this.TotalParameterCount = p_parameterCount;
 		}
 
+		#endregion Constructors
+
+		public Dictionary<int, String> ParameterIdsByIndex { get; set; }
 		public int TotalParameterCount { get; set; }
 		public DataType ReturnType { get; set; }
 
-		private NodeAction() : base(null) { }
-
 
 		public string GetParameterId (int parameterIndex) {
-			if (m_parameterIds.ContainsKey (parameterIndex)) {
-				return m_parameterIds [parameterIndex];
+			if (ParameterIdsByIndex.ContainsKey (parameterIndex)) {
+				return ParameterIdsByIndex [parameterIndex];
 			}
 			return null;
 		}
@@ -51,22 +60,22 @@ namespace BitHome.Actions
 			log.Debug ("Adding parameter {0} to action {1} at index {2}", parameter.Id, this.Identifier, parameter.ParameterIndex);
 
 			// Index it by the parameter index on the device
-			if (m_parameterIds.ContainsKey(parameter.ParameterIndex)) {
+			if (ParameterIdsByIndex.ContainsKey(parameter.ParameterIndex)) {
 				log.Warn ("Adding duplicate parameter {0}:{1}", parameter.ActionIndex, parameter.ParameterIndex);
-				m_parameterIds.Remove (parameter.ParameterIndex);
+				ParameterIdsByIndex.Remove (parameter.ParameterIndex);
 			} 
 
-			m_parameterIds.Add (parameter.ParameterIndex, parameter.Id);
+			ParameterIdsByIndex.Add (parameter.ParameterIndex, parameter.Id);
 
 			base.AddParameter (parameter);
 		}
 
 		public int NextUnknownParameter {
 			get {
-				log.Trace ("Action {0} getting next unknown parameter {1}:{2}", this.Identifier, m_parameterIds.Count, TotalParameterCount);
+				log.Trace ("Action {0} getting next unknown parameter {1}:{2}", this.Identifier, ParameterIdsByIndex.Count, TotalParameterCount);
 
 				for (int i=1; i<=TotalParameterCount; ++i) {
-					if (!m_parameterIds.ContainsKey (i)) {
+					if (!ParameterIdsByIndex.ContainsKey (i)) {
 						return i;
 					}
 				}
@@ -84,7 +93,7 @@ namespace BitHome.Actions
 		public override bool Execute(long timeout)
 		{
 			// TODO optimize this
-			List<INodeParameter> nodeParams = new List<INodeParameter>(m_parameterIds.Count);
+			List<INodeParameter> nodeParams = new List<INodeParameter>(ParameterIdsByIndex.Count);
 
 			for (int i=0; i<TotalParameterCount; ++i) {
 				INodeParameter param = (INodeParameter)ServiceManager.ActionService.GetParameter (GetParameterId (i));

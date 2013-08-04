@@ -387,7 +387,7 @@ namespace BitHomeTests
 			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
 
 			// Wait a sec for the investigation to complete
-			Thread.Sleep (TimeSpan.FromMilliseconds (100));
+			Thread.Sleep (TimeSpan.FromSeconds (1));
 
 			Assert.AreEqual (NodeInvestigationStatus.Completed, testNode.InvestigationStatus);
 

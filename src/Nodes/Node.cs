@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using ServiceStack.Text;
 using BitHome.Actions;
 using NLog;
+using System.Linq;
 
 namespace BitHome
 {
@@ -158,6 +159,7 @@ namespace BitHome
 			same &= this.Revision == p.Revision;
 			same &= this.TotalNumberOfActions == p.TotalNumberOfActions;
 			same &= this.Name == p.Name;
+
 
 			return same;
 		}

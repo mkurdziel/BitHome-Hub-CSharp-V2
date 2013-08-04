@@ -9,6 +9,7 @@ namespace BitHome
 {
 	public class SettingsService
 	{
+
 		private static int VERSION_MAJOR = 0;
 		private static int VERSION_MINOR = 2;
 		public static String BITHOME_URL = "http://bithome.org";
