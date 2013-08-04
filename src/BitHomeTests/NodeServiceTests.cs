@@ -61,106 +61,33 @@ namespace BitHomeTests
 
 			TestNode newNode = (TestNode)ServiceManager.NodeService.GetNode (node.Id);
 
+			// TODO Name doesn't come from discovery, need to set
+			node.Name = newNode.Name;
+
 			ValidateNode (node, newNode);
 		}
 
-		public void ValidateNode(TestNode baseNode, TestNode testNode) {
-			Assert.AreEqual(baseNode, testNode);
-			for (int actionIndex = 1; actionIndex <= baseNode.TotalNumberOfActions; actionIndex++) {
-				String baseActionId = baseNode.GetActionId (actionIndex);
-				String testActionId = testNode.GetActionId (actionIndex);
+		[Test()]
+		public void TestNodePersistence () {
 
-				INodeAction baseAction = m_testActions [baseActionId];
-				INodeAction testAction = (INodeAction)ServiceManager.ActionService.GetAction (testActionId);
+			TestNode node = GenerateTestNode ();
 
-				// Make sure they are equal  (IDs will be different)
-				Assert.IsTrue (baseAction.EqualsExceptId (testAction));
+			PerformInvestigation (node);
 
-				for (int parameterIndex = 1; parameterIndex <= baseAction.ParameterCount; parameterIndex++) {
-					String baseParamId = ((NodeAction)baseAction).GetParameterId(parameterIndex);
-					String testParamId = ((NodeAction)testAction).GetParameterId(parameterIndex);
+			TestNode newNode = (TestNode)ServiceManager.NodeService.GetNode (node.Id);
 
-					INodeParameter baseParam = m_testParams [baseParamId];
-					INodeParameter testParam = (INodeParameter)ServiceManager.ActionService.GetParameter (testParamId);
+			// TODO Name doesn't come from discovery, need to set
+			node.Name = newNode.Name;
 
-					Assert.IsTrue (baseParam.EqualsExceptId (testParam));
-				}
-			}
-		}
+			ValidateNode (node, newNode);
 
-		public TestNode GenerateTestNode() {
-			Random random = new Random();
+			ServiceManager.NodeService.WaitFinishSaving ();
 
-			TestNode node = new TestNode ();
-			node.Id = StorageService.GenerateKey ();
+			ServiceManager.RestartServices ();
 
-			// Random name
-			node.Name = StorageService.GenerateKey();
+			TestNode persistedNode = (TestNode)ServiceManager.NodeService.GetNode (newNode.Id);
 
-			node.Revision = (short)random.Next (1,100);
-
-			// Generate the actions
-			int actionCount = random.Next (1, 20);
-
-			node.TotalNumberOfActions = actionCount;
-
-			for (int i=1; i<=actionCount; i++) {
-				INodeAction action = GenerateTestNodeAction (node.Id, i);
-
-				node.SetNodeAction (i, action.Id);
-
-				m_testActions.Add (action.Id, action);
-			}
-
-			return node;
-		}
-
-		public INodeAction GenerateTestNodeAction(string nodeId,int actionIndex) {
-			Random random = new Random ();
-
-			DataType returnType = (DataType)random.Next (1, 6);
-			int paramCount = random.Next (0, 20);
-
-			INodeAction action = new NodeAction (
-				StorageService.GenerateKey (),
-				nodeId,
-				actionIndex,
-				StorageService.GenerateKey (),
-				returnType,
-				paramCount);
-
-			for (int i=1; i<=paramCount; i++) {
-				INodeParameter param = GenerateTestNodeParameter (nodeId, actionIndex, i, action.Id);
- 
-				action.AddNodeParameter (param);
-
-				m_testParams.Add (param.Id, param);
-			}
-
-			return action;
-		}
-
-		public INodeParameter GenerateTestNodeParameter(string nodeId,int actionIndex, int paramIndex, String actionId) {
-			Random random = new Random ();
-
-			DataType dataType = (DataType)random.Next (1, 6);
-			int paramCount = random.Next (0, 20);
-			ParamValidationType validationType = ParamValidationType.UNSIGNED_RANGE;
-
-			INodeParameter param = new NodeParameter(
-				nodeId,
-				actionIndex,
-				paramIndex,
-				StorageService.GenerateKey(),
-				StorageService.GenerateKey(),
-				dataType,
-				validationType,
-				random.Next (0,100),
-				random.Next (200,2000),
-				null,
-				actionId);
-
-			return param;
+			Assert.AreEqual (newNode, persistedNode);
 		}
 
 
@@ -467,6 +394,107 @@ namespace BitHomeTests
 			// Check that we are not investigating
 			Assert.IsFalse (ServiceManager.NodeService.IsInvestigating);
 		}
+
+	
+	public void ValidateNode(TestNode baseNode, TestNode testNode) {
+		Assert.AreEqual(baseNode, testNode);
+
+		for (int actionIndex = 1; actionIndex <= baseNode.TotalNumberOfActions; actionIndex++) {
+			String baseActionId = baseNode.GetActionId (actionIndex);
+			String testActionId = testNode.GetActionId (actionIndex);
+
+			INodeAction baseAction = m_testActions [baseActionId];
+			INodeAction testAction = (INodeAction)ServiceManager.ActionService.GetAction (testActionId);
+
+			// Make sure they are equal  (IDs will be different)
+			Assert.IsTrue (baseAction.EqualsExceptId (testAction));
+
+			for (int parameterIndex = 1; parameterIndex <= baseAction.ParameterCount; parameterIndex++) {
+				String baseParamId = ((NodeAction)baseAction).GetParameterId(parameterIndex);
+				String testParamId = ((NodeAction)testAction).GetParameterId(parameterIndex);
+
+				INodeParameter baseParam = m_testParams [baseParamId];
+				INodeParameter testParam = (INodeParameter)ServiceManager.ActionService.GetParameter (testParamId);
+
+				Assert.IsTrue (baseParam.EqualsExceptId (testParam));
+			}
+		}
+	}
+
+	public TestNode GenerateTestNode() {
+		Random random = new Random();
+
+		TestNode node = new TestNode ();
+		node.Id = StorageService.GenerateKey ();
+
+		// Random name
+		node.Name = StorageService.GenerateKey();
+
+		node.Revision = (short)random.Next (1,100);
+
+		// Generate the actions
+		int actionCount = random.Next (1, 20);
+
+		node.TotalNumberOfActions = actionCount;
+
+		for (int i=1; i<=actionCount; i++) {
+			INodeAction action = GenerateTestNodeAction (node.Id, i);
+
+			node.SetNodeAction (i, action.Id);
+
+			m_testActions.Add (action.Id, action);
+		}
+
+		return node;
+	}
+
+	public INodeAction GenerateTestNodeAction(string nodeId,int actionIndex) {
+		Random random = new Random ();
+
+		DataType returnType = (DataType)random.Next (1, 6);
+		int paramCount = random.Next (0, 20);
+
+		INodeAction action = new NodeAction (
+			StorageService.GenerateKey (),
+			nodeId,
+			actionIndex,
+			StorageService.GenerateKey (),
+			returnType,
+			paramCount);
+
+		for (int i=1; i<=paramCount; i++) {
+			INodeParameter param = GenerateTestNodeParameter (nodeId, actionIndex, i, action.Id);
+
+			action.AddNodeParameter (param);
+
+			m_testParams.Add (param.Id, param);
+		}
+
+		return action;
+	}
+
+	public INodeParameter GenerateTestNodeParameter(string nodeId,int actionIndex, int paramIndex, String actionId) {
+		Random random = new Random ();
+
+		DataType dataType = (DataType)random.Next (1, 6);
+		int paramCount = random.Next (0, 20);
+		ParamValidationType validationType = ParamValidationType.UNSIGNED_RANGE;
+
+		INodeParameter param = new NodeParameter(
+			nodeId,
+			actionIndex,
+			paramIndex,
+			StorageService.GenerateKey(),
+			StorageService.GenerateKey(),
+			dataType,
+			validationType,
+			random.Next (0,100),
+			random.Next (200,2000),
+			null,
+			actionId);
+
+		return param;
+	}
 	}
 }
 

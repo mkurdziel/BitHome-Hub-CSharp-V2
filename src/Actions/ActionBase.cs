@@ -54,6 +54,10 @@ namespace BitHome.Actions
 		public string[] ParameterIds {
 			get {
 				return m_parameterIds.ToArray ();
+			} set {
+				foreach (String parameterId in value) {
+					m_parameterIds.Add (parameterId);
+				}
 			}
 		}
 

@@ -6,7 +6,7 @@ namespace BitHome
 	public enum NodeStatus
 	{
 		Unknown,
-		Acive,
+		Active,
 		Recent,
 		Dead
 	}

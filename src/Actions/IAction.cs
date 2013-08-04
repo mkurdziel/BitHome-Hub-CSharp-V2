@@ -13,7 +13,7 @@ namespace BitHome.Actions
 		ActionType ActionType { get; }
 
 		// Parameters
-		String[] ParameterIds { get; }
+		String[] ParameterIds { get; set;}
 		void AddParameter ( IActionParameter parameter );
 		void RemoveAllParameters();
 		int ParameterCount { get; }

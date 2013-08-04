@@ -90,7 +90,7 @@ namespace BitHome
 
 				// If the active time is less than five minutes, we are active
 				if (activeTime < TimeSpan.FromMinutes(5)) {
-					return NodeStatus.Acive;
+					return NodeStatus.Active;
 				}
 
 				if (activeTime < TimeSpan.FromHours(1)) {
@@ -144,6 +144,24 @@ namespace BitHome
 			TotalNumberOfActions = -1;	
 		}
 
+		public bool EqualsExceptId (Node p) {
+			if (p == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			bool same = true;
+
+			same &= this.Name == p.Name;
+			same &= this.NodeType == p.NodeType;
+			same &= this.Revision == p.Revision;
+			same &= this.TotalNumberOfActions == p.TotalNumberOfActions;
+			same &= this.Name == p.Name;
+
+			return same;
+		}
+
 		public override bool Equals (object obj)
 		{
 			// If parameter is null return false.
@@ -163,10 +181,17 @@ namespace BitHome
 			bool same = true;
 
 			same &= this.Id == p.Id;
+			same &= EqualsExceptId (p);
 
 			return same;
 		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[Node: Id={0}, Name={1}, LastSeen={2}, InvestigationStatus={3}, IsUnknown={4}, IsBeingInvestigated={5}, NodeType={6}, Revision={8}, TotalNumberOfActions={11}, Status={16}]", Id, Name, LastSeen, InvestigationStatus, IsUnknown, IsBeingInvestigated, NodeType, "", Revision, "", "", TotalNumberOfActions, Actions, "", "", Identifier, Status);
+		}
 	}
+
 }
 
 

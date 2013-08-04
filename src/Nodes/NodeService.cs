@@ -196,6 +196,7 @@ namespace BitHome
 
 		public void ReinvestigateNode(Node p_node)
 		{
+			log.Trace ("Reinvestigating Node {0}", p_node.Identifier);
 			p_node.Reset ();
 			AddNodeForInvestigation (p_node);
 		}
@@ -304,6 +305,8 @@ namespace BitHome
 					log.Debug("Setting next investigation time for {0} funtion:{1} to {2}", p_node.Identifier,  p_node.NextUnknownAction, p_node.TimeNextInvestigation);
 				}
 			}
+
+			SaveNode (p_node);
 		}
 
 		private void ResetInvestigationAttempts(Node p_node) 
@@ -496,6 +499,8 @@ namespace BitHome
 			}
 
 			ResetInvestigationAttempts(node);
+
+			SaveNode (node);
 		}
 
 		private void ProcessMessageParameterResponse(MessageParameterResponse p_msg)
@@ -538,6 +543,8 @@ namespace BitHome
 			}
 
 			ResetInvestigationAttempts(node);
+
+			SaveNode (node);
 		}
 
 		private void ProcessStatusHwReset(Node p_node)
@@ -578,6 +585,8 @@ namespace BitHome
 				// and catalog may have changed during the reboot;
 				p_node.InvestigationStatus = NodeInvestigationStatus.Unknown;
 			}
+
+			SaveNode (p_node);
 		}
 
 		private void ProcessStatusActive(Node p_node)
@@ -601,9 +610,11 @@ namespace BitHome
 				log.Debug ("Setting status info for node:{0} revision:{1} to {2} ", node.Identifier, node.Revision, p_msg.Revision);
 //
 //				node.setManufacturerId(p_msg.getManufacturerID());
-//				node.setRevision(p_msg.getRevision());
 //				node.setSynetID(p_msg.getSynetID());
 //				node.setProfile(p_msg.getProfile());
+
+				// TODO make this a Uint8? so it can start null
+				node.Revision = (short)p_msg.Revision;
 
 				// Since it is unknown or has changed, we need the catalog
 				node.InvestigationStatus = NodeInvestigationStatus.Info;
@@ -621,6 +632,8 @@ namespace BitHome
 			}
 
 			CheckForInvestigation(node);
+
+			SaveNode (node);
 		}
 
 		#endregion
