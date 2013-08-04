@@ -2,8 +2,10 @@ using System;
 
 namespace BitHome
 {
+	[Serializable]
 	public enum ActionParameterType
 	{
+		Unknown,
 		// Parameter needs to be set by the user
 		Input,
 		// Parameter is defined as a constant

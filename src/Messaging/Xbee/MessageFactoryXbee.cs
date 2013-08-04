@@ -11,32 +11,24 @@ namespace BitHome.Messaging.Xbee
 		private static Logger log = LogManager.GetCurrentClassLogger();
 
 		private static NodeService m_nodeService = null;
-        private static Dictionary<UInt64, String> m_lookup = new Dictionary<ulong, string>();
-
-
-		private static NodeService NodeService {
-			get {
-				if (m_nodeService == null) 
-				{
-					m_nodeService = ServiceManager.NodeService;
-
-                    // Populate the lookup table
-				    Node[] nodes = m_nodeService.GetNodes();
-
-                    foreach(Node node in nodes) {
-                        if (node.NodeType == NodeType.Xbee)
-                        {
-							m_lookup.Add(((NodeXbee) node).Address64, node.Id);
-                        }
-                    }
-				}
-
-				return m_nodeService;
-			}
-		}
+		private static Dictionary<UInt64, String> m_lookup = new Dictionary<ulong, string>();
 
 		public static MessageBase CreateMessage(byte p_api, byte[] p_data)
 		{
+			if (m_nodeService == null) {
+				m_nodeService = ServiceManager.NodeService;
+
+				// Populate the lookup table
+				Node[] nodes = m_nodeService.GetNodes();
+
+				foreach(Node node in nodes) {
+					if (node.NodeType == NodeType.Xbee)
+					{
+						m_lookup.Add(((NodeXbee) node).Address64, node.Id);
+					}
+				}
+			}
+
 			switch(p_api)
 			{
 			case (byte)Protocol.Api.ZIGBEE_RX:
@@ -57,9 +49,9 @@ namespace BitHome.Messaging.Xbee
 					if (m_lookup.ContainsKey(address64))
 				    {
 						nodeKey = m_lookup[address64];
-						node = NodeService.GetNode (nodeKey);
+						node = m_nodeService.GetNode (nodeKey);
 					} else {
-						node = NodeService.AddNode (new NodeXbee (address64, address16));
+						node = m_nodeService.AddNode (new NodeXbee (address64, address16));
 
                         m_lookup[address64] = node.Id;
                     }

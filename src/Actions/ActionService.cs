@@ -10,6 +10,7 @@ namespace BitHome.Actions
 	public class ActionService : IBitHomeService
 	{
 		private const string KEY_ACTIONS = "actions";
+		private const string KEY_PARAMETERS = "parameters";
 
 		public const int ACTION_TIMEOUT_MS = 5000;
 		public const int MAX_ACTION_THREADS = 10;
@@ -37,7 +38,7 @@ namespace BitHome.Actions
 		Dictionary<String, List<INodeAction>> m_nodeActions = new Dictionary<string, List<INodeAction>>();
 
 		// Map of all parameters by parameter ID
-		Dictionary<String, IParameter> m_parameters = new Dictionary<string, IParameter>();
+		Dictionary<String, IActionParameter> m_parameters = new Dictionary<string, IActionParameter>();
 
 		public IAction[] Actions {
 			get {
@@ -45,9 +46,21 @@ namespace BitHome.Actions
 			}
 		}
 
+		public IActionParameter[] Parameters {
+			get {
+				return m_parameters.Values.ToArray ();
+			}
+		}
+
 		public String[] ActionIds {
 			get {
 				return m_actions.Keys.ToArray ();
+			}
+		}
+
+		public String[] ParameterIds {
+			get {
+				return m_parameters.Keys.ToArray ();
 			}
 		}
 
@@ -63,16 +76,35 @@ namespace BitHome.Actions
 		#endregion Constructors
 
 		private void LoadData() {
-			// Load data from the storage service
+			// Load the actions
 			if (StorageService.Store<String[]>.Exists(KEY_ACTIONS)) {
 				String[] actionKeys = StorageService.Store<String[]>.Get (KEY_ACTIONS);
 
 				foreach (String key in actionKeys) 
 				{
 					if (StorageService.Store<IAction>.Exists (key)) {
-						m_actions.Add (key, StorageService.Store<IAction>.Get (key));
+						IAction action = StorageService.Store<IAction>.Get (key);
+
+						m_actions.Add (key, action);
+
+						if (action.ActionType == ActionType.Node) {
+							AddNodeActionToCache ((INodeAction)action);
+						}
 					} else {
 						m_actions.Add (key, new ActionUnknown (key));
+					}
+				}
+			}
+			// Load the parameters
+			if (StorageService.Store<String[]>.Exists(KEY_PARAMETERS)) {
+				String[] paramKeys = StorageService.Store<String[]>.Get (KEY_PARAMETERS);
+
+				foreach (String key in paramKeys) 
+				{
+					if (StorageService.Store<IActionParameter>.Exists (key)) {
+						m_parameters.Add (key, StorageService.Store<IActionParameter>.Get (key));
+					} else {
+						m_parameters.Add (key, new UnknownParameter (key));
 					}
 				}
 			}
@@ -115,18 +147,22 @@ namespace BitHome.Actions
 
 			AddAction (action);
 
-			// Add it to the node map
-			if (m_nodeActions.ContainsKey (p_node.Id)) {
-				// TODO check for duplicates
-				m_nodeActions [p_node.Id].Add (action);
-			} else {
-				m_nodeActions.Add (p_node.Id, new List<INodeAction> ());
-			}
+			AddNodeActionToCache(action);
 
 			// Set it to the node
 			p_node.SetNodeAction (p_entryNumber, action.Id);
 
 			return action;
+		}
+
+		private void AddNodeActionToCache(INodeAction action) {
+			// Add it to the node map
+			if (m_nodeActions.ContainsKey (action.NodeId)) {
+				// TODO check for duplicates
+				m_nodeActions [action.NodeId].Add (action);
+			} else {
+				m_nodeActions.Add (action.NodeId, new List<INodeAction> ());
+			}
 		}
 
 		public void AddAction ( IAction action) {
@@ -144,6 +180,29 @@ namespace BitHome.Actions
 			SaveAction (action);
 			// Save the action list
 			SaveActionList ();
+		}
+
+		public void RemoveAction ( IAction action ) {
+			if (action != null) {
+
+				// Remove all parameters
+				foreach (String parameterId in action.ParameterIds) {
+					RemoveParameter (parameterId);
+				}
+
+				m_actions.Remove (action.Id);
+
+				UnsaveAction (action.Id);
+
+				SaveActionList ();
+				SaveParameterList ();
+			}
+		}
+
+		public void RemoveAction ( String actionId ) {
+			IAction action = GetAction (actionId);
+
+			RemoveAction (action);
 		}
 
 		public void AddNodeParameter (
@@ -185,9 +244,34 @@ namespace BitHome.Actions
 				enumValues,
 				nodeAction.Id);
 
-			m_parameters.Add (nodeParam.Id, nodeParam);
+			AddParameter(nodeParam);
 
 			nodeAction.AddNodeParameter (nodeParam);
+		}
+
+		public void AddParameter ( IActionParameter parameter) {
+
+			if (parameter.Id == null) {
+				// Get a unique key from the storage service
+				String parameterId = StorageService.GenerateKey ();	
+				parameter.Id = parameterId;
+			}
+
+			// Add the action to our internal map
+			m_parameters.Add (parameter.Id, parameter);
+			// Save the parameter
+			SaveParameter (parameter);
+			// Save the parameter list
+			SaveParameterList ();
+		}
+
+		public void RemoveParameter ( String parameterId ) {
+
+			m_parameters.Remove (parameterId);
+
+			UnsaveParameter (parameterId);
+
+			SaveParameterList ();
 		}
 
 		public IAction GetAction(String actionId) {
@@ -255,9 +339,29 @@ namespace BitHome.Actions
 			StorageService.Store<String[]>.Insert (KEY_ACTIONS, this.ActionIds);
 		}
 
+		private void SaveParameterList() 
+		{
+			StorageService.Store<String[]>.Insert (KEY_PARAMETERS, this.ParameterIds);
+		}
+
 		private void SaveAction(IAction action) 
 		{
 			StorageService.Store<IAction>.Insert (action.Id, action);
+		}
+		
+		private void UnsaveAction (String actionId) 
+		{
+			StorageService.Store<IAction>.Remove (actionId);
+		}
+
+		private void SaveParameter(IParameter parameter) 
+		{
+			StorageService.Store<IParameter>.Insert (parameter.Id, parameter);
+		}
+
+		private void UnsaveParameter(String parameterId)
+		{
+			StorageService.Store<IParameter>.Remove (parameterId);
 		}
 
 		public void WaitFinishSaving ()

@@ -34,14 +34,14 @@ namespace BitHome
 		public DateTime TimeNextInvestigation { get; set; }
 		public int InvestigationRetries { get; set; }
 
-		public int TotalNumberOfFunctions { get; set; }
+		public int TotalNumberOfActions { get; set; }
 
 		public Dictionary<int, String> Actions { get; private set; }
 
         [IgnoreDataMember]
 		public int NextUnknownAction {
 			get { 
-				for (int i=1; i<=TotalNumberOfFunctions; ++i) {
+				for (int i=1; i<=TotalNumberOfActions; ++i) {
 					if (!Actions.ContainsKey (i)) {
 						return i;
 					}
@@ -56,7 +56,7 @@ namespace BitHome
 				INodeAction action;
 				int paramNum;
 		
-				for ( int i=1; i <= TotalNumberOfFunctions; ++i)
+				for ( int i=1; i <= TotalNumberOfActions; ++i)
 				{
 					if (Actions.ContainsKey (i)) {
 						action = (INodeAction)ServiceManager.ActionService.GetAction (Actions [i]);
@@ -112,7 +112,7 @@ namespace BitHome
 			IsUnknown = true;
 			IsBeingInvestigated = false;
 			Name = UNKNOWN_NAME;
-			TotalNumberOfFunctions = -1;
+			TotalNumberOfActions = -1;
 
 			Revision = -1;
 		}
@@ -141,7 +141,7 @@ namespace BitHome
 		{
 			Actions.Clear ();
 
-			TotalNumberOfFunctions = -1;	
+			TotalNumberOfActions = -1;	
 		}
 
 		public override bool Equals (object obj)

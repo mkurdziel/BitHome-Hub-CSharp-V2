@@ -5,6 +5,7 @@ using NLog;
 
 namespace BitHome.Actions
 {
+	[Serializable]
 	public class ParameterBase : IParameter
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();
@@ -372,6 +373,52 @@ namespace BitHome.Actions
 				log.Trace ("Parameter: {0} Invalid value:{1}", Identifier, value);
 				return false;
 			}
+		}
+
+		public bool EqualsExceptId (IParameter obj)
+		{
+			// If is null return false.
+			if (obj == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			bool same = true;
+
+			same &= Name == obj.Name;
+			same &= Description == obj.Description;
+			same &= DependentParameterId == obj.DependentParameterId;
+			same &= DataType == obj.DataType;
+			same &= ValidationType == obj.ValidationType;
+			same &= MinimumValue == obj.MinimumValue;
+			same &= MaximumValue == obj.MaximumValue;
+
+			return same;
+		}
+
+		public override bool Equals (object obj)
+		{
+			// If is null return false.
+			if (obj == null)
+			{
+				return false;
+			}
+
+			// If cannot be cast to this class return false.
+			ParameterBase p = obj as ParameterBase;
+			if ((System.Object)p == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			bool same = true;
+
+			same &= this.Id == p.Id;
+			same &= this.EqualsExceptId (p);
+
+			return same;
 		}
 	}
 }

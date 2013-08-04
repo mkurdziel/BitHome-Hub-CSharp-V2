@@ -23,5 +23,7 @@ namespace BitHome.Actions
 		bool IsInteger { get; }
 		bool IsString { get; }
 		bool SetValue (String value);
+
+		bool EqualsExceptId(IParameter param);
 	}
 }

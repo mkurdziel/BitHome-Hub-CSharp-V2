@@ -91,6 +91,19 @@ namespace BitHome.Actions
 		#endregion
 
 
+		public bool EqualsExceptId (IAction obj)
+		{
+			// Return true if the fields match:
+			bool same = true;
+
+			same &= this.Name == obj.Name;
+			same &= this.Description == obj.Description;
+			same &= this.ReturnDataType == obj.ReturnDataType;
+			same &= this.ActionType == obj.ActionType;
+
+			return same;
+		}
+
 		public override bool Equals (object obj)
 		{
 			// If is null return false.
@@ -110,10 +123,7 @@ namespace BitHome.Actions
 			bool same = true;
 
 			same &= this.Id == p.Id;
-			same &= this.Name == p.Name;
-			same &= this.Description == p.Description;
-			same &= this.ReturnDataType == p.ReturnDataType;
-			same &= this.ActionType == p.ActionType;
+			same &= this.EqualsExceptId (p);
 
 			return same;
 		}

@@ -71,6 +71,11 @@ namespace BitHome
 
 			static public void Insert(string key, T value)
 			{
+				if (BinaryRage.DB<T>.Exists (key, m_path))
+				{
+					BinaryRage.DB<T>.Remove (key, m_path);
+				}
+
 				BinaryRage.DB<T>.Insert (key, value, m_path);
 			}
 

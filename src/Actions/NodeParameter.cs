@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace BitHome.Actions
 {
+	[Serializable]
 	public class NodeParameter : ActionParameter, INodeParameter
 	{
 		public int ParameterIndex { get; set; }

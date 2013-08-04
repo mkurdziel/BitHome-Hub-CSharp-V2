@@ -1,6 +1,0 @@
-Name: BinaryRage
-Description: BinaryRage
-Version: 0.1
-
-Requires: 
-Libs: -r:./BinaryRage.dll

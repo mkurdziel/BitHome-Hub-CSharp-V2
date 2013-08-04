@@ -339,6 +339,7 @@
     <Compile Include="Nodes\NodeUnknown.cs" />
     <Compile Include="Actions\ActionUnknown.cs" />
     <Compile Include="IBitHomeService.cs" />
+    <Compile Include="Actions\UnknownParameter.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

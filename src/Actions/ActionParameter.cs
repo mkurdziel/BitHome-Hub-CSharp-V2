@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace BitHome.Actions
 {
+	[Serializable]
 	public class ActionParameter : ParameterBase, IActionParameter
 	{
 		public ActionParameterType ParameterType { get; set; }

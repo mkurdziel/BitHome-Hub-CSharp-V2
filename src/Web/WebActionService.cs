@@ -7,6 +7,9 @@ namespace BitHome.Web
 	[Route("/api/actions", "GET")]
 	public class WebActions : IReturn<IAction[]> { }
 
+	[Route("/api/actions/Parameters", "GET")]
+	public class WebActionParameters : IReturn<IParameter[]> { }
+
 	[Route("/api/actions/{ActionId}/execute", "POST")]
 	public class WebActionExecute : IReturn<IAction> {
         public string ActionId { get; set; }
@@ -14,7 +17,7 @@ namespace BitHome.Web
     }
 
 	[Route("/api/actions/{ActionId}/parameters", "GET")]
-    public class WebActionParameters : IReturn<IActionParameter[]> {
+    public class WebActionParametersActionId : IReturn<IActionParameter[]> {
         public string ActionId { get; set; }
     }
 
@@ -26,8 +29,13 @@ namespace BitHome.Web
 			return ServiceManager.ActionService.Actions;
 		}
 
+		public IActionParameter[] Get(WebActionParameters request) 
+		{
+			return ServiceManager.ActionService.Parameters;
+		}
 
-        public IActionParameter[] Get(WebActionParameters request)
+
+		public IActionParameter[] Get(WebActionParametersActionId request)
         {
             IAction action = ServiceManager.ActionService.GetAction(request.ActionId);
             if (action != null)

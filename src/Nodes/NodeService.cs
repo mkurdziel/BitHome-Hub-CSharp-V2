@@ -116,7 +116,9 @@ namespace BitHome
 		public Node AddNode(Node p_node) 
 		{
             // Create the new node and give it a unique ID
-			p_node.Id = StorageService.GenerateKey ();
+			if (p_node.Id == null) {
+				p_node.Id = StorageService.GenerateKey ();
+			}
 
 			log.Info ("Creating node {0}", p_node.Id);
 
@@ -461,7 +463,7 @@ namespace BitHome
 				{
 					log.Debug ("Received base catalog for {0} with total entries {1}", node.Identifier, p_msg.TotalEntries);
 
-					node.TotalNumberOfFunctions = p_msg.TotalEntries;
+					node.TotalNumberOfActions = p_msg.TotalEntries;
 
 					// Update the investigation status
 					node.InvestigationStatus = NodeInvestigationStatus.Function;

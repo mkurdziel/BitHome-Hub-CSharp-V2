@@ -159,6 +159,13 @@ namespace BitHome.Messaging
 			return msg;
 		}
 
+		public void ClearNextMessageOut ()
+		{
+			while (m_messageQueueOut.Count > 0) {
+				m_messageQueueOut.Take ();
+			}
+		}
+
 		public int MessageOutQueueCount {
 			get {
 				return m_messageQueueOut.Count;

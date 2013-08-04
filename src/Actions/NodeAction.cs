@@ -7,6 +7,7 @@ using NLog;
 
 namespace BitHome.Actions
 {
+	[Serializable]
 	public class NodeAction : ActionBase, INodeAction
 	{
 		private static Logger log = LogManager.GetCurrentClassLogger();

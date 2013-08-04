@@ -23,5 +23,7 @@ namespace BitHome.Actions
 		bool Execute(long p_timeoutMilliseconds);
 		void FinishExecute();
 		String ExecutionErrorString { get; set; }
+
+		bool EqualsExceptId (IAction action);
 	}
 }
