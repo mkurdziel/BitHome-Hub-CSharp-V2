@@ -109,12 +109,9 @@ Backup*/
 UpgradeLog*.XML
 /src/.nuget
 
-src/test-results/BitHome.csproj-Debug-2013-07-17.xml
+src/test-results/*.xml
 
 *.test-cache
 
 *.userprefs
 
-*.userprefs
-
-*.userprefs
