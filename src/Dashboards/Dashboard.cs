@@ -54,6 +54,30 @@ namespace BitHome.Dashboards
 			}
 			return false;
 		}
+
+		public override bool Equals (object obj)
+		{
+			// If is null return false.
+			if (obj == null) {
+				return false;
+			}
+
+			// If cannot be cast to this class return false.
+			Dashboard p = obj as Dashboard;
+			if ((System.Object)p == null) {
+				return false;
+			}
+
+			// Return true if the fields match:
+			bool same = true;
+
+			same &= this.Id == p.Id;
+			same &= this.Name == p.Name;
+
+			same &= DataHelpers.ArraysEqual (this.DashboardItemIds, p.DashboardItemIds);
+
+			return same;
+		}
 	}
 }
 

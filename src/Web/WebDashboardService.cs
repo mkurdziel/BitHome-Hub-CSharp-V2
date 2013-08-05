@@ -27,11 +27,10 @@ namespace BitHome.Web
 		public string Name { get; set; }
 	}
 
-
 	[Route("/api/dashboards/{dashboardId}/items", "POST")]
 	public class WebDashboardItemCreate : IReturn<DashboardItem> {
 		public string DashboardId { get; set; }
-		public string ActionId { get; set; }
+		public string[] ActionIds { get; set; }
 	}
 
 	[Route("/api/dashboards", "GET")]
@@ -106,6 +105,19 @@ namespace BitHome.Web
 				request.DashboardId, 
 				request.DashboardItemId, 
 				request.Name);
+		}
+
+		public bool Post(WebDashboardItemCreate request)
+		{
+			if (request.ActionIds != null) {
+				foreach (String actionId in request.ActionIds) {
+					ServiceManager.DashboardService.CreateDashboardItem (
+						request.DashboardId,
+						actionId);
+				}
+				return true;
+			}
+			return false;
 		}
 
 		public bool Post(WebDashboardItemRemove request)

@@ -33,6 +33,28 @@
 
         .bithome-control-drag {
         }
+        
+        #addaction-actions .ui-selecting { 
+         	background: #FECA40; 
+        }
+         
+  		#addaction-actions .ui-selected { 
+  			background: #F39814; color: white; 
+  		}
+  		
+  		#addaction-actions { 
+  			list-style-type: none; 
+  			margin: 0; 
+  			padding: 0; 
+  			width: 100%; 
+  		}
+  		
+  		#addaction-actions li { 
+  			margin: 3px; 
+  			padding: 0.4em; 
+  			font-size: 1.0em; 
+  			height: 18px
+  		}
     </style>
 }
 <h1>Dashboards</h1>
@@ -116,20 +138,6 @@
   </div>
 </div>
 
-<div class="modal hide fade" id='addaction-dashboard-modal'>
-  <div class="modal-header">
-    <h3 id='addaction-dashboard-title'>Add Actions To Dashboard</h3>
-  </div>
-  <div class="modal-body">
-  	<p>Are you sure you want to delete this Dashboard?</p>
-  	<input type="hidden" id="addaction-dashboard-id">
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" onclick="$('#addaction-dashboard-modal').modal('hide');">Cancel</a>
-    <a href="#" class="btn btn-primary" onclick="deleteDashboard();">Delete</a>
-  </div>
-</div>
-
 <div class="modal hide fade" id='delete-dashboarditem-modal'>
   <div class="modal-header">
     <h3 id='delete-dashboarditem-title'>Delete Dashboard Item</h3>
@@ -166,6 +174,25 @@
     <a href="#" class="btn btn-primary" onclick="renameDashboardItem();">Rename</a>
   </div>
 </div>
+
+<div class="modal hide fade" id='addaction-dashboard-modal'>
+  <div class="modal-header">
+    <h3 id='addaction-dashboard-title'>Actions To Dashboard</h3>
+  </div>
+  <div class="modal-body">
+  	<p>Select an Action to add.</p>
+  	<input type="hidden" id="addaction-dashboard-id">
+  	<div>
+  		<ul id='addaction-actions'>
+  		</ul>	
+  	</div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#addaction-dashboard-modal').modal('hide');">Cancel</a>
+    <a href="#" class="btn btn-primary" onclick="addActions();">Add</a>
+  </div>
+</div>
+
 
 @section Javascript {
     <script src="js/jquery.throttle.js"></script>
@@ -284,10 +311,39 @@
                 beforeSend: function () {
                 },
                 success: function (data) {
-                
                 	updateDashboards()
                 	
                 	$('#create-dashboard-modal').modal('hide');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+        
+        function addActions() {
+        	var dashboardId = $('#addaction-dashboard-id').val();
+        	var actionIds = [];
+        	
+        	$('#addaction-actions').find('li.ui-selected').each (function(index, value){
+        		var actionId = $(value).attr('actionid');
+        		
+        		actionIds.push(actionId);
+        	});
+        	
+        	$.ajax({
+      
+                type: 'POST',
+                url: 'api/dashboards/' + dashboardId + '/items',
+                data: { 
+                	actionids : JSON.stringify(actionIds)
+                },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                	updateDashboards();
+                	
+            		$('#addaction-dashboard-modal').modal('hide');
                 },
                 error: function () {
                     // failed request; give feedback to user
@@ -326,6 +382,7 @@
         }
         
         function showAddAction(dashboard) {
+        	updateActions();
         	$('#addaction-dashboard-title').text('Add Action To ' + dashboard.Name);
         	$('#addaction-dashboard-id').val(dashboard.Id);
         	$('#addaction-dashboard-modal').modal('show');
@@ -356,6 +413,41 @@
             });
             
         	$('#create-dashboard-modal').modal('show');
+        }
+        
+        function updateActions() {
+        	$.ajax({
+                type: 'GET',
+                url: 'api/actions/node',
+                data: { format: 'json' },
+                beforeSend: function () {
+                    $("#addaction-actions li").remove();
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, nodelen = data.length; i < nodelen; ++i) {
+                        var webNode = data[i];
+
+                   		for (var a = 0, actionlen = webNode.Actions.length; a < actionlen; ++a) {
+                        	var action = webNode.Actions[a];
+
+                   			$('#addaction-actions').append(
+                   				$('<li/>', {
+                   					'class' : 'ui-widget-content',
+                   					'actionid' : action.Id,
+                   					'text' : webNode.Node.Identifier + ' - ' + action.Name
+                   				}) 
+                   			);
+                    	} 
+                    }
+                    
+                    $( "#addaction-actions" ).selectable();
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                },
+                async: false
+            });
         }
 
         

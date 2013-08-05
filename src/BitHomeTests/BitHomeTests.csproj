@@ -68,6 +68,7 @@
     <Compile Include="ActionServiceTests.cs" />
     <Compile Include="NodeServiceTests.cs" />
     <Compile Include="TestAction.cs" />
+    <Compile Include="DashboardServiceTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

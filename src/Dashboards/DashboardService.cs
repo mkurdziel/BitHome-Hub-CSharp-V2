@@ -142,6 +142,26 @@ namespace BitHome.Dashboards
 			return dashboard;
 		}
 
+		public DashboardItem CreateDashboardItem(string dashboardId, string actionId) 
+		{
+			Dashboard dashboard = GetDashboard (dashboardId);
+
+			if (dashboard != null) {
+				IAction action = ServiceManager.ActionService.GetAction(actionId);
+
+				if (action != null) {
+					DashboardItem dashboardItem = CreateDashboardItem (action);
+
+					dashboard.AddItem (dashboardItem);
+
+					SaveDashboard (dashboard);
+
+					return dashboardItem;
+				}
+			}
+			return null;
+		}
+
 		private DashboardItem CreateDashboardItem(IAction action) {
 
 			DashboardItem dashboardItem = new DashboardItem(StorageService.GenerateKey(), action);
@@ -265,6 +285,7 @@ namespace BitHome.Dashboards
 		{
 			StorageService.Store<String[]>.WaitForCompletion ();
 			StorageService.Store<Dashboard>.WaitForCompletion ();
+			StorageService.Store<DashboardItem>.WaitForCompletion ();
 		}
 		#endregion
 	}

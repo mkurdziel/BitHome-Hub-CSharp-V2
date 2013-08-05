@@ -1,55 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="dashboard.cshtml">
-    <Files>
-      <File FileName="Dashboards/DashboardService.cs" Line="99" Column="51" />
-      <File FileName="dashboard.cshtml" Line="454" Column="16" />
-      <File FileName="Nodes/NodeService.cs" Line="97" Column="5" />
-      <File FileName="ServiceManager.cs" Line="122" Column="28" />
-      <File FileName="Dashboards/Dashboard.cs" Line="35" Column="3" />
-      <File FileName="Web/WebDashboardService.cs" Line="57" Column="15" />
-      <File FileName="nodes.cshtml" Line="93" Column="44" />
-    </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="BinaryRage" expanded="True">
-            <Node name="Functions" expanded="True" />
-          </Node>
-          <Node name="BitHome" expanded="True">
-            <Node name="Actions" expanded="True" />
-            <Node name="Dashboards" expanded="True" />
-            <Node name="Messaging" expanded="True">
-              <Node name="Messages" expanded="True" />
-              <Node name="Xbee" expanded="True" />
-            </Node>
-            <Node name="Nodes" expanded="True" />
-            <Node name="Web" expanded="True" />
-            <Node name="dashboard.cshtml" selected="True" />
-          </Node>
-          <Node name="BitHomeTests" expanded="True" />
-          <Node name="BitHomeUpdater" expanded="True" />
-          <Node name="Packages" expanded="True" />
-        </State>
-      </Pad>
-      <Pad Id="ClassPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True">
-          <Node name="BitHomeTests" expanded="True">
-            <Node name="BitHomeTests" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="ConnectionManagerPad">
-        <State selected="True" />
-      </Pad>
-    </Pads>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
