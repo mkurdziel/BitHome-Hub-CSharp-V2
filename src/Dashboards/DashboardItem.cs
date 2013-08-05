@@ -10,6 +10,7 @@ namespace BitHome.Dashboards
 		public String ActionId { get; set; }
 		public String PositionX { get; set; }
 		public String PositionY { get; set; }
+		public String Name { get; set; }
 
 		public DashboardItem (String id, IAction action)
 		{

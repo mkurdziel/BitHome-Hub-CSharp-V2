@@ -127,6 +127,7 @@ namespace BitHome.Actions
 			bool same = true;
 
 			same &= this.Id == p.Id;
+			same &= this.ParameterIds.Length == p.ParameterIds.Length;
 			same &= this.EqualsExceptId (p);
 
 			return same;

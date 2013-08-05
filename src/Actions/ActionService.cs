@@ -150,7 +150,7 @@ namespace BitHome.Actions
 			AddNodeActionToCache(action);
 
 			// Set it to the node
-			p_node.SetNodeAction (p_entryNumber, action.Id);
+			ServiceManager.NodeService.SetNodeAction(p_node, p_entryNumber, action);
 
 			return action;
 		}
@@ -247,6 +247,8 @@ namespace BitHome.Actions
 			AddParameter(nodeParam);
 
 			nodeAction.AddNodeParameter (nodeParam);
+
+			SaveAction (nodeAction);
 		}
 
 		public void AddParameter ( IActionParameter parameter) {

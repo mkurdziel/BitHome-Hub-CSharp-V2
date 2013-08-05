@@ -87,7 +87,7 @@ namespace BitHomeTests
 
 			TestNode persistedNode = (TestNode)ServiceManager.NodeService.GetNode (newNode.Id);
 
-			Assert.AreEqual (newNode, persistedNode);
+			ValidateNode (node, persistedNode);
 		}
 
 

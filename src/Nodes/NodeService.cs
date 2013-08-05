@@ -7,6 +7,7 @@ using ServiceStack.Common;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Text;
 using NLog;
+using BitHome.Actions;
 using BitHome.Messaging.Messages;
 using BitHome.Messaging.Protocol;
 using BitHome.Nodes;
@@ -117,6 +118,14 @@ namespace BitHome
 			m_mrevMsgWorkNeededEvent.Set();
 
 			m_timerNodeRefresh.Stop ();
+		}
+
+		public void SetNodeAction (Node node, int actionIndex, INodeAction action)
+		{
+			// TODO change this to be
+			node.SetNodeAction (actionIndex, action.Id);
+
+			SaveNode (node);
 		}
 
 		public Node AddNode(Node p_node) 

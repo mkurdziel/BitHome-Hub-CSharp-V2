@@ -51,8 +51,20 @@ namespace BitHome.Dashboards
 				{
 					if (StorageService.Store<Dashboard>.Exists (key)) {
 						m_dashboards.Add (key, StorageService.Store<Dashboard>.Get (key));
+
 					} else {
 						log.Warn ("Dashboard not found for key {0}", key);
+					}
+				}
+
+				// Reload the dashboard items
+				foreach (Dashboard dashboard in m_dashboards.Values) {
+					foreach (String dashboardItemId in dashboard.DashboardItemIds) {
+						if (StorageService.Store<DashboardItem>.Exists (dashboardItemId)) {
+							m_dashboardItems.Add (dashboardItemId, StorageService.Store<DashboardItem>.Get (dashboardItemId));
+						} else {
+							log.Warn ("Dashboard Item not found for key {0}", dashboardItemId);
+						}
 					}
 				}
 			}
@@ -83,6 +95,27 @@ namespace BitHome.Dashboards
 			SaveDashboard (dashboard);
 		}
 
+		public DashboardItem SetDashboardItemName (string dashboardId, string dashboardItemId, string name)
+		{
+			Dashboard dashboard = GetDashboard (dashboardId);
+			if (dashboard != null) {
+				DashboardItem item = GetDashboardItem (dashboardItemId);
+
+				if (item != null) {
+					item.Name = name;
+
+					// Save the dashboard item name
+					SaveDashboardItem (item);
+
+					// Save the dashboard since it is missing an item
+					SaveDashboard (dashboard);
+
+					return item;
+				}
+			}
+			return null;
+		}
+
 		public Dashboard GetDashboard(String dashboardId) {
 			if (m_dashboards.ContainsKey (dashboardId)) {
 				return m_dashboards [dashboardId];
@@ -98,11 +131,26 @@ namespace BitHome.Dashboards
 
 			foreach (String actionId in node.Actions.Values) {
 				IAction action = ServiceManager.ActionService.GetAction (actionId);
-				DashboardItem item = new DashboardItem(StorageService.GenerateKey(), action);
-				dashboard.AddItem (item);
+
+				DashboardItem dashboardItem = CreateDashboardItem (action);
+
+				dashboard.AddItem (dashboardItem);
 			}
 
+			SaveDashboard (dashboard);
+
 			return dashboard;
+		}
+
+		private DashboardItem CreateDashboardItem(IAction action) {
+
+			DashboardItem dashboardItem = new DashboardItem(StorageService.GenerateKey(), action);
+
+			m_dashboardItems.Add (dashboardItem.Id, dashboardItem);
+
+			SaveDashboardItem (dashboardItem);
+
+			return dashboardItem;
 		}
 
 		public Dashboard CreateDashboard(String name) {
@@ -142,7 +190,27 @@ namespace BitHome.Dashboards
 			}
 		}
 
-		public void RemoveDashboardItem (string dashboardItemId)
+		public bool RemoveDashboardItem (string dashboardId, string dashboardItemId)
+		{
+			Dashboard dashboard = GetDashboard (dashboardId);
+			if (dashboard != null) {
+				DashboardItem item = GetDashboardItem (dashboardItemId);
+
+				if (item != null) {
+					dashboard.RemoveItem (dashboardItemId);
+
+					RemoveDashboardItem (dashboardItemId);
+
+					// Save the dashboard since it is missing an item
+					SaveDashboard (dashboard);
+
+					return true;
+				}
+			}
+			return false;
+		}
+
+		private void RemoveDashboardItem (string dashboardItemId)
 		{
 			UnSaveDashboardItem (dashboardItemId);
 		}

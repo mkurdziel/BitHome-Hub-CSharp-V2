@@ -16,6 +16,7 @@ namespace BitHome
 		public String ActionId { get { return m_dashboardItem.ActionId; } }
 		public String PositionX { get { return m_dashboardItem.PositionX; } }
 		public String PositionY { get { return m_dashboardItem.PositionY; } }
+		public String Name { get { return m_dashboardItem.Name; } }
 
 		public WebDashboardItem (DashboardItem dashboardItem, 
 		                         IAction dashboardAction, 

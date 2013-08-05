@@ -7,11 +7,31 @@ using System;
 namespace BitHome.Web
 {
 	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/position", "POST")]
-	public class WebDashboardItemName : IReturn<DashboardItem> {
+	public class WebDashboardItemPosition : IReturn<DashboardItem> {
 		public string DashboardId { get; set; }
 		public string DashboardItemId { get; set; }
 		public string PositionX { get; set; }
 		public string PositionY { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/delete", "POST")]
+	public class WebDashboardItemRemove : IReturn<bool> {
+		public string DashboardId { get; set; }
+		public string DashboardItemId { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/name", "POST")]
+	public class WebDashBoardItemName : IReturn<WebDashboardItem> { 
+		public string DashboardId { get; set; }
+		public string DashboardItemId { get; set; }
+		public string Name { get; set; }
+	}
+
+
+	[Route("/api/dashboards/{dashboardId}/items", "POST")]
+	public class WebDashboardItemCreate : IReturn<DashboardItem> {
+		public string DashboardId { get; set; }
+		public string ActionId { get; set; }
 	}
 
 	[Route("/api/dashboards", "GET")]
@@ -53,7 +73,10 @@ namespace BitHome.Web
 			List<WebDashboardItem> webItems = new List<WebDashboardItem> ();
 
 			if (dashboard != null) {
-				foreach( DashboardItem item in	dashboard.GetItems () ) { 
+				foreach( String dashboardItemid in	dashboard.DashboardItemIds ) { 
+
+					DashboardItem item = ServiceManager.DashboardService.GetDashboardItem(dashboardItemid);
+
 					IAction action = ServiceManager.ActionService.GetAction (item.ActionId);
 					// TODO optimize this
 					List<IActionParameter> parameters = new List<IActionParameter> ();
@@ -69,12 +92,27 @@ namespace BitHome.Web
 			return null;
 		}
 
-		public DashboardItem Post(WebDashboardItemName request)
+		public DashboardItem Post(WebDashboardItemPosition request)
 		{
 			return ServiceManager.DashboardService.SetItemPosition (
 				request.DashboardItemId, 
 				request.PositionX, 
 				request.PositionY);
+		}
+
+		public DashboardItem Post(WebDashBoardItemName request)
+		{
+			return ServiceManager.DashboardService.SetDashboardItemName (
+				request.DashboardId, 
+				request.DashboardItemId, 
+				request.Name);
+		}
+
+		public bool Post(WebDashboardItemRemove request)
+		{
+			return ServiceManager.DashboardService.RemoveDashboardItem (
+				request.DashboardId, 
+				request.DashboardItemId);
 		}
 
 		public bool Post(WebDashBoardDelete request)
