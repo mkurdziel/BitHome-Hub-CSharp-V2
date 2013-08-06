@@ -134,6 +134,7 @@ namespace BitHome
 
 			public static void StoreKeys() {
 				BinaryRage.DB<HashSet<String>>.Remove(KEY_KEYS, m_path);
+				BinaryRage.DB<HashSet<String>>.WaitForCompletion();
 				BinaryRage.DB<HashSet<String>>.Insert(KEY_KEYS, m_keys, m_path);
 			}
 		}
