@@ -83,7 +83,7 @@ namespace BitHome.Actions
 			Monitor.Enter (m_actionLock);
 		}
 	
-		public abstract bool Execute (long p_timeoutMilliseconds);
+		public abstract bool Execute (long timeoutMilliseconds);
 
 		public void FinishExecute()
 		{

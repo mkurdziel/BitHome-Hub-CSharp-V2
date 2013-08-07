@@ -92,17 +92,20 @@ namespace BitHome
 			{
 				if (BinaryRage.DB<T>.Exists (key, m_path)) {
 					BinaryRage.DB<T>.Remove (key, m_path);
+					BinaryRage.DB<T>.WaitForCompletion();
 				} else if (storeKey) {
 					AddKey (key);
 				}
 
 				BinaryRage.DB<T>.Insert (key, value, m_path);
+				BinaryRage.DB<T>.WaitForCompletion();
 			}
 
 			static public void Remove(string key)
 			{
 				if (BinaryRage.DB<T>.Exists (key, m_path)) {
 					BinaryRage.DB<T>.Remove (key, m_path);
+					BinaryRage.DB<T>.WaitForCompletion();
 					RemoveKey (key);
 				}
 			}
@@ -136,6 +139,7 @@ namespace BitHome
 				BinaryRage.DB<HashSet<String>>.Remove(KEY_KEYS, m_path);
 				BinaryRage.DB<HashSet<String>>.WaitForCompletion();
 				BinaryRage.DB<HashSet<String>>.Insert(KEY_KEYS, m_keys, m_path);
+				BinaryRage.DB<HashSet<String>>.WaitForCompletion();
 			}
 		}
 	}

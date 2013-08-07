@@ -270,6 +270,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ActionItem.cs" />
     <Compile Include="DataHelpers.cs" />
     <Compile Include="Messaging\Messages\MessageFunctionTransmit.cs" />
     <Compile Include="Messaging\Messages\MessageBootloadTransmit.cs" />

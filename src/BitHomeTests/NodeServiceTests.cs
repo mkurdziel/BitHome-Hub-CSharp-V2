@@ -13,8 +13,8 @@ namespace BitHomeTests
 	[TestFixture()]
 	public class NodeServiceTests
 	{
-		public Dictionary<string,INodeAction> m_testActions = new Dictionary<string, INodeAction>();
-		public Dictionary<string, INodeParameter> m_testParams = new Dictionary<string, INodeParameter>();
+		public static Dictionary<string,INodeAction> m_testActions = new Dictionary<string, INodeAction>();
+		public static Dictionary<string, INodeParameter> m_testParams = new Dictionary<string, INodeParameter>();
 
 		[SetUp]
 		public void SetUp () {
@@ -91,7 +91,7 @@ namespace BitHomeTests
 		}
 
 
-		public void PerformInvestigation(Node baseNode) {
+		public static void PerformInvestigation(Node baseNode) {
 			TestNode testNode = new TestNode { Id = baseNode.Id };
 
 			MessageBase msg;
@@ -396,7 +396,7 @@ namespace BitHomeTests
 		}
 
 	
-	public void ValidateNode(TestNode baseNode, TestNode testNode) {
+	public static void ValidateNode(TestNode baseNode, TestNode testNode) {
 		Assert.AreEqual(baseNode, testNode);
 
 		for (int actionIndex = 1; actionIndex <= baseNode.TotalNumberOfActions; actionIndex++) {
@@ -413,6 +413,9 @@ namespace BitHomeTests
 				String baseParamId = ((NodeAction)baseAction).GetParameterId(parameterIndex);
 				String testParamId = ((NodeAction)testAction).GetParameterId(parameterIndex);
 
+                Assert.NotNull(baseParamId);
+                Assert.NotNull(testParamId);
+
 				INodeParameter baseParam = m_testParams [baseParamId];
 				INodeParameter testParam = (INodeParameter)ServiceManager.ActionService.GetParameter (testParamId);
 
@@ -421,7 +424,7 @@ namespace BitHomeTests
 		}
 	}
 
-	public TestNode GenerateTestNode() {
+	public static TestNode GenerateTestNode() {
 		Random random = new Random();
 
 		TestNode node = new TestNode ();
@@ -448,7 +451,7 @@ namespace BitHomeTests
 		return node;
 	}
 
-	public INodeAction GenerateTestNodeAction(string nodeId,int actionIndex) {
+	public static INodeAction GenerateTestNodeAction(string nodeId,int actionIndex) {
 		Random random = new Random ();
 
 		DataType returnType = (DataType)random.Next (1, 6);
@@ -473,7 +476,7 @@ namespace BitHomeTests
 		return action;
 	}
 
-	public INodeParameter GenerateTestNodeParameter(string nodeId,int actionIndex, int paramIndex, String actionId) {
+	public static INodeParameter GenerateTestNodeParameter(string nodeId,int actionIndex, int paramIndex, String actionId) {
 		Random random = new Random ();
 
 		DataType dataType = (DataType)random.Next (1, 6);

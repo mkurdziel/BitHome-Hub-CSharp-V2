@@ -14,7 +14,7 @@ namespace BitHomeTests
 		}
 		#region implemented abstract members of ActionBase
 
-		public override bool Execute (long timeout)
+		public override bool Execute (long timeoutMilliseconds)
 		{
 			Executed = true;
 

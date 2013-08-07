@@ -1,18 +1,20 @@
 using System;
+using System.Collections.Generic;
 
 namespace BitHome.Actions
 {
 	public class SequenceAction : ActionBase
 	{
-		#region Constructors
-
+        private List<ActionItem> m_actionItems = new List<ActionItem>();
 //		private List<ActionItem> m_actions;
 
-		#endregion
+        public ActionItem[] ActionItems {
+            get { return m_actionItems.ToArray(); }
+        }
 
 		#region implemented abstract members of ActionBase
 
-		public override bool Execute (long p_timeoutMilliseconds)
+		public override bool Execute (long timeoutMilliseconds)
 		{
 			throw new NotImplementedException ();
 		}
@@ -24,6 +26,13 @@ namespace BitHome.Actions
 		}
 
 		#endregion
+
+	    public void AddAction(IAction nodeAction)
+	    {
+            m_actionItems.Add(new ActionItem{
+                ActionId = nodeAction.Id
+            });
+	    }
 	}
 }
 

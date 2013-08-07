@@ -62,6 +62,29 @@ namespace BitHomeTests
 
 			Assert.AreEqual(action2, action4);
 		}
+
+        [Test()]
+        public void TestSequenceAction()
+        {
+            // Create a test node with actions
+            TestNode exampleNode = NodeServiceTests.GenerateTestNode();
+
+            NodeServiceTests.PerformInvestigation(exampleNode);
+
+            // Get the node into the system
+            TestNode node = (TestNode) ServiceManager.NodeService.GetNode(exampleNode.Id);
+
+            SequenceAction sequenceAction = new SequenceAction();
+
+            foreach (String actionId in node.Actions.Values)
+            {
+                IAction nodeAction = ServiceManager.ActionService.GetAction(actionId);
+
+                sequenceAction.AddAction(nodeAction);
+            }
+
+            Assert.AreEqual(node.TotalNumberOfActions, sequenceAction.ActionItems.Length);
+        }
 	}
 }
 

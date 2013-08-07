@@ -20,7 +20,7 @@ namespace BitHome.Actions
 
 		// Execution
 		void PrepareExecute();
-		bool Execute(long p_timeoutMilliseconds);
+		bool Execute(long timeoutMilliseconds);
 		void FinishExecute();
 		String ExecutionErrorString { get; set; }
 

@@ -11,7 +11,7 @@ namespace BitHome.Actions
 
 		#region implemented abstract members of ActionBase
 
-		public override bool Execute (long p_timeoutMilliseconds)
+		public override bool Execute (long timeoutMilliseconds)
 		{
 			throw new NotImplementedException ();
 		}
