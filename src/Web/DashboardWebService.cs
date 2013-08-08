@@ -58,7 +58,7 @@ namespace BitHome.Web
 		public string Name { get; set; }
 	}
 
-	public class WebDashboardService : ServiceStack.ServiceInterface.Service
+	public class DashboardWebService : ServiceStack.ServiceInterface.Service
 	{
 
 		public Dashboard[] Get(WebDashBoards request) 

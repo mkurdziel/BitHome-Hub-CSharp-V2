@@ -225,7 +225,8 @@ namespace BitHome.Messaging.Protocol
 		/// <summary>
 		///   QWORD - Quad-word 64-bits
 		/// </summary>
-		QWORD = 0x06
+		QWORD = 0x06,
+		FLOAT = 0x07
 	}
 
 	/// <summary>

@@ -17,6 +17,14 @@ namespace BitHome
 			return string.Format ("{0}.{1}", MajorVersion, MinorVersion);
 		}
 
+		public Version() {
+		}
+
+		public Version( int minorVersion, int majorVersion) {
+			MinorVersion = minorVersion;
+			MajorVersion = majorVersion;
+		}
+
 		#region IComparable implementation
 		public int CompareTo (object obj)
 		{

@@ -7,6 +7,22 @@ namespace BitHome
 {
     class DataHelpers
     {
+		
+		public static Random Random = new Random();
+
+		public static string RandomString(int numChars) {
+			var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+			var result = new string(
+				Enumerable.Repeat(chars, numChars)
+				.Select(s => s[Random.Next(s.Length)])
+				.ToArray());
+			return result;
+		}
+
+		public static long RandomLong() {
+			return (long)((DataHelpers.Random.NextDouble() * 2.0 - 1.0) * long.MaxValue);
+		}
+
         /// <summary>
         ///   Extracts a zero terminating string
         /// </summary>

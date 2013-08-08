@@ -3,6 +3,7 @@ using NLog;
 using BitHome.Messaging;
 using BitHome.Actions;
 using BitHome.Dashboards;
+using BitHome.Feeds;
 using System.Diagnostics;
 using System.Timers;
 using System.IO;
@@ -98,12 +99,14 @@ namespace BitHome
 			MessageDispatcherService = new MessageDispatcherService (m_isTesting);
 			NodeService = new NodeService ();
 			ActionService = new ActionService();
+			FeedService = new FeedService ();
 			DashboardService = new DashboardService ();
 
 			StorageService.Start ();
 			MessageDispatcherService.Start ();
 			ActionService.Start ();
 			NodeService.Start ();
+			FeedService.Start ();
 			DashboardService.Start ();
 
 			return true;
@@ -119,6 +122,7 @@ namespace BitHome
 			ActionService.Stop ();
 			MessageDispatcherService.Stop ();
 			StorageService.Stop ();
+			FeedService.Stop ();
 			DashboardService.Stop ();
 
 			return true;
@@ -156,6 +160,8 @@ namespace BitHome
 		public static DashboardService DashboardService { get; private set; }
 
 		public static SettingsService SettingsService { get; private set; }
+
+		public static FeedService FeedService { get; private set; }
 	}
 }
 

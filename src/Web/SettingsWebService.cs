@@ -15,7 +15,7 @@ namespace BitHome
 	[Route("/api/settings/version/update", "GET")]
 	public class WebUpdateVersionResponse : IReturn<Version> { }
 
-	public class WebSettingsService : ServiceStack.ServiceInterface.Service
+	public class SettingsWebService : ServiceStack.ServiceInterface.Service
 	{
 		public SettingsService SettingsService {
 			get {

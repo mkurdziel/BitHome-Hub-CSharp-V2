@@ -17,7 +17,7 @@ namespace BitHome.Web
         public string NodeId { get; set; }
     }
 
-	public class WebNodeService : ServiceStack.ServiceInterface.Service
+	public class NodeWebService : ServiceStack.ServiceInterface.Service
 	{
 		public NodeService NodeService {
 			get {

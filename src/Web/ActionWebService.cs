@@ -31,7 +31,7 @@ namespace BitHome.Web
 		public INodeAction[] Actions { get; set; }
 	}
 
-	public class WebActionService : ServiceStack.ServiceInterface.Service
+	public class ActionWebService : ServiceStack.ServiceInterface.Service
 	{
 		
 		public IAction[] Get(WebActions request) 

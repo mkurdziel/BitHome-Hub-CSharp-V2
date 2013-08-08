@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="Feeds\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\bithome.css">
@@ -324,17 +325,11 @@
     <Compile Include="Actions\ActionParameter.cs" />
     <Compile Include="Actions\ActionRequest.cs" />
     <Compile Include="Actions\ActionRequestStatus.cs" />
-    <Compile Include="Web\WebNodeService.cs" />
-    <Compile Include="Web\WebActionService.cs" />
     <Compile Include="BitHome.cs" />
     <Compile Include="Dashboards\DashboardService.cs" />
-    <Compile Include="Web\WebDashboardService.cs" />
     <Compile Include="Dashboards\Dashboard.cs" />
     <Compile Include="Dashboards\DashboardItem.cs" />
     <Compile Include="BitHomeService.cs" />
-    <Compile Include="Web\WebSettingsService.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="SettingsService.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="FileHelpers.cs" />
@@ -345,6 +340,18 @@
     <Compile Include="Web\WebDashboardItem.cs" />
     <Compile Include="Actions\IUserAction.cs" />
     <Compile Include="Actions\SequenceAction.cs" />
+    <Compile Include="Web\NodeWebService.cs" />
+    <Compile Include="Web\ActionWebService.cs" />
+    <Compile Include="Web\DashboardWebService.cs" />
+    <Compile Include="Web\SettingsWebService.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Feeds\Feed.cs" />
+    <Compile Include="Feeds\FeedStatus.cs" />
+    <Compile Include="Feeds\FeedService.cs" />
+    <Compile Include="Feeds\DataStream.cs" />
+    <Compile Include="Web\FeedsWebService.cs" />
+    <Compile Include="Feeds\DataPoint.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
