@@ -8,8 +8,7 @@ using System;
 
 namespace BitHome.Web
 {
-	[Route("/feeds")]
-	[Route("/feeds/{feedId}")]
+	[Route("/feed/{feedId}")]
 	public class WebFeeds
 	{
 		public long? FeedId {get; set;}
@@ -22,7 +21,7 @@ namespace BitHome.Web
 	}
 
 	[ClientCanSwapTemplates]
-	[DefaultView("Feeds")]
+	[DefaultView("Feed")]
 	public class FeedsWebService : Service
 	{
 		public object Get(WebFeeds request)
