@@ -48,7 +48,7 @@ namespace BitHome
 
     public class AppHost : AppHostHttpListenerBase 
     {
-        public AppHost() : base("BitHome Web Interface", typeof(BitHomeService).Assembly) { }
+        public AppHost() : base("BitHome Web Interface", typeof(AppHost).Assembly) { }
 
         public override void Configure(Funq.Container container)
         {
@@ -57,15 +57,11 @@ namespace BitHome
 
 			Plugins.Add(new RazorFormat());
 
-			EndpointHostConfig config = new EndpointHostConfig {
-				//EnableFeatures = Feature.All.Remove(Feature.Metadata),
-				DebugMode = true, //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
+			SetConfig(new EndpointHostConfig {
 				CustomHttpHandlers = {
 					{ HttpStatusCode.NotFound, new RazorHandler("/notfound") }
-				},
-			};
-
-			SetConfig (config);
+				}
+			});
         }
     }
 }

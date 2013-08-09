@@ -12,22 +12,22 @@ namespace BitHome.Web
 	[Route("/feeds/{feedId}")]
 	public class WebFeeds
 	{
-		public int? FeedId { get; set; }
+		public long? FeedId {get; set;}
 	}
 
 	[Csv(CsvBehavior.FirstEnumerable)]
 	public class WebFeedsResponse
 	{
-		public int? FeedId { get; set; }
+		public long? FeedId {get; set;}
 	}
 
 	[ClientCanSwapTemplates]
-	[DefaultView("feedsView")]
+	[DefaultView("Feeds")]
 	public class FeedsWebService : Service
 	{
 		public object Get(WebFeeds request)
 		{
-			return new WebFeedsResponse ();
+			return new WebFeedsResponse {FeedId = request.FeedId};
 		}
 	}
 }
