@@ -12,7 +12,7 @@ namespace BitHome.Feeds
 		public static Version Version = new Version(0, 1);
 
 
-		private Dictionary<string, Feed> m_feeds = new Dictionary<string, Feed>();
+		private Dictionary<long, Feed> m_feeds = new Dictionary<long, Feed>();
 
 		public Feed[] Feeds { 
 			get {
@@ -42,7 +42,7 @@ namespace BitHome.Feeds
 
 		#endregion
 
-		public Feed GetFeed(string feedId) {
+		public Feed GetFeed(long feedId) {
 			if (m_feeds.ContainsKey (feedId)) {
 				return m_feeds [feedId];
 			}
@@ -51,14 +51,14 @@ namespace BitHome.Feeds
 
 		public Feed CreateFeed() {
 			Feed feed = new Feed ();
-			feed.Id = DataHelpers.RandomString (FEED_ID_LENGTH);
+			feed.Id = DataHelpers.RandomLong ();
 
 			m_feeds.Add (feed.Id, feed);
 
 			return feed;
 		}
 
-		public bool DeleteFeed(string feedId) {
+		public bool DeleteFeed(long feedId) {
 			Feed feed = GetFeed (feedId);
 
 			if (feed != null) {
@@ -68,7 +68,7 @@ namespace BitHome.Feeds
 			return false;
 		}
 
-		public DataStream CreateDataStream(String feedId, String name) {
+		public DataStream CreateDataStream(long feedId, String name) {
 			Feed feed = GetFeed (feedId);
 
 			if (feed != null) {

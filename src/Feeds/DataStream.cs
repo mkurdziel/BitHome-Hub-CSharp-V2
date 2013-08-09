@@ -10,7 +10,7 @@ namespace BitHome.Feeds
 	{
 		private SortedSet<DataPoint> m_data = new SortedSet<DataPoint> ();
 
-		public long Id { get; set; }
+		public String Id { get; set; }
 		public DataType DataType { get; set; }
 		public String MinValue { get; set; }
 		public String MaxValue { get; set; }
@@ -35,7 +35,7 @@ namespace BitHome.Feeds
 			}
 		}
 
-		public DataStream( long id )
+		public DataStream( String id )
 		{
 			Id = id;
 			DataType = DataType.STRING;

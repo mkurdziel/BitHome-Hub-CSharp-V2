@@ -2,10 +2,10 @@ using System;
 using BitHome.Dashboards;
 using BitHome.Actions;
 
-namespace BitHome
+namespace BitHome.WebApi
 {
 	[Serializable]
-	public class WebDashboardItem
+	public class WebApiDashboardItem
 	{
 		private DashboardItem m_dashboardItem;
 
@@ -18,7 +18,7 @@ namespace BitHome
 		public String PositionY { get { return m_dashboardItem.PositionY; } }
 		public String Name { get { return m_dashboardItem.Name; } }
 
-		public WebDashboardItem (DashboardItem dashboardItem, 
+		public WebApiDashboardItem (DashboardItem dashboardItem, 
 		                         IAction dashboardAction, 
 		                         IActionParameter[] dashboardParameters )
 		{

@@ -7,9 +7,9 @@ namespace BitHome.Feeds
 	[Serializable]
 	public class Feed
 	{
-		private Dictionary<long, DataStream> m_dataStreams = new Dictionary<long, DataStream> ();
+		private Dictionary<String, DataStream> m_dataStreams = new Dictionary<String, DataStream> ();
 
-		public String Id { get; set; }
+		public long Id { get; set; }
 		public String Name { get; set; }
 		public bool IsPrivate { get; set; }
 		public String Url { get; set; }
@@ -32,7 +32,7 @@ namespace BitHome.Feeds
 
 		}
 
-		public DataStream GetDataStream(long dataStreamId) {
+		public DataStream GetDataStream(String dataStreamId) {
 			if (m_dataStreams.ContainsKey(dataStreamId)) {
 				return m_dataStreams[dataStreamId];
 			}
@@ -47,7 +47,7 @@ namespace BitHome.Feeds
 			return false;
 		}
 
-		public DataStream DeleteDataStream(long dataStreamId) {
+		public DataStream DeleteDataStream(String dataStreamId) {
 			DataStream dataStream = GetDataStream (dataStreamId);
 
 			if (dataStream != null) {

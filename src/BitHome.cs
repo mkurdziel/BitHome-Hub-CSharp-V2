@@ -7,6 +7,7 @@ using System.Threading;
 using ServiceStack.ServiceHost;
 using ServiceStack.Common;
 using ServiceStack.Razor;
+using System.Net;
 
 namespace BitHome
 {
@@ -52,14 +53,19 @@ namespace BitHome
         public override void Configure(Funq.Container container)
         {
 //			ServiceStack.Logging.LogManager.LogFactory = new NLogFactory ();
+			ServiceStack.Logging.LogManager.LogFactory = new ServiceStack.Logging.Support.Logging.ConsoleLogFactory();
 
 			Plugins.Add(new RazorFormat());
 
-            SetConfig(new EndpointHostConfig
-            {
-                //EnableFeatures = Feature.All.Remove(Feature.Metadata),
-                DebugMode = true, //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
-            });
+			EndpointHostConfig config = new EndpointHostConfig {
+				//EnableFeatures = Feature.All.Remove(Feature.Metadata),
+				DebugMode = true, //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
+				CustomHttpHandlers = {
+					{ HttpStatusCode.NotFound, new RazorHandler("/notfound") }
+				},
+			};
+
+			SetConfig (config);
         }
     }
 }

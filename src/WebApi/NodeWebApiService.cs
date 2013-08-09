@@ -1,23 +1,23 @@
 using ServiceStack.ServiceHost;
 
-namespace BitHome.Web
+namespace BitHome.WebApi
 {
 	[Route("/api/nodes", "GET")]
-	public class WebNodes : IReturn<Node[]> { }
+	public class WebApiNodes : IReturn<Node[]> { }
 
 	[Route("/api/nodes/{NodeId}/name", "POST")]
-	public class WebNodeName : IReturn<Node> {
+	public class WebApiNodeName : IReturn<Node> {
         public string NodeId { get; set; }
         public string Name { get; set; }
     }
 
     [Route("/api/nodes/{NodeId}/reboot", "POST")]
-    public class WebNodeReboot : IReturn<Node>
+	public class WebApiNodeReboot : IReturn<Node>
     {
         public string NodeId { get; set; }
     }
 
-	public class NodeWebService : ServiceStack.ServiceInterface.Service
+	public class NodeWebApiService : ServiceStack.ServiceInterface.Service
 	{
 		public NodeService NodeService {
 			get {
@@ -25,12 +25,12 @@ namespace BitHome.Web
 			}
 		}
 
-        public Node[] Get(WebNodes request) 
+		public Node[] Get(WebApiNodes request) 
 		{
 			return NodeService.GetNodes ();
 		}
 
-        public Node Post(WebNodeName request)
+		public Node Post(WebApiNodeName request)
         {
             Node node = NodeService.GetNode(request.NodeId);
 
@@ -43,7 +43,7 @@ namespace BitHome.Web
         }
 
 
-        public Node Post(WebNodeReboot request)
+		public Node Post(WebApiNodeReboot request)
         {
             Node node = NodeService.GetNode(request.NodeId);
 

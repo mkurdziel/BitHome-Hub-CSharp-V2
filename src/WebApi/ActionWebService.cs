@@ -3,49 +3,49 @@ using ServiceStack.ServiceHost;
 using BitHome.Actions;
 using System;
 
-namespace BitHome.Web
+namespace BitHome.WebApi
 {
 	[Route("/api/actions", "GET")]
-	public class WebActions : IReturn<IAction[]> { }
+	public class WebApiActions : IReturn<IAction[]> { }
 
 	[Route("/api/actions/parameters", "GET")]
-	public class WebActionParameters : IReturn<IParameter[]> { }
+	public class WebApiActionParameters : IReturn<IParameter[]> { }
 
 	[Route("/api/actions/node", "GET")]
-	public class WebNodeActions : IReturn<WebNodeActionsResponse[]> { }
+	public class WebApiNodeActions : IReturn<WebApiNodeActionsResponse[]> { }
 
 	[Route("/api/actions/{ActionId}/execute", "POST")]
-	public class WebActionExecute : IReturn<IAction> {
+	public class WebApiActionExecute : IReturn<IAction> {
         public string ActionId { get; set; }
         public Dictionary<string, string> parameters { get; set; }
     }
 
 	[Route("/api/actions/{ActionId}/parameters", "GET")]
-    public class WebActionParametersActionId : IReturn<IActionParameter[]> {
+	public class WebApiActionParametersActionId : IReturn<IActionParameter[]> {
         public string ActionId { get; set; }
     }
 
 	[Serializable]
-	public class WebNodeActionsResponse {
+	public class WebApiNodeActionsResponse {
 		public Node Node { get; set; }
 		public INodeAction[] Actions { get; set; }
 	}
 
-	public class ActionWebService : ServiceStack.ServiceInterface.Service
+	public class ActionWebApiService : ServiceStack.ServiceInterface.Service
 	{
 		
-		public IAction[] Get(WebActions request) 
+		public IAction[] Get(WebApiActions request) 
 		{
 			return ServiceManager.ActionService.Actions;
 		}
 
-		public IActionParameter[] Get(WebActionParameters request) 
+		public IActionParameter[] Get(WebApiActionParameters request) 
 		{
 			return ServiceManager.ActionService.Parameters;
 		}
 
 
-		public IActionParameter[] Get(WebActionParametersActionId request)
+		public IActionParameter[] Get(WebApiActionParametersActionId request)
         {
             IAction action = ServiceManager.ActionService.GetAction(request.ActionId);
             if (action != null)
@@ -62,7 +62,7 @@ namespace BitHome.Web
             return new IActionParameter[0];
         }
 
-        public IAction[] Post(WebActionExecute request)
+		public IAction[] Post(WebApiActionExecute request)
         {
             foreach(string key in request.parameters.Keys)
             {
@@ -77,10 +77,10 @@ namespace BitHome.Web
             return null;
         }
 
-		public WebNodeActionsResponse[] Get(WebNodeActions request) {
-			List<WebNodeActionsResponse> response = new List<WebNodeActionsResponse> ();
+		public WebApiNodeActionsResponse[] Get(WebApiNodeActions request) {
+			List<WebApiNodeActionsResponse> response = new List<WebApiNodeActionsResponse> ();
 			foreach (Node node in ServiceManager.NodeService.Nodes) {
-				WebNodeActionsResponse resp = new WebNodeActionsResponse {
+				WebApiNodeActionsResponse resp = new WebApiNodeActionsResponse {
 					Node = node
 				};
 
