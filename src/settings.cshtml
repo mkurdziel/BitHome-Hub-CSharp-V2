@@ -1,15 +1,20 @@
-@inherits ViewPage
+@{
+    Layout = "Master";
+}
+
 
 @section Stylesheet {
     <style type="text/css">
     </style>
 }
-<h1>Settings</h1>
-<h2>Version</h2>
-Current Version : <span id="current-version"></span>
-<br/>
-<h2>Upgrade</h2>
-Newest Version : <span id="newest-version"></span>
+<div class="container">
+    <h1>Settings</h1>
+    <h2>Version</h2>
+    Current Version : <span id="current-version"></span>
+    <br/>
+    <h2>Upgrade</h2>
+    Newest Version : <span id="newest-version"></span>
+</div>
 
 @section Javascript {
     <script>

@@ -186,6 +186,9 @@
     <Content Include="img\jquery-ui\ui-icons_ffffff_256x240.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="js\bithome.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="js\bootstrap.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -207,6 +210,9 @@
     <None Include="login.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="js\moment.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="js\spin.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -256,9 +262,6 @@
     <Content Include="js\jquery.throttle.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="js\jquery.debounce.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Views\Shared\Empty.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -294,7 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\ActionItem.cs" />
-    <Compile Include="DataHelpers.cs" />
+    <Compile Include="Helpers\DataHelpers.cs" />
     <Compile Include="Messaging\Messages\MessageFunctionTransmit.cs" />
     <Compile Include="Messaging\Messages\MessageBootloadTransmit.cs" />
     <Compile Include="Messaging\Messages\MessageFunctionReceive.cs" />
@@ -377,6 +380,7 @@
     <Compile Include="WebApi\FeedsWebApiService.cs" />
     <Compile Include="WebApi\DashboardWebApiService.cs" />
     <Compile Include="Web\FeedsWebService.cs" />
+    <Compile Include="Helpers\WebHelpers.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

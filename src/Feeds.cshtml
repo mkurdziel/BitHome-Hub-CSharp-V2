@@ -1,21 +1,117 @@
+@{
+    Layout = "Master";
+}
               
 @section Stylesheet {
     <style type="text/css">
-        #top-row {
-            width: 100%;
+        #create-feed-button {
+            margin-left: 10px;
         }
-
-        .bh-section-gray {
-            background-color: #ebf0f2;
-        }
-
     </style>
 }
 
 <div class="container">
-    <h2>Feeds</h2>
+    <h2>Feeds
+        <button class="btn btn-primary" id="create-feed-button" type="button" onclick="showCreateFeed();">Create Feed</button>
+    </h2>
+
+    <table id="feeds-table" class="table">
+        <tr>
+            <th>&nbsp;</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th id="feed-settings">&nbsp;</th>
+        </tr>
+    </table>
+</div>
+
+<div id="modal-create" class="modal hide fade">
+    <div class="modal-header">
+        <h3>Create Feed</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="name">Name</label>
+                <div class="controls">
+                    <input id="modal-create-name" name="name" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void();" class="btn" onclick="$('#modal-create').modal('hide')">Cancel</a>
+        <a class="btn btn-primary" onclick="createFeed();">Save</a>
+    </div>
 </div>
 
 @section Javascript {
-    <script> </script>
+    <script>
+        $(function () {
+            updateFeedTable();
+        });
+
+        function updateFeedTable() {
+            $.ajax({
+                type: 'GET',
+                url: 'api/feeds',
+                data: { format: 'json' },
+                beforeSend: function () {
+                    $("#feeds-table").find("tr:gt(0)").remove();
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, len = data.length; i < len; ++i) {
+                        var feed = data[i];
+
+                        $('#feeds-table').append(
+                            $("<tr/>")
+                            .append($("<td/>", { html: '<i class="icon-color icon-size32 icon-th-list"></i>' }))
+                            .append($("<td/>", { html: '<a href="/feeds/' + feed.Id + '">' + feed.Id + '</a>' }))
+                            .append($("<td/>", { text: feed.Name }))
+                            .append($("<td/>", { text: feed.Status }))
+                            .append($("<td/>", { text: bithomeDisplayDate(feed.CreatedMilliseconds) }))
+                            .append($("<td/>", { text: bithomeDisplayDate(feed.UpdatedMilliseconds) }))
+                            .append($("<td/>", { html: '&nbsp;' })
+                            )
+                        );
+                    }
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+
+
+        function showCreateFeed() {
+            $('#modal-create-name').val('');
+            $('#modal-create').modal('show');
+        }
+
+        function createFeed() {
+            var name = $('#modal-create-name').val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'api/feeds',
+                data: {
+                    name : name
+                },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    updateFeedTable();
+
+                    $('#modal-create').modal('hide');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+    </script>
 }

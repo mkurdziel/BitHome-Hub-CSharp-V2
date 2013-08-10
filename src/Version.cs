@@ -20,7 +20,7 @@ namespace BitHome
 		public Version() {
 		}
 
-		public Version( int minorVersion, int majorVersion) {
+		public Version( int majorVersion, int minorVersion) {
 			MinorVersion = minorVersion;
 			MajorVersion = majorVersion;
 		}

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using BitHome.Feeds;
+using BitHome.Helpers;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
@@ -8,7 +10,7 @@ using System;
 
 namespace BitHome.Web
 {
-	[Route("/feed/{feedId}")]
+	[Route("/feeds/{feedId}")]
 	public class WebFeeds
 	{
 		public long? FeedId {get; set;}
@@ -17,7 +19,7 @@ namespace BitHome.Web
 	[Csv(CsvBehavior.FirstEnumerable)]
 	public class WebFeedsResponse
 	{
-		public long? FeedId {get; set;}
+		public Feed Feed {get; set;}
 	}
 
 	[ClientCanSwapTemplates]
@@ -26,7 +28,19 @@ namespace BitHome.Web
 	{
 		public object Get(WebFeeds request)
 		{
-			return new WebFeedsResponse {FeedId = request.FeedId};
+            if (request.FeedId != null)
+            {
+                Feed feed = ServiceManager.FeedService.GetFeed((long)request.FeedId);
+
+                if (feed != null)
+                {
+                    return new WebFeedsResponse {Feed = feed};
+                }
+
+                return WebHelpers.NotFoundResponse;
+            }
+
+		    return WebHelpers.BadRequestResponse;
 		}
 	}
 }

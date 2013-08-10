@@ -1,4 +1,5 @@
-﻿using BitHome.Messaging.Protocol;
+﻿using BitHome.Helpers;
+using BitHome.Messaging.Protocol;
 using NLog;
 
 namespace BitHome.Messaging.Messages

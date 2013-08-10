@@ -1,4 +1,6 @@
-﻿@inherits ViewPage
+﻿@{
+    Layout = "Master";
+}
 
 @section Stylesheet {
     <style type="text/css">
@@ -15,57 +17,60 @@
         }
     </style>
 }
-<h1>Nodes</h1>
 
-<table id="nodes-table" class="table">
-    <tr>
-        <th>&nbsp;</th>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Last Seen</th>
-        <th>Type</th>
-        <th>Address</th>
-        <th id="node-settings">&nbsp;</th>
-    </tr>
-</table>
+<div class="container">
+    <h1>Nodes</h1>
 
-<div id="modal-rename" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Rename <span class='modal-node-name'>Name</span></h3>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal">
-            <div class="control-group">
-                <label class="control-label" for="node-name">Name</label>
-                <div class="controls">
-                    <input id="modal-rename-id" name="id" type="hidden" />
-                    <input id="modal-rename-name" name="name" />
+    <table id="nodes-table" class="table">
+        <tr>
+            <th>&nbsp;</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Last Seen</th>
+            <th>Type</th>
+            <th>Address</th>
+            <th id="node-settings">&nbsp;</th>
+        </tr>
+    </table>
+
+    <div id="modal-rename" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Rename <span class='modal-node-name'>Name</span></h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="node-name">Name</label>
+                    <div class="controls">
+                        <input id="modal-rename-id" name="id" type="hidden" />
+                        <input id="modal-rename-name" name="name" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#modal-rename').modal('hide')">Close</a>
+            <a href="#" class="btn btn-primary" onclick="renameNode($('#modal-rename-id').val(), $('#modal-rename-name').val())">Save changes</a>
+        </div>
     </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" onclick="$('#modal-rename').modal('hide')">Close</a>
-        <a href="#" class="btn btn-primary" onclick="renameNode($('#modal-rename-id').val(), $('#modal-rename-name').val())">Save changes</a>
-    </div>
-</div>
 
-<div id="modal-reboot" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Reboot <span class='modal-node-name'>Name</span></h3>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal">
-            Are you sure you want to reboot this node? <br/>
-            <input id="modal-reboot-id" name="id" type="hidden" />
-            <a href="#" class="btn btn-danger" onclick="rebootNode($('#modal-reboot-id').val())">Reboot Node</a>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" onclick="$('#modal-rename').modal('hide')">Close</a>
+    <div id="modal-reboot" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Reboot <span class='modal-node-name'>Name</span></h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                Are you sure you want to reboot this node? <br/>
+                <input id="modal-reboot-id" name="id" type="hidden" />
+                <a href="#" class="btn btn-danger" onclick="rebootNode($('#modal-reboot-id').val())">Reboot Node</a>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#modal-rename').modal('hide')">Close</a>
+        </div>
     </div>
 </div>
 
@@ -83,7 +88,7 @@
                 url: 'api/nodes',
                 data: { format: 'json' },
                 beforeSend: function () {
-                    $("#nodes-table tr").remove();
+                    $("#nodes-table").find("tr:gt(0)").remove();
                 },
                 success: function (data) {
                     // successful request; do something with the data
@@ -150,7 +155,7 @@
 
                         $('#nodes-table').append(
                             $("<tr/>")
-                            .append($("<td/>", { html: '<i class="icon-color icon-size32 icon-hdd"></i>' }))
+                            .append($("<td/>", { html: '<i class="icon-color icon-size32 icon- icon-th-list"></i>' }))
                             .append($("<td/>", { text: node.Id }))
                             .append($("<td/>", { text: node.Name }))
                             .append($("<td/>", { text: node.Status }))

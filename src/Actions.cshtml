@@ -1,4 +1,6 @@
-﻿@inherits ViewPage
+﻿@{
+    Layout = "Master";
+}
 
 @section Stylesheet {
     <style type="text/css">
@@ -19,33 +21,35 @@
         }
     </style>
 }
-<h1>Actions</h1>
+<div class="container">
 
-<table id="actions-table" class="table">
-    <tr>
-        <th>&nbsp;</th>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Parameters</th>
-        <th id="settings">&nbsp;</th>
-    </tr>
-</table>
+    <h1>Actions</h1>
 
-<div id="modal-execute" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Execute <span class='modal-action-name'>Name</span></h3>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal">
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" onclick="$('#modal-execute').modal('hide')">Close</a>
+    <table id="actions-table" class="table">
+        <tr>
+            <th>&nbsp;</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Parameters</th>
+            <th id="settings">&nbsp;</th>
+        </tr>
+    </table>
+
+    <div id="modal-execute" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Execute <span class='modal-action-name'>Name</span></h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#modal-execute').modal('hide')">Close</a>
+        </div>
     </div>
 </div>
-
 @section Javascript {
     <script>
         var tableSpinner;
@@ -60,7 +64,7 @@
                 url: 'api/actions',
                 data: { format: 'json' },
                 beforeSend: function () {
-                    $("#actions-table tr").remove();
+                    $("#actions-table").find("tr:gt(0)").remove();
                 },
                 success: function (data) {
                     // successful request; do something with the data

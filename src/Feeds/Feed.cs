@@ -8,17 +8,34 @@ namespace BitHome.Feeds
 	public class Feed
 	{
 		private Dictionary<String, DataStream> m_dataStreams = new Dictionary<String, DataStream> ();
+	    private Version m_version;
 
-		public long Id { get; set; }
+	    public long Id { get; set; }
 		public String Name { get; set; }
 		public bool IsPrivate { get; set; }
 		public String Url { get; set; }
 		public FeedStatus Status { get; set; }
 		public DateTime Created { get; set; }
-		public DateTime Updated { get; set; }
-		public Version Version { get; set; }
+		public long CreatedMilliseconds
+		{
+		    get { return Created.ToUnixTimeMs(); }
+            set { Created = new DateTime(value); }
+		}
 
-		public DataStream[] DataStreams {
+	    public DateTime Updated { get; set; }
+	    public long UpdatedMilliseconds
+	    {
+            get { return Updated.ToUnixTimeMs(); }
+            set { Updated = new DateTime(value); }
+	    }
+
+	    public Version Version
+		{
+		    get { return new Version(0, 1); }
+		    set { m_version = value; }
+		}
+
+	    public DataStream[] DataStreams {
 			get {
 				return m_dataStreams.Values.ToArray();
 			}

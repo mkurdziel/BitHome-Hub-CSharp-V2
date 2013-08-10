@@ -1,5 +1,6 @@
 using BitHome;
 using BitHome.Feeds;
+using BitHome.Helpers;
 using ServiceStack.ServiceHost;
 using ServiceStack.Common.Web;
 using System;
@@ -11,7 +12,9 @@ namespace BitHome.WebApi
 	public class WebApiFeeds : IReturn<Feed[]> {}
 
 	[Route("/api/feeds", "POST")]
-	public class WebApiFeedCreate : IReturn<Feed> {}
+	public class WebApiFeedCreate : IReturn<Feed> {
+        public String Name { get; set; }
+    }
 
 	[Route("/api/feeds/{feedId}", "GET")]
 	public class WebApiFeed : IReturn<Feed> {
@@ -70,11 +73,11 @@ namespace BitHome.WebApi
 		// Post create feed
 		public object Post(WebApiFeedCreate request) 
 		{
-			Feed feed = ServiceManager.FeedService.CreateFeed ();
+			Feed feed = ServiceManager.FeedService.CreateFeed (request.Name);
 			if (feed != null) {
 				return feed;
 			}
-			return BadRequestResponse;
+			return WebHelpers.BadRequestResponse;
 		}
 
 		// Get a single feed based on its ID
@@ -85,7 +88,7 @@ namespace BitHome.WebApi
 			if (feed != null) {
 				return feed;
 			}
-			return NotFoundResponse;
+			return WebHelpers.NotFoundResponse;
 		}
 
 		// Update a feed based on its id
@@ -107,10 +110,10 @@ namespace BitHome.WebApi
 
 			if (feed != null) {
 				if (ServiceManager.FeedService.DeleteFeed (feed.Id)) {
-					return OkResponse;
+					return WebHelpers.OkResponse;
 				}
 			}
-			return NotFoundResponse;
+			return WebHelpers.NotFoundResponse;
 		}
 
 
@@ -126,7 +129,7 @@ namespace BitHome.WebApi
 			if (feed != null) {
 				return feed.DataStreams;
 			}
-			return NotFoundResponse;
+			return WebHelpers.NotFoundResponse;
 		}
 
 		// Create a datastream for a feed
@@ -140,7 +143,7 @@ namespace BitHome.WebApi
 					return dataStream;
 				}
 			}
-			return NotFoundResponse;
+			return WebHelpers.NotFoundResponse;
 		}
 
 		// Get a single datastream based on its ID
@@ -154,7 +157,7 @@ namespace BitHome.WebApi
 					return dataStream;
 				}
 			}
-			return NotFoundResponse;
+			return WebHelpers.NotFoundResponse;
 		}
 
 		// Delete a datastream for a feed
@@ -169,7 +172,7 @@ namespace BitHome.WebApi
 //					return dataStream;
 				}
 			}
-			return NotFoundResponse;
+			return WebHelpers.NotFoundResponse;
 		}	
 
 		// Delete a datastream for a feed
@@ -184,33 +187,12 @@ namespace BitHome.WebApi
 					return dataStream;
 				}
 			}
-			return NotFoundResponse;
+			return WebHelpers.NotFoundResponse;
 		}
 
 
 		#endregion
 
-		#region Helper Methods
-
-		private object OkResponse {
-			get {
-				return new HttpResult() { StatusCode = HttpStatusCode.OK };
-			}
-		}
-
-		private object NotFoundResponse {
-			get {
-				return new HttpResult() { StatusCode = HttpStatusCode.NotFound };
-			}
-		}
-
-		private object BadRequestResponse {
-			get {
-				return new HttpResult() { StatusCode = HttpStatusCode.BadRequest };
-			}
-		}
-
-		#endregion
 	}
 }
 

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BitHome
+namespace BitHome.Helpers
 {
-    class DataHelpers
+    static class DataHelpers
     {
-		
-		public static Random Random = new Random();
+        public const long MAX_JAVSCRIPT_NUMBER = 9007199254740992;
+        public static readonly Random Random = new Random();
 
 		public static string RandomString(int numChars) {
 			var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -19,8 +19,8 @@ namespace BitHome
 			return result;
 		}
 
-		public static long RandomLong() {
-			return (long)((DataHelpers.Random.NextDouble() * 2.0 - 1.0) * long.MaxValue);
+		public static long RandomLongPositive() {
+            return (long)(DataHelpers.Random.NextDouble() * MAX_JAVSCRIPT_NUMBER);
 		}
 
         /// <summary>

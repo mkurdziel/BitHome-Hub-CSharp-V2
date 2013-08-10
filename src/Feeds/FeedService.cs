@@ -1,6 +1,7 @@
 using BitHome;
 using System;
 using System.Collections.Generic;
+using BitHome.Helpers;
 using ServiceStack.Text;
 
 namespace BitHome.Feeds
@@ -49,9 +50,10 @@ namespace BitHome.Feeds
 			return null;
 		}
 
-		public Feed CreateFeed() {
+		public Feed CreateFeed(string name) {
 			Feed feed = new Feed ();
-			feed.Id = DataHelpers.RandomLong ();
+			feed.Id = DataHelpers.RandomLongPositive ();
+		    feed.Name = name;
 
 			m_feeds.Add (feed.Id, feed);
 
