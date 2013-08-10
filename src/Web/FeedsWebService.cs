@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BitHome.Feeds;
 using BitHome.Helpers;
+using NLog;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;

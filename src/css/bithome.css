@@ -3,6 +3,19 @@
  *
  */
 
+h2, h3 {
+    padding: 0;
+    margin: 0;
+}
+
+
+.bh-section-gray {
+    background-color: #ebf0f2;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
 .icon-color {
     color: #555;
 }

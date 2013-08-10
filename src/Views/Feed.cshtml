@@ -1,14 +1,12 @@
-﻿              
+﻿@{
+    Layout = "Master";
+}
+           
 @section Stylesheet {
     <style type="text/css">
-        #top-row {
-            width: 100%;
+        .align-bottom {
+            vertical-align: bottom;
         }
-
-        .bh-section-gray {
-            background-color: #ebf0f2;
-        }
-
     </style>
 }
 <div class="bh-section-gray">
@@ -16,21 +14,40 @@
         <div class="row">
             <div class="span6">
                 <h3>Feed: @Model.Feed.Name</h3>
-                <div class="row">
-                    <div class="span3">Feed ID</div>
-                    <div class="span3">@Model.Feed.Id</div>
+                <div class="row-fluid">
+                    <div class="span2">Feed ID</div>
+                    <div class="span10">@Model.Feed.Id</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">Created</div>
+                    <div class="span10">@Model.Feed.Created</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">Updated</div>
+                    <div class="span10">@Model.Feed.Updated</div>
                 </div>
             </div>
-            <div class="span6">
-                 <div class="row">
-                    <div class="span6">Feed URL</div>
-                    <div class="span6">http://feed.com</div>
+            <div class="span6 align-bottom">
+                 <div class="row-fluid">
+                    <div class="span3">Feed URL</div>
+                    <div class="span9"><a href="/feeds/@Model.Feed.Id">/feeds/@Model.Feed.Id</a></div>
                 </div>
-                <div class="row">
-                    <div class="span6">Feed API</div>
-                    <div class="span6">http://api.feed.com</div>
+                <div class="row-fluid">
+                    <div class="span3">Feed API</div>
+                    <div class="span9"><a href="/api/feeds/@Model.Feed.Id">/api/feeds/@Model.Feed.Id</a></div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            <section>
+                <h4>Data Streams</h4>
+                <button class="btn btn-large btn-block btn-primary" type="button">+ Create Data Stream</button>
+            </section>
         </div>
     </div>
 </div>
