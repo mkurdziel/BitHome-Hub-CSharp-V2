@@ -33,7 +33,7 @@
         <h3>Create Feed</h3>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal">
+        <form id="modal-create-form" class="form-horizontal" onsubmit="createFeed(); return false;">
             <div class="control-group">
                 <label class="control-label" for="name">Name</label>
                 <div class="controls">
@@ -43,8 +43,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="javascript:void();" class="btn" onclick="$('#modal-create').modal('hide')">Cancel</a>
-        <a class="btn btn-primary" onclick="createFeed();">Save</a>
+        <a href="javascript:void();" class="btn" onclick="$('#modal-create').modal('hide');">Cancel</a>
+        <button type="submit" class="btn btn-primary" onclick="$('#modal-create-form').submit();">Save</button>
     </div>
 </div>
 
@@ -99,7 +99,8 @@
                 type: 'POST',
                 url: 'api/feeds',
                 data: {
-                    name : name
+                    name : name,
+                    format: 'json'
                 },
                 beforeSend: function () {
                 },

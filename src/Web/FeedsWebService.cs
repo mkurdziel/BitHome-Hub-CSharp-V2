@@ -21,6 +21,7 @@ namespace BitHome.Web
 	public class WebFeedsResponse
 	{
 		public Feed Feed {get; set;}
+		public long? FeedId {get; set;}
 	}
 
 	[ClientCanSwapTemplates]
@@ -35,7 +36,7 @@ namespace BitHome.Web
 
                 if (feed != null)
                 {
-                    return new WebFeedsResponse {Feed = feed};
+                    return new WebFeedsResponse {Feed = feed, FeedId = (long)request.FeedId};
                 }
 
                 return WebHelpers.NotFoundResponse;

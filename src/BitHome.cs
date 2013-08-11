@@ -8,6 +8,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.Common;
 using ServiceStack.Razor;
 using System.Net;
+using ServiceStack.Common.Web;
 
 namespace BitHome
 {
@@ -58,6 +59,7 @@ namespace BitHome
 			Plugins.Add(new RazorFormat());
 
 			SetConfig(new EndpointHostConfig {
+				DefaultContentType = ContentType.Json,
 				CustomHttpHandlers = {
 					{ HttpStatusCode.NotFound, new RazorHandler("/notfound") }
 				}

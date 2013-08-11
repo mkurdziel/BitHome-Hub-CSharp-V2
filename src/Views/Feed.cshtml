@@ -7,6 +7,29 @@
         .align-bottom {
             vertical-align: bottom;
         }
+        #top-right-column {
+	        margin-top: 40px;
+	    }
+	        
+		@@media (max-width: 767px) {
+	        #top-right-column {
+	        	margin-top: 0px;
+	        }
+        }
+       	#datastreams-wrapper {
+       		margin-bottom: 10px;
+       	}
+       	
+        .datastream {
+        	padding: 0 0 5px 0;
+        	font-size: 20px;
+        	border-bottom: 1px solid #ccc;
+        	margin-bottom: 12px;
+        }
+        
+        a.small {
+        	font-size: 14px;
+        }
     </style>
 }
 <div class="bh-section-gray">
@@ -28,7 +51,7 @@
                 </div>
             </div>
             <div class="span6 align-bottom">
-                 <div class="row-fluid">
+                 <div id="top-right-column" class="row-fluid">
                     <div class="span3">Feed URL</div>
                     <div class="span9"><a href="/feeds/@Model.Feed.Id">/feeds/@Model.Feed.Id</a></div>
                 </div>
@@ -46,12 +69,230 @@
         <div class="span6">
             <section>
                 <h4>Data Streams</h4>
-                <button class="btn btn-large btn-block btn-primary" type="button">+ Create Data Stream</button>
+                <div id="datastreams-wrapper">
+                	<!-- Data Stream Row -->
+                	<div id="datastream-template" class="datastream">
+                		<div>
+                			<a id="datastream-link-template" class="datastream-link" data-toggle="collapse" data-target="#datastream-edit-template" href="#">
+		  						<div class="row">
+		    						<p id="datastream-id-template" class="datastream-id span3">Name</p>
+		    						<p id="datastream-value-template" class="datastream-value span3 text-right">Value</p>
+		  						</div>
+							</a> 
+							<div id="datastream-edit-template" class="datastream-edit collapse">
+								<form id="datastream-form-template" accept-charset="UTF-8" class="channel-edit-form" action="#">
+									<div class="row">
+										<div class="span1">
+											<small>Value</small>
+										</div>
+										<div class="span3 text-right">
+  											<input value="10" id="datastream-edit-value-template" name="value" type="text"/>
+  										</div>
+  										<div class="span2 text-right">
+    										<button id="datastream-save-template" type="submit" class="btn btn-primary btn-small" data-loading-text="Saving..."><i class="icon-ok icon-white"></i> Save</button>
+    										<a id="datastream-cancel-template" class="btn btn-small">Cancel</a>
+  										</div>
+  									</div>
+  									<div class="row">
+	  									<div class="span1 offset5">
+	  										<a href="#" class="small" id="datastream-delete-template"><i class="icon-trash"></i> Delete</a>
+	  									</div>
+	  								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+                </div>
+                <button class="btn btn-large btn-block btn-primary" type="button" onclick="showCreateDataStream();">+ Create Data Stream</button>
             </section>
         </div>
     </div>
 </div>
 
+
+<div id="modal-create" class="modal hide fade">
+    <div class="modal-header">
+        <h3>Create Data Stream</h3>
+    </div>
+    <div class="modal-body">
+        <form id="modal-create-form" class="form-horizontal" onsubmit="createDataStream(); return false;">
+            <div class="control-group">
+                <label class="control-label" for="name">Name</label>
+                <div class="controls">
+                    <input id="modal-create-name" name="name" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void();" class="btn" onclick="$('#modal-create').modal('hide');">Cancel</a>
+        <button type="submit" class="btn btn-primary" onclick="$('#modal-create-form').submit();">Save</button>
+    </div>
+</div>
+
 @section Javascript {
-    <script> </script>
+    <script>
+    	var datastreamTemplate = $('#datastream-template');
+    	
+		$(function () {
+			updateDataStreamsTable();
+			
+			setInterval(function () {
+				updateDataStreamValues();
+    		},1000);
+        });
+    
+    	function updateDataStreamsTable() {
+    		var dsWrapper = $('#datastreams-wrapper');
+    		
+    	 	$.ajax({
+                type: 'GET',
+                url: '/api/feeds/@Model.FeedId/datastreams',
+                data: { format: 'json' },
+                beforeSend: function () {
+                	dsWrapper.empty();
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, len = data.length; i < len; ++i) {
+                        dsWrapper.append( createDataStreamHtml(data[i]) );
+                    }
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+    	}
+    	
+    	function updateDataStreamValues() {
+    	   $.ajax({
+                type: 'GET',
+                url: '/api/feeds/@Model.FeedId/datastreams',
+                data: { format: 'json' },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, len = data.length; i < len; ++i) {
+                    	updateDataStreamValue( data[i].Id, data[i].Value);
+                    }
+                }
+            });
+    	}
+    	
+    	function createDataStreamHtml(datastream) {
+    		var data = datastreamTemplate.clone();
+    		
+    		data.attr('id', datastream.Id);
+    		data.find('#datastream-link-template').attr('id', 'datastream-link-' + datastream.Id).attr('data-target', '#datastream-edit-' + datastream.Id);
+    		data.find('#datastream-edit-template').attr('id', 'datastream-edit-' + datastream.Id);
+    		data.find('#datastream-edit-value-template').attr('id', 'datastream-edit-value-' + datastream.Id).val( datastream.Value ? datastream.Value : '' );
+    		data.find('#datastream-id-template').attr('id', 'datastream-id-' + datastream.Id).text(datastream.Id);
+    		data.find('#datastream-value-template').attr('id', 'datastream-value-' + datastream.Id).text(datastream.Value ? datastream.Value : 'No Data Yet');
+    		data.find('#datastream-cancel-template').attr('id', 'datastream-cancel-' + datastream.Id).on('click', function() {
+    			$('#datastream-edit-'+datastream.Id).collapse('hide');
+    			return false;
+    		});
+    	    data.find('#datastream-delete-template').attr('id', 'datastream-delete-' + datastream.Id).on('click', function() {
+    	    	var confirm = window.confirm("Are you sure you want to delete data stream " + datastream.Name + "?");
+    	    	if (confirm==true) {
+    	    		deleteDataStream(datastream.Id);
+  				}
+    			return false;
+    		});	
+    		data.find('#datastream-save-template').attr('id', 'datastream-save-' + datastream.Id);
+    		data.find('#datastream-form-template').attr('id', 'datastream-form-' + datastream.Id).on('submit', function() {
+    			setDataStreamValue(datastream.Id);
+    			return false;
+    		});
+    		
+    		return data;
+    	}
+    	
+		function showCreateDataStream() {
+            $('#modal-create-name').val('');
+            $('#modal-create').modal('show');
+        }
+        
+        function deleteDataStream(datastreamId) {
+        	$('#datastream-save-' + datastreamId).button('loading');
+       
+        	
+            var value = $('#datastream-edit-value-' + datastreamId).val();
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/feeds/@Model.FeedId/datastreams/' + datastreamId,
+                data: {
+                    value : value,
+                    format: 'json'
+                },
+                beforeSend: function () {
+                },
+                success: function (data) {
+					updateDataStreamsTable();
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });	
+        }
+        
+        function setDataStreamValue(datastreamId) {
+        	$('#datastream-save-' + datastreamId).button('loading');
+        	
+            var value = $('#datastream-edit-value-' + datastreamId).val();
+
+            $.ajax({
+                type: 'PUT',
+                url: '/api/feeds/@Model.FeedId/datastreams/' + datastreamId,
+                data: {
+                    value : value,
+                    format: 'json'
+                },
+                beforeSend: function () {
+                },
+                success: function (data) {
+
+                    $('#datastream-edit-'+datastreamId).collapse('hide');
+                    
+  					updateDataStreamValue(datastreamId, data.Value);	
+  					
+		        	// Reset the save button
+		        	$('#datastream-save-' + datastreamId).button('reset');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });	
+        }
+        
+        function updateDataStreamValue(datastreamId, value) {
+        	if ($('#datastream-edit-value-' + datastreamId).is(":focus") == false) {
+            	$('#datastream-edit-value-' + datastreamId).val(value);
+            }
+            $('#datastream-value-' + datastreamId).text(value);
+        }
+
+        function createDataStream() {
+            var name = $('#modal-create-name').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/feeds/@Model.FeedId/datastreams',
+                data: {
+                    id : name,
+                    format: 'json'
+                },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    updateDataStreamsTable();
+
+                    $('#modal-create').modal('hide');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        } 
+    </script>
 }

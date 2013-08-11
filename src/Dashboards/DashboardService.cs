@@ -287,7 +287,9 @@ namespace BitHome.Dashboards
 			StorageService.Store<Dashboard>.WaitForCompletion ();
 			StorageService.Store<DashboardItem>.WaitForCompletion ();
 		}
+
 		#endregion
+
 	}
 }
 

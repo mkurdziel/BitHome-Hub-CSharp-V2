@@ -196,6 +196,7 @@ namespace BitHome.Messaging.Protocol
 	/// <summary>
 	///   Enumeration for data types
 	/// </summary>
+	[Serializable]
 	public enum DataType
 	{
 		/// <summary>

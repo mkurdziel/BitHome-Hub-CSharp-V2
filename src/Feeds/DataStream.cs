@@ -8,9 +8,10 @@ namespace BitHome.Feeds
 	[Serializable]
 	public class DataStream
 	{
-		private SortedSet<DataPoint> m_data = new SortedSet<DataPoint> ();
+		private List<DataPoint> m_dataList = new List<DataPoint>();
 
 		public String Id { get; set; }
+		public String StoreId { get; set; }
 		public DataType DataType { get; set; }
 		public String MinValue { get; set; }
 		public String MaxValue { get; set; }
@@ -28,6 +29,10 @@ namespace BitHome.Feeds
 
 		public String Value {
 			get {
+				if (MostRecent == null && m_dataList.Count > 0) {
+					MostRecent = m_dataList [m_dataList.Count - 1];
+				}
+
 				if (MostRecent != null) {
 					return MostRecent.Value;
 				}
@@ -35,15 +40,20 @@ namespace BitHome.Feeds
 			}
 		}
 
-		public DataStream( String id )
+		public DataStream() {
+			m_dataList = new List<DataPoint> ();
+		}
+
+		public DataStream( String id ) : this()
 		{
 			Id = id;
 			DataType = DataType.STRING;
+
 		}
 
 		public void AddData ( String data ) {
 			DataPoint datapoint = new DataPoint { TimeStamp = DateTime.Now, Value = data };
-			m_data.Add (datapoint);
+			m_dataList.Add (datapoint);
 			MostRecent = datapoint;
 		}
 	}

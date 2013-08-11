@@ -39,22 +39,23 @@ namespace BitHome.WebApi
 	[Route("/api/feeds/{feedId}/datastreams", "POST")]
 	public class WebApiDataStreamsCreate : IReturn<DataStream> {
 		public long FeedId { get; set; }
-		public string DataStreamId { get; set; }
+		public string Id { get; set; }
 	}
 
-	[Route("/api/feeds/{feedId}/datastream/{dataStreamId}", "GET")]
+	[Route("/api/feeds/{feedId}/datastreams/{dataStreamId}", "GET")]
 	public class WebApiDataStream : IReturn<DataStream> {
 		public long FeedId { get; set; }
 		public string DataStreamId { get; set; }
 	}
 
-	[Route("/api/feeds/{feedId}/datastream/{dataStreamId}", "PUT")]
+	[Route("/api/feeds/{feedId}/datastreams/{dataStreamId}", "PUT")]
 	public class WebApiDataStreamUpdate : IReturn<DataStream> {
 		public long FeedId { get; set; }
 		public string DataStreamId { get; set; }
+		public string Value { get; set; }
 	}
 
-	[Route("/api/feeds/{feedId}/datastream/{dataStreamId}", "DELETE")]
+	[Route("/api/feeds/{feedId}/datastreams/{dataStreamId}", "DELETE")]
 	public class WebApiDataStreamDelete : IReturn<DataStream> {
 		public long FeedId { get; set; }
 		public string DataStreamId { get; set; }
@@ -86,7 +87,7 @@ namespace BitHome.WebApi
 			Feed feed = ServiceManager.FeedService.GetFeed(request.FeedId); 
 
 			if (feed != null) {
-				return feed;
+				return new WebFeed(feed);
 			}
 			return WebHelpers.NotFoundResponse;
 		}
@@ -127,7 +128,7 @@ namespace BitHome.WebApi
 			Feed feed = ServiceManager.FeedService.GetFeed(request.FeedId); 
 
 			if (feed != null) {
-				return feed.DataStreams;
+				return feed.GetDataStreams();
 			}
 			return WebHelpers.NotFoundResponse;
 		}
@@ -138,7 +139,7 @@ namespace BitHome.WebApi
 			Feed feed = ServiceManager.FeedService.GetFeed(request.FeedId); 
 
 			if (feed != null) {
-				DataStream dataStream = ServiceManager.FeedService.CreateDataStream (feed.Id, request.DataStreamId);
+				DataStream dataStream = ServiceManager.FeedService.CreateDataStream (feed.Id, request.Id);
 				if (dataStream != null) {
 					return dataStream;
 				}
@@ -168,8 +169,11 @@ namespace BitHome.WebApi
 			if (feed != null) {
 				DataStream dataStream = feed.GetDataStream (request.DataStreamId);
 				if (dataStream != null) {
-					throw new NotImplementedException ();
-//					return dataStream;
+					if (request.Value != null) {
+						ServiceManager.FeedService.SetDataStreamValue (feed, dataStream, request.Value); 
+					}
+
+					return dataStream;
 				}
 			}
 			return WebHelpers.NotFoundResponse;
@@ -183,7 +187,8 @@ namespace BitHome.WebApi
 			if (feed != null) {
 				DataStream dataStream = feed.GetDataStream (request.DataStreamId);
 				if (dataStream != null) {
-					feed.DeleteDataStream (dataStream.Id);
+					ServiceManager.FeedService.DeleteDataStream (feed, dataStream); 
+
 					return dataStream;
 				}
 			}

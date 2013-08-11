@@ -115,3 +115,5 @@ src/test-results/*.xml
 
 *.userprefs
 
+
+src/BitHome.userprefs
