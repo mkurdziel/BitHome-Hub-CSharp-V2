@@ -8,6 +8,7 @@ namespace BitHome.Dashboards
 	{
 		public String Id { get; private set; }
 		public String ActionId { get; set; }
+		public long FeedId { get; set; }
 		public String PositionX { get; set; }
 		public String PositionY { get; set; }
 		public String Name { get; set; }
@@ -19,6 +20,12 @@ namespace BitHome.Dashboards
 			PositionX = "0";
 			PositionY = "0";
 		}
+
+        public DashboardItem(String id, Feeds.Feed feed)
+        {
+			this.Id = id;
+            this.FeedId = feed.Id;
+        }
 	}
 }
 

@@ -54,15 +54,18 @@
         .bithome-control-drag {
         }
 
+        #addfeed-feeds .ui-selecting,
         #addaction-actions .ui-selecting {
             background: #FECA40;
         }
 
+        #addfeed-feeds .ui-selected,
         #addaction-actions .ui-selected {
             background: #F39814;
             color: white;
         }
 
+        #addfeed-feeds,
         #addaction-actions {
             list-style-type: none;
             margin: 0;
@@ -70,6 +73,7 @@
             width: 100%;
         }
 
+            #addfeed-feeds li,
             #addaction-actions li {
                 margin: 3px;
                 padding: 0.4em;
@@ -215,6 +219,26 @@
             <a href="#" class="btn btn-primary" onclick="addActions();">Add</a>
         </div>
     </div>
+
+
+    <div class="modal hide fade" id='addfeed-dashboard-modal'>
+        <div class="modal-header">
+            <h3 id='addfeed-dashboard-title'>Add Feeds To Dashboard</h3>
+        </div>
+        <div class="modal-body">
+            <p>Select a Feed to add.</p>
+            <input type="hidden" id="addfeed-dashboard-id">
+            <div>
+                <ul id='addfeed-feeds'>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#addfeed-dashboard-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="addFeeds();">Add</a>
+        </div>
+    </div>
+
 </div>
 
 @section Javascript {
@@ -376,6 +400,38 @@
             });
         }
 
+
+        function addFeeds() {
+
+            var dashboardId = $('#addfeed-dashboard-id').val();
+            var feedIds = [];
+
+            $('#addfeed-feeds').find('li.ui-selected').each(function (index, value) {
+                var feedId = $(value).attr('feedid');
+
+                feedIds.push(feedId);
+            });
+
+            $.ajax({
+
+                type: 'POST',
+                url: 'api/dashboards/' + dashboardId + '/items',
+                data: {
+                    feedids: JSON.stringify(feedIds)
+                },
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    updateDashboards();
+
+                    $('#addfeed-dashboard-modal').modal('hide');
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
+
         function showDeleteDashboardItem(dashboard, dashboardItem) {
             $('#delete-dashboarditem-title').text('Delete Dashboard Item ' + dashboardItem.Action.Name);
             $('#delete-dashboarditem-id').val(dashboardItem.Id);
@@ -411,6 +467,13 @@
             $('#addaction-dashboard-title').text('Add Action To ' + dashboard.Name);
             $('#addaction-dashboard-id').val(dashboard.Id);
             $('#addaction-dashboard-modal').modal('show');
+        }
+
+        function showAddFeed(dashboard) {
+            updateFeeds();
+            $('#addfeed-dashboard-title').text('Add Feed To ' + dashboard.Name);
+            $('#addfeed-dashboard-id').val(dashboard.Id);
+            $('#addfeed-dashboard-modal').modal('show');
         }
 
         function showCreateDashboard() {
@@ -476,6 +539,38 @@
         }
 
 
+        function updateFeeds() {
+            $.ajax({
+                type: 'GET',
+                url: 'api/feeds',
+                data: { format: 'json' },
+                beforeSend: function () {
+                    $("#addfeed-feeds li").remove();
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, nodelen = data.length; i < nodelen; ++i) {
+                        var feed = data[i];
+
+                        $('#addfeed-feeds').append(
+                            $('<li/>', {
+                                'class': 'ui-widget-content',
+                                'feedid': feed.Id,
+                                'text': feed.Name
+                            })
+                        );
+                    }
+
+                    $("#addfeed-feeds").selectable();
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                },
+                async: false
+            });
+        }
+
+
         function deleteDashboard() {
             var dashboardId = $('#delete-dashboard-id').val();
 
@@ -512,7 +607,7 @@
                 },
                 success: function (data) {
 
-                    updateDashboards()
+                    updateDashboards();
 
                     $('#delete-dashboarditem-modal').modal('hide');
                 },
@@ -534,7 +629,7 @@
                 },
                 success: function (data) {
 
-                    updateDashboards()
+                    updateDashboards();
 
                     $('#rename-dashboard-modal').modal('hide');
                 },
@@ -558,7 +653,7 @@
                 },
                 success: function (data) {
 
-                    updateDashboards()
+                    updateDashboards();
 
                     $('#rename-dashboarditem-modal').modal('hide');
                 },
@@ -645,6 +740,12 @@
             });
             settingsDrop.append($('<li/>').append(addLink));
 
+            var addFeedLink = $('<a/>', { 'href': '#', 'text': 'Add Feed' });
+            addFeedLink.click(function (e) {
+                showAddFeed(dashboard);
+            });
+            settingsDrop.append($('<li/>').append(addFeedLink));
+
             settingsButtonGroup.append(settingsToggle);
             settingsButtonGroup.append(settingsDrop);
 
@@ -686,10 +787,109 @@
                     // failed request; give feedback to user
                 }
             });
-
         }
 
         function createItem(dashboard, dashboardSpace, webDashboardItem) {
+            if (webDashboardItem.Action != null) {
+                createItemFromAction(dashboard, dashboardSpace, webDashboardItem)
+            }
+
+            if (webDashboardItem.Feed != null) {
+                createItemFromFeed(dashboard, dashboardSpace, webDashboardItem)
+            }
+
+        }
+
+        function createItemFromFeed(dashboard, dashboardSpace, webDashboardItem) {
+            var feed = webDashboardItem.Feed;
+            var control = $("<div/>", {
+                'dashboard-item-id': webDashboardItem.Id,
+                'id': 'control_' + feed.Id,
+                'class': 'draggable ui-widget-content bithome-control'
+            });
+
+            control.css('top', webDashboardItem.PositionY + "px");
+            control.css('left', webDashboardItem.PositionX + "px");
+            var name = webDashboardItem.Name ? webDashboardItem.Name : feed.Name;
+
+            var titleBar = $('<div/>', { 'html': '<span>' + name + '<span/>', 'class': 'bithome-control-title bithome-control-drag' });
+            var settingsButton = $('<span/>', {
+                'class': 'dropdown',
+                'html': '<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i></a>'
+            });
+
+            var settingsMenu = $('<ul/>', {
+                'class': 'dropdown-menu',
+                'role': 'menu'
+            });
+
+            var deleteLink = $('<a/>', { 'href': '#', 'text': 'Delete Item' });
+            deleteLink.click(function (e) {
+                showDeleteDashboardItem(dashboard, webDashboardItem);
+            });
+            settingsMenu.append($('<li/>').append(deleteLink));
+
+            var renameLink = $('<a/>', { 'href': '#', 'text': 'Rename Item' });
+            renameLink.click(function (e) {
+                showRenameDashboardItem(dashboard, webDashboardItem);
+            });
+            settingsMenu.append($('<li/>').append(renameLink));
+
+            settingsButton.append(settingsMenu);
+            titleBar.append(settingsButton);
+            control.append(titleBar);
+
+
+            // Create the parameter controls
+            jQuery.each(webDashboardItem.DataStreams, function (index, datastream) {
+                var paramWrap = $("<div/>", {
+                    'class': 'slider-wrapper'
+                });
+
+                var paramCtrl = $("<div/>", {
+                    'id': 'feed_ctrl_' + feed.Id + '_' + datastream.Id,
+                    'datastream-id': datastream.Id,
+                    'feed-id': feed.Id,
+                    'class': 'slider-vertical bithome-parameter'
+                });
+
+                paramCtrl.slider({
+                    orientation: "vertical",
+                    range: "min",
+                    min: datastream.MinValue,
+                    max: datastream.MaxValue,
+                    value: 0,
+                    slide: $.throttle(function (feedId) {
+                        return function () {
+                            executeFeed(feedId);
+                        };
+                    }(feed.Id), 100, false, true)
+                });
+                paramWrap.append(paramCtrl);
+                control.append(paramWrap);
+            });
+
+            //slide: function (actionId) {
+            //return function() {
+            //   $.delay(1).throttle( 100, execute(actionId));
+            //};
+
+            var executeButton = $("<a/>", {
+                'class': 'btn btn-primary btn-medium',
+                'text': 'Execute'
+            });
+            control.append($("<br/>"));
+            control.append(executeButton);
+            executeButton.on("click", function (feedId) {
+                return function () {
+                    executeFeed(feedId);
+                }
+            }(feed.Id));
+
+            dashboardSpace.append(control);
+        }
+
+        function createItemFromAction(dashboard, dashboardSpace, webDashboardItem) {
             var action = webDashboardItem.Action;
             var control = $("<div/>", {
                 'dashboard-item-id': webDashboardItem.Id,
@@ -795,6 +995,32 @@
                 data: {
                     format: 'json',
                     parameters: JSON.stringify(parameters)
+                },
+                beforeSend: function () {
+                    // this is where we append a loading image
+                },
+                success: function (data) {
+                }
+            });
+        }
+
+        function executeFeed(feedId) {
+            var control = $('#control_' + feedId);
+            var parameters = {};
+
+            jQuery.each(control.find('.bithome-parameter'), function (index, param) {
+                var datastreamId = $(param).attr('datastream-id');
+                var value = $(param).slider("option", "value");
+                parameters[datastreamId] = value;
+            });
+
+            $.ajax({
+
+                type: 'PUT',
+                url: 'api/feeds/' + feedId,
+                data: {
+                    format: 'json',
+                    datastreams: JSON.stringify(parameters)
                 },
                 beforeSend: function () {
                     // this is where we append a loading image

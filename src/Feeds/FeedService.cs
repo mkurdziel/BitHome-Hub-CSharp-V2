@@ -199,7 +199,7 @@ namespace BitHome.Feeds
             if (dataStream != null)
             {
                 log.Trace("Setting datastream min value {0}:{1} {2}", feed.Name, dataStream.Id, minValue);
-                dataStream.MaxValue = minValue;
+                dataStream.MinValue = minValue;
                 SaveDataStream(dataStream);
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BitHome.Actions;
+using BitHome.Feeds;
 using ServiceStack.Text;
 using NLog;
 
@@ -132,7 +133,7 @@ namespace BitHome.Dashboards
 			foreach (String actionId in node.Actions.Values) {
 				IAction action = ServiceManager.ActionService.GetAction (actionId);
 
-				DashboardItem dashboardItem = CreateDashboardItem (action);
+				DashboardItem dashboardItem = CreateDashboardItemFromAction (action);
 
 				dashboard.AddItem (dashboardItem);
 			}
@@ -142,7 +143,7 @@ namespace BitHome.Dashboards
 			return dashboard;
 		}
 
-		public DashboardItem CreateDashboardItem(string dashboardId, string actionId) 
+		public DashboardItem CreateDashboardItemFromAction(string dashboardId, string actionId) 
 		{
 			Dashboard dashboard = GetDashboard (dashboardId);
 
@@ -150,7 +151,7 @@ namespace BitHome.Dashboards
 				IAction action = ServiceManager.ActionService.GetAction(actionId);
 
 				if (action != null) {
-					DashboardItem dashboardItem = CreateDashboardItem (action);
+                    DashboardItem dashboardItem = CreateDashboardItemFromAction(action);
 
 					dashboard.AddItem (dashboardItem);
 
@@ -162,7 +163,8 @@ namespace BitHome.Dashboards
 			return null;
 		}
 
-		private DashboardItem CreateDashboardItem(IAction action) {
+        private DashboardItem CreateDashboardItemFromAction(IAction action)
+        {
 
 			DashboardItem dashboardItem = new DashboardItem(StorageService.GenerateKey(), action);
 
@@ -172,6 +174,42 @@ namespace BitHome.Dashboards
 
 			return dashboardItem;
 		}
+
+
+        public DashboardItem CreateDashboardItemFromFeed(string dashboardId, long feedId)
+        {
+            Dashboard dashboard = GetDashboard(dashboardId);
+
+            if (dashboard != null)
+            {
+                Feed feed = ServiceManager.FeedService.GetFeed(feedId);
+
+                if (feed != null)
+                {
+                    DashboardItem dashboardItem = CreateDashboardItemFromFeed(feed);
+
+                    dashboard.AddItem(dashboardItem);
+
+                    SaveDashboard(dashboard);
+
+                    return dashboardItem;
+                }
+            }
+            return null;
+        }
+
+
+        private DashboardItem CreateDashboardItemFromFeed(Feed feed)
+        {
+
+            DashboardItem dashboardItem = new DashboardItem(StorageService.GenerateKey(), feed);
+
+            m_dashboardItems.Add(dashboardItem.Id, dashboardItem);
+
+            SaveDashboardItem(dashboardItem);
+
+            return dashboardItem;
+        }
 
 		public Dashboard CreateDashboard(String name) {
 			Dashboard dashboard = CreateDashboard ();
@@ -290,6 +328,7 @@ namespace BitHome.Dashboards
 
 		#endregion
 
-	}
+
+    }
 }
 

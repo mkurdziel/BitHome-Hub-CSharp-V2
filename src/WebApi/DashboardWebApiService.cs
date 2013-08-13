@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BitHome.Feeds;
 using ServiceStack.ServiceHost;
 using BitHome.Actions;
 using BitHome.Dashboards;
@@ -31,6 +32,7 @@ namespace BitHome.WebApi
 	public class WebApiDashboardItemCreate : IReturn<DashboardItem> {
 		public string DashboardId { get; set; }
 		public string[] ActionIds { get; set; }
+		public long[] FeedIds { get; set; }
 	}
 
 	[Route("/api/dashboards", "GET")]
@@ -76,14 +78,23 @@ namespace BitHome.WebApi
 
 					DashboardItem item = ServiceManager.DashboardService.GetDashboardItem(dashboardItemid);
 
-					IAction action = ServiceManager.ActionService.GetAction (item.ActionId);
-					// TODO optimize this
-					List<IActionParameter> parameters = new List<IActionParameter> ();
-					foreach (String parameterId in action.ParameterIds) {
-						// TODO remove the cast
-						parameters.Add ((IActionParameter)ServiceManager.ActionService.GetParameter (parameterId));
-					}
-					webItems.Add (new WebApiDashboardItem (item, action, parameters.ToArray()));
+                    if (item.ActionId != null) {
+                        IAction action = ServiceManager.ActionService.GetAction (item.ActionId);
+                        // TODO optimize this
+                        List<IActionParameter> parameters = new List<IActionParameter> ();
+                        foreach (String parameterId in action.ParameterIds) {
+                            // TODO remove the cast
+                            parameters.Add ((IActionParameter)ServiceManager.ActionService.GetParameter (parameterId));
+                        }
+                        webItems.Add (new WebApiDashboardItem (item, action, parameters.ToArray()));
+                    } 
+                    else if (item.FeedId != null)
+                    {
+                        Feed feed = ServiceManager.FeedService.GetFeed(item.FeedId);
+                        DataStream[] dataStreams = feed.GetDataStreams();
+
+                        webItems.Add(new WebApiDashboardItem(item, feed, dataStreams));
+                    }
 				}
 
 				return webItems.ToArray ();
@@ -111,13 +122,21 @@ namespace BitHome.WebApi
 		{
 			if (request.ActionIds != null) {
 				foreach (String actionId in request.ActionIds) {
-					ServiceManager.DashboardService.CreateDashboardItem (
+                    ServiceManager.DashboardService.CreateDashboardItemFromAction(
 						request.DashboardId,
 						actionId);
 				}
-				return true;
 			}
-			return false;
+            if (request.FeedIds != null)
+            {
+                foreach (long feedId in request.FeedIds)
+                {
+                    ServiceManager.DashboardService.CreateDashboardItemFromFeed(
+                        request.DashboardId,
+                        feedId);
+                }
+            }
+			return true;
 		}
 
 		public bool Post(WebApiDashboardItemRemove request)

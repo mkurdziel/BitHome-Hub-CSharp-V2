@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using BitHome;
 using BitHome.Feeds;
 using BitHome.Helpers;
+using NLog;
 using ServiceStack.ServiceHost;
 using ServiceStack.Common.Web;
 using System;
@@ -24,7 +26,8 @@ namespace BitHome.WebApi
 	[Route("/api/feeds/{feedId}", "PUT")]
 	public class WebApiFeedUpdate : IReturn<Feed> {
 		public long FeedId { get; set; }
-	}
+        public Dictionary<string, string> DataStreams { get; set; }
+    }
 
 	[Route("/api/feeds/{feedId}", "DELETE")]
 	public class WebApiFeedDelete : IReturn<Feed> {
@@ -65,6 +68,8 @@ namespace BitHome.WebApi
 	
 	public class FeedsWebApiService : ServiceStack.ServiceInterface.Service
 	{
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
 		#region Feed Methods
 
 		// Get all of the feeds
@@ -97,14 +102,22 @@ namespace BitHome.WebApi
 		// Update a feed based on its id
 		public object Put(WebApiFeedUpdate request) 
 		{
-			throw new NotImplementedException ();
-//			Feed feed = ServiceManager.FeedService.GetFeed(request.FeedId); 
-//
-//			if (feed != null) {
-//				return feed;
-//			}
-//			return NotFoundResponse;
-		}
+			Feed feed = ServiceManager.FeedService.GetFeed(request.FeedId); 
+
+			if (feed != null) {
+			    foreach (KeyValuePair<string, string> pair in request.DataStreams)
+			    {
+			        DataStream dataStream = feed.GetDataStream(pair.Key);
+                    if (dataStream != null) {
+                        ServiceManager.FeedService.SetDataStreamValue(feed, dataStream, pair.Value);
+                    } else {
+                        log.Warn("PUT FEED - trying to set value of null datastream");
+                    }
+			    }
+				return feed;
+			}
+            return WebHelpers.NotFoundResponse;
+        }
 
 		// Delete a feed based on its id
 		public object Delete(WebApiFeedUpdate request) 
