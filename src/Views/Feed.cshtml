@@ -94,7 +94,9 @@
   										</div>
   									</div>
   									<div class="row">
-	  									<div class="span1 offset5">
+	  									<div class="span2 offset4 text-right">
+	  										<a href="#" class="small" id="datastream-showedit-template"><i class="icon-pencil"></i> Edit </a>
+                                              &nbsp;
 	  										<a href="#" class="small" id="datastream-delete-template"><i class="icon-trash"></i> Delete</a>
 	  									</div>
 	  								</div>
@@ -127,6 +129,39 @@
     <div class="modal-footer">
         <a href="javascript:void();" class="btn" onclick="$('#modal-create').modal('hide');">Cancel</a>
         <button type="submit" class="btn btn-primary" onclick="$('#modal-create-form').submit();">Save</button>
+    </div>
+</div>
+
+
+<div id="modal-edit" class="modal hide fade">
+    <div class="modal-header">
+        <h3>Edit Data Stream</h3>
+    </div>
+    <div class="modal-body">
+        <form id="modal-edit-form" class="form-horizontal" onsubmit="editDataStream(); return false;">
+            <div class="control-group">
+                <label class="control-label" for="name">Name</label>
+                <div class="controls">
+                    <input id="modal-edit-name" name="name" disabled/>
+                </div>
+            </div>
+             <div class="control-group">
+                <label class="control-label" for="minvalue">Minimum Value</label>
+                <div class="controls">
+                    <input id="modal-edit-minvalue" name="minvalue" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="maxvalue">Maximum Value</label>
+                <div class="controls">
+                    <input id="modal-edit-maxvalue" name="maxvalue" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void();" class="btn" onclick="$('#modal-edit').modal('hide');">Cancel</a>
+        <button type="submit" class="btn btn-primary" onclick="$('#modal-edit-form').submit();">Save</button>
     </div>
 </div>
 
@@ -177,7 +212,7 @@
                 }
             });
     	}
-    	
+
     	function createDataStreamHtml(datastream) {
     		var data = datastreamTemplate.clone();
     		
@@ -198,6 +233,10 @@
   				}
     			return false;
     		});	
+    	    data.find('#datastream-showedit-template').attr('id', 'datastream-showedit-' + datastream.Id).on('click', function () {
+    	        showEditDataStream(datastream.Id);
+    	        return false;
+    	    });
     		data.find('#datastream-save-template').attr('id', 'datastream-save-' + datastream.Id);
     		data.find('#datastream-form-template').attr('id', 'datastream-form-' + datastream.Id).on('submit', function() {
     			setDataStreamValue(datastream.Id);
@@ -211,6 +250,21 @@
             $('#modal-create-name').val('');
             $('#modal-create').modal('show');
         }
+
+		function showEditDataStream(datastreamId) {
+		    $.ajax({
+		        type: 'GET',
+		        url: '/api/feeds/@Model.FeedId/datastreams/' + datastreamId,
+                data: { format: 'json' },
+                async: false,
+                success: function (data) {
+                    $('#modal-edit-name').val(data.Id);
+                    $('#modal-edit-minval').val(data.MinValue);
+                    $('#modal-edit-maxval').val(data.MaxValue);
+                    $('#modal-edit').modal('show');
+                }
+            });
+		}
         
         function deleteDataStream(datastreamId) {
         	$('#datastream-save-' + datastreamId).button('loading');
@@ -236,6 +290,26 @@
             });	
         }
         
+        function editDataStream() {
+            var datastreamId = $('#modal-edit-name').val();
+            var minvalue = $('#modal-edit-minvalue').val();
+            var maxvalue = $('#modal-edit-maxvalue').val();
+
+            $.ajax({
+                type: 'PUT',
+                url: '/api/feeds/@Model.FeedId/datastreams/' + datastreamId,
+                data: {
+                    minvalue : minvalue,
+                    maxvalue : maxvalue,
+                    format: 'json'
+                },
+                success: function (data) {
+                    $('#modal-edit').modal('hide');
+                    $('#datastream-edit-' + datastreamId).collapse('hide');
+                }
+            });
+        }
+
         function setDataStreamValue(datastreamId) {
         	$('#datastream-save-' + datastreamId).button('loading');
         	

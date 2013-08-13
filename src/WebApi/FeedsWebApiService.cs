@@ -53,6 +53,8 @@ namespace BitHome.WebApi
 		public long FeedId { get; set; }
 		public string DataStreamId { get; set; }
 		public string Value { get; set; }
+		public string MinValue { get; set; }
+		public string MaxValue { get; set; }
 	}
 
 	[Route("/api/feeds/{feedId}/datastreams/{dataStreamId}", "DELETE")]
@@ -172,8 +174,14 @@ namespace BitHome.WebApi
 					if (request.Value != null) {
 						ServiceManager.FeedService.SetDataStreamValue (feed, dataStream, request.Value); 
 					}
+                    if (request.MaxValue != null) {
+						ServiceManager.FeedService.SetMaxValue (feed, dataStream, request.MaxValue); 
+                    }
+                    if (request.MinValue != null) {
+						ServiceManager.FeedService.SetMinValue (feed, dataStream, request.MinValue); 
+                    }
 
-					return dataStream;
+				    return dataStream;
 				}
 			}
 			return WebHelpers.NotFoundResponse;

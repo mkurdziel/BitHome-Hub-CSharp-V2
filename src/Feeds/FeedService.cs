@@ -184,6 +184,26 @@ namespace BitHome.Feeds
 			}
 		}
 
+        public void SetMaxValue(Feed feed, DataStream dataStream, string maxValue)
+        {
+            if (dataStream != null)
+            {
+                log.Trace("Setting datastream max value {0}:{1} {2}", feed.Name, dataStream.Id, maxValue);
+                dataStream.MaxValue = maxValue;
+                SaveDataStream(dataStream);
+            }
+        }
+
+        public void SetMinValue(Feed feed, DataStream dataStream, string minValue)
+        {
+            if (dataStream != null)
+            {
+                log.Trace("Setting datastream min value {0}:{1} {2}", feed.Name, dataStream.Id, minValue);
+                dataStream.MaxValue = minValue;
+                SaveDataStream(dataStream);
+            }
+        }
+
 		#region Persistence Methods
 
 		private void SaveFeedList() {
@@ -213,6 +233,8 @@ namespace BitHome.Feeds
 			StorageService.Store<DataStream>.WaitForCompletion ();
 		}
 		#endregion
+
+
 	}
 }
 
