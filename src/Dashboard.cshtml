@@ -260,6 +260,10 @@
 
             updateDashboards();
 
+            setInterval(function () {
+                updateDashboardValues();
+            },1000);
+
             $('#create-dashboard-type-blank').click(function (e) {
                 $('#create-dashboard-nodes').attr('disabled', 'disabled');
             });
@@ -276,6 +280,29 @@
                 value: 60,
             });
         });
+
+        function updateDashboardValues() {
+            if (m_activeDashboard != null) {
+                var dashboardId = $(m_activeDashboard).attr('dashboard-id');
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/dashboards/'+dashboardId+'/values',
+                    data: { format: 'json' },
+                    success: function(data) {
+                        // successful request; do something with the data
+                        for (var i = 0, len = data.length; i < len; ++i) {
+                            updateDashboardItemValue(dashboardId, data[i]);
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateDashboardItemValue(dashboardId, webDashboardValue) {
+            if (webDashboardValue.FeedId != null) {
+                $('#feed_ctrl_' + dashboardId + "_" + webDashboardValue.FeedId + "_" + webDashboardValue.DataStreamId).slider('option', 'value', parseInt(webDashboardValue.Value));
+            }
+        }
 
         function createDraggables() {
             $(".bithome-control").draggable(
@@ -670,6 +697,7 @@
                 // Create the link across the top
                 var link = $('<a/>', {
                     'id': 'dashboard_link_' + dashboard.Id,
+                    'dashboard-id': dashboard.Id,
                     'href': '#dashboard_' + dashboard.Id,
                     'text': dashboard.Name,
                     'data-toggle': 'tab'
@@ -847,7 +875,7 @@
                 });
 
                 var paramCtrl = $("<div/>", {
-                    'id': 'feed_ctrl_' + feed.Id + '_' + datastream.Id,
+                    'id': 'feed_ctrl_' + dashboard.Id + "_" + feed.Id + '_' + datastream.Id,
                     'datastream-id': datastream.Id,
                     'feed-id': feed.Id,
                     'class': 'slider-vertical bithome-parameter'

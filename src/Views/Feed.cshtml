@@ -16,10 +16,12 @@
 	        	margin-top: 0px;
 	        }
         }
+       	#triggers-wrapper,
        	#datastreams-wrapper {
        		margin-bottom: 10px;
        	}
        	
+        .trigger,
         .datastream {
         	padding: 0 0 5px 0;
         	font-size: 20px;
@@ -108,6 +110,33 @@
                 <button class="btn btn-large btn-block btn-primary" type="button" onclick="showCreateDataStream();">+ Create Data Stream</button>
             </section>
         </div>
+        <div class="span6">
+            <section>
+                <h4>Triggers</h4>
+                <div id="triggers-wrapper">
+                    <!-- Triggers Row -->
+                    <div id="trigger-template" class="trigger">
+                        <div>
+                            <a id="trigger-link-template" class="trigger-link" data-toggle="collapse" data-target="#trigger-edit-template" href="#">
+                                <div class="row">
+                                    <p id="trigger-id-template" class="trigger-id span3">Name</p>
+                                </div>
+                            </a> 
+                            <div id="trigger-edit-template" class="trigger-edit collapse">
+                                <div class="row">
+                                    <div class="span2 offset4 text-right">
+                                        <a href="#" class="small" id="trigger-showedit-template"><i class="icon-pencil"></i> Edit </a>
+                                        &nbsp;
+                                        <a href="#" class="small" id="trigger-delete-template"><i class="icon-trash"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-large btn-block btn-primary" type="button" onclick="showCreateTrigger();">+ Create Trigger</button>
+            </section>
+        </div>
     </div>
 </div>
 
@@ -162,6 +191,28 @@
     <div class="modal-footer">
         <a href="javascript:void();" class="btn" onclick="$('#modal-edit').modal('hide');">Cancel</a>
         <button type="submit" class="btn btn-primary" onclick="$('#modal-edit-form').submit();">Save</button>
+    </div>
+</div>
+
+
+<div id="modal-triggercreate" class="modal hide fade">
+    <div class="modal-header">
+        <h3>Create Trigger</h3>
+    </div>
+    <div class="modal-body">
+        <form id="modal-triggercreate-form" class="form-horizontal" onsubmit="createDataStream(); return false;">
+            <div class="control-group">
+                <label class="control-label" for="action">Action</label>
+                <div class="controls">
+                    <select id="modal-triggercreate-actions">
+                    </select>                
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void();" class="btn" onclick="$('#modal-triggercreate').modal('hide');">Cancel</a>
+        <button type="submit" class="btn btn-primary" onclick="$('#modal-create-form').submit();">Save</button>
     </div>
 </div>
 
@@ -265,6 +316,44 @@
                 }
             });
 		}
+
+        function showCreateTrigger() {
+            updateTriggerActions();
+
+		    $('#modal-triggercreate').modal('show');
+        }
+
+        function updateTriggerActions() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/actions/node',
+                data: { format: 'json' },
+                beforeSend: function () {
+                    $("#modal-triggercreate-actions").empty();
+                },
+                success: function (data) {
+                    // successful request; do something with the data
+                    for (var i = 0, nodelen = data.length; i < nodelen; ++i) {
+                        var webNode = data[i];
+
+                        for (var a = 0, actionlen = webNode.Actions.length; a < actionlen; ++a) {
+                            var action = webNode.Actions[a];
+
+                            $('#modal-triggercreate-actions').append(
+                   				$('<option/>', {
+                                    'value' : action.Id,
+                   				    'actionid': action.Id,
+                   				    'text': webNode.Node.Identifier + ' - ' + action.Name
+                   				})
+                   			);
+                        }
+                    }
+                },
+                error: function () {
+                    // failed request; give feedback to user
+                }
+            });
+        }
         
         function deleteDataStream(datastreamId) {
         	$('#datastream-save-' + datastreamId).button('loading');

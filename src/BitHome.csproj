@@ -376,6 +376,7 @@
     <Compile Include="WebApi\NodeWebApiService.cs" />
     <Compile Include="WebApi\FeedsWebApiService.cs" />
     <Compile Include="WebApi\DashboardWebApiService.cs" />
+    <Compile Include="WebApi\WebDashboardValue.cs" />
     <Compile Include="Web\FeedsWebService.cs" />
     <Compile Include="Helpers\WebHelpers.cs" />
     <Compile Include="WebApi\WebFeed.cs" />
