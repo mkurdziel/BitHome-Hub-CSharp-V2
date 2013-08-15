@@ -208,6 +208,7 @@
                     </select>                
                 </div>
             </div>
+            <div id="modal-triggercreate-parameters"></div>
         </form>
     </div>
     <div class="modal-footer">
@@ -216,19 +217,83 @@
     </div>
 </div>
 
+<div id="trigger-param-template" class="control-group input-append" style="display: none;">
+    <label class="control-label">Parameter</label>
+    <div class="controls">
+        <input class="span2" type="text">
+        <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                Constant
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+            </ul>
+        </div>
+    </div>
+</div>
+
 @section Javascript {
     <script>
     	var datastreamTemplate = $('#datastream-template');
+    	var _triggerActions = {};
+    	var _dataStreams = null;
     	
 		$(function () {
 			updateDataStreamsTable();
+
+		    $('#modal-triggercreate-actions').change(function() {
+		        updateTriggerActionParameters();
+		    });
 			
 			setInterval(function () {
 				updateDataStreamValues();
     		},1000);
         });
+
+
     
-    	function updateDataStreamsTable() {
+		function updateTriggerActionParameters() {
+		    var actionId = $('#modal-triggercreate-actions').val();
+		    var paramTemplate = $('#trigger-param-template');
+
+		    if (actionId != null) {
+		        var paramDiv = $('#modal-triggercreate-parameters');
+		        $.ajax({
+		            type: 'GET',
+		            url: '/api/actions/' + actionId + "/parameters",
+		            data: { format: 'json' },
+		            beforeSend: function() {
+		                paramDiv.empty();
+		            },
+		            success: function(data) {
+
+		                var datastreamList = $();
+
+                        // Create the datastream list
+		                for (var k = 0, datastreamLen = _dataStreams.length; k < datastreamLen; ++k) {
+		                    var datastream = _dataStreams[k];
+		                    datastreamList.append($('<li/>', { text: datastream.Id }));
+		                }
+
+
+		                // successful request; do something with the data
+		                for (var i = 0, len = data.length; i < len; ++i) {
+		                    var template = paramTemplate.clone();
+		                    var parameter = data[i];
+
+		                    template.find('.control-label').text(parameter.Name);
+		                    template.find('.dropdown-menu').append(datastreamList);
+
+		                    template.show();
+		                    paramDiv.append(template);
+		                }
+		            },
+		            async: false
+		        });
+		    }
+		}
+
+		function updateDataStreamsTable() {
     		var dsWrapper = $('#datastreams-wrapper');
     		
     	 	$.ajax({
@@ -239,6 +304,7 @@
                 	dsWrapper.empty();
                 },
                 success: function (data) {
+                    _dataStreams = data;
                     // successful request; do something with the data
                     for (var i = 0, len = data.length; i < len; ++i) {
                         dsWrapper.append( createDataStreamHtml(data[i]) );
@@ -319,7 +385,6 @@
 
         function showCreateTrigger() {
             updateTriggerActions();
-
 		    $('#modal-triggercreate').modal('show');
         }
 
@@ -332,6 +397,7 @@
                     $("#modal-triggercreate-actions").empty();
                 },
                 success: function (data) {
+                    _triggerActions = { };
                     // successful request; do something with the data
                     for (var i = 0, nodelen = data.length; i < nodelen; ++i) {
                         var webNode = data[i];
@@ -348,6 +414,7 @@
                    			);
                         }
                     }
+                    updateTriggerActionParameters();
                 },
                 error: function () {
                     // failed request; give feedback to user
