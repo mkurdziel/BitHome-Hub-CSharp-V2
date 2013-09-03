@@ -380,6 +380,8 @@
     <Compile Include="Web\FeedsWebService.cs" />
     <Compile Include="Helpers\WebHelpers.cs" />
     <Compile Include="WebApi\WebFeed.cs" />
+    <Compile Include="Messaging\Messages\MessageDeviceInfoRequest.cs" />
+    <Compile Include="Messaging\Messages\MessageDeviceInfoResponse.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -137,10 +137,12 @@ namespace BitHome.Messaging.Xbee
 
 		public override void SendMessage(MessageBase p_msg, Node p_destinationNode) {
 			log.Trace ("Sending message: {0} to:{1}", p_msg.Api, p_destinationNode.Identifier);
+			log.Trace (p_msg.ToString);
 
 			switch(p_msg.Api)
 			{
 				case BitHomeProtocol.Api.DEVICE_STATUS_REQUEST:
+				case BitHomeProtocol.Api.DEVICE_INFO_REQUEST:
 				case BitHomeProtocol.Api.CATALOG_REQUEST:
 				case BitHomeProtocol.Api.PARAMETER_REQUEST:
 				case BitHomeProtocol.Api.FUNCTION_TRANSMIT:
@@ -358,6 +360,10 @@ namespace BitHome.Messaging.Xbee
 			foreach(string port in portList)
 			{
 				if (port.Contains ("Bluetooth")) {
+					continue;
+				}
+
+				if (port.Contains ("modem")) {
 					continue;
 				}
 

@@ -9,64 +9,33 @@ namespace BitHome.Messaging.Messages
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-        private readonly int m_totalEntries;
-        private readonly int m_entryNumber;
-        private readonly int m_numParams;
-        private readonly DataType m_returnType;
-        private readonly Dictionary<int, DataType> m_paramTypes = new Dictionary<int, DataType>();
-        private readonly string m_functionName;
-
 		public override Api Api {
 			get {
 				return Protocol.Api.CATALOG_RESPONSE;
 			}
 		}
 
-        public int TotalEntries
-        {
-            get { return m_totalEntries; }
-        }
+		public int ActionIndex { get; private set;}
 
-        public int EntryNumber
-        {
-            get { return m_entryNumber; }
-        }
+		public int ParameterCount { get; private set;}
 
-        public int NumberParams
-        {
-            get { return m_numParams; }
-        }
+		public DataType ReturnType { get; private set;}
 
-        public DataType ReturnType
-        {
-            get { return m_returnType; }
-        }
+		public string Name { get; private set; }
 
-        public Dictionary<int, DataType> ParamTypes
-        {
-            get { return m_paramTypes; }
-        }
-
-        public string FunctionName 
-        {
-            get { return m_functionName; }
-        }
+		public byte Options { get; private set; }
 
 		public MessageCatalogResponse (
 			Node p_sourceNode,
-			int p_totalEntries,
 			int p_entryNumber,
 			int p_numParams,
 			DataType p_returnType,
-			Dictionary<int, DataType> p_paramTypes,
-			string p_functionName ) : base (p_sourceNode, null)
+			string p_name ) : base (p_sourceNode, null)
 		{
-			m_totalEntries = p_totalEntries;
-			m_entryNumber = p_entryNumber;
-			m_numParams = p_numParams;
-			m_returnType = p_returnType;
-			m_paramTypes = p_paramTypes;
-			m_functionName = p_functionName;
+			ActionIndex = p_entryNumber;
+			ParameterCount = p_numParams;
+			ReturnType = p_returnType;
+			Name = p_name;
 		}
 
         public MessageCatalogResponse(
@@ -76,34 +45,29 @@ namespace BitHome.Messaging.Messages
             int p_dataOffset) :
             base(p_sourceNode, p_destinationNode)
         {
-
-            m_totalEntries = p_data[p_dataOffset + 2];
-            m_entryNumber = p_data[p_dataOffset + 3];
-            m_numParams = p_data[p_dataOffset + 4];
-
-            log.Trace("entry number: {0}", m_entryNumber);
-
-            if (m_entryNumber != 0)
+            ActionIndex = p_data[p_dataOffset + 2];
+            ReturnType = (DataType)p_data[p_dataOffset + 3];
+            ParameterCount = p_data[p_dataOffset + 4];
+            Options = p_data[p_dataOffset + 5];
+                
+			StringBuilder sbname = new StringBuilder ();
+			int stringIndex = 6;
+			char c;
+            while ((c = (char)p_data[p_dataOffset + (stringIndex++)]) != 0x00)
             {
-                m_returnType = (DataType)p_data[p_dataOffset + 5];
-                for (int i = 0; i < m_totalEntries; ++i)
+                sbname.Append(c);
+                if (stringIndex >= p_data.Length)
                 {
-                    m_paramTypes[i] = (DataType)p_data[p_dataOffset + 6 + i];
+                    log.Warn("Name out of bounds");
                 }
-
-                StringBuilder sbname = new StringBuilder();
-                char c;
-                int stringIndex = 0;
-                while ((c = (char)p_data[p_dataOffset + 6 + m_numParams + (stringIndex++)]) != 0x00)
-                {
-                    sbname.Append(c);
-                    if (stringIndex >= p_data.Length)
-                    {
-                        log.Warn("Name out of bounds");
-                    }
-                }
-                m_functionName = sbname.ToString();
             }
+            Name = sbname.ToString();
         }
+
+		public override string ToString ()
+		{
+			return string.Format ("[MessageCatalogResponse: ActionIndex={1}, ParameterCount={2}, ReturnType={3}, Name={4}, Options={5}]", 
+			                      Api, ActionIndex, ParameterCount, ReturnType, Name, Options);
+		}
     }
 }

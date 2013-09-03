@@ -3,15 +3,15 @@ using BitHomeProtocol = BitHome.Messaging.Protocol;
 
 namespace BitHome.Messaging.Messages
 {
-	public class MessageDeviceStatusRequest : MessageTxBase
+	public class MessageDeviceInfoRequest : MessageTxBase
 	{
 		public override BitHomeProtocol.Api Api {
 			get {
-				return BitHomeProtocol.Api.DEVICE_STATUS_REQUEST;
+				return BitHomeProtocol.Api.DEVICE_INFO_REQUEST;
 			}
 		}
 
-		public MessageDeviceStatusRequest () 
+		public MessageDeviceInfoRequest () 
 		{
 		}
 
@@ -19,14 +19,14 @@ namespace BitHome.Messaging.Messages
 		{
 			byte[] bytes = new byte[2];
 			bytes [0] = (byte)BitHomeProtocol.PacketValues.PACKET_START;
-			bytes [1] = (byte)Api;
+			bytes [1] = (byte)BitHomeProtocol.Api.DEVICE_INFO_REQUEST;
 
 			return bytes;
 		}
 
 		public override string ToString ()
 		{
-			return string.Format ("[MessageDeviceStatusRequest: Api={0}]", Api);
+			return string.Format ("[MessageDeviceInfoRequest: Api={0}]", Api);
 		}
 	}
 }

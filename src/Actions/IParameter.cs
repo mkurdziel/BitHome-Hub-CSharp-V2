@@ -11,7 +11,6 @@ namespace BitHome.Actions
 		String Name { get; set; }
 		String Description { get; set; }
 		DataType DataType {get; set;}
-		ParamValidationType ValidationType { get; set; }
 		Dictionary<int, String> EnumValues { get; set; }
 		String Value { get; }
 		String DependentParameterId { get; set; }

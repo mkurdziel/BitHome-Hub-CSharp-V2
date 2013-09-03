@@ -5,8 +5,9 @@ namespace BitHome
 	public enum NodeInvestigationStatus
 	{
 		Unknown,
+		Status,
 		Info,
-		Function,
+		Action,
 		Parameter,
 		Completed,
 		Timeout

@@ -53,39 +53,39 @@ namespace BitHome.Messaging.Messages
 
             switch (m_nDataType)
             {
-                case DataType.BOOL:
-                    //m_bValue = (p_data[nPayloadIdx] == 0) ? false : true;
-                    //m_strTypeName = "BOOL";
-                    break;
-                case DataType.BYTE:
-                    nConversionLengthInBytes = 1;
-                    DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
-                    //m_bIsInteger = true;
-                    //m_strTypeName = "BYTE";
-                    break;
-                case DataType.STRING:
-                    DataHelpers.GatherZeroTermString(p_data, nPayloadIdx, out m_strValue);
-                    //m_strTypeName = "STRING";
-                    break;
-                case DataType.DWORD:
-                    nConversionLengthInBytes = 3;
-                    DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
-                    //m_bIsInteger = true;
-                    //m_strTypeName = "DWORD";
-                    break;
-                case DataType.VOID:
-                    //m_strTypeName = "VOID";
-                    break;
-                case DataType.WORD:
-                    nConversionLengthInBytes = 2;
-                    DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
-                    //m_bIsInteger = true;
-                    //m_strTypeName = "WORD";
-                    break;
-                default:
-                    log.Warn("Unexpected DATA_TYPE value parsed from SyNetFunctionReceive message");
-                    //m_strTypeName = "{unknown}";
-                    break;
+//                case DataType.BOOL:
+//                    //m_bValue = (p_data[nPayloadIdx] == 0) ? false : true;
+//                    //m_strTypeName = "BOOL";
+//                    break;
+//                case DataType.BYTE:
+//                    nConversionLengthInBytes = 1;
+//                    DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
+//                    //m_bIsInteger = true;
+//                    //m_strTypeName = "BYTE";
+//                    break;
+//                case DataType.STRING:
+//                    DataHelpers.GatherZeroTermString(p_data, nPayloadIdx, out m_strValue);
+//                    //m_strTypeName = "STRING";
+//                    break;
+//                case DataType.DWORD:
+//                    nConversionLengthInBytes = 3;
+//                    DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
+//                    //m_bIsInteger = true;
+//                    //m_strTypeName = "DWORD";
+//                    break;
+//                case DataType.VOID:
+//                    //m_strTypeName = "VOID";
+//                    break;
+//                case DataType.WORD:
+//                    nConversionLengthInBytes = 2;
+//                    DataHelpers.LoadValueGivenWidth(p_data, nPayloadIdx, nConversionLengthInBytes, out m_nValue);
+//                    //m_bIsInteger = true;
+//                    //m_strTypeName = "WORD";
+//                    break;
+//                default:
+//                    log.Warn("Unexpected DATA_TYPE value parsed from SyNetFunctionReceive message");
+//                    //m_strTypeName = "{unknown}";
+//                    break;
             }
         }
     }

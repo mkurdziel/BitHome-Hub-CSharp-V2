@@ -26,28 +26,36 @@ namespace BitHome
 		public NodeInvestigationStatus InvestigationStatus { get; set; }
 
 		public bool IsUnknown { get; set; }
-		public bool IsBeingInvestigated { get; set; }
+		public bool IsBeingInvestigated { 
+			get {
+				return InvestigationStatus != NodeInvestigationStatus.Completed;
+			}
+		}
 
 		public NodeType NodeType { get; set; }
 		public String MetaDataKey { get; set; }
 
-		public Int16 Revision { get; set; }
+		public Version Revision { get; set; }
+
 		public DateTime TimeNextInvestigation { get; set; }
 		public int InvestigationRetries { get; set; }
 
 		public int TotalNumberOfActions { get; set; }
+		public UInt16 ManufacturerId { get; set; }
+
+		public List<UInt16> Interfaces { get; set; }
 
 		public Dictionary<int, String> Actions { get; private set; }
 
         [IgnoreDataMember]
 		public int NextUnknownAction {
 			get { 
-				for (int i=1; i<=TotalNumberOfActions; ++i) {
+				for (int i=0; i<TotalNumberOfActions; ++i) {
 					if (!Actions.ContainsKey (i)) {
 						return i;
 					}
 				}
-				return 0; 
+				return -1; 
 			}
 		}
 
@@ -57,14 +65,14 @@ namespace BitHome
 				INodeAction action;
 				int paramNum;
 		
-				for ( int i=1; i <= TotalNumberOfActions; ++i)
+				for ( int i=0; i < TotalNumberOfActions; ++i)
 				{
 					if (Actions.ContainsKey (i)) {
 						action = (INodeAction)ServiceManager.ActionService.GetAction (Actions [i]);
 
 						paramNum = action.NextUnknownParameter;
 
-						if ( paramNum != 0)
+						if ( paramNum != -1)
 						{
 							return new Tuple<byte, byte>((byte)i, (byte)paramNum);
 						}
@@ -111,11 +119,10 @@ namespace BitHome
 			this.Actions = new Dictionary<int, string> ();
 			this.InvestigationStatus = NodeInvestigationStatus.Unknown;
 			IsUnknown = true;
-			IsBeingInvestigated = false;
 			Name = UNKNOWN_NAME;
 			TotalNumberOfActions = -1;
 
-			Revision = -1;
+			Revision = null;
 		}
 
 		public String GetActionId ( int actionIndex ) {

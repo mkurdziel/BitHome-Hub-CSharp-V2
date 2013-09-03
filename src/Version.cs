@@ -25,6 +25,16 @@ namespace BitHome
 			MajorVersion = majorVersion;
 		}
 
+		public static bool operator > (Version v1, Version v2) 
+		{
+			return v1.CompareTo (v2) > 0;
+		}
+
+		public static bool operator < (Version v1, Version v2) 
+		{
+			return v1.CompareTo (v2) < 0;
+		}
+
 		#region IComparable implementation
 		public int CompareTo (object obj)
 		{

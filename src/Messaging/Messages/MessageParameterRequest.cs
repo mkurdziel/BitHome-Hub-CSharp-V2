@@ -36,6 +36,12 @@ namespace BitHome.Messaging.Messages
 		}
 
 		#endregion
+
+		public override string ToString ()
+		{
+			return string.Format ("[MessageParameterRequest: ActionIndex={0}, ParameterIndex={1}]", 
+			                      ActionIndex, ParameterIndex);
+		}
 	}
 }
 

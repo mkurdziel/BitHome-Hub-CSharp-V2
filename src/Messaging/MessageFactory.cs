@@ -2,6 +2,7 @@ using System;
 using BitHome.Messaging;
 using BitHome.Messaging.Messages;
 using NLog;
+using System.Text;
 
 namespace BitHome.Messaging
 {
@@ -32,6 +33,16 @@ namespace BitHome.Messaging
 					log.Trace ("Device Status Response");
                     return new MessageDeviceStatusResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
 				}
+			case (byte)Protocol.Api.DEVICE_INFO_REQUEST:
+				{
+					log.Trace ("Device Info Request");
+				}
+				break;
+			case (byte)Protocol.Api.DEVICE_INFO_RESPONSE:
+				{
+					log.Trace ("Device Info Response");
+					return new MessageDeviceInfoResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
+				}
 			case (byte)Protocol.Api.BOOTLOAD_TRANSMIT:
 				{
 					log.Trace ("Bootload Transmit");
@@ -41,15 +52,6 @@ namespace BitHome.Messaging
 				{
 					log.Trace ("Bootload Response");
                     return new MessageBootloadResponse(p_sourceNode, p_destNode, p_data, p_startIndex);
-				}
-			case (byte)Protocol.Api.SETINFO:
-				{
-					log.Trace ("Set Info");
-				}
-				break;
-			case (byte)Protocol.Api.SETINFO_RESPONSE:
-				{
-					log.Trace ("Set Info Response");
 				}
 				break;
 			case (byte)Protocol.Api.CATALOG_REQUEST:
@@ -96,6 +98,11 @@ namespace BitHome.Messaging
 			default:
 				{
 				log.Warn ("Received function with invalid API: 0x{0:X}", p_data[p_startIndex+(int)Protocol.Indexes.API]);
+					System.Text.StringBuilder sb = new StringBuilder ();
+					foreach (byte data in p_data) {
+						sb.Append(String.Format("{0:X2}", data));
+					}
+					log.Debug("Message Data: {0}", sb.ToString()); 
 				}
 				break;
 			}

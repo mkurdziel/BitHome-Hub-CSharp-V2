@@ -14,12 +14,11 @@ namespace BitHome.Actions
 			String id,
 			String name,
 			DataType dataType,
-			ParamValidationType validationType,
 			Int64 minValue,
 			Int64 maxValue,
 			Dictionary<String, int> enumValues,
 			String actionId ) :
-			base (id, name, dataType, validationType, minValue, maxValue, enumValues)
+			base (id, name, dataType, minValue, maxValue, enumValues)
 		{
 			ActionId = actionId;
 			ParameterType = ActionParameterType.Input;

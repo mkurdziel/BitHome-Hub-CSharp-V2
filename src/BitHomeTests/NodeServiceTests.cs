@@ -103,20 +103,40 @@ namespace BitHomeTests
 
 			ServiceManager.NodeService.AddNode (testNode);
 
-			// See if we've gotten an info investigation
+			// Wait for the node service to crank
+			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+
+			// See if we've gotten an status investigation
 			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
 
 			// Make sure that an investigation info request was sent out
 			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.DEVICE_STATUS_REQUEST);
-			Assert.AreEqual (((MessageDeviceStatusRequest)msg).RequestType , BitHome.Messaging.Protocol.DeviceStatusRequest.INFO_REQUEST);
 			Assert.AreEqual (msg.DestinationNode.Id , baseNode.Id);
 			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
 
 			// Return a device status response
-			msg = new MessageDeviceStatusResponse (
+			msg = new MessageDeviceStatusResponse (testNode, DeviceStatusValue.ACTIVE, 1, baseNode.Revision);
+			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+
+			// Wait for the node service to crank
+			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+
+			// See if we've gotten an info investigation
+			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+			Assert.NotNull (msg);
+
+			// Make sure that an investigation info request was sent out
+			Assert.AreEqual (BitHome.Messaging.Protocol.Api.DEVICE_INFO_REQUEST, msg.Api);
+			Assert.AreEqual (baseNode.Id, msg.DestinationNode.Id);
+			Assert.AreEqual (0, ServiceManager.MessageDispatcherService.MessageOutQueueCount);
+
+			// Return a device status response
+			msg = new MessageDeviceInfoResponse (
 				testNode, 
-				BitHome.Messaging.Protocol.DeviceStatusValue.INFO,
-				(UInt16)baseNode.Revision);
+				baseNode.ManufacturerId, 
+				(byte)baseNode.TotalNumberOfActions, 
+				0, null);
+
 			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
 
 			// Wait a sec for the message to be propagated
@@ -125,48 +145,21 @@ namespace BitHomeTests
 			// Check that we are investigating
 			Assert.IsTrue (ServiceManager.NodeService.IsInvestigating);
 
-			// Check for a catalog response
-			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
-			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.CATALOG_REQUEST);
-			Assert.AreEqual (((MessageCatalogRequest)msg).FunctionNum , 0);
-			Assert.AreEqual (msg.DestinationNode.Id , baseNode.Id);
-			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
-
-			// Respond with the default catalog
-			msg = new MessageCatalogResponse (
-				testNode,
-				baseNode.Actions.Count,
-				0,
-				0,
-				BitHome.Messaging.Protocol.DataType.VOID,
-				null,
-				null);
-
-			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
-
-			// Wait a sec for the message to be propagated
-			Thread.Sleep (TimeSpan.FromMilliseconds (10));
-
-			for (int actionNum = 1; actionNum <= baseNode.Actions.Count; actionNum++) {
+			for (int actionNum = 0; actionNum < baseNode.Actions.Count; actionNum++) {
 				INodeAction action = m_testActions[baseNode.GetActionId (actionNum)];
 
 				// Check for a catalog request 1
 				msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+				Assert.NotNull (msg);
 				Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.CATALOG_REQUEST);
-				Assert.AreEqual (((MessageCatalogRequest)msg).FunctionNum , action.ActionIndex);
+				Assert.AreEqual (((MessageCatalogRequest)msg).ActionIndex , action.ActionIndex);
 				Assert.AreEqual (msg.DestinationNode.Id , baseNode.Id);
 				Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
 
 
 				// Respond with catalog 
 				msg = new MessageCatalogResponse (
-					testNode,
-					baseNode.Actions.Count,
-					action.ActionIndex,
-					action.TotalParameterCount,
-					action.ReturnDataType,
-					new Dictionary<int, BitHome.Messaging.Protocol.DataType>(),
-					action.Name);
+					testNode, action.ActionIndex, action.TotalParameterCount, action.ReturnDataType, action.Name);
 
 				ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
 				
@@ -174,11 +167,11 @@ namespace BitHomeTests
 				Thread.Sleep (TimeSpan.FromMilliseconds (10));
 			}
 
-			for (int actionNum = 1; actionNum <= baseNode.Actions.Count; actionNum++) {
+			for (int actionNum = 0; actionNum < baseNode.Actions.Count; actionNum++) {
 				INodeAction action = m_testActions[baseNode.GetActionId (actionNum)];
 
 
-				for (int paramNum = 1; paramNum <= action.ParameterCount; paramNum++) {
+				for (int paramNum = 0; paramNum < action.ParameterCount; paramNum++) {
 					INodeParameter param = m_testParams[action.GetParameterId (paramNum)];
 
 					msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
@@ -195,7 +188,6 @@ namespace BitHomeTests
 						param.ParameterIndex,
 						param.Name,
 						param.DataType,
-						param.ValidationType,
 						param.MinimumValue,
 						param.MaximumValue, 
 						null);
@@ -206,6 +198,8 @@ namespace BitHomeTests
 					Thread.Sleep (TimeSpan.FromMilliseconds (10));
 				}
 			}
+
+			Thread.Sleep (TimeSpan.FromMilliseconds (10));
 		}
 
 	
@@ -219,29 +213,47 @@ namespace BitHomeTests
 
 			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
 
-			// Make sure that an initial info request was sent out
+			// Make sure that an initial status request was sent out
 			Assert.AreEqual (msg.Api, BitHome.Messaging.Protocol.Api.DEVICE_STATUS_REQUEST);
-			Assert.AreEqual (((MessageDeviceStatusRequest)msg).RequestType , BitHome.Messaging.Protocol.DeviceStatusRequest.INFO_REQUEST);
 			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
 
 			// Create a test node
 			Node testNode = new TestNode();
 			ServiceManager.NodeService.AddNode (testNode);
 
-			// See if we've gotten an info investigation
+			// Wait for the node service to pick up the new node
+			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+
+			// See if we've gotten an status investigation
 			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
 
 			// Make sure that an investigation info request was sent out
 			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.DEVICE_STATUS_REQUEST);
-			Assert.AreEqual (((MessageDeviceStatusRequest)msg).RequestType , BitHome.Messaging.Protocol.DeviceStatusRequest.INFO_REQUEST);
 			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
 			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
 
 			// Return a device status response
-			msg = new MessageDeviceStatusResponse (
+			msg = new MessageDeviceStatusResponse (testNode, DeviceStatusValue.ACTIVE, 1, testNode.Revision);
+			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+
+			// Wait for the node service to crank
+			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+
+			// See if we've gotten an info investigation
+			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+
+			// Make sure that an investigation info request was sent out
+			Assert.AreEqual (BitHome.Messaging.Protocol.Api.DEVICE_INFO_REQUEST, msg.Api);
+			Assert.AreEqual (testNode.Id, msg.DestinationNode.Id);
+			Assert.AreEqual (0, ServiceManager.MessageDispatcherService.MessageOutQueueCount);
+
+			// Return a device status response
+			msg = new MessageDeviceInfoResponse (
 				testNode, 
-				BitHome.Messaging.Protocol.DeviceStatusValue.INFO,
-				1);
+				testNode.ManufacturerId, 
+				(byte)testNode.TotalNumberOfActions, 
+				0, null);
+
 			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
 
 			// Wait a sec for the message to be propagated
@@ -253,153 +265,153 @@ namespace BitHomeTests
 			// Check for a catalog response
 			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
 			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.CATALOG_REQUEST);
-			Assert.AreEqual (((MessageCatalogRequest)msg).FunctionNum , 0);
+			Assert.AreEqual (((MessageCatalogRequest)msg).ActionIndex , 0);
 			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
 			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
 
-			// Respond with the default catalog
-			msg = new MessageCatalogResponse (
-				testNode,
-				2,
-				0,
-				0,
-				BitHome.Messaging.Protocol.DataType.VOID,
-				null,
-				null);
-			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
-
-			// Wait a sec for the message to be propagated
-			Thread.Sleep (TimeSpan.FromMilliseconds (10));
-
-			// Check for a catalog request 1
-			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
-			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.CATALOG_REQUEST);
-			Assert.AreEqual (((MessageCatalogRequest)msg).FunctionNum , 1);
-			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
-			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
-
-			// Respond with catalog 1
-			msg = new MessageCatalogResponse (
-				testNode,
-				2,
-				1,
-				1,
-				BitHome.Messaging.Protocol.DataType.VOID,
-				new Dictionary<int, BitHome.Messaging.Protocol.DataType>(){{1,BitHome.Messaging.Protocol.DataType.WORD}},
-			"Function 1");
-			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
-
-			// Check for a catalog request 2
-			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
-			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.CATALOG_REQUEST);
-			Assert.AreEqual (((MessageCatalogRequest)msg).FunctionNum , 2);
-			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
-			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
-
-			// Respond with catalog 2
-			msg = new MessageCatalogResponse (
-				testNode,
-				2,
-				2,
-				2,
-				BitHome.Messaging.Protocol.DataType.BYTE,
-				new Dictionary<int, BitHome.Messaging.Protocol.DataType>(){
-				{1,BitHome.Messaging.Protocol.DataType.WORD},
-				{2,BitHome.Messaging.Protocol.DataType.DWORD}
-			},
-			"Function 1");
-			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
-
-
-			// Wait a sec for the message to be propagated
-			Thread.Sleep (TimeSpan.FromMilliseconds (10));
-
-			// Check for a parameter request 1,1
-			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
-			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.PARAMETER_REQUEST);
-			Assert.AreEqual (1, ((MessageParameterRequest)msg).ActionIndex);
-			Assert.AreEqual (1, ((MessageParameterRequest)msg).ParameterIndex);
-			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
-			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
-
-			// Respond with parameter 1
-			msg = new MessageParameterResponse (
-				testNode,
-				1,
-				1,
-				"action 1 param 1",
-				BitHome.Messaging.Protocol.DataType.WORD,
-				BitHome.Messaging.Protocol.ParamValidationType.UNSIGNED_RANGE,
-				0,
-				2000, 
-				null);
-
-			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
-
-			// Wait a sec for the message to be propagated
-			Thread.Sleep (TimeSpan.FromMilliseconds (10));
-
-			// Check for a parameter request 2,1
-			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
-			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.PARAMETER_REQUEST);
-			Assert.AreEqual (((MessageParameterRequest)msg).ActionIndex, 2);
-			Assert.AreEqual (((MessageParameterRequest)msg).ParameterIndex, 1);
-			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
-			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
-
-			// Respond with parameter 1
-			msg = new MessageParameterResponse (
-				testNode,
-				2,
-				1,
-				"action 2 param 1",
-				BitHome.Messaging.Protocol.DataType.WORD,
-				BitHome.Messaging.Protocol.ParamValidationType.UNSIGNED_RANGE,
-				0,
-				2000, 
-				null);
-
-			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
-
-			// Wait a sec for the message to be propagated
-			Thread.Sleep (TimeSpan.FromMilliseconds (10));
-
-			// Check for a parameter request 2,2
-			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
-			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.PARAMETER_REQUEST);
-			Assert.AreEqual (((MessageParameterRequest)msg).ActionIndex, 2);
-			Assert.AreEqual (((MessageParameterRequest)msg).ParameterIndex, 2);
-			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
-			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
-
-			// Respond with parameter 2
-			msg = new MessageParameterResponse (
-				testNode,
-				2,
-				2,
-				"action 2 param 2",
-				BitHome.Messaging.Protocol.DataType.DWORD,
-				BitHome.Messaging.Protocol.ParamValidationType.SIGNED_RANGE,
-				10,
-				4000, 
-				null);
-
-			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
-
-			// Wait a sec for the investigation to complete
-			Thread.Sleep (TimeSpan.FromSeconds (1));
-
-			Assert.AreEqual (NodeInvestigationStatus.Completed, testNode.InvestigationStatus);
-
-			// Check that we are not investigating
-			Assert.IsFalse (ServiceManager.NodeService.IsInvestigating);
+//			// Respond with the default catalog
+//			msg = new MessageCatalogResponse (
+//				testNode,
+//				2,
+//				0,
+//				0,
+//				BitHome.Messaging.Protocol.DataType.VOID,
+//				null,
+//				null);
+//			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+//
+//			// Wait a sec for the message to be propagated
+//			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+//
+//			// Check for a catalog request 1
+//			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+//			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.CATALOG_REQUEST);
+//			Assert.AreEqual (((MessageCatalogRequest)msg).FunctionNum , 1);
+//			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
+//			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
+//
+//			// Respond with catalog 1
+//			msg = new MessageCatalogResponse (
+//				testNode,
+//				2,
+//				1,
+//				1,
+//				BitHome.Messaging.Protocol.DataType.VOID,
+//				new Dictionary<int, BitHome.Messaging.Protocol.DataType>(){{1,BitHome.Messaging.Protocol.DataType.WORD}},
+//			"Function 1");
+//			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+//
+//			// Check for a catalog request 2
+//			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+//			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.CATALOG_REQUEST);
+//			Assert.AreEqual (((MessageCatalogRequest)msg).FunctionNum , 2);
+//			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
+//			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
+//
+//			// Respond with catalog 2
+//			msg = new MessageCatalogResponse (
+//				testNode,
+//				2,
+//				2,
+//				2,
+//				BitHome.Messaging.Protocol.DataType.BYTE,
+//				new Dictionary<int, BitHome.Messaging.Protocol.DataType>(){
+//				{1,BitHome.Messaging.Protocol.DataType.WORD},
+//				{2,BitHome.Messaging.Protocol.DataType.DWORD}
+//			},
+//			"Function 1");
+//			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+//
+//
+//			// Wait a sec for the message to be propagated
+//			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+//
+//			// Check for a parameter request 1,1
+//			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+//			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.PARAMETER_REQUEST);
+//			Assert.AreEqual (1, ((MessageParameterRequest)msg).ActionIndex);
+//			Assert.AreEqual (1, ((MessageParameterRequest)msg).ParameterIndex);
+//			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
+//			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
+//
+//			// Respond with parameter 1
+//			msg = new MessageParameterResponse (
+//				testNode,
+//				1,
+//				1,
+//				"action 1 param 1",
+//				BitHome.Messaging.Protocol.DataType.WORD,
+//				BitHome.Messaging.Protocol.ParamValidationType.UNSIGNED_RANGE,
+//				0,
+//				2000, 
+//				null);
+//
+//			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+//
+//			// Wait a sec for the message to be propagated
+//			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+//
+//			// Check for a parameter request 2,1
+//			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+//			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.PARAMETER_REQUEST);
+//			Assert.AreEqual (((MessageParameterRequest)msg).ActionIndex, 2);
+//			Assert.AreEqual (((MessageParameterRequest)msg).ParameterIndex, 1);
+//			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
+//			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
+//
+//			// Respond with parameter 1
+//			msg = new MessageParameterResponse (
+//				testNode,
+//				2,
+//				1,
+//				"action 2 param 1",
+//				BitHome.Messaging.Protocol.DataType.WORD,
+//				BitHome.Messaging.Protocol.ParamValidationType.UNSIGNED_RANGE,
+//				0,
+//				2000, 
+//				null);
+//
+//			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+//
+//			// Wait a sec for the message to be propagated
+//			Thread.Sleep (TimeSpan.FromMilliseconds (10));
+//
+//			// Check for a parameter request 2,2
+//			msg = ServiceManager.MessageDispatcherService.TakeNextMessageOut ();
+//			Assert.AreEqual (msg.Api , BitHome.Messaging.Protocol.Api.PARAMETER_REQUEST);
+//			Assert.AreEqual (((MessageParameterRequest)msg).ActionIndex, 2);
+//			Assert.AreEqual (((MessageParameterRequest)msg).ParameterIndex, 2);
+//			Assert.AreEqual (msg.DestinationNode.Id , testNode.Id);
+//			Assert.AreEqual (ServiceManager.MessageDispatcherService.MessageOutQueueCount , 0);
+//
+//			// Respond with parameter 2
+//			msg = new MessageParameterResponse (
+//				testNode,
+//				2,
+//				2,
+//				"action 2 param 2",
+//				BitHome.Messaging.Protocol.DataType.DWORD,
+//				BitHome.Messaging.Protocol.ParamValidationType.SIGNED_RANGE,
+//				10,
+//				4000, 
+//				null);
+//
+//			ServiceManager.MessageDispatcherService.ReceiveMessage (msg);
+//
+//			// Wait a sec for the investigation to complete
+//			Thread.Sleep (TimeSpan.FromSeconds (1));
+//
+//			Assert.AreEqual (NodeInvestigationStatus.Completed, testNode.InvestigationStatus);
+//
+//			// Check that we are not investigating
+//			Assert.IsFalse (ServiceManager.NodeService.IsInvestigating);
 		}
 
 	
 	public static void ValidateNode(TestNode baseNode, TestNode testNode) {
 		Assert.AreEqual(baseNode, testNode);
 
-		for (int actionIndex = 1; actionIndex <= baseNode.TotalNumberOfActions; actionIndex++) {
+		for (int actionIndex = 0; actionIndex < baseNode.TotalNumberOfActions; actionIndex++) {
 			String baseActionId = baseNode.GetActionId (actionIndex);
 			String testActionId = testNode.GetActionId (actionIndex);
 
@@ -409,7 +421,7 @@ namespace BitHomeTests
 			// Make sure they are equal  (IDs will be different)
 			Assert.IsTrue (baseAction.EqualsExceptId (testAction));
 
-			for (int parameterIndex = 1; parameterIndex <= baseAction.ParameterCount; parameterIndex++) {
+			for (int parameterIndex = 0; parameterIndex < baseAction.ParameterCount; parameterIndex++) {
 				String baseParamId = ((NodeAction)baseAction).GetParameterId(parameterIndex);
 				String testParamId = ((NodeAction)testAction).GetParameterId(parameterIndex);
 
@@ -433,14 +445,17 @@ namespace BitHomeTests
 		// Random name
 		node.Name = StorageService.GenerateKey();
 
-		node.Revision = (short)random.Next (1,100);
+		node.Revision = new BitHome.Version ();
+		node.Revision.MajorVersion = (byte)random.Next (1,100);
+		node.Revision.MinorVersion = (byte)random.Next (1,100);
+			node.ManufacturerId = (UInt16)random.Next (1, 1000);
 
 		// Generate the actions
 		int actionCount = random.Next (1, 20);
 
 		node.TotalNumberOfActions = actionCount;
 
-		for (int i=1; i<=actionCount; i++) {
+		for (int i=0; i<actionCount; i++) {
 			INodeAction action = GenerateTestNodeAction (node.Id, i);
 
 			node.SetNodeAction (i, action.Id);
@@ -465,7 +480,7 @@ namespace BitHomeTests
 			returnType,
 			paramCount);
 
-		for (int i=1; i<=paramCount; i++) {
+		for (int i=0; i<paramCount; i++) {
 			INodeParameter param = GenerateTestNodeParameter (nodeId, actionIndex, i, action.Id);
 
 			action.AddNodeParameter (param);
@@ -481,7 +496,6 @@ namespace BitHomeTests
 
 		DataType dataType = (DataType)random.Next (1, 6);
 		int paramCount = random.Next (0, 20);
-		ParamValidationType validationType = ParamValidationType.UNSIGNED_RANGE;
 
 		INodeParameter param = new NodeParameter(
 			nodeId,
@@ -490,7 +504,6 @@ namespace BitHomeTests
 			StorageService.GenerateKey(),
 			StorageService.GenerateKey(),
 			dataType,
-			validationType,
 			random.Next (0,100),
 			random.Next (200,2000),
 			null,

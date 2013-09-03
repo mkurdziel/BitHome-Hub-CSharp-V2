@@ -15,55 +15,20 @@ namespace BitHome.Messaging.Protocol
 	}
 
 	/// <summary>
-	///   Enumeration for parameter validation types
-	/// </summary>
-	public enum ParamValidationType
-	{
-		/// <summary>
-		///   Unsigned range
-		/// </summary>
-		UNSIGNED_RANGE = 1,
-		/// <summary>
-		///   Enumerated values
-		/// </summary>
-		ENUMERATED = 2,
-		/// <summary>
-		///   String with maximum length
-		/// </summary>
-		STRING = 3,
-		/// <summary>
-		///   Boolean
-		/// </summary>
-		BOOL = 4,
-		/// <summary>
-		///   Signed full range
-		/// </summary>
-		SIGNED_RANGE = 11,
-		/// <summary>
-		///   DateTime value (always underlying QWORD Type!)
-		/// </summary>
-		DATE_TIME = 20,
-		/// <summary>
-		///   Unknown
-		/// </summary>
-		UNKNOWN
-	}
-
-	/// <summary>
 	///   Enumeration for the SyNet API
 	/// </summary>
 	public enum Api
 	{
 		DEVICE_STATUS_REQUEST = 0x02,
 		DEVICE_STATUS_RESPONSE = 0x03,
-		BOOTLOAD_TRANSMIT = 0x04,
-		BOOTLOAD_RESPONSE = 0x05,
-		SETINFO = 0x0A,
-		SETINFO_RESPONSE = 0x0B,
+		DEVICE_INFO_REQUEST = 0x04,
+		DEVICE_INFO_RESPONSE = 0x05,
 		CATALOG_REQUEST = 0x10,
 		CATALOG_RESPONSE = 0x11,
 		PARAMETER_REQUEST = 0x12,
 		PARAMETER_RESPONSE = 0x13,
+		BOOTLOAD_TRANSMIT = 0x20,
+		BOOTLOAD_RESPONSE = 0x21,
 		FUNCTION_TRANSMIT = 0x40,
 		FUNCTION_TRANSMIT_RESPONSE = 0x80,
 		FUNCTION_RECEIVE = 0x60,
@@ -76,32 +41,13 @@ namespace BitHome.Messaging.Protocol
 	public enum DeviceStatusValue
 	{
 		/// <summary>
-		///   Active
-		/// </summary>
-		ACTIVE = 0x00,
-		/// <summary>
 		///   Hardware Reset
 		/// </summary>
-		HW_RESET = 0x01,
+		HW_RESET = 0x00,
 		/// <summary>
-		///   Info
+		///   Active
 		/// </summary>
-		INFO = 0x02
-	}
-
-	/// <summary>
-	///   Enumeration for device status request
-	/// </summary>
-	public enum DeviceStatusRequest
-	{
-		/// <summary>
-		///   Status request
-		/// </summary>
-		STATUS_REQUEST = 0x00,
-		/// <summary>
-		///   Information request
-		/// </summary>
-		INFO_REQUEST = 0x01
+		ACTIVE = 0x01
 	}
 
 	/// <summary>
@@ -199,35 +145,20 @@ namespace BitHome.Messaging.Protocol
 	[Serializable]
 	public enum DataType
 	{
-		/// <summary>
-		///   Void
-		/// </summary>
-		VOID = 0x00,
-		/// <summary>
-		///   Byte - 8 bits
-		/// </summary>
-		BYTE = 0x01,
-		/// <summary>
-		///   Word - 16 bits
-		/// </summary>
-		WORD = 0x02,
-		/// <summary>
-		///   String (len bytes plus len value)
-		/// </summary>
-		STRING = 0x03,
-		/// <summary>
-		///   Doubleword - 32 bits
-		/// </summary>
-		DWORD = 0x04,
-		/// <summary>
-		///   Bool - 8 bits
-		/// </summary>
-		BOOL = 0x05,
-		/// <summary>
-		///   QWORD - Quad-word 64-bits
-		/// </summary>
-		QWORD = 0x06,
-		FLOAT = 0x07
+		VOID	= 0x00,
+		UINT8	= 0x01,
+		UINT16	= 0x02,
+		UINT32	= 0x03,
+		UINT64	= 0x04,
+		INT8	= 0x05,
+		INT16	= 0x06,
+		INT32	= 0x07,
+		INT64	= 0x08,
+		STRING	= 0x09,
+		BOOL	= 0x0A,
+		FLOAT	= 0x0B,
+		ENUM	= 0x0C,
+		DATETIME= 0x0D,
 	}
 
 	/// <summary>

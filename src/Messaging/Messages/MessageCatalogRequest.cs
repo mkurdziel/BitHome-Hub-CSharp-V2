@@ -5,11 +5,11 @@ namespace BitHome.Messaging.Messages
 {
 	public class MessageCatalogRequest : MessageTxBase
 	{
-		public byte FunctionNum { get; private set; }
+		public byte ActionIndex { get; private set; }
 
 		public MessageCatalogRequest (byte p_functionNum) 
 		{
-			FunctionNum = p_functionNum;
+			ActionIndex = p_functionNum;
 		}
 
 		#region implemented abstract members of MessageTxBase
@@ -19,7 +19,7 @@ namespace BitHome.Messaging.Messages
 			byte[] bytes = new byte[3];
 			bytes [0] = (byte)BitHomeProtocol.PacketValues.PACKET_START;
 			bytes [1] = (byte)Api;
-			bytes [2] = FunctionNum;
+			bytes [2] = ActionIndex;
 
 			return bytes;	
 		}
@@ -33,6 +33,11 @@ namespace BitHome.Messaging.Messages
 		}
 
 		#endregion
+
+		public override string ToString ()
+		{
+			return string.Format ("[MessageCatalogRequest: ActionIndex={0}]", ActionIndex);
+		}
 	}
 }
 

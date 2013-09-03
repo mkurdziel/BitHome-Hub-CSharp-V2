@@ -211,7 +211,6 @@ namespace BitHome.Actions
 			int paramIndex, 
 			string name, 
 			DataType dataType, 
-			ParamValidationType validationType, 
 			long maxValue, 
 			long minValue, 
 			Dictionary<String, int> enumValues)
@@ -238,7 +237,6 @@ namespace BitHome.Actions
 				StorageService.GenerateKey (),
 				name,
 				dataType,
-				validationType,
 				minValue,
 				maxValue,
 				enumValues,

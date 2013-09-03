@@ -10,17 +10,11 @@ namespace BitHome.Messaging.Messages
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-        private readonly int m_functionId;
-        private readonly int m_paramId;
-        private readonly String m_paramName;
-        private readonly DataType m_paramDataType;
-        private readonly ParamValidationType m_validationType;
-        private readonly int m_nMaxStringLength;
-        private readonly int m_nValueWidthInBytes;
-        private readonly bool m_bIsSigned;
 		private readonly Dictionary<String, int> m_enumValueByName = new Dictionary<String, int> ();
-        private long m_maxValue;
-        private long m_minValue;
+		private int m_nValueWidthInBytes;
+		private String m_name;
+		private Int64 m_maxValue;
+		private Int64 m_minValue;
 
         public override Api Api {
 			get {
@@ -28,53 +22,28 @@ namespace BitHome.Messaging.Messages
 			}
 		}
 
-        public int FunctionId
-        {
-            get { return m_functionId; }
-        }
-
-        public int ParamId
-        {
-            get { return m_paramId; }
-        }
-
-        public String ParamName
-        {
-            get { return m_paramName; }
-        }
-
-		public Int64 MaxValue
-		{
-		    get { return m_maxValue; }
-		    private set { m_maxValue = value; }
+		public String Name {
+			get {
+				return m_name;
+			}
 		}
 
-        public Int64 MinValue
-        {
-            get { return m_minValue; }
-            private set { m_minValue = value; }
-        }
+		public int ActionIndex { get; private set; }
+		public int ParameterIndex { get; private set; }
+		public DataType DataType { get; private set; }
+		public byte Options { get; private set; }
 
-        public DataType DataType
-        {
-            get { return m_paramDataType; }
-        }
+		public Int64 MaxValue {
+			get {
+				return m_maxValue;
+			}
+		}
 
-        public ParamValidationType ValidationType
-        {
-            get { return m_validationType; }
-        }
-
-        public int MaxStringLength
-        {
-            get { return m_nMaxStringLength; }
-        }
-
-        public bool IsSigned
-        {
-            get { return m_bIsSigned; }
-        }
-
+		public Int64 MinValue {
+			get {
+				return m_minValue;
+			}
+		}
         public Dictionary<String, int> EnumValues
         {
             get { return m_enumValueByName; }
@@ -86,19 +55,17 @@ namespace BitHome.Messaging.Messages
 			int paramIndex,
 			String name,
 			DataType dataType,
-			ParamValidationType validationType,
 			Int64 minValue,
 			Int64 maxValue,
 			Dictionary<String, int> enumValues ):
 			base(p_sourceNode, null)
 		{
-			m_functionId = actionIndex;
-			m_paramId = paramIndex;
-			m_paramName = name;
-			m_paramDataType = dataType;
-			m_validationType = validationType;
-			this.MinValue = minValue;
-			this.MaxValue = maxValue;
+			ActionIndex = actionIndex;
+			ParameterIndex = paramIndex;
+			m_name = name;
+			DataType = dataType;
+			m_minValue = minValue;
+			m_maxValue = maxValue;
 			m_enumValueByName = enumValues;
 		}
 
@@ -112,84 +79,64 @@ namespace BitHome.Messaging.Messages
 
             int nByteIdx = p_dataOffset + 2;
 
-            // get function ID
-            m_functionId = p_data[nByteIdx++];
-            // get parameter ID
-            m_paramId = p_data[nByteIdx++];
-            // get parameter data type
-            m_paramDataType = (DataType)p_data[nByteIdx++];
-            switch (m_paramDataType)
+			ActionIndex = p_data[nByteIdx++];
+			ParameterIndex = p_data[nByteIdx++];
+			DataType = (DataType)p_data[nByteIdx++];
+			Options = p_data[nByteIdx++];
+			
+			// get parameter name
+			nByteIdx += DataHelpers.GatherZeroTermString(p_data, nByteIdx, out m_name);
+
+			// Get the minium and maximum values
+			switch (DataType)
             {
                 case DataType.BOOL:
                     m_nValueWidthInBytes = 1;
                     break;
-                case DataType.BYTE:
+                case DataType.INT8:
                     m_nValueWidthInBytes = 1;
                     break;
-                case DataType.WORD:
-                    m_nValueWidthInBytes = 2;
-                    break;
+				case DataType.INT16:
+					m_nValueWidthInBytes = 2;
+					break;
+				case DataType.INT32:
+					m_nValueWidthInBytes = 4;
+					break;
+				case DataType.INT64:
+					m_nValueWidthInBytes = 8;
+					break;
+				case DataType.UINT8:
+					m_nValueWidthInBytes = 1;
+					break;
+				case DataType.UINT16:
+					m_nValueWidthInBytes = 2;
+					break;
+				case DataType.UINT32:
+					m_nValueWidthInBytes = 4;
+					break;
+				case DataType.UINT64:
+					m_nValueWidthInBytes = 8;
+					break;
                 case DataType.VOID:
                     m_nValueWidthInBytes = 0;
                     break;
                 case DataType.STRING:
-                    m_nValueWidthInBytes = 0;
-                    break;
-                case DataType.DWORD:
-                    m_nValueWidthInBytes = 4;
+                    m_nValueWidthInBytes = 1;
                     break;
                 default:
-                    log.Warn("Unrecognized Parameter Data Type");
+					log.Warn("Unrecognized Parameter Data Type: {0}", DataType);
                     return;
             }
 
-            // get parameter validation type
-			byte validationByte = p_data [nByteIdx++];
-			if (validationByte == 0) { // Unsigned full
-				// TODO: min and max values
-				m_validationType = ParamValidationType.UNSIGNED_RANGE;
-			} else if (validationByte == 10) {
-				m_validationType = ParamValidationType.SIGNED_RANGE;
-			} else {
-				m_validationType = (ParamValidationType)validationByte;
+			if (m_nValueWidthInBytes > 0) {
+				nByteIdx += DataHelpers.LoadValueGivenWidth (p_data, nByteIdx, m_nValueWidthInBytes, out m_minValue);
+				nByteIdx += DataHelpers.LoadValueGivenWidth (p_data, nByteIdx, m_nValueWidthInBytes, out m_maxValue);
 			}
-
-            // get validation values
-            switch (m_validationType)
-            {
-                case ParamValidationType.UNSIGNED_RANGE:
-                    // load min and max type-width values
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_minValue);
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_maxValue);
-                    m_bIsSigned = false;
-                    break;
-                case ParamValidationType.SIGNED_RANGE:
-                    m_bIsSigned = true;
-                    // load min and max type-width values
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_minValue);
-                    nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out m_maxValue);
-                    break;
-                case ParamValidationType.ENUMERATED:
-                    // load count, then value-name pairs count times
-                    int nNbrEnumValues = p_data[nByteIdx++];
-                    int nEnumValue;
-                    string strEnumValueName;
-                    for (int nEntryIdx = 0; nEntryIdx < nNbrEnumValues; nEntryIdx++)
-                    {
-                        nByteIdx += DataHelpers.LoadValueGivenWidth(p_data, nByteIdx, m_nValueWidthInBytes, out nEnumValue);
-                        nByteIdx += DataHelpers.GatherZeroTermString(p_data, nByteIdx, out strEnumValueName);
-                        m_enumValueByName[strEnumValueName] = nEnumValue;
-                    }
-                    break;
-                case ParamValidationType.STRING:
-                    // load single byte max string length
-                    m_nMaxStringLength = p_data[nByteIdx++];
-                    break;
-            }
-
-            // get parameter name
-            nByteIdx += DataHelpers.GatherZeroTermString(p_data, nByteIdx, out m_paramName);
-            //}
         }
+
+		public override string ToString ()
+		{
+			return string.Format ("[MessageParameterResponse: Name={1}, ActionIndex={2}, ParameterIndex={3}, DataType={4}, Options={5}, MaxValue={6}, MinValue={7}]", Api, Name, ActionIndex, ParameterIndex, DataType, Options, MaxValue, MinValue);
+		}
     }
 }

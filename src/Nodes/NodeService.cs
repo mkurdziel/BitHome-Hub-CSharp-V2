@@ -19,7 +19,7 @@ namespace BitHome
 		private const string KEY_NODES = "nodes";
 		private const int QUERY_INVERVAL_MS = 1000 * 60; // 2 minutes
 		private const int INVESTIGATION_INTERVAL_MS = 100; // 100 ms
-		private const int INVESTIGATION_TIMEOUT_MS = 1000 * 2; // 2 seconds
+		private const int INVESTIGATION_TIMEOUT_MS = 1000 * 5; // 5 seconds
 		private const int INVESTIGATION_RETRIES = 3; // Retry 3 times
 
 		private static Logger log = LogManager.GetCurrentClassLogger();
@@ -140,7 +140,7 @@ namespace BitHome
             // Save it in the lookup table
 			m_nodes[p_node.Id] = p_node;
 
-			AddNodeForInvestigation (p_node);
+//			AddNodeForInvestigation (p_node);
 
 			SaveNode (p_node);
 
@@ -249,38 +249,36 @@ namespace BitHome
 					case NodeInvestigationStatus.Unknown:
 					case NodeInvestigationStatus.Timeout:
 					{
-						log.Debug("Investigating INFO for {0}", p_node.Identifier);
+						log.Debug ("Investigating Status for {0}", p_node.Identifier);
 
-						MessageDeviceStatusRequest msg = new MessageDeviceStatusRequest (Messaging.Protocol.DeviceStatusRequest.INFO_REQUEST);
+						MessageDeviceStatusRequest msg = new MessageDeviceStatusRequest ();
 
 						ServiceManager.MessageDispatcherService.SendMessage (msg, p_node);
 					}
 					break;
-					// If we have the info, we need to move on to get the catalog
-					case NodeInvestigationStatus.Info:
+					case NodeInvestigationStatus.Status:
 					{
-						log.Debug("Investigating CATALOG for {0}", p_node.Identifier);
+						log.Debug("Investigating INFO for {0}", p_node.Identifier);
 
-						MessageCatalogRequest msg = new MessageCatalogRequest (0);
+						MessageDeviceInfoRequest msg = new MessageDeviceInfoRequest ();
 
 						ServiceManager.MessageDispatcherService.SendMessage (msg, p_node);
 					}
 					break;
 					// Query until we have all the functions
-					case NodeInvestigationStatus.Function:
+					case NodeInvestigationStatus.Info:
+					case NodeInvestigationStatus.Action:
 					{
-						int function = p_node.NextUnknownAction;
+						int action = p_node.NextUnknownAction;
 
-						if (function != 0)
+						if (action != -1)
 						{
-							log.Debug("Investigating FUNCTION {0} for {1}", function, p_node.Identifier);
+							log.Debug("Investigating ACTION {0} for {1}", action, p_node.Identifier);
 
 							// TODO avoid conversion
-							MessageCatalogRequest msg = new MessageCatalogRequest ((byte)function);
+							MessageCatalogRequest msg = new MessageCatalogRequest ((byte)action);
 
 							ServiceManager.MessageDispatcherService.SendMessage (msg, p_node);
-						} else {
-							log.Debug( "Investigating full catalog for {0}", p_node.Identifier);
 						}
 					}
 					break;
@@ -296,10 +294,6 @@ namespace BitHome
 							MessageParameterRequest msg = new MessageParameterRequest (pair.Item1, pair.Item2);
 	
 							ServiceManager.MessageDispatcherService.SendMessage (msg, p_node);
-						}
-						else
-						{
-							log.Debug("Investigating full parameters for {0} ", p_node.Identifier);
 						}
 					}
 					break;
@@ -433,7 +427,7 @@ namespace BitHome
 			log.Debug ("Refreshing Node Infos");
 
 			ServiceManager.MessageDispatcherService.BroadcastMessage (
-				new MessageDeviceStatusRequest(DeviceStatusRequest.INFO_REQUEST)
+				new MessageDeviceStatusRequest()
 			);
 		}
 
@@ -441,7 +435,7 @@ namespace BitHome
 			log.Debug ("Refreshing Nodes");
 
 			ServiceManager.MessageDispatcherService.BroadcastMessage (
-				new MessageDeviceStatusRequest(DeviceStatusRequest.STATUS_REQUEST)
+				new MessageDeviceStatusRequest()
 			);
 		}
 
@@ -455,62 +449,66 @@ namespace BitHome
 			// Since we've seen the node, update it's last seen time
 			p_msg.SourceNode.LastSeen = DateTime.Now;
 
+
 			// Handle the types of status messages
 			switch (p_msg.DeviceStatus)
 			{
-			case DeviceStatusValue.ACTIVE:
-				ProcessStatusActive(p_msg.SourceNode);
-				break;
-			case DeviceStatusValue.INFO:
-				ProcessStatusInfo(p_msg);
-				break;
-			case DeviceStatusValue.HW_RESET:
-				ProcessStatusHwReset(p_msg.SourceNode);
-				break;
+				case DeviceStatusValue.ACTIVE:
+					ProcessStatusActive(p_msg.SourceNode);
+					break;
+				case DeviceStatusValue.HW_RESET:
+					ProcessStatusHwReset(p_msg.SourceNode);
+					break;
 			}
+
+			if (p_msg.SourceNode.InvestigationStatus == NodeInvestigationStatus.Unknown) {
+				p_msg.SourceNode.InvestigationStatus = NodeInvestigationStatus.Status;
+			}
+
+			// Check to see if the version is newer
+			if (p_msg.Revision > p_msg.SourceNode.Revision) {
+				// Set the version and add for further investigation
+				p_msg.SourceNode.Revision = p_msg.Revision;
+
+				AddNodeForInvestigation (p_msg.SourceNode);
+			}
+		}
+
+		private void ProcessMessageDeviceInfo(MessageDeviceInfoResponse p_msg) 
+		{ 	
+			// Since we've seen the node, update it's last seen time
+			p_msg.SourceNode.LastSeen = DateTime.Now;
+
+			ProcessStatusInfo(p_msg);
 		}
 
 		private void ProcessMessageCatalogResponse(MessageCatalogResponse p_msg) 
 		{ 	
 			Node node = p_msg.SourceNode;
 
-			// If this is zero, it's just the base catalog
-			if (p_msg.EntryNumber == 0)
+			log.Trace ("Adding node action {0} to node {1}", p_msg.ActionIndex, node.Identifier);
+			log.Trace (p_msg.ToString);
+
+
+			ServiceManager.ActionService.AddNodeAction (
+					node,
+					p_msg.ActionIndex,
+					p_msg.Name,
+					p_msg.ReturnType,
+					p_msg.ParameterCount);
+
+
+			// If we have all the functions, increment the investigation status
+			if(node.NextUnknownAction == -1)
 			{
-				if (node.InvestigationStatus == NodeInvestigationStatus.Info)
-				{
-					log.Debug ("Received base catalog for {0} with total entries {1}", node.Identifier, p_msg.TotalEntries);
+				log.Trace ("No more unknown actions for {0}", node.Identifier);
 
-					node.TotalNumberOfActions = p_msg.TotalEntries;
-
-					// Update the investigation status
-					node.InvestigationStatus = NodeInvestigationStatus.Function;
-				} else {
-					log.Warn ("Recieved catalog for node {0} when not being investigated", node.Identifier);
-				}
+				node.InvestigationStatus = NodeInvestigationStatus.Parameter;
 			}
 			else
 			{
-				ServiceManager.ActionService.AddNodeAction (
-					node,
-					p_msg.EntryNumber,
-					p_msg.FunctionName,
-					p_msg.ReturnType,
-					p_msg.NumberParams);
-
-				log.Trace ("Adding node action {0} to node {1}", p_msg.EntryNumber, node.Identifier);
-
-				// If we have all the functions, increment the investigation status
-				if(node.NextUnknownAction == 0)
-				{
-					log.Trace ("No more unknown actions for {0}", node.Identifier);
-
-					node.InvestigationStatus = NodeInvestigationStatus.Parameter;
-				}
-				else
-				{
-					log.Trace ("Next unknown action for {0} is {1}", node.Identifier, node.NextUnknownAction);
-				}
+				node.InvestigationStatus = NodeInvestigationStatus.Action;
+				log.Trace ("Next unknown action for {0} is {1}", node.Identifier, node.NextUnknownAction);
 			}
 
 			ResetInvestigationAttempts(node);
@@ -521,16 +519,15 @@ namespace BitHome
 		private void ProcessMessageParameterResponse(MessageParameterResponse p_msg)
 		{
 			Node node = p_msg.SourceNode;
-
-			log.Trace ("Adding parameter to {0} {1}:{2}", node.Identifier, p_msg.FunctionId, p_msg.ParamId);
+			log.Trace ("Processing: {0}", p_msg.ToString ());
+			log.Trace ("Adding parameter to {0} {1}:{2}", node.Identifier, p_msg.ActionIndex, p_msg.ParameterIndex);
 
 			ServiceManager.ActionService.AddNodeParameter (
 				node,
-				p_msg.FunctionId,
-				p_msg.ParamId,
-				p_msg.ParamName,
+				p_msg.ActionIndex,
+				p_msg.ParameterIndex,
+				p_msg.Name,
 				p_msg.DataType,
-				p_msg.ValidationType,
 				p_msg.MaxValue,
 				p_msg.MinValue,
 				p_msg.EnumValues
@@ -611,42 +608,21 @@ namespace BitHome
 			CheckForInvestigation(p_node);
 		}
 
-		private void ProcessStatusInfo(MessageDeviceStatusResponse p_msg)
+		private void ProcessStatusInfo(MessageDeviceInfoResponse p_msg)
 		{
 			// Populate the node information
 			Node node = p_msg.SourceNode;
 
 			log.Debug ("Processing status info for node {0}", node.Identifier);
+			log.Trace (p_msg.ToString ());
 
-			// Check to see if anything has changed or if this is unknown
-//			if (node.IsUknown || node.Revision != p_msg.getRevision()))
-			if (node.IsUnknown)
+			if (node.IsBeingInvestigated)
 			{
-				log.Debug ("Setting status info for node:{0} revision:{1} to {2} ", node.Identifier, node.Revision, p_msg.Revision);
-//
-//				node.setManufacturerId(p_msg.getManufacturerID());
-//				node.setSynetID(p_msg.getSynetID());
-//				node.setProfile(p_msg.getProfile());
-
-				// TODO make this a Uint8? so it can start null
-				node.Revision = (short)p_msg.Revision;
-
-				// Since it is unknown or has changed, we need the catalog
-				node.InvestigationStatus = NodeInvestigationStatus.Info;
-			}
-			// Use this to prevent from going from unknown to info to completed prematurely 
-			else if (node.InvestigationStatus == NodeInvestigationStatus.Unknown)
-			{
-				//Logger.d(TAG, "Node Revision: " + node.getRevision() + " Msg Revision: " + p_msg.getRevision());
-				// Otherwise the node is known and the revision is the same
-				node.InvestigationStatus = NodeInvestigationStatus.Completed;
-			}
-			else if (node.InvestigationStatus == NodeInvestigationStatus.Timeout)
-			{
+				node.TotalNumberOfActions = p_msg.ActionCount;
 				node.InvestigationStatus = NodeInvestigationStatus.Info;
 			}
 
-			CheckForInvestigation(node);
+			ResetInvestigationAttempts(node);
 
 			SaveNode (node);
 		}
@@ -900,7 +876,7 @@ namespace BitHome
 		private void ManageNodesThread() {
 			// First time, we want to refresh the info to make sure
 			// that the version numbers match up
-			RefreshNodesInfos ();
+			RefreshNodes ();
 
 			// Start the timer
 			m_timerNodeRefresh.Start();
@@ -955,6 +931,9 @@ namespace BitHome
 			case Messaging.Protocol.Api.DEVICE_STATUS_RESPONSE:
 				ProcessMessageDeviceStatus ((MessageDeviceStatusResponse)e.Message);
 				break;
+			case Messaging.Protocol.Api.DEVICE_INFO_RESPONSE:
+				ProcessMessageDeviceInfo ((MessageDeviceInfoResponse)e.Message);
+				break;	
 			case Messaging.Protocol.Api.CATALOG_RESPONSE:
 				ProcessMessageCatalogResponse ((MessageCatalogResponse)e.Message);
 				break;

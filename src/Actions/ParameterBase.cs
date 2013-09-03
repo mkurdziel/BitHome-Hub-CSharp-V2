@@ -25,102 +25,9 @@ namespace BitHome.Actions
 			}
 			set {
 				m_dataType = value;
-				// Set a default validation type
-				switch (m_dataType) {
-					case DataType.BOOL:
-						ValidationType = ParamValidationType.BOOL;
-						break;
-					case DataType.STRING:
-						ValidationType = ParamValidationType.STRING;
-						break;
-					case DataType.VOID:
-						ValidationType = ParamValidationType.UNKNOWN;
-						break;
-					case DataType.BYTE:
-					case DataType.WORD:
-					case DataType.DWORD:
-					case DataType.QWORD:
-						ValidationType = ParamValidationType.UNSIGNED_RANGE;
-						break;
-					default:
-						throw new NotImplementedException ();
-				}
 			}
 		}
 
-		ParamValidationType m_validationType;
-
-		public ParamValidationType ValidationType {
-			get {
-				return m_validationType;
-			}
-			set {
-				switch (DataType) {
-				case DataType.BOOL:
-					m_validationType = ParamValidationType.BOOL;
-					m_minimumValue = 0;
-					m_maximumValue = 1;
-					break;
-				case DataType.STRING:
-					m_validationType = ParamValidationType.STRING;
-					MinimumValue = 0;
-					m_maximumValue = Int32.MaxValue;
-					break;
-				case DataType.VOID:
-					m_validationType = ParamValidationType.UNKNOWN;
-					m_minimumValue = 0;
-					m_maximumValue = 0;
-					break;
-				case DataType.BYTE:
-					if (value == ParamValidationType.SIGNED_RANGE) {
-						m_validationType = ParamValidationType.SIGNED_RANGE;
-						m_minimumValue = SByte.MinValue;
-						m_maximumValue = SByte.MaxValue;
-					} else {
-						m_validationType = ParamValidationType.UNSIGNED_RANGE;
-						m_minimumValue = Byte.MinValue;
-						m_maximumValue = Byte.MaxValue;
-					}
-					break;
-				case DataType.WORD:
-					if (value == ParamValidationType.SIGNED_RANGE) {
-						m_validationType = ParamValidationType.SIGNED_RANGE;
-						m_minimumValue = Int16.MinValue;
-						m_maximumValue = Int16.MaxValue;
-					} else {
-						m_validationType = ParamValidationType.UNSIGNED_RANGE;
-						m_minimumValue = UInt16.MinValue;
-						m_maximumValue = UInt16.MaxValue;
-					}
-					break;
-				case DataType.DWORD:
-					if (value == ParamValidationType.SIGNED_RANGE) {
-						m_validationType = ParamValidationType.SIGNED_RANGE;
-						m_minimumValue = Int32.MinValue;
-						m_maximumValue = Int32.MaxValue;
-					} else {
-						m_validationType = ParamValidationType.UNSIGNED_RANGE;
-						m_minimumValue = UInt32.MinValue;
-						m_maximumValue = UInt32.MaxValue;
-					}
-					break;
-				case DataType.QWORD:
-					if (value == ParamValidationType.SIGNED_RANGE) {
-						m_validationType = ParamValidationType.SIGNED_RANGE;
-						m_minimumValue = Int64.MinValue;
-						m_maximumValue = Int64.MaxValue;
-					} else {
-						m_validationType = ParamValidationType.UNSIGNED_RANGE;
-						// TODO unsigned qword
-						m_minimumValue = 0;
-						m_maximumValue = Int64.MaxValue;
-					}
-					break;
-					default:
-						throw new NotImplementedException ();
-				}
-			}
-		}
 
 		private Int64 m_minimumValue;
 		public Int64 MinimumValue {
@@ -157,56 +64,52 @@ namespace BitHome.Actions
 					return true;
 				}
 				break;
-			case DataType.BYTE:
-				if (ValidationType == ParamValidationType.SIGNED_RANGE) {
-					if (value >= SByte.MinValue && value <= SByte.MaxValue) {
+			case DataType.INT8:
+				if (value >= SByte.MinValue && value <= SByte.MaxValue) {
 						return true;
-					}				
-				} else {
-					if (value >= Byte.MinValue && value <= Byte.MaxValue) {
-						return true;
-					}
+				}				
+				break;
+			case DataType.UINT8:
+				if (value >= Byte.MinValue && value <= Byte.MaxValue) {
+					return true;
 				}
 				break;
-			case DataType.WORD:
-				if (ValidationType == ParamValidationType.SIGNED_RANGE) {
-					if (value >= Int16.MinValue && value <= Int16.MaxValue) {
-						return true;
-					}				
-				} else {
-					if (value >= UInt16.MinValue && value <= UInt16.MaxValue) {
-						return true;
-					}
+			case DataType.INT16:
+				if (value >= Int16.MinValue && value <= Int16.MaxValue) {
+					return true;
+				}				
+				break;
+			case DataType.UINT16:
+				if (value >= UInt16.MinValue && value <= UInt16.MaxValue) {
+					return true;
 				}
 				break;
-			case DataType.DWORD:
-				if (ValidationType == ParamValidationType.SIGNED_RANGE) {
-					if (value >= Int32.MinValue && value <= Int32.MaxValue) {
-						return true;
-					}				
-				} else {
-					if (value >= UInt32.MinValue && value <= UInt32.MaxValue) {
-						return true;
-					}
+			case DataType.INT32:
+				if (value >= Int32.MinValue && value <= Int32.MaxValue) {
+					return true;
+				}				
+				break;
+			case DataType.UINT32:
+				if (value >= UInt32.MinValue && value <= UInt32.MaxValue) {
+					return true;
 				}
 				break;
-			case DataType.QWORD:
-				if (ValidationType == ParamValidationType.SIGNED_RANGE) {
-					if (value >= Int64.MinValue && value <= Int64.MaxValue) {
-						return true;
-					}				
-				} else {
-					// TODO uint64
-					if (value >= 0 && value <= Int64.MaxValue) {
-						return true;
-					}
+			case DataType.INT64:
+				if (value >= Int64.MinValue && value <= Int64.MaxValue) {
+					return true;
+				}				
+				break;
+			case DataType.UINT64:
+				// TODO uint64
+				if (value >= 0 && value <= Int64.MaxValue) {
+					return true;
 				}
 				break;
 			default:
 				throw new NotImplementedException ();
 			}
 
-			return false;
+			return true;
 		}
 
 		public String Identifier {
@@ -215,21 +118,25 @@ namespace BitHome.Actions
 
 		public bool IsSigned {
 			get {
-				return ValidationType == ParamValidationType.SIGNED_RANGE;
+				return DataType == DataType.INT8 || 
+					DataType == DataType.INT16 || 
+					DataType == DataType.INT32 || 
+					DataType == DataType.INT64;
 			}
 		}
 
 		public bool IsInteger {
 			get {
-				return ValidationType != ParamValidationType.DATE_TIME && 
-					ValidationType != ParamValidationType.STRING &&
-					ValidationType != ParamValidationType.UNKNOWN;
+				return DataType != DataType.BOOL && 
+					DataType != DataType.STRING && 
+					DataType != DataType.ENUM && 
+					DataType != DataType.DATETIME;
 			}
 		}
 
 		public bool IsString {
 			get {
-				return ValidationType == ParamValidationType.STRING;
+				return DataType == DataType.STRING;
 			}
 		}
 
@@ -237,21 +144,24 @@ namespace BitHome.Actions
 			get {
 				String retVal = "unknown";
 
-				switch (ValidationType) {
-				case ParamValidationType.BOOL:
+				switch (DataType) {
+				case DataType.BOOL:
 					retVal = "True or False";
 					break;
-				case ParamValidationType.ENUMERATED:
+				case DataType.ENUM:
 					retVal = "Enumeration";
 					break;
-				case ParamValidationType.STRING:
+				case DataType.STRING:
 					retVal = String.Format("{0}-character string", MaximumValue);
 					break;
-				case ParamValidationType.UNKNOWN:
-					retVal = "Unknown";
-					break;
-				case ParamValidationType.SIGNED_RANGE:
-				case ParamValidationType.UNSIGNED_RANGE:
+				case DataType.INT8:
+				case DataType.INT16:
+				case DataType.INT32:
+				case DataType.INT64:
+				case DataType.UINT8:
+				case DataType.UINT16:
+				case DataType.UINT32:
+				case DataType.UINT64:
 					retVal = String.Format("{0} - {1}", MinimumValue, MaximumValue);
 					break;
 				}
@@ -276,7 +186,6 @@ namespace BitHome.Actions
             string id, 
             string name, 
             Messaging.Protocol.DataType dataType, 
-            ParamValidationType validationType, 
             Int64 minValue, 
             Int64 maxValue, 
             Dictionary<string, int> enumValues)
@@ -284,7 +193,6 @@ namespace BitHome.Actions
             this.Id = id;
             this.Name = name;
             this.DataType = dataType;
-            this.ValidationType = validationType;
             this.MinimumValue = minValue;
             this.MaximumValue = maxValue;
             this.enumValues = enumValues;
@@ -321,9 +229,9 @@ namespace BitHome.Actions
 			bool retVal = true;
             intValue = 0;
 
-			switch (ValidationType) {
+			switch (DataType) {
 
-			case ParamValidationType.BOOL:
+			case DataType.BOOL:
 				if (String.Equals (value, "0"))
 				{
                     intValue = 0;
@@ -333,7 +241,7 @@ namespace BitHome.Actions
 					retVal = false;
 				}
 				break;
-			case ParamValidationType.ENUMERATED:
+			case DataType.ENUM:
 				throw new NotImplementedException ();
 				// TODO enumerated types
 //						try {
@@ -344,8 +252,14 @@ namespace BitHome.Actions
 //						{
 //							retVal = false;
 //						}
-			case ParamValidationType.SIGNED_RANGE:
-			case ParamValidationType.UNSIGNED_RANGE:
+			case DataType.INT8:
+			case DataType.INT16:
+			case DataType.INT32:
+			case DataType.INT64:
+			case DataType.UINT8:
+			case DataType.UINT16:
+			case DataType.UINT32:
+			case DataType.UINT64:
 				bool parseResult = Int64.TryParse (value, out intValue);
 
 				if (parseResult == true) {
@@ -390,7 +304,6 @@ namespace BitHome.Actions
 			same &= Description == obj.Description;
 			same &= DependentParameterId == obj.DependentParameterId;
 			same &= DataType == obj.DataType;
-			same &= ValidationType == obj.ValidationType;
 			same &= MinimumValue == obj.MinimumValue;
 			same &= MaximumValue == obj.MaximumValue;
 

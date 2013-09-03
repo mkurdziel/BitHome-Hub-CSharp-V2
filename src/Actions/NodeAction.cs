@@ -72,14 +72,14 @@ namespace BitHome.Actions
 
 		public int NextUnknownParameter {
 			get {
-				log.Trace ("Action {0} getting next unknown parameter {1}:{2}", this.Identifier, ParameterIdsByIndex.Count, TotalParameterCount);
+				log.Trace ("Action {0} getting next unknown parameter {1} of {2}", this.Identifier, ParameterIdsByIndex.Count+1, TotalParameterCount);
 
-				for (int i=1; i<=TotalParameterCount; ++i) {
+				for (int i=0; i<TotalParameterCount; ++i) {
 					if (!ParameterIdsByIndex.ContainsKey (i)) {
 						return i;
 					}
 				}
-				return 0;
+				return -1;
 			}
 		}
 
@@ -95,7 +95,7 @@ namespace BitHome.Actions
 			// TODO optimize this
 			List<INodeParameter> nodeParams = new List<INodeParameter>(ParameterIdsByIndex.Count);
 
-			for (int i=1; i<=TotalParameterCount; ++i) {
+			for (int i=0; i<TotalParameterCount; ++i) {
 				INodeParameter param = (INodeParameter)ServiceManager.ActionService.GetParameter (GetParameterId (i));
 				if (param == null)
 					return false;

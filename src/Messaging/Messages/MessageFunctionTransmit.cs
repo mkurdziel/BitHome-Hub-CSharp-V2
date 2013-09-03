@@ -41,29 +41,34 @@ namespace BitHome.Messaging.Messages
             bytes.Add((byte)BitHomeProtocol.PacketValues.PACKET_START);
             bytes.Add((byte)BitHomeProtocol.Api.FUNCTION_TRANSMIT);
 		    bytes.Add((byte) ActionIndex);
+		    bytes.Add((byte) 0); // TODO: Options
 
             byte[] intBytes;
 		    foreach(INodeParameter parameter in Parameters)
             {
                 switch(parameter.DataType) {
                     case BitHomeProtocol.DataType.BOOL:
-                    case BitHomeProtocol.DataType.BYTE:
+                    case BitHomeProtocol.DataType.UINT8:
+                    case BitHomeProtocol.DataType.INT8:
                         intBytes = EBitConverter.GetBytes(parameter.IntValue);
                         bytes.Add(intBytes[7]);
                         break;
-                    case BitHomeProtocol.DataType.WORD:
+                    case BitHomeProtocol.DataType.INT16:
+                    case BitHomeProtocol.DataType.UINT16:
                         intBytes = EBitConverter.GetBytes(parameter.IntValue);
                         bytes.Add(intBytes[6]);
                         bytes.Add(intBytes[7]);
                         break;
-                    case BitHomeProtocol.DataType.DWORD:
+                    case BitHomeProtocol.DataType.INT32:
+                    case BitHomeProtocol.DataType.UINT32:
                         intBytes = EBitConverter.GetBytes(parameter.IntValue);
                         bytes.Add(intBytes[4]);
                         bytes.Add(intBytes[5]);
                         bytes.Add(intBytes[6]);
                         bytes.Add(intBytes[7]);
                         break;
-                    case BitHomeProtocol.DataType.QWORD:
+                    case BitHomeProtocol.DataType.INT64:
+                    case BitHomeProtocol.DataType.UINT64:
                         intBytes = EBitConverter.GetBytes(parameter.IntValue);
                         bytes.Add(intBytes[0]);
                         bytes.Add(intBytes[1]);
