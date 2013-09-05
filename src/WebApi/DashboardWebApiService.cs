@@ -122,7 +122,7 @@ namespace BitHome.WebApi
 
                     DashboardItem item = ServiceManager.DashboardService.GetDashboardItem(dashboardItemid);
 
-                    if (item.FeedId != null) {
+                    if (item.FeedId > 0) {
                         Feed feed = ServiceManager.FeedService.GetFeed(item.FeedId);
                         DataStream[] dataStreams = feed.GetDataStreams();
 
