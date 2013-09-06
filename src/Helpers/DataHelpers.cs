@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BitHome.Messaging.Protocol;
+using NLog;
 
 namespace BitHome.Helpers
 {
     static class DataHelpers
     {
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
         public const long MAX_JAVSCRIPT_NUMBER = 9007199254740992;
         public static readonly Random Random = new Random();
 
@@ -84,6 +88,53 @@ namespace BitHome.Helpers
 
 			return p_nValueWidthInBytes;
 		}
+
+		public static int LoadValueGivenWidth(IList<byte> p_msgData, int p_nByteIdx, DataType dataType,
+		                                      out Int64 p_nBuiltValue)
+		{
+			p_nBuiltValue = 0;
+			int width = 0;
+
+			// Get the minium and maximum values
+			switch (dataType)
+			{
+				case DataType.BOOL:
+				case DataType.INT8:
+				case DataType.UINT8:
+				width = 1;
+				break;
+				case DataType.INT16:
+				case DataType.UINT16:
+				width = 2;
+				break;
+				case DataType.INT32:
+				case DataType.UINT32:
+				width = 4;
+				break;
+				case DataType.INT64:
+				case DataType.UINT64:
+				width = 8;
+				break;
+				case DataType.VOID:
+				width = 0;
+				break;
+				case DataType.STRING:
+				width = 1;
+				break;
+				default:
+				log.Warn("Unrecognized Parameter Data Type: {0}", dataType);
+				return 0;
+			}
+
+
+			for (int nByteCt = 0; nByteCt < width; nByteCt++)
+			{
+				p_nBuiltValue = (p_nBuiltValue << 8) + p_msgData[p_nByteIdx + nByteCt];
+			}
+
+			return width;
+		}
+
 
 		public static bool ArraysEqual<T>(T[] a1, T[] a2)
 		{

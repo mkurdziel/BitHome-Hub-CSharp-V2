@@ -255,6 +255,7 @@
         var dashboardId = "";
         var m_dashboards = {};
         var m_activeDashboard = null;
+        var m_suppressUpdates = false;
 
         $(function () {
 
@@ -262,7 +263,7 @@
 
             setInterval(function () {
                 updateDashboardValues();
-            },1000);
+            },500);
 
             $('#create-dashboard-type-blank').click(function (e) {
                 $('#create-dashboard-nodes').attr('disabled', 'disabled');
@@ -291,7 +292,9 @@
                     success: function(data) {
                         // successful request; do something with the data
                         for (var i = 0, len = data.length; i < len; ++i) {
+							m_suppressUpdates = true;
                             updateDashboardItemValue(dashboardId, data[i]);
+							m_suppressUpdates = false;
                         }
                     }
                 });
@@ -301,6 +304,8 @@
         function updateDashboardItemValue(dashboardId, webDashboardValue) {
             if (webDashboardValue.FeedId != null) {
                 $('#feed_ctrl_' + dashboardId + "_" + webDashboardValue.FeedId + "_" + webDashboardValue.DataStreamId).slider('option', 'value', parseInt(webDashboardValue.Value));
+            } else if (webDashboardValue.ActionId != null) {
+                $('#param_ctrl_' + webDashboardValue.ParameterId).slider('option', 'value', parseInt(webDashboardValue.Value));
             }
         }
 
@@ -889,7 +894,9 @@
                     value: 0,
                     slide: $.throttle(function (feedId) {
                         return function () {
-                            executeFeed(feedId);
+                        	if (!m_suppressUpdates) {
+                            	executeFeed(feedId);
+                            }
                         };
                     }(feed.Id), 100, false, true)
                 });

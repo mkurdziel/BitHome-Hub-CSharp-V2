@@ -61,7 +61,7 @@ namespace BitHome.Messaging.Xbee
 
 			case (byte)Protocol.Api.ZIGBEE_TX_STATUS:
 				{
-					log.Trace ("Received Zigbee TX Status");
+//					log.Trace ("Received Zigbee TX Status");
 						//			Logger.v(TAG, "TXStatus - Frame:"+p_data[C_XBEE_TXS_FRAME_OFFSET]+" Addr16:"+String.format("0x%x", EBitConverter.toUInt16(p_data, C_XBEE_TXS_ADDR16_OFFSET)) +
 						//					" retry:" + p_data[C_XBEE_TXS_RETRY_OFFSET] +
 						//					" status:" + String.format("0x%x", p_data[C_XBEE_TXS_STATUS_OFFSET])+

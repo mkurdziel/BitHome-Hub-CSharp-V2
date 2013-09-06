@@ -122,17 +122,31 @@ namespace BitHome.WebApi
 
                     DashboardItem item = ServiceManager.DashboardService.GetDashboardItem(dashboardItemid);
 
-                    if (item.FeedId > 0) {
-                        Feed feed = ServiceManager.FeedService.GetFeed(item.FeedId);
-                        DataStream[] dataStreams = feed.GetDataStreams();
+					if (item.FeedId > 0) {
+						Feed feed = ServiceManager.FeedService.GetFeed (item.FeedId);
+						DataStream[] dataStreams = feed.GetDataStreams ();
 
-                        foreach(DataStream datastream in dataStreams) {
-                            values.Add( new WebDashboardValue{
-                                FeedId = item.FeedId.ToString(), 
-                                DataStreamId = datastream.Id, 
-                                Value = datastream.Value});
-                        }
-                    }
+						foreach (DataStream datastream in dataStreams) {
+							values.Add (new WebDashboardValue {
+								FeedId = item.FeedId.ToString(), 
+								DataStreamId = datastream.Id, 
+								Value = datastream.Value
+							});
+						}
+					} else if(item.ActionId != null) {
+						IAction action = ServiceManager.ActionService.GetAction (item.ActionId);
+						if (action != null) {
+							// TODO: Optimize this
+							foreach (String paramId in action.ParameterIds) {
+								IParameter param = ServiceManager.ActionService.GetParameter (paramId);
+								String value = ServiceManager.ActionService.GetParameterValue (action, param); 
+								if (value != null) {
+									values.Add (new WebDashboardValue 
+									            { ActionId = action.Id, ParameterId = paramId, Value = value });
+								}
+							}
+						}
+					}
                 }
 
                 return values.ToArray();

@@ -4,6 +4,7 @@ using NLog;
 using ServiceStack.Text;
 using System.Collections.Generic;
 using System.Threading;
+using BitHome.Messaging.Messages;
 
 namespace BitHome.Actions
 {
@@ -71,6 +72,9 @@ namespace BitHome.Actions
 			ThreadPool.SetMaxThreads (THREAD_POOL_SIZE, 2);
 
 			LoadData ();
+
+			// Listen to the MessageDispatcherService for new messages
+			ServiceManager.MessageDispatcherService.MessageRecieved += OnMessageRecievedEvent;
 		}
 
 		#endregion Constructors
@@ -301,6 +305,29 @@ namespace BitHome.Actions
 			return m_userActions.ToArray ();
 		}
 
+		void SendDataRequest (INodeAction action, INodeParameter parameter)
+		{
+			Node node = ServiceManager.NodeService.GetNode(action.NodeId);
+			if (node != null) {
+				// Send a data request to update the parameter value
+				MessageDataRequest msg = new MessageDataRequest ((byte)action.ActionIndex, (byte)parameter.ParameterIndex);
+				ServiceManager.MessageDispatcherService.SendMessage (msg, node);
+			} else {
+				log.Warn ("Sending data request to unknown node {0}", action.NodeId);
+			}
+		}
+
+		public string GetParameterValue (IAction action, IParameter param)
+		{
+			if (param != null) {
+				if (param is INodeParameter && action is INodeAction) {
+					SendDataRequest ((INodeAction)action, (INodeParameter)param);
+				}
+				return param.Value;
+			}
+			return null;
+		}
+
 		public ActionRequest ExecuteAction(String actionId)
 		{
 			return ExecuteAction (actionId, ACTION_TIMEOUT_MS);
@@ -371,5 +398,43 @@ namespace BitHome.Actions
 		}
 		#endregion
 
+		void ProcessMessageDataResponse (MessageDataResponse msg)
+		{
+			log.Trace ("Processing {0}", msg.ToString ());
+			Node node = msg.SourceNode;
+
+			// TODO: Optimize
+			String actionId = node.GetActionId (msg.ActionIndex);
+			if (actionId != null) {
+				INodeAction action = (INodeAction)GetAction (actionId);
+
+				if (action != null) {
+					String paramId = action.GetParameterId (msg.ParameterIndex);
+					if (paramId != null) {
+						IParameter param = GetParameter (paramId);
+						if (param != null) {
+							param.SetValue (msg.Value);
+						} else {
+							log.Warn ("ProcessMessageDataResponse null parameter");
+						}
+					} else {
+						log.Warn ("ProcessMessageDataResponse null paramId");
+					}
+				} else {
+					log.Warn ("ProcessMessageDataResponse null action");
+				}
+			} else {
+				log.Warn ("ProcessMessageDataResponse null actionId");
+			}
+		}
+
+		void OnMessageRecievedEvent (object sender, Messaging.MessageRecievedEventArgs e)
+		{
+			switch (e.Message.Api) {
+				case Messaging.Protocol.Api.DATA_RESPONSE:
+				ProcessMessageDataResponse ((MessageDataResponse)e.Message);
+				break;
+			}
+		}
 	}
 }

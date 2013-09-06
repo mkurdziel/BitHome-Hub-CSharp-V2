@@ -95,6 +95,17 @@ namespace BitHome.Messaging
 					log.Trace ("Function Transmit Response");
 				}
 				break;
+			case (byte)Protocol.Api.DATA_REQUEST:
+				{
+					log.Trace ("Data Request");
+				}
+				break;
+			case (byte)Protocol.Api.DATA_RESPONSE:
+				{
+					log.Trace ("Data Response");
+					return new MessageDataResponse (p_sourceNode, p_destNode, p_data, p_startIndex);
+				}
+				break;
 			default:
 				{
 				log.Warn ("Received function with invalid API: 0x{0:X}", p_data[p_startIndex+(int)Protocol.Indexes.API]);

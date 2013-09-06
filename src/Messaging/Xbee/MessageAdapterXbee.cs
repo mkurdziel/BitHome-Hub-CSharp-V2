@@ -64,7 +64,7 @@ namespace BitHome.Messaging.Xbee
 			log.Trace ("()");
 
 			_port = null;
-			_baudRate = 115200;
+			_baudRate = 57600;
 			_lastReceive = DateTime.MinValue;
 
 			serThread = new Thread(new ThreadStart(SerialReceiving)) {Priority = ThreadPriority.Normal};
@@ -78,7 +78,7 @@ namespace BitHome.Messaging.Xbee
 			log.Trace ("({0})", p_port);
 
 			_port = p_port;
-			_baudRate = 115200;
+			_baudRate = 57600;
 			_lastReceive = DateTime.MinValue;
 
 			serThread = new Thread(new ThreadStart(SerialReceiving)) {Priority = ThreadPriority.Normal};
@@ -146,6 +146,7 @@ namespace BitHome.Messaging.Xbee
 				case BitHomeProtocol.Api.CATALOG_REQUEST:
 				case BitHomeProtocol.Api.PARAMETER_REQUEST:
 				case BitHomeProtocol.Api.FUNCTION_TRANSMIT:
+				case BitHomeProtocol.Api.DATA_REQUEST:
 				case BitHomeProtocol.Api.BOOTLOAD_TRANSMIT:
 				{
 					SendTxMessage((MessageTxBase)p_msg, p_destinationNode);
@@ -233,9 +234,10 @@ namespace BitHome.Messaging.Xbee
 		public override void BroadcastMessage(MessageBase p_msg) {
 		}
 
-		private void DecodePacketByte(byte data)
+		private bool DecodePacketByte(byte data)
 		{
-			//        		Logger.v(TAG, "decoding packet byte: "+ String.format("0x%x (%c)", data, data));
+			bool retVal = true;
+//			log.Trace("Decode- byte: {0:X2}", data);
 
 			// Decode based on the current packet state
 			switch(m_packetState)
@@ -245,19 +247,19 @@ namespace BitHome.Messaging.Xbee
 					// Check for the zigbee packet start (7e)
 				if(data == (byte)Protocol.Api.START)
 					{
-						//				Logger.v(TAG, "decode - read packet start:" + String.format("0x%x", data));
+//						log.Trace ("Decode- read packet start: {0:X2}", data);
 						m_packetState = PacketState.SizeMsb;
 					}
 					else
 					{
-						//				Logger.w(TAG, "decode - invalid packet start byte:" + String.format("0x%x", data));
+						// Drop it on the floor
 					}
 				}
 				break;
 
 				case PacketState.SizeMsb:
 				{
-					//			Logger.v(TAG, "decoding size MSB:" + String.format("0x%x", data));
+//					log.Trace ("Decode- size MSB: {0:X2}", data);
 					m_packetSize |= (data << 8);
 					m_packetState = PacketState.SizeLsb;
 				}
@@ -265,7 +267,7 @@ namespace BitHome.Messaging.Xbee
 
 				case PacketState.SizeLsb:
 				{
-					//			Logger.v(TAG, "decoding size LSB:" + String.format("0x%x", data));
+//					log.Trace ("Decode- size LSB: {0:X2}", data);
 					m_packetSize |= data;
 
 					// Initialize a new data buffer for this packet
@@ -278,7 +280,7 @@ namespace BitHome.Messaging.Xbee
 
 				case PacketState.Api:
 				{
-					//			Logger.v(TAG, "decoding API:" + String.format("0x%x", data));
+//					log.Trace ("Decode- API: {0:X2}", data);
 					// add to the checksum
 					m_packetApi = data;
 					m_packetChecksum += data;
@@ -289,7 +291,7 @@ namespace BitHome.Messaging.Xbee
 
 				case PacketState.Data:
 				{
-					//			Logger.v(TAG, "decoding data:" + String.format("0x%x", data));
+//					log.Trace ("Decode- data: {0:X2}", data);
 					m_packetData[m_packetDataIndex++] = data;
 					m_packetChecksum += data;
 
@@ -303,7 +305,7 @@ namespace BitHome.Messaging.Xbee
 
 				case PacketState.Checksum:
 				{
-					//			Logger.v(TAG, "decoding checksum:" + String.format("0x%x", data));
+//					log.Trace ("Decode- checksum: {0:X2}", data);
 					int checksum = 255 - m_packetChecksum;
 					if (data == checksum)
 					{
@@ -323,12 +325,15 @@ namespace BitHome.Messaging.Xbee
 					}
 					else
 					{
-						log.Debug("Decoding failed. Checksum expected: {0:X} got {1:X}", data, checksum);
+						// If we are here, we are in trouble
+						retVal = false;
+						log.Error("Decoding failed. Checksum expected: {0:X} got {1:X}", data, checksum);
 					}
 					ResetDecode();
 				}
 				break;
 			}
+			return retVal;
 		}
 
 		private void ResetDecode()
@@ -492,12 +497,17 @@ namespace BitHome.Messaging.Xbee
 					/*Form The Packet in The Buffer*/
 					byte[] buf = new byte[count];
 					int readBytes = Receive(buf, 0, count);
+					bool success;
 
 					if (readBytes > 0)
 					{
 	//					OnSerialReceiving(buf);
 						foreach( byte data in buf ) {
-							DecodePacketByte(data);
+							if (!DecodePacketByte (data)) {
+								// If it returned false, decoding broke and we should move on
+								_serialPort.DiscardInBuffer ();
+								continue;
+							}
 						}
 					}
 
