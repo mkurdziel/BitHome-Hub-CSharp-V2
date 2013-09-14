@@ -447,12 +447,12 @@ namespace BitHome.Messaging.Xbee
 		#region Transmit/Receive
 		public void Transmit(byte[] packet)
 		{
-			StringBuilder sb = new StringBuilder ();
-			foreach (byte b in packet) {
-				sb.Append (String.Format("{0:X2}", b));
-			}
-			log.Trace ("Sending 0x{0}", sb.ToString ());
-
+//			StringBuilder sb = new StringBuilder ();
+//			foreach (byte b in packet) {
+//				sb.Append (String.Format("{0:X2}", b));
+//			}
+//			log.Trace ("Sending 0x{0}", sb.ToString ());
+//
 			if (_serialPort != null && _serialPort.IsOpen) {
 				_serialPort.Write(packet, 0, packet.Length);
 			}

@@ -24,6 +24,7 @@ namespace BitHome.WebApi
 		public String PositionX { get { return m_dashboardItem.PositionX; } }
 		public String PositionY { get { return m_dashboardItem.PositionY; } }
 		public String Name { get { return m_dashboardItem.Name; } }
+		public bool ShowExecuteButton { get { return m_dashboardItem.ShowExecuteButton; } }
 
 		public WebApiDashboardItem (DashboardItem dashboardItem, 
 		                         IAction dashboardAction, 

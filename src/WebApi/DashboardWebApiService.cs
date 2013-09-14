@@ -5,9 +5,15 @@ using ServiceStack.ServiceHost;
 using BitHome.Actions;
 using BitHome.Dashboards;
 using System;
+using BitHome.Helpers;
 
 namespace BitHome.WebApi
 {
+	[Route("/api/dashboards/{dashboardId}", "GET")]
+	public class WebApiDashboard : IReturn<Dashboard> {
+		public string DashboardId { get; set; }
+	}
+
 	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/position", "POST")]
 	public class WebApiDashboardItemPosition : IReturn<DashboardItem> {
 		public string DashboardId { get; set; }
@@ -75,6 +81,14 @@ namespace BitHome.WebApi
 			return ServiceManager.DashboardService.Dashboards;
 		}
 
+		public object Get(WebApiDashboard request) {
+			Dashboard dashboard = ServiceManager.DashboardService.GetDashboard (request.DashboardId);
+			if (dashboard != null) {
+				return dashboard;
+			}
+			return null;
+		}
+
 		public WebApiDashboardItem[] Get(WebApiDashBoardItems request) 
 		{
 			Dashboard dashboard = ServiceManager.DashboardService.GetDashboard (request.DashboardId);
@@ -95,7 +109,7 @@ namespace BitHome.WebApi
                         }
                         webItems.Add (new WebApiDashboardItem (item, action, parameters.ToArray()));
                     } 
-                    else if (item.FeedId != null)
+                    else if (item.FeedId > 0)
                     {
                         Feed feed = ServiceManager.FeedService.GetFeed(item.FeedId);
                         DataStream[] dataStreams = feed.GetDataStreams();
@@ -117,9 +131,10 @@ namespace BitHome.WebApi
 
             if (dashboard != null)
             {
+				HashSet<INodeParameter> parameterRequests = new HashSet<INodeParameter> ();
+
                 foreach (String dashboardItemid in dashboard.DashboardItemIds)
                 {
-
                     DashboardItem item = ServiceManager.DashboardService.GetDashboardItem(dashboardItemid);
 
 					if (item.FeedId > 0) {
@@ -139,7 +154,13 @@ namespace BitHome.WebApi
 							// TODO: Optimize this
 							foreach (String paramId in action.ParameterIds) {
 								IParameter param = ServiceManager.ActionService.GetParameter (paramId);
-								String value = ServiceManager.ActionService.GetParameterValue (action, param); 
+
+								// Add it to the hash to initiate data requests
+								if (param is INodeParameter) {
+									parameterRequests.Add ((INodeParameter)param);
+								}
+
+								String value = param.Value;
 								if (value != null) {
 									values.Add (new WebDashboardValue 
 									            { ActionId = action.Id, ParameterId = paramId, Value = value });
@@ -148,6 +169,8 @@ namespace BitHome.WebApi
 						}
 					}
                 }
+
+				ServiceManager.ActionService.SendDataRequests(parameterRequests);
 
                 return values.ToArray();
             }

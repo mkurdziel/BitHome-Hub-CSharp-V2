@@ -1,0 +1,34 @@
+body {
+    background-color: #000;
+}
+h3 {
+    color: #fff;
+    padding-left: 10px;
+}
+.bithome-control-title {
+    text-align: center;
+    padding-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+}
+.bithome-control {
+    background-color: #555;
+    border-radius: 5px;
+}
+.bithome-control.ui-widget-content {
+     background: #555 !important;
+}
+.ui-slider .ui-slider-handle {
+	left: -1.0em;
+	width: 2.8em;
+	height: 2.0em;
+	margin-bottom: -1.0em;
+}
+
+.slider-wrapper {
+	padding: 16px;
+}
+
+.slider-vertical {
+	height: 150px;
+}

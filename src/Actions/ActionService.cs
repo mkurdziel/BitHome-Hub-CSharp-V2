@@ -35,6 +35,8 @@ namespace BitHome.Actions
 		// List of actions that were created by the user
 		List<IAction> m_userActions = new List<IAction>();
 
+		Dictionary<String, DateTime> m_dataValueUpdates = new Dictionary<string, DateTime> ();
+
 		// Map of actions by node ID
 		Dictionary<String, List<INodeAction>> m_nodeActions = new Dictionary<string, List<INodeAction>>();
 
@@ -117,14 +119,12 @@ namespace BitHome.Actions
 		public bool Start()
 		{
 			log.Info ("Starting ActionService");
-
 			return true;
 		}
 
 		public void Stop()
 		{
 			log.Info ("Stopping ActionService");
-
 			// TODO stop all executing actions and wait
 		}
 
@@ -305,12 +305,56 @@ namespace BitHome.Actions
 			return m_userActions.ToArray ();
 		}
 
-		void SendDataRequest (INodeAction action, INodeParameter parameter)
+		public void SendDataRequests (HashSet<INodeParameter> parameterRequests)
+		{
+			Dictionary<string, HashSet<Tuple<byte, byte>>> dataRequests = 
+				new Dictionary<string, HashSet<Tuple<byte, byte>>> ();
+
+			foreach (INodeParameter param in parameterRequests) {
+				bool requestData = true;
+
+				// Check to see if we have an update value for this param
+				if (m_dataValueUpdates.ContainsKey (param.Id)) {
+					// Check that enough time has elapsed to send another update
+					if ((DateTime.Now - m_dataValueUpdates [param.Id]) < TimeSpan.FromSeconds (10)) {
+						requestData = false;
+					}
+				} else {
+					// Add this because we are updating and may need to throttle
+					m_dataValueUpdates.Add (param.Id, DateTime.Now);
+				}
+
+				if (requestData) {
+					if (!dataRequests.ContainsKey (param.NodeId)) {
+						dataRequests.Add (param.NodeId, new HashSet<Tuple<byte, byte>> ());
+					}
+
+					dataRequests [param.NodeId].Add (new Tuple<byte, byte> ((byte)param.ActionIndex, (byte)param.ParameterIndex));
+
+					m_dataValueUpdates [param.Id] = DateTime.Now;
+				}
+			}
+
+			// Send all the requests
+			foreach (String nodeId in dataRequests.Keys) {
+				Node node = ServiceManager.NodeService.GetNode (nodeId);
+				if (node != null) {
+					MessageDataRequest msg = new MessageDataRequest (dataRequests [nodeId], 
+					                                                 DataRequestType.ON_CHANGE, 
+					                                                 (UInt16)TimeSpan.FromSeconds (10).TotalMilliseconds);
+					ServiceManager.MessageDispatcherService.SendMessage (msg, node);
+				} else {
+					log.Warn ("SendDataRequests - null node: {0}", nodeId);
+				}
+			}
+		}
+
+		void SendDataRequest (INodeAction action, INodeParameter parameter, DataRequestType type, UInt16 milliseconds)
 		{
 			Node node = ServiceManager.NodeService.GetNode(action.NodeId);
 			if (node != null) {
 				// Send a data request to update the parameter value
-				MessageDataRequest msg = new MessageDataRequest ((byte)action.ActionIndex, (byte)parameter.ParameterIndex);
+				MessageDataRequest msg = new MessageDataRequest ((byte)action.ActionIndex, (byte)parameter.ParameterIndex, type, milliseconds);
 				ServiceManager.MessageDispatcherService.SendMessage (msg, node);
 			} else {
 				log.Warn ("Sending data request to unknown node {0}", action.NodeId);
@@ -321,7 +365,23 @@ namespace BitHome.Actions
 		{
 			if (param != null) {
 				if (param is INodeParameter && action is INodeAction) {
-					SendDataRequest ((INodeAction)action, (INodeParameter)param);
+					bool requestData = true;
+
+					// Check to see if we have an update value for this param
+					if (m_dataValueUpdates.ContainsKey (param.Id)) {
+						// Check that enough time has elapsed to send another update
+						if ((DateTime.Now - m_dataValueUpdates [param.Id]) < TimeSpan.FromSeconds (10)) {
+							requestData = false;
+						}
+					} else {
+						// Add this because we are updating and may need to throttle
+						m_dataValueUpdates.Add (param.Id, DateTime.Now);
+					}
+
+					if (requestData) {
+						SendDataRequest ((INodeAction)action, (INodeParameter)param, DataRequestType.ON_CHANGE, (UInt16)TimeSpan.FromSeconds(10).TotalMilliseconds);
+						m_dataValueUpdates [param.Id] = DateTime.Now;
+					}
 				}
 				return param.Value;
 			}

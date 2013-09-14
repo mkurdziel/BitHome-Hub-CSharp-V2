@@ -1,0 +1,39 @@
+@{
+    Layout = "Blank";
+}
+
+@section Stylesheet {
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <link href="/css/dashboardCustom.css" rel="stylesheet">
+
+    <style type="text/css">
+    	body {
+    		padding: 0 !important;
+    	} 
+    	
+    	.dashboard {
+    		height: 100% !important;
+    	}
+    </style>
+}
+<div id="dashboard-tab-content" class="tab-content">
+</div>
+
+@section Javascript {
+    <script src="/js/jquery.throttle.js"></script>
+    <script src="/js/dashboard.js"></script>
+
+    <script>
+		$(function () {
+			var currentDashboard = getDashboard("@Model.DashboardId");
+			createDashboardTabContent(currentDashboard, $('#dashboard-tab-content'), false);
+			
+			m_dashboards[0] = currentDashboard;	
+			m_activeDashboard = '@Model.DashboardId';
+			
+			setInterval(function () {
+			    updateDashboardValues();
+			},1000);
+        });
+    </script>
+}

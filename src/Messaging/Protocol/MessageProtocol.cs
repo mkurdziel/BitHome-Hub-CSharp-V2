@@ -52,6 +52,13 @@ namespace BitHome.Messaging.Protocol
 		ACTIVE = 0x01
 	}
 
+	public enum DataRequestType
+	{
+		POLL_REQUEST = 0x00,
+		ON_CHANGE = 0x01,
+		ON_INTERVAL = 0x02
+	}
+
 	/// <summary>
 	///   Enumeration for SyNet bootload transmit API
 	/// </summary>

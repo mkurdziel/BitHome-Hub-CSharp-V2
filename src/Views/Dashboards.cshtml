@@ -1,0 +1,192 @@
+@{
+    Layout = "Master";
+}
+
+@section Stylesheet {
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <style type="text/css">
+
+    </style>
+}
+<div class="container">
+
+    <h1>Dashboards</h1>
+
+    <ul id="dashboard-tabs" class="nav nav-pills">
+    </ul>
+
+    <div id="dashboard-tab-content" class="tab-content">
+    </div>
+
+    <br style="clear: both;" />
+
+    <div class="modal hide fade" id='create-dashboard-modal'>
+        <div class="modal-header">
+            <h3>Create New Dashboard</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="create-dashboard-name">Name</label>
+                    <div class="controls">
+                        <input type="text" id="create-dashboard-name" placeholder="Name">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="create-dashboard-name">Dashboard Type</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="create-dashboard-type-blank" value="blank" checked>
+                            Create a blank dashboard
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="create-dashboard-type-node" value="node">
+                            Create a dashboard based on a Device's actions
+                        </label>
+                        <select id="create-dashboard-nodes">
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#create-dashboard-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="createDashboard();">Create Dashboard</a>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id='rename-dashboard-modal'>
+        <div class="modal-header">
+            <h3 id='rename-dashboard-title'>Rename Dashboard</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="rename-dashboard-name">Name</label>
+                    <div class="controls">
+                        <input type="hidden" id="rename-dashboard-id">
+                        <input type="text" id="rename-dashboard-name" placeholder="Name">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#rename-dashboard-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="renameDashboard();">Rename</a>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id='delete-dashboard-modal'>
+        <div class="modal-header">
+            <h3 id='delete-dashboard-title'>Delete Dashboard</h3>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this Dashboard?</p>
+            <input type="hidden" id="delete-dashboard-id">
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#delete-dashboard-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="deleteDashboard();">Delete</a>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id='delete-dashboarditem-modal'>
+        <div class="modal-header">
+            <h3 id='delete-dashboarditem-title'>Delete Dashboard Item</h3>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this Dashboard Item?</p>
+            <input type="hidden" id="delete-dashboarditem-id">
+            <input type="hidden" id="delete-dashboarditem-dashboardid">
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#delete-dashboarditem-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="deleteDashboardItem();">Delete</a>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id='settings-dashboarditem-modal'>
+        <div class="modal-header">
+            <h3 id='settings-dashboarditem-title'>Dashboard Item Settings</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="settings-dashboarditem-name">Name</label>
+                    <div class="controls">
+                        <input type="hidden" id="settings-dashboarditem-id">
+                        <input type="hidden" id="settings-dashboarditem-dashboardid">
+                        <input type="text" id="settings-dashboarditem-name" placeholder="Name">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#settings-dashboarditem-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="settingsDashboardItem();">Save</a>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id='addaction-dashboard-modal'>
+        <div class="modal-header">
+            <h3 id='addaction-dashboard-title'>Actions To Dashboard</h3>
+        </div>
+        <div class="modal-body">
+            <p>Select an Action to add.</p>
+            <input type="hidden" id="addaction-dashboard-id">
+            <div>
+                <ul id='addaction-actions'>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#addaction-dashboard-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="addActions();">Add</a>
+        </div>
+    </div>
+
+
+    <div class="modal hide fade" id='addfeed-dashboard-modal'>
+        <div class="modal-header">
+            <h3 id='addfeed-dashboard-title'>Add Feeds To Dashboard</h3>
+        </div>
+        <div class="modal-body">
+            <p>Select a Feed to add.</p>
+            <input type="hidden" id="addfeed-dashboard-id">
+            <div>
+                <ul id='addfeed-feeds'>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="$('#addfeed-dashboard-modal').modal('hide');">Cancel</a>
+            <a href="#" class="btn btn-primary" onclick="addFeeds();">Add</a>
+        </div>
+    </div>
+
+</div>
+
+@section Javascript {
+    <script src="/js/jquery.throttle.js"></script>
+    <script src="/js/dashboard.js"></script>
+
+    <script>
+		$(function () {
+			updateDashboards();
+
+			$('#create-dashboard-type-blank').click(function (e) {
+			    $('#create-dashboard-nodes').attr('disabled', 'disabled');
+			});
+
+			$('#create-dashboard-type-node').click(function (e) {
+			    $('#create-dashboard-nodes').removeAttr('disabled');
+			});
+
+			setInterval(function () {
+			    updateDashboardValues();
+			},1000);
+		});
+    </script>
+}
