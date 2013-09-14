@@ -117,6 +117,63 @@ namespace BitHome.Dashboards
 			return null;
 		}
 
+		public DashboardItem SetDashboardItemShowExecuteButton (string dashboardId, string dashboardItemId, bool showExecuteButton)
+		{
+			Dashboard dashboard = GetDashboard (dashboardId);
+			if (dashboard != null) {
+				DashboardItem item = GetDashboardItem (dashboardItemId);
+
+				if (item != null) {
+					item.ShowExecuteButton = showExecuteButton;
+
+					// Save the dashboard item name
+					SaveDashboardItem (item);
+
+					// Save the dashboard since it is missing an item
+					SaveDashboard (dashboard);
+
+					return item;
+				}
+			}
+			return null;
+		}
+
+		public DashboardItemValue SetDashboardItemValueName (string dashboardItemId, string dashboardItemValueId, string name)
+		{
+			DashboardItem item = GetDashboardItem (dashboardItemId);
+
+			if (item != null && item.Values.ContainsKey(dashboardItemValueId)) {
+
+				DashboardItemValue value = item.Values [dashboardItemValueId];
+
+				value.Name = name;
+
+				// Save the dashboard item name
+				SaveDashboardItem (item);
+
+				return value;
+			}
+			return null;
+		}
+
+		public DashboardItemValue SetDashboardItemValueConstant (string dashboardItemId, string dashboardItemValueId, string constant)
+		{
+			DashboardItem item = GetDashboardItem (dashboardItemId);
+
+			if (item != null && item.Values.ContainsKey(dashboardItemValueId)) {
+
+				DashboardItemValue value = item.Values [dashboardItemValueId];
+
+				value.Constant = constant;
+
+				// Save the dashboard item name
+				SaveDashboardItem (item);
+
+				return value;
+			}
+			return null;
+		}
+
 		public Dashboard GetDashboard(String dashboardId) {
 			if (m_dashboards.ContainsKey (dashboardId)) {
 				return m_dashboards [dashboardId];

@@ -9,9 +9,62 @@ using BitHome.Helpers;
 
 namespace BitHome.WebApi
 {
+	
+	[Route("/api/dashboards", "GET")]
+	public class WebApiDashBoards : IReturn<Dashboard[]> { }
+
+	[Route("/api/dashboards", "POST")]
+	public class WebApiDashBoardPost : IReturn<Dashboard> { 
+		public string Name { get; set; }
+		public string NodeId { get; set; }
+	}
+	
 	[Route("/api/dashboards/{dashboardId}", "GET")]
 	public class WebApiDashboard : IReturn<Dashboard> {
 		public string DashboardId { get; set; }
+	}	
+
+	[Route("/api/dashboards/{dashboardId}", "PUT")]
+	public class WebApiDashBoardPut : IReturn<bool> { 
+		public string DashboardId { get; set; }
+		public string Name { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/delete", "POST")]
+	public class WebApiDashBoardDelete : IReturn<bool> { 
+		public string DashboardId { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/values", "GET")]
+	public class WebApiDashBoardValues : IReturn<WebDashboardValue[]> 
+	{
+		public string DashboardId { get; set; }
+	}
+	
+	[Route("/api/dashboards/{dashboardId}/items", "GET")]
+	public class WebApiDashBoardItems : IReturn<DashboardItem[]> {
+		public string DashboardId { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/items", "POST")]
+	public class WebApiDashboardItemCreate : IReturn<DashboardItem> {
+		public string DashboardId { get; set; }
+		public string[] ActionIds { get; set; }
+		public long[] FeedIds { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}", "GET")]
+	public class WebApiDashBoardItemGet : IReturn<WebApiDashboardItem> { 
+		public string DashboardId { get; set; }
+		public string DashboardItemId { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}", "PUT")]
+	public class WebApiDashBoardItemPut : IReturn<WebApiDashboardItem> { 
+		public string DashboardId { get; set; }
+		public string DashboardItemId { get; set; }
+		public string Name { get; set; }
+		public bool? ShowExecuteButton { get; set; }
 	}
 
 	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/position", "POST")]
@@ -28,49 +81,26 @@ namespace BitHome.WebApi
 		public string DashboardItemId { get; set; }
 	}
 
-	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/name", "POST")]
-	public class WebApiDashBoardItemName : IReturn<WebApiDashboardItem> { 
+	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/values", "GET")]
+	public class WebApiDashboardItemValuesGet : IReturn<DashboardItemValue[]> {
 		public string DashboardId { get; set; }
 		public string DashboardItemId { get; set; }
+	}
+
+	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/values/{dashboardItemValueId}", "GET")]
+	public class WebApiDashboardItemValueGet : IReturn<DashboardItemValue> {
+		public string DashboardId { get; set; }
+		public string DashboardItemId { get; set; }
+		public string DashboardItemValueId { get; set; }
+	}
+	
+	[Route("/api/dashboards/{dashboardId}/items/{dashboardItemId}/values/{dashboardItemValueId}", "PUT")]
+	public class WebApiDashboardItemValuePut : IReturn<DashboardItemValue> {
+		public string DashboardId { get; set; }
+		public string DashboardItemId { get; set; }
+		public string DashboardItemValueId { get; set; }
 		public string Name { get; set; }
-	}
-
-	[Route("/api/dashboards/{dashboardId}/items", "POST")]
-	public class WebApiDashboardItemCreate : IReturn<DashboardItem> {
-		public string DashboardId { get; set; }
-		public string[] ActionIds { get; set; }
-		public long[] FeedIds { get; set; }
-	}
-
-	[Route("/api/dashboards", "GET")]
-	public class WebApiDashBoards : IReturn<Dashboard[]> { }
-
-	[Route("/api/dashboards", "POST")]
-	public class WebApiDashBoardPost : IReturn<Dashboard> { 
-		public string Name { get; set; }
-		public string NodeId { get; set; }
-	}
-
-	[Route("/api/dashboards/{dashboardId}/delete", "POST")]
-	public class WebApiDashBoardDelete : IReturn<bool> { 
-		public string DashboardId { get; set; }
-	}
-
-	[Route("/api/dashboards/{dashboardId}/items", "GET")]
-	public class WebApiDashBoardItems : IReturn<DashboardItem[]> {
-		public string DashboardId { get; set; }
-	}
-
-    [Route("/api/dashboards/{dashboardId}/values", "GET")]
-    public class WebApiDashBoardValues : IReturn<WebDashboardValue[]> 
-    {
-        public string DashboardId { get; set; }
-    }
-
-	[Route("/api/dashboards/{dashboardId}/name", "POST")]
-	public class WebApiDashBoardName : IReturn<bool> { 
-		public string DashboardId { get; set; }
-		public string Name { get; set; }
+		public string Constant { get; set; }
 	}
 
 	public class DashboardWebApiService : ServiceStack.ServiceInterface.Service
@@ -185,13 +215,35 @@ namespace BitHome.WebApi
 				request.PositionY);
 		}
 
-		public DashboardItem Post(WebApiDashBoardItemName request)
+		public object Get(WebApiDashBoardItemGet request)
 		{
-			return ServiceManager.DashboardService.SetDashboardItemName (
-				request.DashboardId, 
-				request.DashboardItemId, 
-				request.Name);
+			if (request.DashboardItemId != null) {
+				DashboardItem dashboardItem = ServiceManager.DashboardService.GetDashboardItem (request.DashboardItemId);
+				return dashboardItem;
+			}
+
+			return WebHelpers.NotFoundResponse;
 		}
+
+		public object Put(WebApiDashBoardItemPut request)
+		{
+			if (request.Name != null) {
+				ServiceManager.DashboardService.SetDashboardItemName (
+					request.DashboardId, 
+					request.DashboardItemId, 
+					request.Name);
+			}
+
+			if (request.ShowExecuteButton != null) {
+				ServiceManager.DashboardService.SetDashboardItemShowExecuteButton (
+					request.DashboardId, 
+					request.DashboardItemId, 
+					(bool)request.ShowExecuteButton);
+			}
+
+			return true;
+		}
+
 
 		public bool Post(WebApiDashboardItemCreate request)
 		{
@@ -233,12 +285,14 @@ namespace BitHome.WebApi
 		}
 
 		
-		public bool Post(WebApiDashBoardName request)
+		public bool Put(WebApiDashBoardPut request)
 		{
 			Dashboard dashboard = ServiceManager.DashboardService.GetDashboard (request.DashboardId);
 
 			if (dashboard != null) {
-				ServiceManager.DashboardService.SetDashboardName (dashboard, request.Name);
+				if (request.Name != null) {
+					ServiceManager.DashboardService.SetDashboardName (dashboard, request.Name);
+				}
 				return true;
 			}
 			return false;
@@ -255,6 +309,51 @@ namespace BitHome.WebApi
 			}
 
 			return dashboard;
+		}
+
+		public object Get(WebApiDashboardItemValuesGet request)
+		{
+			DashboardItem item = ServiceManager.DashboardService.GetDashboardItem (request.DashboardItemId);
+			if (item != null) {
+				return item.Values;
+			}
+			return WebHelpers.NotFoundResponse;
+		}
+
+		public object Get(WebApiDashboardItemValueGet request)
+		{
+			DashboardItem item = ServiceManager.DashboardService.GetDashboardItem (request.DashboardItemId);
+			if (item != null) {
+				if (item.Values.ContainsKey(request.DashboardItemValueId)) {
+					return item.Values[request.DashboardItemValueId];
+				}
+			}
+			return WebHelpers.NotFoundResponse;
+		}
+
+		public object Put(WebApiDashboardItemValuePut request)
+		{
+			DashboardItem item = ServiceManager.DashboardService.GetDashboardItem (request.DashboardItemId);
+			if (item != null) {
+				if (item.Values.ContainsKey(request.DashboardItemValueId)) {
+
+					if (request.Name != null) {
+						ServiceManager.DashboardService.SetDashboardItemValueName (
+							request.DashboardItemId, request.DashboardItemValueId, request.Name);
+					}
+
+					if (request.Constant != null) {
+						ServiceManager.DashboardService.SetDashboardItemValueConstant (
+							request.DashboardItemId, request.DashboardItemValueId, request.Constant);
+					} else {
+						ServiceManager.DashboardService.SetDashboardItemValueConstant (
+							request.DashboardItemId, request.DashboardItemValueId, null);
+					}
+
+					return item.Values[request.DashboardItemValueId];
+				}
+			}
+			return WebHelpers.NotFoundResponse;
 		}
 	}
 }

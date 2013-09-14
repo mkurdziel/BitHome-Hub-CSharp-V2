@@ -28,7 +28,13 @@ function updateDashboardItemValue(dashboardId, webDashboardValue) {
     if (webDashboardValue.FeedId != null) {
         $('#feed_ctrl_' + dashboardId + "_" + webDashboardValue.FeedId + "_" + webDashboardValue.DataStreamId).slider('option', 'value', parseInt(webDashboardValue.Value));
     } else if (webDashboardValue.ActionId != null) {
-        $('#param_ctrl_' + webDashboardValue.ParameterId).slider('option', 'value', parseInt(webDashboardValue.Value));
+    	var ctrls = $('[id$=_'+ webDashboardValue.ParameterId+']');
+    	
+    	for (var i = 0, len = ctrls.length; i < len; ++i) {
+	    	if ($(ctrls[i]).is('input:hidden') == false && $(ctrls[i]).hasClass('bithome-parameter')) {
+	        	$(ctrls[i]).slider('option', 'value', parseInt(webDashboardValue.Value));
+	        }
+        }
     }
 }
 
@@ -194,14 +200,61 @@ function showDeleteDashboardItem(dashboard, dashboardItem) {
     $('#delete-dashboarditem-modal').modal('show');
 }
 
-function showSettingsDashboardItem(dashboard, dashboardItem) {
+function showPropertiesDashboardItemValue(dashboardId, dashboardItemId, dashboardItemValueId) {
+
+  $.ajax({
+        type: 'GET',
+        url: '/api/dashboards/' + dashboardId + '/items/' + dashboardItemId + '/values/' + dashboardItemValueId,
+        data: { format: 'json' },
+        success: function (data) {
+			$('#properties-dashboarditemvalue-title').text(data.Name + ' Settings');
+		    $('#properties-dashboarditemvalue-name').val(data.Name);
+		    $('#properties-dashboarditemvalue-name').attr('placeholder', 'Name');
+		    $('#properties-dashboarditemvalue-id').val(data.Id);
+		    $('#properties-dashboarditemvalue-dashboarditemid').val(dashboardItemId);
+		    $('#properties-dashboarditemvalue-dashboardid').val(dashboardId);
+		    
+		    if (data.Constant == null) {
+		    	$('#properties-dashboarditemvalue-constant').attr('disabled', 'disabled');
+		    	$('#properties-dashboarditemvalue-constant').val('');
+		    	$('#properties-dashboarditemvalue-source-input').prop("checked", true);
+		    } else {
+		        $('#properties-dashboarditemvalue-constant').removeAttr('disabled');
+		    	$('#properties-dashboarditemvalue-constant').val(data.Constant);
+		    	$('#properties-dashboarditemvalue-source-constant').prop("checked", true);
+		    }
+		    
+		    $('#properties-dashboarditemvalue-modal').modal('show');
+        },
+	    async: false
+	});
+}
+
+function showPropertiesDashboardItem(dashboard, dashboardItem) {
     var name = dashboardItem.Name ? dashboardItem.Name : dashboardItem.Action.Name;
-    $('#settings-dashboarditem-title').text(dashboardItem.Action.Name + ' Settings');
-    $('#settings-dashboarditem-name').val(name);
-    $('#settings-dashboarditem-name').attr('placeholder', dashboardItem.Action.Name);
-    $('#settings-dashboarditem-id').val(dashboardItem.Id);
-    $('#settings-dashboarditem-dashboardid').val(dashboard.Id);
-    $('#settings-dashboarditem-modal').modal('show');
+    $('#properties-dashboarditem-title').text(dashboardItem.Action.Name + ' Settings');
+    $('#properties-dashboarditem-name').val(name);
+    $('#properties-dashboarditem-name').attr('placeholder', dashboardItem.Action.Name);
+    $('#properties-dashboarditem-showexecutebutton').prop('checked', dashboardItem.ShowExecuteButton);
+    $('#properties-dashboarditem-id').val(dashboardItem.Id);
+    $('#properties-dashboarditem-dashboardid').val(dashboard.Id);
+    
+    $('#properties-dashboarditem-values').empty();
+    jQuery.each(dashboardItem.Values, function (index, dashboardItemValue) {
+    	var listItem = $("<li/>", { text : dashboardItemValue.Name });
+    	var editLink = $("<a/>", { html : "&nbsp;<span class='glyphicon glyphicon-cog'></span>" });
+    	editLink.on("click", function (dashboard, dashboardItem, dashboardItemValue) {
+		    return function () {
+		        showPropertiesDashboardItemValue(dashboard.Id, dashboardItem.Id, dashboardItemValue.Id);
+		    }
+		}(dashboard, dashboardItem, dashboardItemValue));
+    	
+    	listItem.append(editLink);
+    	
+    	$('#properties-dashboarditem-values').append( listItem );
+    });
+    
+    $('#properties-dashboarditem-modal').modal('show');
 }
 
 function showDeleteDashboard(dashboard) {
@@ -210,11 +263,11 @@ function showDeleteDashboard(dashboard) {
     $('#delete-dashboard-modal').modal('show');
 }
 
-function showRenameDashboard(dashboard) {
-    $('#rename-dashboard-title').text('Rename Dashboard ' + dashboard.Name);
-    $('#rename-dashboard-name').val(dashboard.Name);
-    $('#rename-dashboard-id').val(dashboard.Id);
-    $('#rename-dashboard-modal').modal('show');
+function showPropertiesDashboard(dashboard) {
+    $('#properties-dashboard-title').text('Dashboard ' + dashboard.Name + ' Properties');
+    $('#properties-dashboard-name').val(dashboard.Name);
+    $('#properties-dashboard-id').val(dashboard.Id);
+    $('#properties-dashboard-modal').modal('show');
 }
 
 function showAddAction(dashboard) {
@@ -385,13 +438,13 @@ function deleteDashboardItem() {
 });
 }
 
-function renameDashboard() {
-    var dashboardId = $('#rename-dashboard-id').val();
-    var name = $('#rename-dashboard-name').val();
+function propertiesDashboard() {
+    var dashboardId = $('#properties-dashboard-id').val();
+    var name = $('#properties-dashboard-name').val();
 
     $.ajax({
-        type: 'POST',
-        url: '/api/dashboards/' + dashboardId + '/name',
+        type: 'PUT',
+        url: '/api/dashboards/' + dashboardId,
         data: { name: name },
         beforeSend: function () {
         },
@@ -399,36 +452,71 @@ function renameDashboard() {
 
             updateDashboards();
 
-            $('#rename-dashboard-modal').modal('hide');
+            $('#properties-dashboard-modal').modal('hide');
         },
         error: function () {
         // failed request; give feedback to user
-    }
-});
+    	}
+	});
 }
 
-function renameDashboardItem() {
-    var dashboardId = $('#rename-dashboarditem-dashboardid').val();
-    var dashboardItemId = $('#rename-dashboarditem-id').val();
+function propertiesDashboardItem() {
+    var dashboardId = $('#properties-dashboarditem-dashboardid').val();
+    var dashboardItemId = $('#properties-dashboarditem-id').val();
 
-    var name = $('#rename-dashboarditem-name').val();
+    var name = $('#properties-dashboarditem-name').val();
+    var showexecutebutton = $('#properties-dashboarditem-showexecutebutton').prop('checked');
 
     $.ajax({
-        type: 'POST',
-        url: '/api/dashboards/' + dashboardId + '/items/' + dashboardItemId + '/name',
-        data: { name: name },
-        beforeSend: function () {
+        type: 'PUT',
+        url: '/api/dashboards/' + dashboardId + '/items/' + dashboardItemId,
+        data: { 
+        	name: name,
+        	showexecutebutton: showexecutebutton
         },
+        beforeSend: function () { },
         success: function (data) {
 
             updateDashboards();
 
-            $('#rename-dashboarditem-modal').modal('hide');
+            $('#properties-dashboarditem-modal').modal('hide');
         },
         error: function () {
         // failed request; give feedback to user
-    }
-});
+    	}
+	});
+}
+
+function propertiesDashboardItemValue() {
+    var dashboardId = $('#properties-dashboarditemvalue-dashboardid').val();
+    var dashboardItemId = $('#properties-dashboarditemvalue-dashboarditemid').val();
+    var dashboardItemValueId = $('#properties-dashboarditemvalue-id').val();
+
+    var name = $('#properties-dashboarditemvalue-name').val();
+    var constant = null;
+
+	if ( $('#properties-dashboarditemvalue-source-constant').prop("checked")) {
+		constant = $('#properties-dashboarditemvalue-constant').val();
+	}
+
+    $.ajax({
+        type: 'PUT',
+        url: '/api/dashboards/' + dashboardId + '/items/' + dashboardItemId + '/values/' + dashboardItemValueId,
+        data: { 
+        	name: name,
+        	constant: constant
+        },
+        beforeSend: function () { },
+        success: function (data) {
+
+            updateDashboards();
+
+            $('#properties-dashboarditemvalue-modal').modal('hide');
+        },
+        error: function () {
+        // failed request; give feedback to user
+    	}
+	});
 }
 
 function createDashboardTabs(dashboards) {
@@ -444,16 +532,16 @@ function createDashboardTabs(dashboards) {
         'data-toggle': 'tab'
     });
 
-    link.click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-        m_activeDashboard = dashboard.Id;
-    });
-
-
+    link.click(function(n) {
+        return (function() { 
+	        $(this).tab('show');
+	        m_activeDashboard = n;
+    	 });
+    }(dashboard.Id));
+    
     $('#dashboard-tabs').append(
       $('<li/>').append(link)
-      );
+    );
 
     // Create the tab content item
     var tab = $('<div/>', {
@@ -487,7 +575,7 @@ function createDashboardTabContent(dashboard, tab, showSettings) {
     
     if (showSettings) {
 	    var settingsButtonGroup = $('<div/>', { 'class': 'btn-group' });
-	    var settingsToggle = $('<button/>', { 'class': 'btn btn-mini dropdown-toggle', 'data-toggle': 'dropdown', 'href': '#' });
+	    var settingsToggle = $('<button/>', { 'class': 'btn btn-xs dropdown-toggle', 'data-toggle': 'dropdown', 'href': '#' });
 	    settingsToggle.append($('<i/>', { 'class': 'icon-cog' }));
 	    settingsToggle.append($('<span/>', { 'class': 'caret' }));
 
@@ -499,11 +587,11 @@ function createDashboardTabContent(dashboard, tab, showSettings) {
 	    });
 	    settingsDrop.append($('<li/>').append(deleteLink));
 
-	    var renameLink = $('<a/>', { 'href': '#', 'text': 'Rename Dashboard' });
-	    renameLink.click(function (e) {
-	        showRenameDashboard(dashboard);
+	    var propertiesLink = $('<a/>', { 'href': '#', 'text': 'Dashboard Properties' });
+	    propertiesLink.click(function (e) {
+	        showPropertiesDashboard(dashboard);
 	    });
-	    settingsDrop.append($('<li/>').append(renameLink));
+	    settingsDrop.append($('<li/>').append(propertiesLink));
 
 	    var addLink = $('<a/>', { 'href': '#', 'text': 'Add Action' });
 	    addLink.click(function (e) {
@@ -673,7 +761,8 @@ function createItemFromAction(dashboard, dashboardSpace, webDashboardItem, showS
     var action = webDashboardItem.Action;
     var control = $("<div/>", {
         'dashboard-item-id': webDashboardItem.Id,
-        'id': 'control_' + action.Id,
+        'action-id': action.Id,
+        'id': 'control_' + webDashboardItem.Id,
         'class': 'draggable ui-widget-content bithome-control'
     });
 
@@ -685,7 +774,7 @@ function createItemFromAction(dashboard, dashboardSpace, webDashboardItem, showS
     if (showSettings) {
 	    var settingsButton = $('<span/>', {
 	        'class': 'dropdown',
-	        'html': '<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i></a>'
+	        'html': '<button class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown" href="javascript:void(0);"><i class="glyphicon glyphicon-cog"></i></a>'
 	    });
 
 	    var settingsMenu = $('<ul/>', {
@@ -699,11 +788,11 @@ function createItemFromAction(dashboard, dashboardSpace, webDashboardItem, showS
 	    });
 	    settingsMenu.append($('<li/>').append(deleteLink));
 
-    	var settingsLink = $('<a/>', { 'href': '#', 'text': 'Item Settings' });
-	    settingsLink.click(function (e) {
-	        showSettingsDashboardItem(dashboard, webDashboardItem);
+    	var propertiesLink = $('<a/>', { 'href': '#', 'text': 'Item Properties' });
+	    propertiesLink.click(function (e) {
+	        showPropertiesDashboardItem(dashboard, webDashboardItem);
 	    });
-	    settingsMenu.append($('<li/>').append(settingsLink));
+	    settingsMenu.append($('<li/>').append(propertiesLink));
 
 
 	    settingsButton.append(settingsMenu);
@@ -714,38 +803,51 @@ function createItemFromAction(dashboard, dashboardSpace, webDashboardItem, showS
 
 // Create the parameter controls
 jQuery.each(webDashboardItem.Parameters, function (index, param) {
-    var paramWrap = $("<div/>", {
-        'id': 'param_wrap_' + param.Id,
-        'class': 'slider-wrapper'
-    });
+	// Make sure this is not a constant
+	if (webDashboardItem.Values[param.Id] != null) {
+		if (webDashboardItem.Values[param.Id].Constant == null) {
+		    var paramWrap = $("<div/>", {
+		        'id': 'param_wrap_' + dashboard.Id + '_' + webDashboardItem.Id + '_' + param.Id,
+		        'class': 'slider-wrapper'
+		    });
 
-    var paramCtrl = $("<div/>", {
-        'id': 'param_ctrl_' + param.Id,
-        'parameter-id': param.Id,
-        'class': 'slider-vertical bithome-parameter'
-    });
-    
-    paramWrap.append(paramCtrl);
-    control.append(paramWrap);
+		    var paramCtrl = $("<div/>", {
+		        'id': 'param_ctrl_' + dashboard.Id + '_' + webDashboardItem.Id + '_' + param.Id,
+		        'parameter-id': param.Id,
+		        'class': 'slider-vertical bithome-parameter'
+		    });
+		    
+		    paramWrap.append(paramCtrl);
+		    control.append(paramWrap);
 
-    paramCtrl.slider({
-        orientation: "vertical",
-        range: "min",
-        min: param.MinimumValue,
-        max: param.MaximumValue,
-        value: 0,
-        start: function( event, ui ) {
-        	m_suppressUpdates = true;
-        },
-        stop: function( event, ui ) {
-        	m_suppressUpdates = false;
-        },
-        slide: $.throttle(function (actionId) {
-            return function () {
-                execute(actionId);
-            };
-        }(action.Id), 150, false, true)
-    });
+		    paramCtrl.slider({
+		        orientation: "vertical",
+		        range: "min",
+		        min: param.MinimumValue,
+		        max: param.MaximumValue,
+		        value: 0,
+		        start: function( event, ui ) {
+		        	m_suppressUpdates = true;
+		        },
+		        stop: function( event, ui ) {
+		        	m_suppressUpdates = false;
+		        },
+		        slide: $.throttle(function (webDashboardItemId) {
+		            return function () {
+		                execute(webDashboardItemId);
+		            };
+		        }(webDashboardItem.Id), 150, false, true)
+		    });
+	    } else {
+	    	control.append(
+	    		$('<input>', { 'id' : 'param_ctrl_' + dashboard.Id + '_' + webDashboardItem.Id + '_' + param.Id, 
+	    		'parameter-id' : param.Id,
+	    		'class' : 'bithome-parameter-hidden',
+	    		'type' : 'hidden',
+	    		'value' : webDashboardItem.Values[param.Id].Constant })
+	    	);
+	    }
+    }
 });
 
 //slide: function (actionId) {
@@ -760,23 +862,30 @@ jQuery.each(webDashboardItem.Parameters, function (index, param) {
 		});
 		control.append($("<br/>"));
 		control.append(executeButton);
-		executeButton.on("click", function (actionId) {
+		executeButton.on("click", function (webDashboardItemId) {
 		    return function () {
-		        execute(actionId);
+		        execute(webDashboardItemId);
 		    }
-		}(action.Id));
+		}(webDashboardItem.Id));
 	}
 
 dashboardSpace.append(control);
 }
 
-function execute(actionId) {
-    var control = $('#control_' + actionId);
+function execute(dashboardItemId) {
+    var control = $('#control_' + dashboardItemId);
+    var actionId = control.attr('action-id');
     var parameters = {};
 
     jQuery.each(control.find('.bithome-parameter'), function (index, param) {
         var paramId = $(param).attr('parameter-id');
         var value = $(param).slider("option", "value");
+        parameters[paramId] = value;
+    });
+    
+    jQuery.each(control.find('.bithome-parameter-hidden'), function (index, param) {
+        var paramId = $(param).attr('parameter-id');
+        var value = $(param).val();
         parameters[paramId] = value;
     });
 

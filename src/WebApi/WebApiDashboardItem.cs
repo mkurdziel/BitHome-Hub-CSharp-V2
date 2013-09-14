@@ -2,6 +2,7 @@ using System;
 using BitHome.Dashboards;
 using BitHome.Actions;
 using BitHome.Feeds;
+using System.Collections.Generic;
 
 namespace BitHome.WebApi
 {
@@ -23,6 +24,7 @@ namespace BitHome.WebApi
 		public String ActionId { get { return m_dashboardItem.ActionId; } }
 		public String PositionX { get { return m_dashboardItem.PositionX; } }
 		public String PositionY { get { return m_dashboardItem.PositionY; } }
+		public Dictionary <string, DashboardItemValue> Values { get { return m_dashboardItem.Values; } }
 		public String Name { get { return m_dashboardItem.Name; } }
 		public bool ShowExecuteButton { get { return m_dashboardItem.ShowExecuteButton; } }
 
