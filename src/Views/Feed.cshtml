@@ -37,29 +37,29 @@
 <div class="bh-section-gray">
     <div class="container">
         <div class="row">
-            <div class="span6">
+            <div class="col-md-6">
                 <h3>Feed: @Model.Feed.Name</h3>
                 <div class="row-fluid">
-                    <div class="span2">Feed ID</div>
-                    <div class="span10">@Model.Feed.Id</div>
+                    <div class="col-md-2">Feed ID</div>
+                    <div class="col-md-10">@Model.Feed.Id</div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span2">Created</div>
-                    <div class="span10">@Model.Feed.Created</div>
+                    <div class="col-md-2">Created</div>
+                    <div class="col-md-10">@Model.Feed.Created</div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span2">Updated</div>
-                    <div class="span10">@Model.Feed.Updated</div>
+                    <div class="col-md-2">Updated</div>
+                    <div class="col-md-10">@Model.Feed.Updated</div>
                 </div>
             </div>
-            <div class="span6 align-bottom">
+            <div class="col-md-6 align-bottom">
                  <div id="top-right-column" class="row-fluid">
-                    <div class="span3">Feed URL</div>
-                    <div class="span9"><a href="/feeds/@Model.Feed.Id">/feeds/@Model.Feed.Id</a></div>
+                    <div class="col-md-3">Feed URL</div>
+                    <div class="col-md-9"><a href="/feeds/@Model.Feed.Id">/feeds/@Model.Feed.Id</a></div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span3">Feed API</div>
-                    <div class="span9"><a href="/api/feeds/@Model.Feed.Id">/api/feeds/@Model.Feed.Id</a></div>
+                    <div class="col-md-3">Feed API</div>
+                    <div class="col-md-9"><a href="/api/feeds/@Model.Feed.Id">/api/feeds/@Model.Feed.Id</a></div>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="span6">
+        <div class="col-md-6">
             <section>
                 <h4>Data Streams</h4>
                 <div id="datastreams-wrapper">
@@ -77,26 +77,26 @@
                 		<div>
                 			<a id="datastream-link-template" class="datastream-link" data-toggle="collapse" data-target="#datastream-edit-template" href="#">
 		  						<div class="row">
-		    						<p id="datastream-id-template" class="datastream-id span3">Name</p>
-		    						<p id="datastream-value-template" class="datastream-value span3 text-right">Value</p>
+		    						<p id="datastream-id-template" class="datastream-id col-md-3">Name</p>
+		    						<p id="datastream-value-template" class="datastream-value col-md-3 text-right">Value</p>
 		  						</div>
 							</a> 
 							<div id="datastream-edit-template" class="datastream-edit collapse">
 								<form id="datastream-form-template" accept-charset="UTF-8" class="channel-edit-form" action="#">
 									<div class="row">
-										<div class="span1">
+										<div class="col-md-1">
 											<small>Value</small>
 										</div>
-										<div class="span3 text-right">
+										<div class="col-md-3 text-right">
   											<input value="10" id="datastream-edit-value-template" name="value" type="text"/>
   										</div>
-  										<div class="span2 text-right">
+  										<div class="col-md-2 text-right">
     										<button id="datastream-save-template" type="submit" class="btn btn-primary btn-small" data-loading-text="Saving..."><i class="icon-ok icon-white"></i> Save</button>
     										<a id="datastream-cancel-template" class="btn btn-small">Cancel</a>
   										</div>
   									</div>
   									<div class="row">
-	  									<div class="span2 offset4 text-right">
+	  									<div class="col-md-2 offset4 text-right"
 	  										<a href="#" class="small" id="datastream-showedit-template"><i class="icon-pencil"></i> Edit </a>
                                               &nbsp;
 	  										<a href="#" class="small" id="datastream-delete-template"><i class="icon-trash"></i> Delete</a>
@@ -110,7 +110,7 @@
                 <button class="btn btn-large btn-block btn-primary" type="button" onclick="showCreateDataStream();">+ Create Data Stream</button>
             </section>
         </div>
-        <div class="span6">
+        <div class="col-md-6">
             <section>
                 <h4>Triggers</h4>
                 <div id="triggers-wrapper">
@@ -119,12 +119,12 @@
                         <div>
                             <a id="trigger-link-template" class="trigger-link" data-toggle="collapse" data-target="#trigger-edit-template" href="#">
                                 <div class="row">
-                                    <p id="trigger-id-template" class="trigger-id span3">Name</p>
+                                    <p id="trigger-id-template" class="trigger-id col-md-3">Name</p>
                                 </div>
                             </a> 
                             <div id="trigger-edit-template" class="trigger-edit collapse">
                                 <div class="row">
-                                    <div class="span2 offset4 text-right">
+                                    <div class="col-md-2 offset4 text-right">
                                         <a href="#" class="small" id="trigger-showedit-template"><i class="icon-pencil"></i> Edit </a>
                                         &nbsp;
                                         <a href="#" class="small" id="trigger-delete-template"><i class="icon-trash"></i> Delete</a>
@@ -140,87 +140,110 @@
     </div>
 </div>
 
+	<!-- ------------------------------------------- -->
+	<!-- Create Datastream Modal					 -->
+	<!-- ------------------------------------------- -->
+	<div class="modal fade"  id="create-datastream-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+        			<h3>Create Datastream</h3>
+				</div>
+				<div class="modal-body">
+					<form id="create-datastream-form" class="form-horizontal" role="form" onsubmit="createDataStream();return false;">
+						<div class="form-group">
+							<label class="control-label col-lg-3" for="create-datastream-name">Name</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" id="create-datastream-name" placeholder="Name">
+							</div>
+						</div><!-- /.form-group -->
+					</form>
+				</div><!-- /.modal-body -->
+   				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" onclick="$('#create-datastream-form').submit()">Save</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<!-- ------------------------------------------- -->
+	<!-- Edit Datastream Modal					     -->
+	<!-- ------------------------------------------- -->
+	<div class="modal fade"  id="edit-datastream-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+        			<h3>Edit Datastream</h3>
+				</div>
+				<div class="modal-body">
+					<form id="edit-datastream-form" class="form-horizontal" role="form" onsubmit="editDataStream();return false;">
+						<div class="form-group">
+							<label class="control-label col-lg-3" for="edit-datastream-name">Name</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" id="edit-datastream-name" placeholder="Name">
+							</div>
+						</div><!-- /.form-group -->
+						<div class="form-group">
+					
+							<label class="control-label col-lg-3" for="edit-datastream-minvalue">Minimum Value</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" id="edit-datastream-minvalue">
+							</div>
+						</div><!-- /.form-group -->
+						<div class="form-group">
+					
+							<label class="control-label col-lg-3" for="edit-datastream-maxvalue">Maximum Value</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" id="edit-datastream-maxvalue">
+							</div>
+						</div><!-- /.form-group -->
+					</form>
+				</div><!-- /.modal-body -->
+   				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" onclick="$('#edit-datastream-form').submit()">Save</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
-<div id="modal-create" class="modal hide fade">
-    <div class="modal-header">
-        <h3>Create Data Stream</h3>
-    </div>
-    <div class="modal-body">
-        <form id="modal-create-form" class="form-horizontal" onsubmit="createDataStream(); return false;">
-            <div class="control-group">
-                <label class="control-label" for="name">Name</label>
-                <div class="controls">
-                    <input id="modal-create-name" name="name" />
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="javascript:void();" class="btn" onclick="$('#modal-create').modal('hide');">Cancel</a>
-        <button type="submit" class="btn btn-primary" onclick="$('#modal-create-form').submit();">Save</button>
-    </div>
-</div>
 
+	<!-- ------------------------------------------- -->
+	<!-- Create Trigger Modal					     -->
+	<!-- ------------------------------------------- -->
+	<div class="modal fade"  id="create-trigger-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+        			<h3>Create Trigger</h3>
+				</div>
+				<div class="modal-body">
+					<form id="create-trigger-form" class="form-horizontal" role="form" onsubmit="createTrigger();return false;">
+			  			<div class="form-group">
+			         
+			                <label class="control-label col-lg-3" for="action">Action</label>
+			                <div class="col-lg-8">
+			                    <select id="create-trigger-actions">
+			                    </select>                
+			                </div>
+			            </div>
+            			<div id="create-triggger-parameters"></div>
+					</form>
+				</div><!-- /.modal-body -->
+   				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary" onclick="$('#crate-trigger-form').submit()">Create</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
-<div id="modal-edit" class="modal hide fade">
-    <div class="modal-header">
-        <h3>Edit Data Stream</h3>
-    </div>
-    <div class="modal-body">
-        <form id="modal-edit-form" class="form-horizontal" onsubmit="editDataStream(); return false;">
-            <div class="control-group">
-                <label class="control-label" for="name">Name</label>
-                <div class="controls">
-                    <input id="modal-edit-name" name="name" disabled/>
-                </div>
-            </div>
-             <div class="control-group">
-                <label class="control-label" for="minvalue">Minimum Value</label>
-                <div class="controls">
-                    <input id="modal-edit-minvalue" name="minvalue" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="maxvalue">Maximum Value</label>
-                <div class="controls">
-                    <input id="modal-edit-maxvalue" name="maxvalue" />
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="javascript:void();" class="btn" onclick="$('#modal-edit').modal('hide');">Cancel</a>
-        <button type="submit" class="btn btn-primary" onclick="$('#modal-edit-form').submit();">Save</button>
-    </div>
-</div>
-
-
-<div id="modal-triggercreate" class="modal hide fade">
-    <div class="modal-header">
-        <h3>Create Trigger</h3>
-    </div>
-    <div class="modal-body">
-        <form id="modal-triggercreate-form" class="form-horizontal" onsubmit="createDataStream(); return false;">
-            <div class="control-group">
-                <label class="control-label" for="action">Action</label>
-                <div class="controls">
-                    <select id="modal-triggercreate-actions">
-                    </select>                
-                </div>
-            </div>
-            <div id="modal-triggercreate-parameters"></div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="javascript:void();" class="btn" onclick="$('#modal-triggercreate').modal('hide');">Cancel</a>
-        <button type="submit" class="btn btn-primary" onclick="$('#modal-create-form').submit();">Save</button>
-    </div>
-</div>
 
 <div id="trigger-param-template" class="control-group input-append" style="display: none;">
     <label class="control-label">Parameter</label>
     <div class="controls">
-        <input class="span2" type="text">
+        <input class="col-md-2" type="text">
         <div class="btn-group">
             <button class="btn dropdown-toggle" data-toggle="dropdown">
                 Constant
@@ -241,7 +264,7 @@
 		$(function () {
 			updateDataStreamsTable();
 
-		    $('#modal-triggercreate-actions').change(function() {
+		    $('#create-trigger-actions').change(function() {
 		        updateTriggerActionParameters();
 		    });
 			
@@ -253,11 +276,11 @@
 
     
 		function updateTriggerActionParameters() {
-		    var actionId = $('#modal-triggercreate-actions').val();
+		    var actionId = $('#create-triger-actions').val();
 		    var paramTemplate = $('#trigger-param-template');
 
 		    if (actionId != null) {
-		        var paramDiv = $('#modal-triggercreate-parameters');
+		        var paramDiv = $('#create-trigger-parameters');
 		        $.ajax({
 		            type: 'GET',
 		            url: '/api/actions/' + actionId + "/parameters",
@@ -364,8 +387,8 @@
     	}
     	
 		function showCreateDataStream() {
-            $('#modal-create-name').val('');
-            $('#modal-create').modal('show');
+            $('#create-datastream-name').val('');
+            $('#create-datastream-modal').modal('show');
         }
 
 		function showEditDataStream(datastreamId) {
@@ -375,17 +398,17 @@
                 data: { format: 'json' },
                 async: false,
                 success: function (data) {
-                    $('#modal-edit-name').val(data.Id);
-                    $('#modal-edit-minvalue').val(data.MinValue);
-                    $('#modal-edit-maxvalue').val(data.MaxValue);
-                    $('#modal-edit').modal('show');
+                    $('#edit-datastream-name').val(data.Id);
+                    $('#edit-datastream-minvalue').val(data.MinValue);
+                    $('#edit-datastream-maxvalue').val(data.MaxValue);
+                    $('#edit-datastream-modal').modal('show');
                 }
             });
 		}
 
         function showCreateTrigger() {
             updateTriggerActions();
-		    $('#modal-triggercreate').modal('show');
+		    $('#create-trigger-modal').modal('show');
         }
 
         function updateTriggerActions() {
@@ -394,7 +417,7 @@
                 url: '/api/actions/node',
                 data: { format: 'json' },
                 beforeSend: function () {
-                    $("#modal-triggercreate-actions").empty();
+                    $("#create-trigger-actions").empty();
                 },
                 success: function (data) {
                     _triggerActions = { };
@@ -405,7 +428,7 @@
                         for (var a = 0, actionlen = webNode.Actions.length; a < actionlen; ++a) {
                             var action = webNode.Actions[a];
 
-                            $('#modal-triggercreate-actions').append(
+                            $('#create-trigger-actions').append(
                    				$('<option/>', {
                                     'value' : action.Id,
                    				    'actionid': action.Id,
@@ -447,9 +470,9 @@
         }
         
         function editDataStream() {
-            var datastreamId = $('#modal-edit-name').val();
-            var minvalue = $('#modal-edit-minvalue').val();
-            var maxvalue = $('#modal-edit-maxvalue').val();
+            var datastreamId = $('#edit-datastream-name').val();
+            var minvalue = $('#edit-datastream-minvalue').val();
+            var maxvalue = $('#edit-datastream-maxvalue').val();
 
             $.ajax({
                 type: 'PUT',
@@ -460,7 +483,7 @@
                     format: 'json'
                 },
                 success: function (data) {
-                    $('#modal-edit').modal('hide');
+                    $('#edit-datastream-modal').modal('hide');
                     $('#datastream-edit-' + datastreamId).collapse('hide');
                 }
             });
@@ -503,7 +526,7 @@
         }
 
         function createDataStream() {
-            var name = $('#modal-create-name').val();
+            var name = $('#create-datastream-name').val();
 
             $.ajax({
                 type: 'POST',
@@ -517,7 +540,7 @@
                 success: function (data) {
                     updateDataStreamsTable();
 
-                    $('#modal-create').modal('hide');
+                    $('#create-datastream-modal').modal('hide');
                 },
                 error: function () {
                     // failed request; give feedback to user

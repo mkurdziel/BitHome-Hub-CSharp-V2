@@ -28,25 +28,33 @@
     </table>
 </div>
 
-<div id="modal-create" class="modal hide fade">
-    <div class="modal-header">
-        <h3>Create Feed</h3>
-    </div>
-    <div class="modal-body">
-        <form id="modal-create-form" class="form-horizontal" onsubmit="createFeed(); return false;">
-            <div class="control-group">
-                <label class="control-label" for="name">Name</label>
-                <div class="controls">
-                    <input id="modal-create-name" name="name" />
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="javascript:void();" class="btn" onclick="$('#modal-create').modal('hide');">Cancel</a>
-        <button type="submit" class="btn btn-primary" onclick="$('#modal-create-form').submit();">Save</button>
-    </div>
-</div>
+<!-- ------------------------------------------- -->
+<!-- Dashboard Properties Modal					 -->
+<!-- ------------------------------------------- -->
+<div class="modal fade"  id="create-feed-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+    			<h3>Create Feed</h3>
+			</div>
+			<div class="modal-body">
+				<form id="create-feed-form" class="form-horizontal" role="form" onsubmit="createFeed();return false;">
+					<div class="form-group">
+						<label class="control-label col-lg-3" for="create-feed-name">Name</label>
+						<div class="col-lg-8">
+							<input class="form-control" type="text" id="create-feed-name" placeholder="Name">
+						</div>
+					</div><!-- /.form-group -->
+				</form>
+			</div><!-- /.modal-body -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-primary" onclick="$('#create-feed-form').submit()">Create</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 @section Javascript {
     <script>
@@ -88,12 +96,12 @@
 
 
         function showCreateFeed() {
-            $('#modal-create-name').val('');
-            $('#modal-create').modal('show');
+            $('#create-feed-name').val('');
+            $('#create-feed-modal').modal('show');
         }
 
         function createFeed() {
-            var name = $('#modal-create-name').val();
+            var name = $('#create-feed-name').val();
 
             $.ajax({
                 type: 'POST',
@@ -107,7 +115,7 @@
                 success: function (data) {
                     updateFeedTable();
 
-                    $('#modal-create').modal('hide');
+                    $('#create-feed-modal').modal('hide');
                 },
                 error: function () {
                     // failed request; give feedback to user
